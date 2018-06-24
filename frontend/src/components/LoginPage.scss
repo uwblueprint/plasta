@@ -1,0 +1,32 @@
+body, html {
+  height: 100vh;
+  display: grid;
+}
+
+div {
+  margin: auto;
+}
+
+.title {
+  text-align: center;
+}
+
+.input-block {
+  margin: 2em;
+}
+
+.input-field {
+  width: 100%;
+}
+
+.block {
+  display: block;
+}
+
+.btn {
+  text-align: center;
+}
+
+#div-wrapper {
+  margin: 60px;
+}
