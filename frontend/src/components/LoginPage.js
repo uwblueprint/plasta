@@ -7,13 +7,13 @@ class LoginPage extends Component {
     return(
       <div id="div-wrapper">
         <Form 
-        onSubmit={submittedValues => this.setState({ submittedValues })}
+        onSubmit={this.props.onSubmit}
         render={({submitForm}) => ( 
           <form onSubmit={submitForm} className= "login-page">
             <h1 className="title">Plastics For Change</h1>
             <div className="input-block">
-              <label className="block" htmlFor="username">Username</label>  
-              <Text className="block input-field" field="username" id="username"/> 
+              <label className="block" htmlFor="email">Email</label>  
+              <Text className="block input-field" field="email" id="email"/> 
             </div>
             <div className="input-block">
               <label className="block" htmlFor="password">Password</label>
