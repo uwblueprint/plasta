@@ -14,12 +14,23 @@
   },
   "scripts": {
     "start": "npm-run-all -p watch-css start-js",
-    "build": "react-scripts build",
+    "build": "webpack -d && cp src/index.html dist/index.html && webpack-dev-server --hot --inline --colors --progress --content-base src/",
     "build-css": "node-sass-chokidar --include-path ./src --include-path ./node_modules src/ -o src/",
     "watch-css": "npm run build-css && node-sass-chokidar --include-path ./src --include-path ./node_modules src/ -o src/ --watch --recursive",
     "start-js": "react-scripts start",
     "build-js": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "build-prod": "webpack -p && cp src/index.html dist/index.html",
+    "lint": "esw src --color",
+    "lint:watch": "npm run lint -- --watch"
+  },
+  "devDependencies": {
+    "eslint": "^5.0.1",
+    "eslint-config-prettier": "^2.9.0",
+    "eslint-plugin-prettier": "^2.6.1",
+    "eslint-plugin-react": "^7.10.0",
+    "eslint-watch": "^4.0.0",
+    "prettier": "1.13.7"
   }
 }
