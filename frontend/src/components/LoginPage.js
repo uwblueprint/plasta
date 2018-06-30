@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Form, Text } from 'react-form';
+import PropTypes from 'prop-types';
 import './LoginPage.css';
 
 class LoginPage extends Component {
@@ -38,5 +39,9 @@ class LoginPage extends Component {
     );
   }
 }
+
+LoginPage.propTypes = {
+  onSubmit: PropTypes.func,
+};
 
 export default LoginPage;
