@@ -3,5 +3,5 @@
   "parser": "flow",
   "semi": true, 
   "singleQuote": true,
-  "trailingComma": "all"
+  "trailingComma": "es5"
 }

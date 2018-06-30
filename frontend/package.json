@@ -3,6 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "husky": "^0.14.3",
+    "lint-staged": "^7.2.0",
     "node-sass-chokidar": "^1.3.0",
     "npm-run-all": "^4.1.3",
     "react": "^16.4.1",
@@ -12,7 +14,14 @@
     "react-scripts": "1.1.4",
     "redux": "^4.0.0"
   },
+  "lint-staged": {
+    "src/**/*.{js,jsx,json,css}": [
+      "prettier --write",
+      "git add"
+    ]
+  },
   "scripts": {
+    "precommit": "lint-staged",
     "start": "npm-run-all -p watch-css start-js",
     "build": "webpack -d && cp src/index.html dist/index.html && webpack-dev-server --hot --inline --colors --progress --content-base src/",
     "build-css": "node-sass-chokidar --include-path ./src --include-path ./node_modules src/ -o src/",
@@ -31,6 +40,6 @@
     "eslint-plugin-prettier": "^2.6.1",
     "eslint-plugin-react": "^7.10.0",
     "eslint-watch": "^4.0.0",
-    "prettier": "1.13.7"
+    "prettier": "^1.13.7"
   }
 }

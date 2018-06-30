@@ -2,7 +2,7 @@ import { combineReducers } from 'redux';
 import userEmail from './userEmail';
 
 const rootReducer = combineReducers({
-  userEmail
+  userEmail,
 });
 
 export default rootReducer;
