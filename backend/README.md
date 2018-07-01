@@ -33,3 +33,15 @@ pip-compile requirements.in
 ```
 
 Commit both .in and .txt files.
+
+
+### Using PyLint
+
+Use PyLint to help standardize styling for the backend. 
+
+Full report (command line call):
+```
+find . -iname "*.py" -not -path "*/venv/*" | xargs pylint
+```
+
+This can be configured in your text editor, view the different IDE integrations [here](https://pylint.readthedocs.io/en/latest/user_guide/ide-integration.html).
