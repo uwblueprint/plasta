@@ -30,7 +30,9 @@ class LoginPage extends Component {
                 />
               </div>
               <div className="btn">
-                <button type="submit">LOGIN</button>
+                <button className="button" type="submit">
+                  LOGIN
+                </button>
               </div>
             </form>
           )}

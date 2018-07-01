@@ -1,7 +1,7 @@
 const userEmail = (prevState = '', action) => {
   switch (action.type) {
     case 'USER_LOGIN':
-      return action.email;
+      return action.email || '';
     default:
       return prevState;
   }

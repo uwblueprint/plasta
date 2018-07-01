@@ -2,20 +2,22 @@ import React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import registerServiceWorker from './registerServiceWorker';
-import App from './App';
 import rootReducer from './reducers';
+import LandingPage from './components/LandingPage';
+import LoginPage from './components/LoginContainer';
+import './common.css';
 
 const store = createStore(rootReducer);
 
 render(
   <Provider store={store}>
     <Router>
-      <div>
-        <Route path="/" component={App} />
-        {/* add routes here */}
-      </div>
+      <Switch>
+        <Route path="/" exact component={LoginPage} />
+        <Route path="/landing" component={LandingPage} />
+      </Switch>
     </Router>
   </Provider>,
   document.getElementById('root')
