@@ -1,0 +1,11 @@
+@import '_constants';
+
+.button {
+  margin: 0 auto;
+  display: block;
+  font-size: 1.2em;
+  background-color: white;
+  padding: 8px 20px;
+  border-radius: 25px;
+  border: 1px solid inherit;
+}
