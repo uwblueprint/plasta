@@ -4,14 +4,16 @@
 
 ## Setup
 
-1. Install [brew](https://brew.sh/)
-
-1. For venv setup, run:
+For venv setup, run:
 
         $ python3 -m venv venv
         (venv) $ source venv/bin/activate # or source venv/bin/activate.fish
         (venv) $ pip install --upgrade pip pip-tools
         (venv) $ pip-sync # pip install -r requirements.txt
+
+### Postgres for MacOS 
+
+1. Install [brew](https://brew.sh/)
 
 1. For postgres setup, run:
 
@@ -21,6 +23,15 @@
         =# \q
         $ ./scripts/setup_postgres.sh
 
+### Postgres for Ubuntu
+
+For postgres setup, run:
+
+        $ sudo apt-get install postgresql-10
+        $ sudo -u postgres -i
+        $ ./scripts/setup_postgres.sh
+        $ psql postgres
+        =# \q
 
 ## Run
 
@@ -30,6 +41,7 @@ To exit the virtual environment:
 
     (venv) $ deactivate
 
+
 ## Contributing
 
 ### Changing requirements
@@ -37,7 +49,6 @@ To exit the virtual environment:
     (venv) $ pip-compile requirements.in
 
 Commit both .in and .txt files.
-
 
 ### Linting
 
