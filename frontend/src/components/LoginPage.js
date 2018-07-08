@@ -6,11 +6,11 @@ import './LoginPage.css';
 class LoginPage extends Component {
   render() {
     return (
-      <div id="div-wrapper">
+      <div className="page-wrapper login-wrapper vcentre-outer">
         <Form
           onSubmit={this.props.onSubmit}
           render={({ submitForm }) => (
-            <form onSubmit={submitForm} className="login-page">
+            <form onSubmit={submitForm} className="login-form vcentre">
               <h1 className="title">Plastics For Change</h1>
               <div className="input-block">
                 <label className="block" htmlFor="email">
@@ -30,7 +30,7 @@ class LoginPage extends Component {
                 />
               </div>
               <div className="btn">
-                <button className="button" type="submit">
+                <button className="btn" type="submit">
                   LOGIN
                 </button>
               </div>
