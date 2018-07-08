@@ -4,14 +4,14 @@
 
 ## Setup
 
-For venv setup, run:
+### Virtual environment
 
-        $ python3 -m venv venv
-        (venv) $ source venv/bin/activate # or source venv/bin/activate.fish
-        (venv) $ pip install --upgrade pip pip-tools
-        (venv) $ pip-sync # pip install -r requirements.txt
+    $ python3 -m venv venv
+    (venv) $ source venv/bin/activate # or source venv/bin/activate.fish
+    (venv) $ pip install --upgrade pip pip-tools
+    (venv) $ pip-sync # pip install -r requirements.txt
 
-### Postgres for MacOS 
+### Postgres for MacOS
 
 1. Install [brew](https://brew.sh/)
 
@@ -19,19 +19,24 @@ For venv setup, run:
 
         $ brew install postgresql@10
         $ brew services start postgresql
-        $ psql postgres
-        =# \q
         $ ./scripts/setup_postgres.sh
 
 ### Postgres for Ubuntu
 
 For postgres setup, run:
 
-        $ sudo apt-get install postgresql-10
-        $ sudo -u postgres -i
-        $ ./scripts/setup_postgres.sh
-        $ psql postgres
-        =# \q
+    $ sudo apt-get install postgresql-10
+    $ sudo -u postgres -i
+    $ ./scripts/setup_postgres.sh
+
+
+To check if the setup worked, see if `plasta` appears as a role and a database when you run the following commands:
+
+    $ psql postgres
+    =# \du
+    =# \list
+    =# \q
+
 
 ## Run
 
