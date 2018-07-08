@@ -1,11 +1,5 @@
-body,
-html {
-  height: 100vh;
-  display: grid;
-}
-
-div {
-  margin: auto;
+.login-form {
+  margin: auto 60px;
 }
 
 .title {
@@ -22,12 +16,4 @@ div {
 
 .block {
   display: block;
-}
-
-.btn {
-  text-align: center;
-}
-
-#div-wrapper {
-  margin: 60px;
 }

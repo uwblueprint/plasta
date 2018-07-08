@@ -1,6 +1,46 @@
 @import '_constants';
 
-.button {
+html,
+body {
+  font-size: 16px;
+  font-weight: normal;
+  height: 100%;
+  width: 100%;
+}
+
+body {
+  margin: 0;
+}
+
+div {
+  box-sizing: border-box;
+}
+
+.page-wrapper {
+  height: 100vh;
+}
+
+/****************************
+    vertical centering
+****************************/
+
+.vcentre-outer {
+  display: table;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+}
+
+.vcentre {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+/*******************
+      buttons
+******************/
+
+.btn {
   margin: 0 auto;
   display: block;
   font-size: 1.2em;
@@ -8,4 +48,9 @@
   padding: 8px 20px;
   border-radius: 25px;
   border: 1px solid inherit;
+}
+
+.btn-small {
+  font-size: 18px;
+  padding: 5px 12px;
 }
