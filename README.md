@@ -12,3 +12,8 @@
         $ git clone git@github.com:GautamGupta/plasta.git
 
 1. Follow the instructions in the `backend` and `frontend` folders.
+
+
+## Contributing
+
+For coding style, install a plugin for [editor config](https://editorconfig.org/#download) corresponding to your text editor.
