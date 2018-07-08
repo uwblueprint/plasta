@@ -1,0 +1,12 @@
+.Select--multi {
+  // add margin to the input element
+  .Select-input {
+    vertical-align: middle;
+    margin-left: 0px;
+    padding: 0px;
+  }
+  &.Select--rtl .Select-input {
+    margin-left: 0;
+    margin-right: 50px;
+  }
+}
