@@ -8,6 +8,7 @@ import rootReducer from './reducers';
 import LandingPage from './components/LandingPage';
 import LoginPage from './components/LoginContainer';
 import NewProject from './components/NewProject';
+import AdminDashboard from './components/AdminDashboard';
 import './common.css';
 
 const store = createStore(rootReducer);
@@ -19,6 +20,7 @@ render(
         <Route path="/" exact component={LoginPage} />
         <Route path="/landing" component={LandingPage} />
         <Route path="/newproject" component={NewProject} />
+        <Route path="/admindash" component={AdminDashboard} />
       </Switch>
     </Router>
   </Provider>,
