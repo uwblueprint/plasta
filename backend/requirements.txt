@@ -4,7 +4,6 @@
 #
 #    pip-compile --output-file requirements.txt requirements.in
 #
-appnope==0.1.0            # via ipython
 astroid==1.6.5            # via pylint
 atomicwrites==1.1.5       # via pytest
 attrs==18.1.0             # via pytest
@@ -31,6 +30,7 @@ pylint==1.9.2
 pytest==3.6.2
 simplegeneric==0.8.1      # via ipython
 six==1.11.0               # via astroid, more-itertools, prompt-toolkit, pylint, pytest, traitlets
+sqlalchemy==1.2.9
 traitlets==4.3.2          # via ipython
 wcwidth==0.1.7            # via prompt-toolkit
 wrapt==1.10.11            # via astroid
