@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import SearchSelect from './input-components/SearchSelect';
+import RadioSelect from './input-components/RadioSelect';
 
 const staticDWCC = [{ label: 'DWCC 1', value: 'dw1' }, { label: 'DWCC 2', value: 'dw2' }];
 
@@ -23,6 +24,14 @@ class NewProject extends Component {
           onChange={selectedOption => this.setState({ dwccSelected: selectedOption })}
           selectedOption={this.state.dwccSelected}
           multi
+        />
+        <RadioSelect
+          title="Project Name"
+          options={[
+            { label: 'Brand A', value: 'a' },
+            { label: 'Brand B', value: 'b' },
+            { label: 'Brand C', value: 'c' },
+          ]}
         />
       </div>
     );
