@@ -1,8 +1,0 @@
-# dev
-fancycompleter
-flake8
-ipdb
-ipython
-pylint
-pytest
-yapf
