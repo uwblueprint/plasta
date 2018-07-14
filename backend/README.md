@@ -57,10 +57,13 @@ Commit both .in and .txt files.
 
 ### Linting
 
-Use PyLint to help standardize styling for the backend.
-
-Full report (command line call):
+Ensure the outputs of pylint and flake8 are clean:
 
     (venv) $ find . -iname "*.py" -not -path "*/venv/*" | xargs pylint
+    (venv) $ flake8 .
 
-This can be configured in your text editor, view the different IDE integrations [here](https://pylint.readthedocs.io/en/latest/user_guide/ide-integration.html).
+pylint can be configured with your [IDE](https://pylint.readthedocs.io/en/latest/user_guide/ide-integration.html), you should be able to find one for flake8 as well. There is some overlap in what they report.
+
+Please format your code with yapf before pushing, which also has [IDE](https://github.com/google/yapf/tree/2c13f6f93e8ccfa0c966b67f88eeffe20ccb32a0/plugins#ide-plugins) integrations:
+
+    (venv) $ yapf --recursive --in-place --exclude venv .
