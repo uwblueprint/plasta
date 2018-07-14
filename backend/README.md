@@ -2,28 +2,27 @@
 
     $ cd backend
 
+
 ## Setup
 
 ### Virtual environment
 
-    $ python3 -m venv venv
-    (venv) $ source venv/bin/activate # or source venv/bin/activate.fish
-    (venv) $ pip install --upgrade pip pip-tools
-    (venv) $ pip-sync # pip install -r requirements.txt
+We use [pipenv](https://github.com/pypa/pipenv#-usage).
+
+    $ pip install pipenv
+    $ pipenv install
 
 ### Postgres for MacOS
 
 1. Install [brew](https://brew.sh/)
 
-1. For postgres setup, run:
+1. Run:
 
         $ brew install postgresql@10
         $ brew services start postgresql
         $ ./scripts/setup_postgres.sh
 
 ### Postgres for Ubuntu
-
-For postgres setup, run:
 
     $ sudo apt-get install postgresql-10
     $ sudo -u postgres -i
@@ -40,30 +39,30 @@ To check if the setup worked, see if `plasta` appears as a role and a database w
 
 ## Run
 
-    $ source venv/bin/activate # or source venv/bin/activate.fish
+    $ pipenv shell
 
 To exit the virtual environment:
 
-    (venv) $ deactivate
+    (backend) $ exit
 
 
 ## Contributing
 
 ### Changing requirements
 
-    (venv) $ pip-compile requirements.in
+Add the requirement using `pipenv install <requirement>`. Use the `--dev` option if the package is not meant for production environment.
 
-Commit both .in and .txt files.
+This will modify `Pipfile` and `Pipfile.lock`. Commit both files.
 
 ### Linting
 
 Ensure the outputs of pylint and flake8 are clean:
 
-    (venv) $ find . -iname "*.py" -not -path "*/venv/*" | xargs pylint
-    (venv) $ flake8 .
+    (backend) $ find . -iname "*.py" | xargs pylint
+    (backend) $ flake8 .
 
 pylint can be configured with your [IDE](https://pylint.readthedocs.io/en/latest/user_guide/ide-integration.html), you should be able to find one for flake8 as well. There is some overlap in what they report.
 
 Please format your code with yapf before pushing, which also has [IDE](https://github.com/google/yapf/tree/2c13f6f93e8ccfa0c966b67f88eeffe20ccb32a0/plugins#ide-plugins) integrations:
 
-    (venv) $ yapf --recursive --in-place --exclude venv .
+    (backend) $ yapf --recursive --in-place .
