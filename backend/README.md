@@ -10,7 +10,7 @@
 We use [pipenv](https://github.com/pypa/pipenv#-usage).
 
     $ pip install pipenv
-    $ pipenv install
+    $ pipenv install --dev
 
 ### Postgres for MacOS
 
