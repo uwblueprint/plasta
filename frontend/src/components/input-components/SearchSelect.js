@@ -1,17 +1,7 @@
 import React, { Component } from 'react';
 import Select from 'react-select';
 import 'react-select/dist/react-select.css';
-
-/*
-	render() {
-		return (
-			<MultiSelect
-				selectedOption = this.state.whatever
-				dataLabel="plasticType",
-				onChange=this.onChange,
-				options = ....
-			/>);
-	}*/
+import PropTypes from 'prop-types';
 
 class SearchSelect extends Component {
   constructor(props) {
@@ -29,8 +19,7 @@ class SearchSelect extends Component {
     const { options, multi } = this.props;
     const selectedOption = this.props.selectedOption || this.state.selectedOption;
     return (
-      <div className="search-select-wrapper">
-        {this.props.title && <h1> {this.props.title} </h1>}
+      <div className={this.props.className + ' search-select-wrapper'}>
         <Select
           name="form-field-name"
           value={selectedOption}
@@ -42,5 +31,14 @@ class SearchSelect extends Component {
     );
   }
 }
+
+SearchSelect.propTypes = {
+  className: PropTypes.string,
+  multi: PropTypes.bool,
+  options: PropTypes.array,
+  selectedOption: PropTypes.array,
+  onChange: PropTypes.func,
+  title: PropTypes.string,
+};
 
 export default SearchSelect;
