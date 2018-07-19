@@ -5,6 +5,9 @@ name = "pypi"
 
 [packages]
 sqlalchemy = "*"
+flask = "*"
+flask-sqlalchemy = "*"
+flask-migrate = "*"
 
 [dev-packages]
 fancycompleter = "*"
