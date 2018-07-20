@@ -14,4 +14,7 @@ disable=
 
 [TYPECHECK]
 ignored-classes=
+  alembic,
+  alembic.context,
+  alembic.op,
   SQLAlchemy
