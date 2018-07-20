@@ -26,6 +26,7 @@ class NewProject extends Component {
       wholesalerExworks: '',
       deliveredAmount: '',
       shippedAmount: '',
+      dummyList: [],
     };
     this.onFieldChange = this.onFieldChange.bind(this);
   }
