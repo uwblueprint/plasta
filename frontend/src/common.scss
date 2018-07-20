@@ -57,8 +57,13 @@ button:focus {
   outline: none;
 }
 
+button {
+  color: inherit;
+  border-color: inherit;
+}
+
 .btn {
-  border: 1px solid grey;
+  border: 1px solid inherit;
   font-family: $font;
   margin: 0 auto;
   padding: 10px 25px;
@@ -66,11 +71,22 @@ button:focus {
   font-size: 16px;
   background-color: white;
   border-radius: 25px;
-  border: 1px solid inherit;
 }
 
 .btn-small {
   font-size: 14px;
+}
+
+.btn-green {
+  background-color: #87d37c;
+  border-color: white;
+  color: white;
+}
+
+.btn-red {
+  background-color: #f03434;
+  border-color: white;
+  color: white;
 }
 
 /*******************
