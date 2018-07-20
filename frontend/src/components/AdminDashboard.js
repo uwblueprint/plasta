@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import './AdminDashboard.css';
 
 const dummyProjects = [{ name: 'Project A' }, { name: 'Project B' }, { name: 'Project C' }];
@@ -8,9 +9,11 @@ const AdminDashboard = props => (
     <div className="header">
       <h2>Active</h2>
       <div className="right-align">
-        <button className="btn btn-small btn-new-proj" type="button">
-          + NEW
-        </button>
+        <Link to="/newproject">
+          <button className="btn btn-small btn-new-proj" type="button">
+            + NEW
+          </button>
+        </Link>
       </div>
     </div>
     {dummyProjects.map(proj => (

@@ -8,8 +8,11 @@ class RadioOption extends Component {
     const label = this.props.label;
     return (
       <div className="radio-option-wrapper">
-        <Radio value={this.props.value} id={this.props.value} />
-        <label htmlFor={this.props.value}>{label}</label>
+        <label>
+          <Radio value={this.props.value} id={this.props.value} />
+          <span className="radio-custom" />
+          {label}
+        </label>
       </div>
     );
   }
