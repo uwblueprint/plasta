@@ -13,6 +13,12 @@ div {
   box-sizing: border-box;
 }
 
+a {
+  text-align: center;
+  margin: 0 auto;
+  text-decoration: none;
+}
+
 .page-wrapper {
   padding: 5px 15px;
   height: 100vh;
@@ -23,10 +29,8 @@ div {
 ****************************/
 
 .vcentre-outer {
-  display: table;
-  position: absolute;
-  height: 100%;
   width: 100%;
+  display: table;
 }
 
 .vcentre {
@@ -36,15 +40,30 @@ div {
 
 /*******************
       buttons
+
 ******************/
+button:hover {
+  cursor: pointer;
+}
+
+button:active {
+  color: lightgrey;
+  border: 1px solid lightgrey;
+}
+
+button:focus {
+  outline: none;
+}
 
 .btn {
+  border: 1px solid grey;
+  font-family: $font;
   margin: 0 auto;
   display: block;
   font-size: 1.2em;
   background-color: white;
   padding: 8px 20px;
-  border-radius: 25px;
+  border-radius: 30px;
   border: 1px solid inherit;
 }
 

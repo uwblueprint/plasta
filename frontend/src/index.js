@@ -19,6 +19,7 @@ render(
       <Switch>
         <Route path="/" exact component={LoginPage} />
         <Route path="/landing" component={LandingPage} />
+        <Route path="/admindash" component={AdminDashboard} />
         <Route path="/newproject" component={NewProject} />
         <Route path="/admindash" component={AdminDashboard} />
       </Switch>

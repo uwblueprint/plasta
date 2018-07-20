@@ -1,12 +1,15 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import './LandingPage.css';
 
 const LandingPage = props => (
-  <div class="page-wrapper landing-wrapper vcentre-outer">
+  <div className="page-wrapper landing-wrapper vcentre-outer">
     <div className="vcentre">
-      <button className="btn" type="button">
-        Projects
-      </button>
+      <Link to="/admindash">
+        <button className="btn" type="button">
+          Projects
+        </button>
+      </Link>
       <button className="btn" type="button">
         Stakeholders
       </button>
