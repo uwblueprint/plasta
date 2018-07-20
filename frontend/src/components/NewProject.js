@@ -4,6 +4,7 @@ import RadioSelect from './input-components/RadioSelect';
 import FormSection from './input-components/FormSection';
 import TextInput from './input-components/TextInput';
 import TextAreaInput from './input-components/TextAreaInput';
+import TextInputGroup from './input-components/TextInputGroup';
 
 const staticDWCC = [{ label: 'DWCC 1', value: 'dw1' }, { label: 'DWCC 2', value: 'dw2' }];
 
@@ -19,8 +20,19 @@ class NewProject extends Component {
 
   render() {
     return (
-      <div className="page-wrapper new-proj-wrapper vcentre-outer">
+      <div className="page-wrapper new-proj-wrapper">
         <h1>New Project</h1>
+        <FormSection title="Project Name">
+          <RadioSelect
+            options={[
+              { label: 'Brand A', value: 'a' },
+              { label: 'Brand B', value: 'b' },
+              { label: 'Brand C', value: 'c' },
+            ]}
+            className="form-element"
+          />
+        </FormSection>
+
         <FormSection title="Project Description">
           <TextAreaInput label="Project Description" className="form-element" />
         </FormSection>
@@ -32,16 +44,6 @@ class NewProject extends Component {
           />
         </FormSection>
 
-        <FormSection title="DWCC">
-          <SearchSelect
-            options={staticDWCC}
-            onChange={selectedOption => this.setState({ dwccSelected: selectedOption })}
-            selectedOption={this.state.dwccSelected}
-            multi
-            className="form-element"
-          />
-        </FormSection>
-
         <FormSection title="Status">
           <RadioSelect
             options={[{ label: 'Archive', value: 'archive' }, { label: 'Active', value: 'active' }]}
@@ -49,13 +51,12 @@ class NewProject extends Component {
           />
         </FormSection>
 
-        <FormSection title="Project Name">
-          <RadioSelect
-            options={[
-              { label: 'Brand A', value: 'a' },
-              { label: 'Brand B', value: 'b' },
-              { label: 'Brand C', value: 'c' },
-            ]}
+        <FormSection title="DWCC">
+          <SearchSelect
+            options={staticDWCC}
+            onChange={selectedOption => this.setState({ dwccSelected: selectedOption })}
+            selectedOption={this.state.dwccSelected}
+            multi
             className="form-element"
           />
         </FormSection>
