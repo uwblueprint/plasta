@@ -148,7 +148,3 @@ class TransactionParents(db.Model):
         db.Integer, db.ForeignKey('transactions.id'), primary_key=True)
     parent_id = db.Column(
         db.Integer, db.ForeignKey('transactions.id'), primary_key=True)
-
-
-if __name__ == '__main__':
-    db.create_all()
