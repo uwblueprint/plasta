@@ -9,16 +9,13 @@ body {
   font-family: $font;
 }
 
-body {
-}
-
 div {
   box-sizing: border-box;
 }
 
 .page-wrapper {
+  padding: 5px 15px;
   height: 100vh;
-  margin: 150px;
 }
 
 /****************************
