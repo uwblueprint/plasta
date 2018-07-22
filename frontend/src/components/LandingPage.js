@@ -10,9 +10,11 @@ const LandingPage = props => (
           Projects
         </button>
       </Link>
-      <button className="btn" type="button">
-        Stakeholders
-      </button>
+      <Link to="/adminstakeholder">
+        <button className="btn" type="button">
+          Stakeholders
+        </button>
+      </Link>
     </div>
   </div>
 );
