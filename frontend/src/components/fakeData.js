@@ -8,6 +8,8 @@ const WholesalerData = [
   { name: 'Wholesaler2', projects: ['Project D', 'Project E', 'Project G'] },
 ];
 
+const ProjectData = [{ label: 'Project A', value: 'pa' }, { label: 'Project B', value: 'pb' }];
+
 const fakeData = [
   {
     to: 'Gautaum',
@@ -35,4 +37,4 @@ const fakeData = [
   },
 ];
 
-export { fakeData, DWCCData, WholesalerData };
+export { fakeData, DWCCData, WholesalerData, ProjectData };
