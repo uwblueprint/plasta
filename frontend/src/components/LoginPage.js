@@ -1,44 +1,38 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { Form, Text } from 'react-form';
 import PropTypes from 'prop-types';
+import TextInput from './input-components/TextInput.js';
 import './LoginPage.css';
 
 class LoginPage extends Component {
   render() {
     return (
-      <div className="page-wrapper login-wrapper ">
+      <div className="page-wrapper" id="login-wrapper">
         <img alt="Plastics For Change" src="/images/pfc-logo.png" />
-        <Form
-          onSubmit={this.props.onSubmit}
-          render={({ submitForm }) => (
-            <form onSubmit={submitForm} className="login-form">
-              <div className="input-block">
-                <label className="block" htmlFor="email">
-                  Email
-                </label>
-                <Text placeholder="Email" className="block input-field" field="email" id="email" />
-              </div>
-              <div className="input-block">
-                <label className="block" htmlFor="password">
-                  Password
-                </label>
-                <Text
-                  className="block input-field"
-                  field="password"
-                  placeholder="Password"
-                  type="password"
-                  id="password"
-                />
-              </div>
-              <Link to="/landing">
-                <button className="btn" type="submit">
-                  Login
-                </button>
-              </Link>
-            </form>
-          )}
-        />
+        <form onSubmit={this.props.onSubmit} className="login-form">
+          <div className="input-block">
+            <label className="block" htmlFor="email">
+              Email
+            </label>
+            <TextInput placeholder="Email" className="block input-field" onChange={() => {}} />
+          </div>
+          <div className="input-block">
+            <label className="block" htmlFor="password">
+              Password
+            </label>
+            <TextInput
+              className="block input-field"
+              placeholder="Password"
+              type="password"
+              onChange={() => {}}
+            />
+          </div>
+          <Link to="/landing">
+            <button className="btn" type="submit">
+              Login
+            </button>
+          </Link>
+        </form>
       </div>
     );
   }

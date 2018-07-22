@@ -1,14 +1,10 @@
-.page-wrapper.login-wrapper {
+#login-wrapper {
   padding: 90px 0px;
   color: grey;
   font-weight: 100;
 
   input:focus {
     outline: none;
-  }
-
-  input {
-    width: 100%;
   }
 
   label {
@@ -29,6 +25,7 @@
   } /* IE 10+ */
 
   input {
+    width: 100%;
     text-align: center;
     border-radius: 20px;
     border: 1px solid grey;
@@ -53,7 +50,7 @@
 }
 
 .login-form {
-  margin: auto 50px;
+  padding: 0 50px;
 }
 
 .title {

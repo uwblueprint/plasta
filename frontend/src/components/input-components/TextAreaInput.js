@@ -1,18 +1,24 @@
 import React, { Component } from 'react';
-import { Form, TextArea } from 'react-form';
 import PropTypes from 'prop-types';
+import './TextAreaInput.css';
 
 class TextAreaInput extends Component {
+  constructor(props) {
+    super(props);
+    this.onChange = this.onChange.bind(this);
+  }
+
+  onChange(e) {
+    this.props.onChange && this.props.onChange(e.target.value);
+  }
+
   render() {
-    const label = this.props.label.replace(' ', '-');
+    const { className, label } = this.props;
     return (
-      <Form
-        render={() => (
-          <div className={this.props.className}>
-            <TextArea field={label} id={label} />
-          </div>
-        )}
-      />
+      <div className={`text-area-input ${className}`}>
+        {label && <label>{label}</label>}
+        <textarea onChange={this.onChange} />
+      </div>
     );
   }
 }
@@ -20,6 +26,7 @@ class TextAreaInput extends Component {
 TextAreaInput.propTypes = {
   label: PropTypes.string,
   className: PropTypes.string,
+  onChange: PropTypes.func.isRequired,
 };
 
 export default TextAreaInput;
