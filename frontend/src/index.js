@@ -9,6 +9,7 @@ import LandingPage from './components/LandingPage';
 import LoginPage from './components/LoginContainer';
 import NewProject from './components/NewProject';
 import AdminDashboard from './components/AdminDashboard';
+import AdminStakeholder from './components/AdminStakeholder';
 import './common.css';
 
 const store = createStore(rootReducer);
@@ -22,6 +23,7 @@ render(
         <Route path="/admindash" component={AdminDashboard} />
         <Route path="/newproject" component={NewProject} />
         <Route path="/admindash" component={AdminDashboard} />
+        <Route path="/adminstake" component={AdminStakeholder} />
       </Switch>
     </Router>
   </Provider>,
