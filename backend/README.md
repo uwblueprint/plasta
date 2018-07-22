@@ -12,7 +12,9 @@ We use [pipenv](https://github.com/pypa/pipenv#-usage).
     $ pip install pipenv
     $ pipenv install --dev
 
-### Postgres for MacOS
+### Database Setup
+
+#### Postgres for MacOS
 
 1. Install [brew](https://brew.sh/)
 
@@ -22,7 +24,7 @@ We use [pipenv](https://github.com/pypa/pipenv#-usage).
         $ brew services start postgresql
         $ ./scripts/setup_postgres.sh
 
-### Postgres for Ubuntu
+#### Postgres for Ubuntu
 
     $ sudo apt-get install postgresql-10
     $ sudo -u postgres -i
@@ -36,6 +38,10 @@ To check if the setup worked, see if `plasta` appears as a role and a database w
     =# \list
     =# \q
 
+#### Migrations
+
+Activate the virtual environment and run the migrations (steps in the run section below).
+
 
 ## Run
 
@@ -44,6 +50,10 @@ To check if the setup worked, see if `plasta` appears as a role and a database w
 To exit the virtual environment:
 
     (backend) $ exit
+
+### Migrations
+
+    (backend) $ flask db migrate
 
 
 ## Contributing
