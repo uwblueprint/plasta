@@ -1,15 +1,21 @@
 import React, { Component } from 'react';
-import { Radio } from 'react-form';
 import PropTypes from 'prop-types';
 import './RadioOption.css';
 
 class RadioOption extends Component {
   render() {
-    const label = this.props.label;
+    const { checked, label, onChange } = this.props;
+    const value = this.props.value;
     return (
       <div className="radio-option-wrapper">
         <label>
-          <Radio value={this.props.value} id={this.props.value} />
+          <input
+            type="radio"
+            value={this.props.value}
+            checked={checked}
+            id={value}
+            onChange={onChange}
+          />
           <span className="radio-custom" />
           {label}
         </label>
@@ -19,8 +25,10 @@ class RadioOption extends Component {
 }
 
 RadioOption.propTypes = {
+  checked: PropTypes.bool,
   value: PropTypes.string,
   label: PropTypes.string,
+  onChange: PropTypes.func,
 };
 
 export default RadioOption;

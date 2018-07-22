@@ -5,7 +5,7 @@ import './AdminDashboard.css';
 const dummyProjects = [{ name: 'Project A' }, { name: 'Project B' }, { name: 'Project C' }];
 
 const AdminDashboard = props => (
-  <div className="page-wrapper admin-dash-wrapper">
+  <div className="page-wrapper" id="admin-dash-wrapper">
     <div className="header">
       <h2>Active</h2>
       <div className="right-align">

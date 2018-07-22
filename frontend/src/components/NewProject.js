@@ -4,6 +4,7 @@ import RadioSelect from './input-components/RadioSelect';
 import FormSection from './input-components/FormSection';
 import TextInput from './input-components/TextInput';
 import TextAreaInput from './input-components/TextAreaInput';
+import './NewProject.css';
 //import TextInputGroup from './input-components/TextInputGroup';
 
 const staticDWCC = [{ label: 'DWCC 1', value: 'dw1' }, { label: 'DWCC 2', value: 'dw2' }];
@@ -11,7 +12,18 @@ const staticDWCC = [{ label: 'DWCC 1', value: 'dw1' }, { label: 'DWCC 2', value:
 class NewProject extends Component {
   constructor(props) {
     super(props);
-    this.state = { dwccList: [], dwccSelected: [] };
+    this.state = {
+      name: 'a',
+      projectStatus: 'archive',
+      projectType: 'external',
+      dwccList: [],
+      dwccSelected: [],
+    };
+    this.onChange = this.onChange.bind(this);
+  }
+
+  onChange(value, key) {
+    this.setState({ [key]: value });
   }
 
   onSubmit() {
@@ -20,34 +32,46 @@ class NewProject extends Component {
 
   render() {
     return (
-      <div className="page-wrapper new-proj-wrapper">
+      <div className="page-wrapper" id="new-proj-wrapper">
         <h1>New Project</h1>
         <FormSection title="Project Name">
           <RadioSelect
+            selectedValue={this.state.name}
             options={[
               { label: 'Brand A', value: 'a' },
               { label: 'Brand B', value: 'b' },
               { label: 'Brand C', value: 'c' },
             ]}
             className="form-element"
+            field="name"
+            onChange={this.onChange}
           />
         </FormSection>
 
         <FormSection title="Project Description">
-          <TextAreaInput label="Project Description" className="form-element" />
+          <TextAreaInput className="form-element" onChange={() => {}} />
         </FormSection>
 
         <FormSection title="Project Type">
           <RadioSelect
-            options={[{ label: 'External', value: 'ext' }, { label: 'Internal', value: 'int' }]}
+            field="projectType"
+            selectedValue={this.state.projectType}
+            options={[
+              { label: 'External', value: 'external' },
+              { label: 'Internal', value: 'internal' },
+            ]}
             className="form-element"
+            onChange={this.onChange}
           />
         </FormSection>
 
         <FormSection title="Status">
           <RadioSelect
+            field="projectStatus"
+            selectedValue={this.state.projectStatus}
             options={[{ label: 'Archive', value: 'archive' }, { label: 'Active', value: 'active' }]}
             className="form-element"
+            onChange={this.onChange}
           />
         </FormSection>
 
@@ -63,28 +87,28 @@ class NewProject extends Component {
 
         <FormSection title="Wastepicker">
           <div>
-            <TextInput leftlabel="Sell" rightlabel="Rs/Kg" />
-            <TextInput leftlabel="Sell Price" rightlabel="₹" />
+            <TextInput leftlabel="Sell" rightlabel="Rs/Kg" onChange={() => {}} />
+            <TextInput leftlabel="Sell Price" rightlabel="₹" onChange={() => {}} />
           </div>
         </FormSection>
 
         <FormSection title="Wholesaler">
           <div>
-            <TextInput leftlabel="Sell" rightlabel="Rs/Kg" />
-            <TextInput leftlabel="Purchase" rightlabel="Rs/Kg" />
+            <TextInput leftlabel="Sell" rightlabel="Rs/Kg" onChange={() => {}} />
+            <TextInput leftlabel="Purchase" rightlabel="Rs/Kg" onChange={() => {}} />
           </div>
         </FormSection>
 
         <FormSection title="PFC">
-          <TextInput leftlabel="Transaction Fee" rightlabel="₹" />
+          <TextInput leftlabel="Transaction Fee" rightlabel="₹" onChange={() => {}} />
         </FormSection>
 
         <FormSection title="Cost Model">
           <div>
-            <TextInput leftlabel="Price Buoyancy" rightlabel="₹" />
-            <TextInput leftlabel="Wholesaler Exworks" rightlabel="₹" />
-            <TextInput leftlabel="Delivered" rightlabel="₹" />
-            <TextInput leftlabel="Shipped" rightlabel="₹" />
+            <TextInput leftlabel="Price Buoyancy" rightlabel="₹" onChange={() => {}} />
+            <TextInput leftlabel="Wholesaler Exworks" rightlabel="₹" onChange={() => {}} />
+            <TextInput leftlabel="Delivered" rightlabel="₹" onChange={() => {}} />
+            <TextInput leftlabel="Shipped" rightlabel="₹" onChange={() => {}} />
           </div>
         </FormSection>
       </div>
