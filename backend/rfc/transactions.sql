@@ -1,6 +1,6 @@
 CREATE TABLE transactions (
   id bigserial primary key,
-  project_id bigint NOT NULL,
+  foreign key (project_id) references projects(id),
   from_user_id bigint NOT NULL,
   to_user_id bigint NOT NULL,
   price float(2) NOT NULL,
@@ -19,26 +19,26 @@ CREATE TABLE transaction_attributes(
 
 CREATE TABLE transaction_values_float(
   id bigserial primary key,
-  attribute_id bigint NOT NULL,
-  transaction_id bigint NOT NULL,
+  foreign key (attribute_id) references transaction_attributes(id),
+  foreign key (transaction_id) references transactions(id),
   value float(2) NOT NULL
 );
 
 CREATE TABLE transaction_values_int(
   id bigserial primary key,
-  attribute_id bigint NOT NULL,
-  transaction_id bigint NOT NULL,
+  foreign key (attribute_id) references transaction_attributes(id),
+  foreign key (transaction_id) references transactions(id),
   value int NOT NULL
 );
 
 CREATE TABLE transaction_values_text(
   id bigserial primary key,
-  attribute_id bigint NOT NULL,
-  transaction_id bigint NOT NULL,
+  foreign key (attribute_id) references transaction_attributes(id),
+  foreign key (transaction_id) references transactions(id),
   value text NOT NULL
 );
 
 CREATE TABLE transaction_parents(
-  transaction_id bigint NOT NULL,
-  parent_id bigint NOT NULL
+  foreign key (transaction_id) references transactions(id),
+  foreign key (parent_id) references transactions(id)
 );
