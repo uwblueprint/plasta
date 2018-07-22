@@ -1,3 +1,13 @@
+const DWCCData = [
+  { name: 'DWCC1', projects: ['Project A', 'Project B'] },
+  { name: 'DWCC2', projects: ['Project B', 'Project C', 'Project D'] },
+];
+
+const WholesalerData = [
+  { name: 'Wholesaler1', projects: ['Project L', 'Project N'] },
+  { name: 'Wholesaler2', projects: ['Project D', 'Project E', 'Project G'] },
+];
+
 const fakeData = [
   {
     to: 'Gautaum',
@@ -25,4 +35,4 @@ const fakeData = [
   },
 ];
 
-export { fakeData };
+export { fakeData, DWCCData, WholesalerData };

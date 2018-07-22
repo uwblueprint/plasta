@@ -2,6 +2,8 @@ import './AdminStakeholder.css';
 import React, { Component } from 'react';
 import { Tabs, TabList, Tab, TabPanel } from 'react-tabs';
 import { Link } from 'react-router-dom';
+import AdminStakeholderInfo from './AdminStakeholderInfo';
+import { DWCCData, WholesalerData } from './fakeData';
 
 class AdminStakeholder extends Component {
   constructor() {
@@ -26,6 +28,7 @@ class AdminStakeholder extends Component {
                 New DWCC
               </button>
             </Link>
+            <AdminStakeholderInfo stakeholders={DWCCData} />
           </TabPanel>
           <TabPanel>
             <Link to="/newstakeholder">
@@ -33,6 +36,7 @@ class AdminStakeholder extends Component {
                 New Wholesaler
               </button>
             </Link>
+            <AdminStakeholderInfo stakeholders={WholesalerData} />
           </TabPanel>
         </Tabs>
       </div>
