@@ -10,12 +10,12 @@ CREATE TABLE projects (
 );
 
 CREATE TABLE project_users (
-  project_id bigint NOT NULL,
-  user_id bigint NOT NULL
+  foreign key (project_id) references projects(id),
+  foreign key (user_id) references users(id)
 );
 
 CREATE TABLE cost_model (
-  project_id bigint unique NOT NULL,
+  foreign key (project_id) references projects(id),
   wastepicker_sell_price float(2) NOT NULL,
   wholesaler_purchase_price float(2) NOT NULL,
   wholesaler_sell_price float(2) NOT NULL,
