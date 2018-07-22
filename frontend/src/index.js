@@ -10,6 +10,7 @@ import LoginPage from './components/LoginContainer';
 import NewProject from './components/NewProject';
 import AdminDashboard from './components/AdminDashboard';
 import AdminStakeholder from './components/AdminStakeholder';
+import AdminNewStakeholder from './components/AdminNewStakeholder';
 import './common.css';
 
 const store = createStore(rootReducer);
@@ -23,7 +24,8 @@ render(
         <Route path="/admindash" component={AdminDashboard} />
         <Route path="/newproject" component={NewProject} />
         <Route path="/admindash" component={AdminDashboard} />
-        <Route path="/adminstake" component={AdminStakeholder} />
+        <Route path="/adminstakeholder" component={AdminStakeholder} />
+        <Route path="/newstakeholder" component={AdminNewStakeholder} />
       </Switch>
     </Router>
   </Provider>,
