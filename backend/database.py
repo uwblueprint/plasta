@@ -24,6 +24,8 @@ class Users(db.Model):
     __tablename__ = 'users'
     id = db.Column(db.Integer, primary_key=True)
     stakeholder_id = db.Column(db.Integer, nullable=False)
+    first_name = db.Column(db.String(255))
+    last_name = db.Column(db.String(255))
     phone_number = db.Column(db.String(15))
     email = db.Column(db.String(254))
     notes = db.Column(db.Text)
