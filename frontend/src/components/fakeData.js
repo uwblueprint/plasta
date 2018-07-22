@@ -1,11 +1,35 @@
 const DWCCData = [
-  { name: 'DWCC1', projects: ['Project A', 'Project B'] },
-  { name: 'DWCC2', projects: ['Project B', 'Project C', 'Project D'] },
+  {
+    name: 'DWCC1',
+    projects: [{ name: 'Project A', id: 109 }, { name: 'Project D', id: 108 }],
+    id: 125,
+  },
+  {
+    name: 'DWCC2',
+    projects: [
+      { name: 'Project E', id: 100 },
+      { name: 'Project F', id: 100 },
+      { name: 'Project G', id: 100 },
+    ],
+    id: 134,
+  },
 ];
 
 const WholesalerData = [
-  { name: 'Wholesaler1', projects: ['Project L', 'Project N'] },
-  { name: 'Wholesaler2', projects: ['Project D', 'Project E', 'Project G'] },
+  {
+    name: 'Wholesaler1',
+    projects: [{ name: 'Project L', id: 104 }, { name: 'Project D', id: 105 }],
+    id: 123,
+  },
+  {
+    name: 'Wholesaler2',
+    projects: [
+      { name: 'Project D', id: 100 },
+      { name: 'Project G', id: 101 },
+      { name: 'Project H', id: 102 },
+    ],
+    id: 143,
+  },
 ];
 
 const ProjectData = [{ label: 'Project A', value: 'pa' }, { label: 'Project B', value: 'pb' }];

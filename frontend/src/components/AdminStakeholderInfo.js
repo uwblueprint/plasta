@@ -4,14 +4,14 @@ import PropTypes from 'prop-types';
 class AdminStakeholderInfo extends Component {
   render() {
     return (
-      <div>
+      <React.Fragment>
         {this.props.stakeholders.map(stakeholder => (
-          <div key={stakeholder.name.replace(' ', '-')}>
+          <div key={stakeholder.id}>
             <h1> {stakeholder.name} </h1>
-            {stakeholder.projects.map(project => <p key={project.replace(' ', '-')}>{project}</p>)}
+            {stakeholder.projects.map(project => <p key={project.id}>{project.name}</p>)}
           </div>
         ))}
-      </div>
+      </React.Fragment>
     );
   }
 }

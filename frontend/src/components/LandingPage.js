@@ -10,7 +10,7 @@ const LandingPage = props => (
           Projects
         </button>
       </Link>
-      <Link to="/adminstakeholder">
+      <Link to="/admin/stakeholders">
         <button className="btn" type="button">
           Stakeholders
         </button>

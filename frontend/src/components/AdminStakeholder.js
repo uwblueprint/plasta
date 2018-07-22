@@ -8,22 +8,22 @@ import { DWCCData, WholesalerData } from './fakeData';
 class AdminStakeholder extends Component {
   constructor() {
     super();
-    this.state = { tabIndex: 0 };
+    this.state = { selectedTab: 0 };
   }
   render() {
     return (
       <div className="page-wrapper">
         <h1> Stakeholders </h1>
         <Tabs
-          selectedIndex={this.state.tabIndex}
-          onSelect={tabIndex => this.setState({ tabIndex })}
+          selectedIndex={this.state.selectedTab}
+          onSelect={selectedTab => this.setState({ selectedTab })}
         >
           <TabList>
             <Tab>DWCC</Tab>
             <Tab>Wholesaler</Tab>
           </TabList>
           <TabPanel>
-            <Link to="/newstakeholder">
+            <Link to="/admin/stakeholders/new">
               <button className="btn" type="button">
                 New DWCC
               </button>
@@ -31,7 +31,7 @@ class AdminStakeholder extends Component {
             <AdminStakeholderInfo stakeholders={DWCCData} />
           </TabPanel>
           <TabPanel>
-            <Link to="/newstakeholder">
+            <Link to="/admin/stakeholders/new">
               <button className="btn" type="button">
                 New Wholesaler
               </button>
