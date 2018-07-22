@@ -1,6 +1,6 @@
 # pylint: skip-file
-import logging
 from __future__ import with_statement
+import logging
 from logging.config import fileConfig
 from alembic import context
 from flask import current_app
