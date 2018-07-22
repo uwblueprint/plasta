@@ -36,7 +36,7 @@ const ProjectData = [{ label: 'Project A', value: 'pa' }, { label: 'Project B', 
 
 const fakeData = [
   {
-    to: 'Gautaum',
+    to: 'Gautam',
     from: 'Xin Hao',
     rs: 500,
     kg: 30,
