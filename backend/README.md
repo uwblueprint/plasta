@@ -53,7 +53,7 @@ To exit the virtual environment:
 
 ### Migrations
 
-    (backend) $ flask db migrate
+    (backend) $ flask db upgrade
 
 
 ## Contributing
@@ -63,6 +63,10 @@ To exit the virtual environment:
 Add the requirement using `pipenv install <requirement>`. Use the `--dev` option if the package is not meant for production environment.
 
 This will modify `Pipfile` and `Pipfile.lock`. Commit both files.
+
+### Migrations
+
+We use [Flask Migrate](https://github.com/miguelgrinberg/Flask-Migrate) for database migrations.
 
 ### Linting
 
