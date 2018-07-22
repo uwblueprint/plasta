@@ -8,7 +8,7 @@ import SearchSelect from './input-components/SearchSelect';
 class AdminNewStakeholder extends Component {
   constructor(props) {
     super(props);
-    this.state = { projectList: [], projectSelected: [] };
+    this.state = { projectList: [], selectedProjects: [] };
   }
 
   render() {
@@ -22,7 +22,8 @@ class AdminNewStakeholder extends Component {
         </FormSection>
         <FormSection title="Contact Information">
           <div>
-            <TextInput leftlabel="Contact Name" placeholder="Type name here" />
+            <TextInput leftlabel="First Name" placeholder="Type first name here" />
+            <TextInput leftlabel="Last Name" placeholder="Type last name here" />
             <TextInput leftlabel="Phone" placeholder="10-digit number" />
             <TextInput leftlabel="Email" placeholder="johndoe@gmail.com" />
           </div>
@@ -42,7 +43,7 @@ class AdminNewStakeholder extends Component {
             className="form-element"
           />
         </FormSection>
-        <Link to="/adminstakeholder">
+        <Link to="/admin/stakeholders">
           <button className="btn" type="button">
             Submit
           </button>
