@@ -1,38 +1,38 @@
 #admin-dash-wrapper {
-  margin: 0 auto;
-  width: 800px;
-  max-width: 80%;
+  text-align: right;
 
-  .right-align {
-    text-align: right;
-  }
-
-  .header .right-align {
-    display: inline-block;
-    width: 50%;
+  .active-proj-wrapper {
+    margin: 0 auto;
+    max-width: 80%;
+    width: 800px;
+    max-height: 68%;
+    overflow-y: scroll;
   }
 
   h2 {
-    margin-left: 0;
-    margin-right: 0;
-    width: 50%;
-    display: inline-block;
+    display: block;
+    width: 100%;
+    text-align: center;
   }
 
-  .btn-new-proj {
+  #btn-new-proj {
     font-size: 14px;
     display: inline-block;
   }
 
   .btn-proj {
-    border-radius: 0px;
+    font-size: 25px;
+    border-radius: 10px;
     height: 100px;
     width: 100%;
-    margin-top: 30px;
+    margin-top: 15px;
   }
 
-  .btn-archive {
-    margin-top: 20px;
+  #btn-archive {
+    position: absolute;
+    bottom: 20px;
+    right: 15px;
+    font-size: 14px;
     display: inline-block;
   }
 }
