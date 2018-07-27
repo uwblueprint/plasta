@@ -6,26 +6,22 @@ const dummyProjects = [{ name: 'Project A' }, { name: 'Project B' }, { name: 'Pr
 
 const AdminDashboard = props => (
   <div className="page-wrapper" id="admin-dash-wrapper">
-    <div className="header">
-      <h2>Active</h2>
-      <div className="right-align">
-        <Link to="/newproject">
-          <button className="btn btn-small btn-new-proj" type="button">
-            + NEW
-          </button>
-        </Link>
-      </div>
-    </div>
-    {dummyProjects.map(proj => (
-      <button className="btn btn-proj" type="button" key={proj.name}>
-        {proj.name}
+    <Link to="/projects/new">
+      <button className="btn btn-small" id="btn-new-proj" type="button">
+        + New
       </button>
-    ))}
-    <div className="right-align">
-      <button className="btn btn-archive" type="button">
-        Archive
-      </button>
+    </Link>
+    <h2>Active Projects</h2>
+    <div className="active-proj-wrapper">
+      {dummyProjects.map(proj => (
+        <button className="btn btn-proj" type="button" key={proj.name}>
+          {proj.name}
+        </button>
+      ))}
     </div>
+    <button className="btn" id="btn-archive" type="button">
+      Archive
+    </button>
   </div>
 );
 
