@@ -1,22 +1,29 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { Component } from 'react';
 import './LandingPage.css';
 
-const LandingPage = props => (
-  <div className="page-wrapper vcentre-outer" id="landing-wrapper">
-    <div className="vcentre">
-      <Link to="/admindash">
-        <button className="btn" type="button">
-          Projects
-        </button>
-      </Link>
-      <Link to="/admin/stakeholders">
-        <button className="btn" type="button">
-          Stakeholders
-        </button>
-      </Link>
-    </div>
-  </div>
-);
+class LandingPage extends Component {
+  render() {
+    return (
+      <div className="page-wrapper vcentre-outer" id="landing-wrapper">
+        <div className="vcentre">
+          <button
+            className="btn"
+            type="button"
+            onClick={() => this.props.history.push('admindash')}
+          >
+            Projects
+          </button>
+          <button
+            className="btn"
+            type="button"
+            onClick={() => this.props.history.push('/admin/stakeholders')}
+          >
+            Stakeholders
+          </button>
+        </div>
+      </div>
+    );
+  }
+}
 
 export default LandingPage;
