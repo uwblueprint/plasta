@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import { ProjectData } from './fakeData';
 import FormSection from './input-components/FormSection';
 import TextInput from './input-components/TextInput';
@@ -43,11 +42,13 @@ class AdminNewStakeholder extends Component {
             className="form-element"
           />
         </FormSection>
-        <Link to="/admin/stakeholders">
-          <button className="btn" type="button">
-            Submit
-          </button>
-        </Link>
+        <button
+          className="btn"
+          type="button"
+          onClick={() => this.props.history.push('/admin/stakeholders')}
+        >
+          Submit
+        </button>
       </div>
     );
   }

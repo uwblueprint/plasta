@@ -1,7 +1,6 @@
 import './AdminStakeholder.css';
 import React, { Component } from 'react';
 import { Tabs, TabList, Tab, TabPanel } from 'react-tabs';
-import { Link } from 'react-router-dom';
 import AdminStakeholderInfo from './AdminStakeholderInfo';
 import { DWCCData, WholesalerData } from './fakeData';
 
@@ -23,19 +22,23 @@ class AdminStakeholder extends Component {
             <Tab>Wholesaler</Tab>
           </TabList>
           <TabPanel>
-            <Link to="/admin/stakeholders/new">
-              <button className="btn" type="button">
-                New DWCC
-              </button>
-            </Link>
+            <button
+              className="btn"
+              type="button"
+              onClick={() => this.props.history.push('/admin/stakeholders/new')}
+            >
+              New DWCC
+            </button>
             <AdminStakeholderInfo stakeholders={DWCCData} />
           </TabPanel>
           <TabPanel>
-            <Link to="/admin/stakeholders/new">
-              <button className="btn" type="button">
-                New Wholesaler
-              </button>
-            </Link>
+            <button
+              className="btn"
+              type="button"
+              onClick={() => this.props.history.push('/admin/stakeholders/new')}
+            >
+              > New Wholesaler
+            </button>
             <AdminStakeholderInfo stakeholders={WholesalerData} />
           </TabPanel>
         </Tabs>

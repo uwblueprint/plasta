@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import TextInput from './input-components/TextInput.js';
 import './LoginPage.css';
@@ -27,11 +26,9 @@ class LoginPage extends Component {
               onChange={() => {}}
             />
           </div>
-          <Link to="/landing">
-            <button className="btn" type="submit">
-              Login
-            </button>
-          </Link>
+          <button className="btn" type="submit" onClick={() => this.props.history.push('/landing')}>
+            Login
+          </button>
         </form>
       </div>
     );
