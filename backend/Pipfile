@@ -8,6 +8,7 @@ sqlalchemy = "*"
 flask = "*"
 flask-sqlalchemy = "*"
 flask-migrate = "*"
+bcrypt = "*"
 
 [dev-packages]
 fancycompleter = "*"
