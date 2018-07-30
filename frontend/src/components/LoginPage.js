@@ -4,6 +4,15 @@ import TextInput from './input-components/TextInput.js';
 import './LoginPage.css';
 
 class LoginPage extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      email: '',
+      password: '',
+    };
+    this.onChange = field => this.setState({ [field.key]: field.value });
+  }
+
   render() {
     return (
       <div className="page-wrapper" id="login-wrapper">
@@ -13,7 +22,13 @@ class LoginPage extends Component {
             <label className="block" htmlFor="email">
               Email
             </label>
-            <TextInput placeholder="Email" className="block input-field" onChange={() => {}} />
+            <TextInput
+              placeholder="Email"
+              className="block input-field"
+              field="email"
+              value={this.state.email}
+              onChange={this.onChange}
+            />
           </div>
           <div className="input-block">
             <label className="block" htmlFor="password">
@@ -23,7 +38,9 @@ class LoginPage extends Component {
               className="block input-field"
               placeholder="Password"
               type="password"
-              onChange={() => {}}
+              field="password"
+              value={this.state.password}
+              onChange={this.onChange}
             />
           </div>
           <button className="btn" type="submit" onClick={() => this.props.history.push('/landing')}>

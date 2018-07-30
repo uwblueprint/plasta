@@ -9,7 +9,7 @@ class TextAreaInput extends Component {
   }
 
   onChange(e) {
-    this.props.onChange && this.props.onChange(e.target.value);
+    this.props.onChange && this.props.onChange({ value: e.target.value, key: this.props.field });
   }
 
   render() {
@@ -17,7 +17,7 @@ class TextAreaInput extends Component {
     return (
       <div className={`text-area-input ${className}`}>
         {label && <label>{label}</label>}
-        <textarea onChange={this.onChange} />
+        <textarea onChange={this.onChange} value={this.props.value} />
       </div>
     );
   }
@@ -25,7 +25,9 @@ class TextAreaInput extends Component {
 
 TextAreaInput.propTypes = {
   label: PropTypes.string,
+  field: PropTypes.string,
   className: PropTypes.string,
+  value: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
 };
 

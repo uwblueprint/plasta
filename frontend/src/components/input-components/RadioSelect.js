@@ -8,9 +8,7 @@ class RadioSelect extends Component {
     super(props);
     if (!props.selectedValue) this.state = { selectedValue: '' };
     this.onChange = selectedValue => {
-      this.props.onChange
-        ? this.props.onChange(selectedValue, this.props.field)
-        : this.setState({ selectedValue });
+      this.props.onChange({ value: selectedValue, key: this.props.field });
     };
   }
 
@@ -42,7 +40,7 @@ RadioSelect.propTypes = {
   title: PropTypes.string,
   options: PropTypes.array,
   className: PropTypes.string,
-  onChange: PropTypes.func,
+  onChange: PropTypes.func.isRequired,
 };
 
 export default RadioSelect;

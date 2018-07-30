@@ -9,11 +9,11 @@ class TextInput extends Component {
   }
 
   onChange(e) {
-    this.props.onChange && this.props.onChange(e.target.value);
+    this.props.onChange && this.props.onChange({ value: e.target.value, key: this.props.field });
   }
 
   render() {
-    const { className, placeholder, type, name, leftlabel, rightlabel } = this.props;
+    const { className, placeholder, type, name, leftlabel, rightlabel, value } = this.props;
     return (
       <div className="field-wrapper">
         {leftlabel && <span> {leftlabel} </span>}
@@ -23,6 +23,7 @@ class TextInput extends Component {
           type={type}
           placeholder={placeholder}
           onChange={this.onChange}
+          value={value}
         />
         {rightlabel && <span> {rightlabel} </span>}
       </div>
@@ -36,7 +37,9 @@ TextInput.propTypes = {
   leftlabel: PropTypes.string,
   rightlabel: PropTypes.string,
   className: PropTypes.string,
+  field: PropTypes.string,
   onChange: PropTypes.func.isRequired,
+  value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
 };
 
 export default TextInput;

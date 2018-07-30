@@ -5,7 +5,6 @@ import FormSection from './input-components/FormSection';
 import TextInput from './input-components/TextInput';
 import TextAreaInput from './input-components/TextAreaInput';
 import './NewProject.css';
-//import TextInputGroup from './input-components/TextInputGroup';
 
 const staticDWCC = [{ label: 'DWCC 1', value: 'dw1' }, { label: 'DWCC 2', value: 'dw2' }];
 
@@ -14,16 +13,25 @@ class NewProject extends Component {
     super(props);
     this.state = {
       name: 'a',
+      description: '',
       projectStatus: 'archive',
       projectType: 'external',
-      dwccList: [],
       dwccSelected: [],
+      wastepickerSell: '',
+      wastepickerSellPrice: '',
+      wholesalerSell: '',
+      wholesalerPurchase: '',
+      transactionFee: '',
+      priceBuoyancy: '',
+      wholesalerExworks: '',
+      deliveredAmount: '',
+      shippedAmount: '',
     };
-    this.onChange = this.onChange.bind(this);
+    this.onFieldChange = this.onFieldChange.bind(this);
   }
 
-  onChange(value, key) {
-    this.setState({ [key]: value });
+  onFieldChange(field) {
+    this.setState({ [field.key]: field.value });
   }
 
   onSubmit() {
@@ -44,12 +52,17 @@ class NewProject extends Component {
             ]}
             className="form-element"
             field="name"
-            onChange={this.onChange}
+            onChange={this.onFieldChange}
           />
         </FormSection>
 
         <FormSection title="Project Description">
-          <TextAreaInput className="form-element" onChange={() => {}} />
+          <TextAreaInput
+            className="form-element"
+            field="description"
+            value={this.state.description}
+            onChange={this.onFieldChange}
+          />
         </FormSection>
 
         <FormSection title="Project Type">
@@ -61,7 +74,7 @@ class NewProject extends Component {
               { label: 'Internal', value: 'internal' },
             ]}
             className="form-element"
-            onChange={this.onChange}
+            onChange={this.onFieldChange}
           />
         </FormSection>
 
@@ -71,7 +84,7 @@ class NewProject extends Component {
             selectedValue={this.state.projectStatus}
             options={[{ label: 'Archive', value: 'archive' }, { label: 'Active', value: 'active' }]}
             className="form-element"
-            onChange={this.onChange}
+            onChange={this.onFieldChange}
           />
         </FormSection>
 
@@ -86,30 +99,87 @@ class NewProject extends Component {
         </FormSection>
 
         <FormSection title="Wastepicker">
-          <div>
-            <TextInput leftlabel="Sell" rightlabel="Rs/Kg" onChange={() => {}} />
-            <TextInput leftlabel="Sell Price" rightlabel="₹" onChange={() => {}} />
-          </div>
+          <TextInput
+            leftlabel="Sell"
+            rightlabel="Rs/Kg"
+            type="number"
+            field="wastepickerSell"
+            value={this.state.wastepickerSell}
+            onChange={this.onFieldChange}
+          />
+          <TextInput
+            leftlabel="Sell Price"
+            rightlabel="₹"
+            type="number"
+            field="wastepickerSellPrice"
+            value={this.state.wastepickerSellPrice}
+            onChange={this.onFieldChange}
+          />
         </FormSection>
 
         <FormSection title="Wholesaler">
-          <div>
-            <TextInput leftlabel="Sell" rightlabel="Rs/Kg" onChange={() => {}} />
-            <TextInput leftlabel="Purchase" rightlabel="Rs/Kg" onChange={() => {}} />
-          </div>
+          <TextInput
+            leftlabel="Sell"
+            rightlabel="Rs/Kg"
+            type="number"
+            field="wholesalerSell"
+            value={this.state.wholesalerSell}
+            onChange={this.onFieldChange}
+          />
+          <TextInput
+            leftlabel="Purchase"
+            type="number"
+            rightlabel="Rs/Kg"
+            field="wholesalerPurchase"
+            value={this.state.wholesalerPurchase}
+            onChange={this.onFieldChange}
+          />
         </FormSection>
 
         <FormSection title="PFC">
-          <TextInput leftlabel="Transaction Fee" rightlabel="₹" onChange={() => {}} />
+          <TextInput
+            leftlabel="Transaction Fee"
+            rightlabel="₹"
+            type="number"
+            field="transactionFee"
+            value={this.state.transactionFee}
+            onChange={this.onFieldChange}
+          />
         </FormSection>
 
         <FormSection title="Cost Model">
-          <div>
-            <TextInput leftlabel="Price Buoyancy" rightlabel="₹" onChange={() => {}} />
-            <TextInput leftlabel="Wholesaler Exworks" rightlabel="₹" onChange={() => {}} />
-            <TextInput leftlabel="Delivered" rightlabel="₹" onChange={() => {}} />
-            <TextInput leftlabel="Shipped" rightlabel="₹" onChange={() => {}} />
-          </div>
+          <TextInput
+            leftlabel="Price Buoyancy"
+            rightlabel="₹"
+            type="number"
+            field="priceBuoyancy"
+            value={this.state.priceBuoyancy}
+            onChange={this.onFieldChange}
+          />
+          <TextInput
+            leftlabel="Wholesaler Exworks"
+            rightlabel="₹"
+            type="number"
+            field="wholesalerExworks"
+            value={this.state.wholesalerExworks}
+            onChange={this.onFieldChange}
+          />
+          <TextInput
+            leftlabel="Delivered"
+            rightlabel="₹"
+            type="number"
+            field="deliveredAmount"
+            value={this.state.deliveredAmount}
+            onChange={this.onFieldChange}
+          />
+          <TextInput
+            leftlabel="Shipped"
+            rightlabel="₹"
+            type="number"
+            field="shippedAmount"
+            value={this.state.shippedAmount}
+            onChange={this.onFieldChange}
+          />
         </FormSection>
       </div>
     );
