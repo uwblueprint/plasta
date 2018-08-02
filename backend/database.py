@@ -1,5 +1,6 @@
 from datetime import datetime
 from flask import Flask
+from flask_graphql import GraphQLView
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 
@@ -18,7 +19,6 @@ projects_association_table = db.Table(
         nullable=False),
     db.Column(
         'user_id', db.Integer, db.ForeignKey('users.id'), nullable=False))
-
 
 class Users(db.Model):
     __tablename__ = 'users'
@@ -150,3 +150,9 @@ class TransactionParents(db.Model):
         db.Integer, db.ForeignKey('transactions.id'), primary_key=True)
     parent_id = db.Column(
         db.Integer, db.ForeignKey('transactions.id'), primary_key=True)
+
+if __name__=='__main__':
+    from schema import schema
+    app.add_url_rule('/graphql', view_func=GraphQLView.as_view('graphql', graphiql=True,
+                                                            schema=schema))
+    app.run()

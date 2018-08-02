@@ -6,9 +6,13 @@ name = "pypi"
 [packages]
 sqlalchemy = "*"
 flask = "*"
+flask-graphql = "*"
 flask-sqlalchemy = "*"
 flask-migrate = "*"
 bcrypt = "*"
+graphene = "*"
+graphene-sqlalchemy = "*"
+relay = "*"
 
 [dev-packages]
 fancycompleter = "*"
