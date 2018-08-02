@@ -20,6 +20,7 @@ projects_association_table = db.Table(
     db.Column(
         'user_id', db.Integer, db.ForeignKey('users.id'), nullable=False))
 
+
 class Users(db.Model):
     __tablename__ = 'users'
     id = db.Column(db.Integer, primary_key=True)
@@ -151,8 +152,10 @@ class TransactionParents(db.Model):
     parent_id = db.Column(
         db.Integer, db.ForeignKey('transactions.id'), primary_key=True)
 
-if __name__=='__main__':
+
+if __name__ == '__main__':
     from schema import schema
-    app.add_url_rule('/graphql', view_func=GraphQLView.as_view('graphql', graphiql=True,
-                                                            schema=schema))
+    app.add_url_rule(
+        '/graphql',
+        view_func=GraphQLView.as_view('graphql', graphiql=True, schema=schema))
     app.run()

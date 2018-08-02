@@ -40,7 +40,7 @@ class CreateUser(graphene.Mutation):
         phoneNumber = graphene.String()
         password = graphene.String()
 
-    ok = graphene.Boolean()
+    ok = graphene.Boolean() # Indicates mutation was sucessful or not
     user = graphene.Field(Users)
 
     def mutate(self, info, stakeholderId, firstName, lastName, email, phoneNumber, password):
