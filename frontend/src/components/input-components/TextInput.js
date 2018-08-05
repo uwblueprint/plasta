@@ -13,15 +13,14 @@ class TextInput extends Component {
   }
 
   render() {
-    const { className, placeholder, type, name, leftlabel, rightlabel, value } = this.props;
+    const { id, className, name, leftlabel, rightlabel, value, ...rest } = this.props;
     return (
-      <div className="field-wrapper">
+      <div id={id} className={`field-wrapper ${className || ''}`}>
         {leftlabel && <span> {leftlabel} </span>}
         <input
-          className={`text-input-field ${className}`}
+          {...rest}
+          className="text-input-field"
           name={name}
-          type={type}
-          placeholder={placeholder}
           onChange={this.onChange}
           value={value}
         />
@@ -37,6 +36,7 @@ TextInput.propTypes = {
   leftlabel: PropTypes.string,
   rightlabel: PropTypes.string,
   className: PropTypes.string,
+  id: PropTypes.string,
   field: PropTypes.string,
   onChange: PropTypes.func.isRequired,
   value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,

@@ -36,7 +36,7 @@ SearchSelect.propTypes = {
   className: PropTypes.string,
   multi: PropTypes.bool,
   options: PropTypes.array,
-  selectedOption: PropTypes.array,
+  selectedOption: PropTypes.oneOfType([PropTypes.string, PropTypes.array]).isRequired,
   onChange: PropTypes.func,
   title: PropTypes.string,
 };

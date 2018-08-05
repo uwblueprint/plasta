@@ -12,7 +12,8 @@ class NewProject extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: 'a',
+      projectName: '',
+      brandName: '',
       description: '',
       projectStatus: 'archive',
       projectType: 'external',
@@ -26,7 +27,6 @@ class NewProject extends Component {
       wholesalerExworks: '',
       deliveredAmount: '',
       shippedAmount: '',
-      dummyList: [],
     };
     this.onFieldChange = this.onFieldChange.bind(this);
   }
@@ -42,17 +42,14 @@ class NewProject extends Component {
   render() {
     return (
       <div className="page-wrapper" id="new-proj-wrapper">
-        <h1>New Project</h1>
+        <h1>Create New Project</h1>
         <FormSection title="Project Name">
-          <RadioSelect
-            selectedValue={this.state.name}
-            options={[
-              { label: 'Brand A', value: 'a' },
-              { label: 'Brand B', value: 'b' },
-              { label: 'Brand C', value: 'c' },
-            ]}
+          <TextInput
+            id="proj-name-field"
             className="form-element"
-            field="name"
+            field="projectName"
+            value={this.state.projectName}
+            placeholder="Your answer"
             onChange={this.onFieldChange}
           />
         </FormSection>
@@ -86,6 +83,19 @@ class NewProject extends Component {
             options={[{ label: 'Archive', value: 'archive' }, { label: 'Active', value: 'active' }]}
             className="form-element"
             onChange={this.onFieldChange}
+          />
+        </FormSection>
+
+        <FormSection title="Brand Name">
+          <SearchSelect
+            className="form-element"
+            selectedOption={this.state.brandName}
+            options={[
+              { label: 'Brand A', value: 'a' },
+              { label: 'Brand B', value: 'b' },
+              { label: 'Brand C', value: 'c' },
+            ]}
+            onChange={selectedOption => this.setState({ brandName: selectedOption })}
           />
         </FormSection>
 

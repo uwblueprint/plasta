@@ -37,9 +37,9 @@ class TextInputGroup extends Component {
   }
 
   render() {
-    const { inputProps, label, listOfValues } = this.props;
+    const { className, inputProps, label, listOfValues } = this.props;
     return (
-      <div className="text-input-group">
+      <div className={`text-input-group ${className || ''}`}>
         {label && <label className="title">{label}</label>}
         <button onClick={this.onAddInput} type="button" className="btn btn-group-input btn-green">
           Add
@@ -63,6 +63,7 @@ class TextInputGroup extends Component {
 }
 
 TextInputGroup.propTypes = {
+  className: PropTypes.string,
   label: PropTypes.string,
   inputProps: PropTypes.object,
   onChange: PropTypes.func.isRequired,
