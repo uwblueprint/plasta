@@ -16,7 +16,7 @@ class RadioSelect extends Component {
     const { className, title, options } = this.props;
     const selectedValue = this.props.selectedValue || this.state.selectedValue;
     return (
-      <div className={className}>
+      <div className={`radio-select ${className || ''}`}>
         {title && <h2> {title} </h2>}
         {options.map((option, i) => (
           <RadioOption

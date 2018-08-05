@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import './FormSection';
+import './FormSection.css';
 
 class FormSection extends Component {
   render() {
+    const className = this.props.className || '';
     return (
-      <div className={this.props.className}>
+      <div className={`form-section ${className}`}>
         {this.props.title && <h2> {this.props.title} </h2>}
         {this.props.children}
       </div>

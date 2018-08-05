@@ -1,11 +1,54 @@
+@import '../_constants.scss';
 #new-proj-wrapper {
+  padding-left: 40px;
+  padding-right: 40px;
+
+  h2,
+  h3,
+  h4 {
+    font-weight: 600;
+  }
+
+  h1 {
+    font-weight: normal;
+    font-size: 30px;
+    margin-bottom: 60px;
+  }
+
   .field-wrapper {
     padding-top: 10px;
     padding-bottom: 10px;
   }
+
+  textarea {
+    min-height: 80px;
+    width: 100%;
+    resize: vertical;
+  }
+
+  .text-input-field,
+  textarea {
+    margin: 0 auto;
+    max-width: 400px;
+    font-size: 14px;
+    padding: 5px 10px;
+  }
   .text-input-field {
-    margin-right: 10px;
-    margin-left: 10px;
-    max-width: 60px;
+    width: 6em;
+  }
+  #proj-name-field {
+    font-size: 18px;
+  }
+  #proj-name-field input {
+    padding: 0;
+    padding-bottom: 10px;
+    font-size: 20px;
+    width: 100%;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+  }
+  #proj-name-field input:focus {
+    outline: none;
   }
 }
