@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "14982e48e7f51ab40b10404a46804f97481ecc0e46691f786d220ec3301e9166"
+            "sha256": "ae97d7dffc9ab850f454800aad4cc9be97af33f30507a4971ad11ebcff43919f"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -153,13 +153,6 @@
             "index": "pypi",
             "version": "==1.0.2"
         },
-        "flask-graphql": {
-            "hashes": [
-                "sha256:b4e23dfd767f7028835208db0bfa7145f59467225882e6d4f560d15c09f32de8"
-            ],
-            "index": "pypi",
-            "version": "==2.0.0"
-        },
         "flask-migrate": {
             "hashes": [
                 "sha256:83ebc105f87357ddd3968f83510d2b1092f006660b1c6ba07a4efce036ca567d",
@@ -204,12 +197,6 @@
                 "sha256:2716b7245d97091af21abf096fabafac576905096d21ba7118fba722596f65db"
             ],
             "version": "==0.4.5"
-        },
-        "graphql-server-core": {
-            "hashes": [
-                "sha256:e5f82add4b3d5580aa1f1e7d9f00e944ad3abe1b65eb337e611d6a77cc20f231"
-            ],
-            "version": "==1.1.1"
         },
         "idna": {
             "hashes": [
@@ -584,19 +571,19 @@
         },
         "pylint": {
             "hashes": [
-                "sha256:0edfec21270725c5aa8e8d8d06ef5666f766e0e748ed2f1ab23624727303b935",
-                "sha256:4cadcaa4f1fb19123d4baa758d9fbe6286c5b3aa513af6ea42a2d51d405db205"
+                "sha256:1d6d3622c94b4887115fe5204982eee66fdd8a951cf98635ee5caee6ec98c3ec",
+                "sha256:31142f764d2a7cd41df5196f9933b12b7ee55e73ef12204b648ad7e556c119fb"
             ],
             "index": "pypi",
-            "version": "==2.1.0"
+            "version": "==2.1.1"
         },
         "pytest": {
             "hashes": [
-                "sha256:8214ab8446104a1d0c17fbd218ec6aac743236c6ffbe23abc038e40213c60b88",
-                "sha256:e2b2c6e1560b8f9dc8dd600b0923183fbd68ba3d9bdecde04467be6dd296a384"
+                "sha256:86a8dbf407e437351cef4dba46736e9c5a6e3c3ac71b2e942209748e76ff2086",
+                "sha256:e74466e97ac14582a8188ff4c53e6cc3810315f342f6096899332ae864c1d432"
             ],
             "index": "pypi",
-            "version": "==3.7.0"
+            "version": "==3.7.1"
         },
         "simplegeneric": {
             "hashes": [
