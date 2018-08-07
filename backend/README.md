@@ -38,6 +38,13 @@ To check if the setup worked, see if `plasta` appears as a role and a database w
     =# \list
     =# \q
 
+### Environment Variables
+
+    $ export FLASK_APP=app.py
+    $ export APP_SETTINGS=config.DevelopmentConfig
+
+Replace `DevelopmentConfig` with `ProductionConfig` or one of the other configurations in `config.py` according to your needs. 
+
 #### Migrations
 
 Activate the virtual environment and run the migrations (steps in the run section below).
@@ -53,8 +60,7 @@ To exit the virtual environment:
 
 ### Migrations
 
-    (backend) $ flask db upgrade
-
+    (backend) $ python manage.py db upgrade
 
 ## Contributing
 
@@ -67,6 +73,14 @@ This will modify `Pipfile` and `Pipfile.lock`. Commit both files.
 ### Migrations
 
 We use [Flask Migrate](https://github.com/miguelgrinberg/Flask-Migrate) for database migrations.
+
+After making changes to the schema, track changes using
+
+    (backend) $ python manage.py db migrate
+
+To actually modify the schema, run
+
+    (backend) $ python manage.py db upgrade
 
 ### Linting
 

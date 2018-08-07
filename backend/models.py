@@ -1,11 +1,7 @@
-from app import app
-from flask_migrate import Migrate
-from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import func
-from sqlalchemy.dialects.postgresql import ARRAY, ENUM, JSONB
+from sqlalchemy.dialects.postgresql import ARRAY, JSONB
 
-db = SQLAlchemy(app)
-migrate = Migrate(app, db)
+from app import db
 
 vendor_type_enum = db.Enum(
     'admin',

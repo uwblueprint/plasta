@@ -13,6 +13,7 @@ graphene = "*"
 graphene-sqlalchemy = "*"
 relay = "*"
 "psycopg2-binary" = "*"
+flask-script = "*"
 
 [dev-packages]
 fancycompleter = "*"
