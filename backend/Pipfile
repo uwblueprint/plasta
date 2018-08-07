@@ -12,6 +12,7 @@ bcrypt = "*"
 graphene = "*"
 graphene-sqlalchemy = "*"
 relay = "*"
+"psycopg2-binary" = "*"
 
 [dev-packages]
 fancycompleter = "*"
