@@ -40,7 +40,7 @@ To check if the setup worked, see if `plasta` appears as a role and a database w
 
 ### Environment Variables
 
-    $ export FLASK_APP=app.py
+    $ export FLASK_APP=app/app.py
     $ export APP_SETTINGS=config.DevelopmentConfig
 
 Replace `DevelopmentConfig` with `ProductionConfig` or one of the other configurations in `config.py` according to your needs. 
@@ -60,7 +60,7 @@ To exit the virtual environment:
 
 ### Migrations
 
-    (backend) $ python manage.py db upgrade
+    (backend) $ flask db upgrade
 
 ## Contributing
 
@@ -76,11 +76,11 @@ We use [Flask Migrate](https://github.com/miguelgrinberg/Flask-Migrate) for data
 
 After making changes to the schema, track changes using
 
-    (backend) $ python manage.py db migrate
+    (backend) $ flask db migrate
 
 To actually modify the schema, run
 
-    (backend) $ python manage.py db upgrade
+    (backend) $ flask db upgrade
 
 ### Linting
 
