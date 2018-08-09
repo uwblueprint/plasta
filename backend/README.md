@@ -40,10 +40,9 @@ To check if the setup worked, see if `plasta` appears as a role and a database w
 
 ### Environment Variables
 
-    $ export FLASK_APP=app/app.py
-    $ export APP_SETTINGS=config.DevelopmentConfig
+    $ cp .env.sample .env
 
-Replace `DevelopmentConfig` with `ProductionConfig` or one of the other configurations in `config.py` according to your needs. 
+For `APP_SETTINGS`, replace `DevelopmentConfig` with `ProductionConfig` or one of the other configurations in `config.py` according to your needs. 
 
 #### Migrations
 
