@@ -77,8 +77,7 @@ class DWCCWastepickerMap(db.Model):
     __tablename__ = 'dwcc_wastepicker_map'
     wastepicker_id = db.Column(
         db.Integer, db.ForeignKey('vendor.id'), primary_key=True)
-    dwcc_id = db.Column(
-        db.Integer, db.ForeignKey('vendor.id'))
+    dwcc_id = db.Column(db.Integer, db.ForeignKey('vendor.id'))
     __table_args__ = (db.Index('IX_dwcc_wastepicker_map_dwcc_id', dwcc_id),
                       db.UniqueConstraint('dwcc_id', 'wastepicker_id'))
 
@@ -96,8 +95,10 @@ class ProjectVendorMap(db.Model):
 
 class TransactionPlasticMap(db.Model):
     __tablename__ = 'transaction_plastic_map'
-    transaction_id = db.Column(db.Integer, db.ForeignKey('transaction.id'), primary_key=True)
-    plastic_type = db.Column(plastic_type_enum, nullable=False, primary_key=True)
+    transaction_id = db.Column(
+        db.Integer, db.ForeignKey('transaction.id'), primary_key=True)
+    plastic_type = db.Column(
+        plastic_type_enum, nullable=False, primary_key=True)
     quantity = db.Column(db.Integer, nullable=False)
     price = db.Column(db.Float(2))
     transaction = db.relationship('Transaction', back_populates='plastics')
@@ -109,5 +110,6 @@ class TransactionParentMap(db.Model):
         db.Integer, db.ForeignKey('transaction.id'), primary_key=True)
     parent_id = db.Column(
         db.Integer, db.ForeignKey('transaction.id'), primary_key=True)
-    __table_args__ = (db.Index('IX_transaction_parent_map_transaction_id', transaction_id),
+    __table_args__ = (db.Index('IX_transaction_parent_map_transaction_id',
+                               transaction_id),
                       db.UniqueConstraint('transaction_id', 'parent_id'))
