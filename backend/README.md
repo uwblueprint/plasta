@@ -74,11 +74,11 @@ This will modify `Pipfile` and `Pipfile.lock`. Commit both files.
 
 We use [Flask Migrate](https://github.com/miguelgrinberg/Flask-Migrate) for database migrations.
 
-After making changes to the schema, track changes using
+After making changes to the schema with SQLALchemy, track changes using
 
     (backend) $ flask db migrate
 
-To actually modify the schema, run
+To actually reflect those changes on Postgresql, run
 
     (backend) $ flask db upgrade
 
