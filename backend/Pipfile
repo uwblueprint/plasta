@@ -10,6 +10,7 @@ flask-sqlalchemy = "*"
 flask-migrate = "*"
 bcrypt = "*"
 "psycopg2-binary" = "*"
+click = "*"
 
 [dev-packages]
 fancycompleter = "*"
