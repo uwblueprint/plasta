@@ -2,31 +2,25 @@ import React, { Component } from 'react';
 import Select from 'react-select';
 import 'react-select/dist/react-select.css';
 import PropTypes from 'prop-types';
+import './SearchSelect.css';
 
 class SearchSelect extends Component {
   constructor(props) {
     super(props);
-    if (!props.selectedOption) this.state = { selectedOption: '' };
     this.onChange = this.onChange.bind(this);
   }
 
   onChange(selectedOption) {
-    if (this.props.onChange) this.props.onChange(selectedOption);
-    else this.setState({ selectedOption });
+    if (!this.props.onChange) return;
+    this.props.onChange({ value: selectedOption, key: this.props.field });
   }
 
   render() {
-    const { options, multi } = this.props;
-    const selectedOption = this.props.selectedOption || this.state.selectedOption;
+    const { className, label, options, multi, selectedOption } = this.props;
     return (
-      <div className={this.props.className + ' search-select-wrapper'}>
-        <Select
-          name="form-field-name"
-          value={selectedOption}
-          onChange={this.onChange}
-          options={options}
-          multi={multi}
-        />
+      <div className={'search-select-wrapper ' + (className || '')}>
+        {label && <label>{label}</label>}
+        <Select value={selectedOption} onChange={this.onChange} options={options} multi={multi} />
       </div>
     );
   }
@@ -34,11 +28,13 @@ class SearchSelect extends Component {
 
 SearchSelect.propTypes = {
   className: PropTypes.string,
+  field: PropTypes.string,
   multi: PropTypes.bool,
   options: PropTypes.array,
-  selectedOption: PropTypes.oneOfType([PropTypes.string, PropTypes.array]).isRequired,
-  onChange: PropTypes.func,
-  title: PropTypes.string,
+  selectedOption: PropTypes.oneOfType([PropTypes.object, PropTypes.string, PropTypes.array])
+    .isRequired,
+  onChange: PropTypes.func.isRequired,
+  label: PropTypes.string,
 };
 
 export default SearchSelect;
