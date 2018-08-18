@@ -16,7 +16,7 @@ class NewProject extends Component {
       projectName: '',
       brandName: '',
       description: '',
-      gdriveLink: '',
+      gDriveLink: '',
       projectStatus: 'archive',
       projectType: 'external',
       dwccSelected: [],
@@ -50,7 +50,7 @@ class NewProject extends Component {
         <FormSection title="Project Name">
           <TextInput
             id="proj-name-field"
-            className="form-element"
+            className="full-width"
             field="projectName"
             value={this.state.projectName}
             placeholder="Your answer"
@@ -60,9 +60,17 @@ class NewProject extends Component {
 
         <FormSection title="Project Description">
           <TextAreaInput
-            className="form-element"
             field="description"
             value={this.state.description}
+            onChange={this.onFieldChange}
+          />
+        </FormSection>
+
+        <FormSection title="Google Drive Link">
+          <TextInput
+            field="gDriveLink"
+            className="full-width"
+            value={this.state.gDriveLink}
             onChange={this.onFieldChange}
           />
         </FormSection>
@@ -75,7 +83,6 @@ class NewProject extends Component {
               { label: 'External', value: 'external' },
               { label: 'Internal', value: 'internal' },
             ]}
-            className="form-element"
             onChange={this.onFieldChange}
           />
         </FormSection>
@@ -85,15 +92,28 @@ class NewProject extends Component {
             field="projectStatus"
             selectedValue={this.state.projectStatus}
             options={[{ label: 'Archive', value: 'archive' }, { label: 'Active', value: 'active' }]}
-            className="form-element"
             onChange={this.onFieldChange}
+          />
+        </FormSection>
+
+        <FormSection title="Plastic Types">
+          <KeyValueInputGroup
+            label="List of Plastic Types"
+            field="plasticTypes"
+            onChange={this.onFieldChange}
+            listOfPairs={this.state.plasticTypes}
+            keyInputProps={{
+              options: [{ label: 'plastic 1', value: 'p1' }],
+            }}
+            valueInputProps={{
+              rightlabel: 'kg',
+            }}
           />
         </FormSection>
 
         <FormSection title="Brand Name">
           <SearchSelect
             field="brandName"
-            className="form-element"
             selectedOption={this.state.brandName}
             options={[
               { label: 'Brand A', value: 'a' },
@@ -111,7 +131,6 @@ class NewProject extends Component {
             onChange={this.onFieldChange}
             selectedOption={this.state.dwccSelected}
             multi
-            className="form-element"
           />
         </FormSection>
 
@@ -196,19 +215,6 @@ class NewProject extends Component {
             field="shippedAmount"
             value={this.state.shippedAmount}
             onChange={this.onFieldChange}
-          />
-
-          <KeyValueInputGroup
-            field="plasticTypes"
-            onChange={this.onFieldChange}
-            label="plastic types"
-            listOfPairs={this.state.plasticTypes}
-            keyInputProps={{
-              options: [{ label: 'plastic 1', value: 'p1' }],
-            }}
-            valueInputProps={{
-              rightlabel: 'kg',
-            }}
           />
         </FormSection>
       </div>

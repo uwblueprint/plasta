@@ -48,25 +48,29 @@ class KeyValueInputGroup extends Component {
         <button onClick={this.onAddInput} type="button" className="btn btn-group-input btn-green">
           Add
         </button>
-        {listOfPairs.map((pair, i) => (
-          <div key={`sibling-${i}`}>
-            <SearchSelect
-              label={keyInputProps.label}
-              selectedOption={pair[0]}
-              onChange={e => this.onTextChange(e.value, 0, i)}
-              {...keyInputProps}
-            />
-            <TextInput
-              type="text"
-              value={pair[1]}
-              onChange={e => this.onTextChange(e.value, 1, i)}
-              {...valueInputProps}
-            />
-            <button onClick={() => this.onRemoveInput(i)} type="button" className="btn btn-red">
-              delete
-            </button>
-          </div>
-        ))}
+        {listOfPairs.length ? (
+          listOfPairs.map((pair, i) => (
+            <div key={`sibling-${i}`}>
+              <SearchSelect
+                label={keyInputProps.label}
+                selectedOption={pair[0]}
+                onChange={e => this.onTextChange(e.value, 0, i)}
+                {...keyInputProps}
+              />
+              <TextInput
+                type="text"
+                value={pair[1]}
+                onChange={e => this.onTextChange(e.value, 1, i)}
+                {...valueInputProps}
+              />
+              <button onClick={() => this.onRemoveInput(i)} type="button" className="btn btn-red">
+                delete
+              </button>
+            </div>
+          ))
+        ) : (
+          <p>None</p>
+        )}
       </div>
     );
   }
