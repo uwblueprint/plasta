@@ -36,6 +36,9 @@
   .text-input-field {
     width: 6em;
   }
+  .full-width input {
+    width: 100%;
+  }
   #proj-name-field {
     font-size: 18px;
   }
@@ -43,7 +46,6 @@
     padding: 0;
     padding-bottom: 10px;
     font-size: 20px;
-    width: 100%;
     border-top: none;
     border-left: none;
     border-right: none;
