@@ -1,15 +1,24 @@
-.text-input-group {
+.input-group {
   .field-wrapper {
     margin-top: 10px;
   }
   label.title {
     font-size: 1.2em;
-    margin-right: 15px;
   }
+  .search-select-wrapper {
+    display: inline-block;
+    width: 50%;
+    margin-right: 10px;
+  }
+
   .field-wrapper {
     display: inline-block;
+    .text-input-field {
+      width: 3.5em !important;
+    }
   }
   .btn {
+    margin-left: 10px;
     opacity: 0.6;
     padding: 5px 8px;
     display: inline-block;

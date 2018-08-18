@@ -4,6 +4,7 @@ import RadioSelect from './input-components/RadioSelect';
 import FormSection from './input-components/FormSection';
 import TextInput from './input-components/TextInput';
 import TextAreaInput from './input-components/TextAreaInput';
+import KeyValueInputGroup from './input-components/KeyValueInputGroup';
 import './NewProject.css';
 
 const staticDWCC = [{ label: 'DWCC 1', value: 'dw1' }, { label: 'DWCC 2', value: 'dw2' }];
@@ -15,9 +16,11 @@ class NewProject extends Component {
       projectName: '',
       brandName: '',
       description: '',
+      gdriveLink: '',
       projectStatus: 'archive',
       projectType: 'external',
       dwccSelected: [],
+      wholesalerSelected: [],
       wastepickerSell: '',
       wastepickerSellPrice: '',
       wholesalerSell: '',
@@ -27,6 +30,7 @@ class NewProject extends Component {
       wholesalerExworks: '',
       deliveredAmount: '',
       shippedAmount: '',
+      plasticTypes: [],
     };
     this.onFieldChange = this.onFieldChange.bind(this);
   }
@@ -88,6 +92,7 @@ class NewProject extends Component {
 
         <FormSection title="Brand Name">
           <SearchSelect
+            field="brandName"
             className="form-element"
             selectedOption={this.state.brandName}
             options={[
@@ -95,14 +100,15 @@ class NewProject extends Component {
               { label: 'Brand B', value: 'b' },
               { label: 'Brand C', value: 'c' },
             ]}
-            onChange={selectedOption => this.setState({ brandName: selectedOption })}
+            onChange={this.onFieldChange}
           />
         </FormSection>
 
         <FormSection title="DWCC">
           <SearchSelect
             options={staticDWCC}
-            onChange={selectedOption => this.setState({ dwccSelected: selectedOption })}
+            field="dwccSelected"
+            onChange={this.onFieldChange}
             selectedOption={this.state.dwccSelected}
             multi
             className="form-element"
@@ -190,6 +196,19 @@ class NewProject extends Component {
             field="shippedAmount"
             value={this.state.shippedAmount}
             onChange={this.onFieldChange}
+          />
+
+          <KeyValueInputGroup
+            field="plasticTypes"
+            onChange={this.onFieldChange}
+            label="plastic types"
+            listOfPairs={this.state.plasticTypes}
+            keyInputProps={{
+              options: [{ label: 'plastic 1', value: 'p1' }],
+            }}
+            valueInputProps={{
+              rightlabel: 'kg',
+            }}
           />
         </FormSection>
       </div>

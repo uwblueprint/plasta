@@ -1,12 +1,18 @@
-.Select--multi {
-  // TODO: (nick) add margin to the input element
-  .Select-input {
-    vertical-align: middle;
-    margin-left: 0px;
-    padding: 0px;
+.search-select-wrapper {
+  vertical-align: middle;
+
+  label {
+    max-width: 30%;
+    display: inline-block;
   }
-  &.Select--rtl .Select-input {
-    margin-left: 0;
-    margin-right: 50px;
+  .Select {
+    vertical-align: middle;
+    display: block;
+  }
+
+  label + .Select {
+    margin-left: 10px;
+    display: inline-block;
+    width: 66%;
   }
 }
