@@ -4,6 +4,7 @@ import bcrypt
 from app.app import db
 from app import models
 
+table_choice = ('user', 'vendor')
 
 @click.group()
 def database():
@@ -11,13 +12,13 @@ def database():
 
 
 @database.command()
-@click.option('--table', type=click.Choice(['user', 'vendor']), required=True)
+@click.option('--table', type=click.Choice(table_choice), required=True)
 def add(table):
     params = {}
     if table == 'user':
         params['vendor_id'] = click.prompt('Vendor ID', type=int)
         params['email'] = click.prompt('Email')
-        params['active'] = click.prompt('Active [y/n]', type=bool)
+        params['active'] = click.prompt('Active [y/N]', type=bool)
         params['password_hash'] = bcrypt.hashpw(
             click.prompt(
                 'Password', hide_input=True, confirmation_prompt=True)
@@ -39,6 +40,22 @@ def add(table):
     pprint(params)
     db.session.commit()
 
+
+@database.command()
+@click.option('--table', type=click.Choice(table_choice), required=True)
+@click.option('--id', type=int, required=True)
+def delete(table, id):
+    table_types = {'user': models.User, 'vendor': models.Vendor}
+    table = table_types[table]
+    obj = table.query.filter(table.id == id).one()
+    if obj:
+        print('Found user:')
+        pprint(obj.__dict__)
+        if click.confirm('Do you want to delete this?'):
+            db.session.delete(obj)
+            db.session.commit()
+    else:
+        print(f'ERROR: could not find user with id = {ID}')
 
 if __name__ == '__main__':
     database()
