@@ -18,3 +18,11 @@ ignored-classes=
   alembic.context,
   alembic.op,
   SQLAlchemy
+
+generated-members=
+  add,
+  commit,
+  delete,
+  enums,
+  flush,
+  query
