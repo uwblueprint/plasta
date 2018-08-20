@@ -100,7 +100,7 @@ def upgrade():
     op.create_table(
         'user', sa.Column('id', sa.Integer(), nullable=False),
         sa.Column('email', sa.String(length=255), nullable=False),
-        sa.Column('password_hash', sa.String(length=60), nullable=False),
+        sa.Column('password_hash', sa.Binary(length=60), nullable=False),
         sa.Column('active', sa.Boolean(), nullable=False),
         sa.Column('vendor_id', sa.Integer(), nullable=False),
         sa.Column(

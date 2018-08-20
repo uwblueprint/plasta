@@ -35,7 +35,7 @@ class User(db.Model):
     __tablename__ = 'user'
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(255), nullable=False, unique=True)
-    password_hash = db.Column(db.String(60), nullable=False)
+    password_hash = db.Column(db.Binary(60), nullable=False)
     active = db.Column(db.Boolean, nullable=False, default=True)
     vendor_id = db.Column(
         db.Integer, db.ForeignKey('vendor.id'), nullable=False)
