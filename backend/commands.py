@@ -6,6 +6,7 @@ from app import models
 
 table_choice = ('user', 'vendor')
 
+
 @click.group()
 def database():
     pass
@@ -43,11 +44,11 @@ def add(table):
 
 @database.command()
 @click.option('--table', type=click.Choice(table_choice), required=True)
-@click.option('--id', type=int, required=True)
-def delete(table, id):
+@click.option('--obj_id', type=int, required=True)
+def delete(table, obj_id):
     table_types = {'user': models.User, 'vendor': models.Vendor}
     table = table_types[table]
-    obj = table.query.filter(table.id == id).one()
+    obj = table.query.filter(table.id == obj_id).first()
     if obj:
         print('Found user:')
         pprint(obj.__dict__)
@@ -55,7 +56,8 @@ def delete(table, id):
             db.session.delete(obj)
             db.session.commit()
     else:
-        print(f'ERROR: could not find user with id = {ID}')
+        print(f'ERROR: could not find user with id = {obj_id}')
+
 
 if __name__ == '__main__':
     database()
