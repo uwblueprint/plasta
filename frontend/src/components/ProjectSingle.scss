@@ -1,0 +1,24 @@
+#proj-page-wrapper {
+  .field-wrapper {
+    display: inline-block;
+  }
+
+  .btn-add {
+    font-size: 12px;
+    margin-left: 10px;
+    padding: 5px 8px;
+    display: inline-block;
+  }
+
+  .checklist-item {
+    padding: 5px 2px;
+    display: block;
+    input {
+      margin-right: 10px;
+    }
+  }
+
+  .checklist-item:nth-child(2n-1) {
+    background: lightgray;
+  }
+}

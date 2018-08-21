@@ -8,6 +8,7 @@ import rootReducer from './reducers';
 import LandingPage from './components/LandingPage';
 import LoginPage from './components/LoginContainer';
 import NewProject from './components/NewProject';
+import ProjectSingle from './components/ProjectSingle';
 import AdminDashboard from './components/AdminDashboard';
 import AdminStakeholder from './components/AdminStakeholder';
 import AdminNewStakeholder from './components/AdminNewStakeholder';
@@ -23,6 +24,7 @@ render(
         <Route path="/landing" component={LandingPage} />
         <Route path="/admindash" component={AdminDashboard} />
         <Route path="/projects/new" component={NewProject} />
+        <Route path="/projects/:projectName" component={ProjectSingle} />
         <Route path="/admin/stakeholders/new" component={AdminNewStakeholder} />
         <Route path="/admin/stakeholders" component={AdminStakeholder} />
       </Switch>
