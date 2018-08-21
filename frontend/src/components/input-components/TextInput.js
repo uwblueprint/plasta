@@ -14,9 +14,9 @@ class TextInput extends Component {
   }
 
   render() {
-    const { id, className, name, leftlabel, rightlabel, value, ...rest } = this.props;
+    const { id, name, leftlabel, rightlabel, value, ...rest } = this.props;
     return (
-      <div id={id} className={classNames('field-wrapper', className)}>
+      <div id={id} className={classNames('field-wrapper', this.props.className)}>
         {leftlabel && <span> {leftlabel} </span>}
         <input
           {...rest}

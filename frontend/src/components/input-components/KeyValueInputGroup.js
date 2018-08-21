@@ -42,9 +42,9 @@ class KeyValueInputGroup extends Component {
   }
 
   render() {
-    const { className, keyInputProps, valueInputProps, label, listOfPairs } = this.props;
+    const { keyInputProps, valueInputProps, label, listOfPairs } = this.props;
     return (
-      <div className={classNames('input-group', className)}>
+      <div className={classNames('input-group', this.props.className)}>
         {label && <label className="title">{label}</label>}
         <button onClick={this.onAddInput} type="button" className="btn btn-group-input btn-green">
           Add
