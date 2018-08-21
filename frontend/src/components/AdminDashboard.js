@@ -18,7 +18,12 @@ class AdminDashboard extends Component {
         <h2>Active Projects</h2>
         <div className="active-proj-wrapper">
           {dummyProjects.map(proj => (
-            <button className="btn btn-proj" type="button" key={proj.name}>
+            <button
+              className="btn btn-proj"
+              type="button"
+              key={proj.name}
+              onClick={() => this.props.history.push(`projects/${proj.name}`)}
+            >
               {proj.name}
             </button>
           ))}
