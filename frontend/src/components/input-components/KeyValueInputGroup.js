@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 import TextInput from './TextInput';
 import SearchSelect from './SearchSelect';
 import './InputGroup.css';
@@ -43,7 +44,7 @@ class KeyValueInputGroup extends Component {
   render() {
     const { className, keyInputProps, valueInputProps, label, listOfPairs } = this.props;
     return (
-      <div className={`input-group ${className || ''}`}>
+      <div className={classNames('input-group', className)}>
         {label && <label className="title">{label}</label>}
         <button onClick={this.onAddInput} type="button" className="btn btn-group-input btn-green">
           Add

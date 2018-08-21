@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 import './TextInput.css';
 
 class TextInput extends Component {
@@ -15,7 +16,7 @@ class TextInput extends Component {
   render() {
     const { id, className, name, leftlabel, rightlabel, value, ...rest } = this.props;
     return (
-      <div id={id} className={`field-wrapper ${className || ''}`}>
+      <div id={id} className={classNames('field-wrapper', className)}>
         {leftlabel && <span> {leftlabel} </span>}
         <input
           {...rest}

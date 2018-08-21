@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import Select from 'react-select';
-import 'react-select/dist/react-select.css';
 import PropTypes from 'prop-types';
+import Select from 'react-select';
+import classNames from 'classnames';
+import 'react-select/dist/react-select.css';
 import './SearchSelect.css';
 
 class SearchSelect extends Component {
@@ -18,7 +19,7 @@ class SearchSelect extends Component {
   render() {
     const { className, label, options, multi, selectedOption } = this.props;
     return (
-      <div className={'search-select-wrapper ' + (className || '')}>
+      <div className={classNames('search-select-wrapper', className)}>
         {label && <label>{label}</label>}
         <Select value={selectedOption} onChange={this.onChange} options={options} multi={multi} />
       </div>
