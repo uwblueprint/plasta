@@ -5,9 +5,8 @@ import './FormSection.css';
 
 class FormSection extends Component {
   render() {
-    const className = this.props.className || '';
     return (
-      <div className={classNames('form-section', className)}>
+      <div className={classNames('form-section', this.props.className)}>
         {this.props.title && <h2> {this.props.title} </h2>}
         {this.props.children}
       </div>

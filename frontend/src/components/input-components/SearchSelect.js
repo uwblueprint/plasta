@@ -17,9 +17,9 @@ class SearchSelect extends Component {
   }
 
   render() {
-    const { className, label, options, multi, selectedOption } = this.props;
+    const { label, options, multi, selectedOption } = this.props;
     return (
-      <div className={classNames('search-select-wrapper', className)}>
+      <div className={classNames('search-select-wrapper', this.props.className)}>
         {label && <label>{label}</label>}
         <Select value={selectedOption} onChange={this.onChange} options={options} multi={multi} />
       </div>

@@ -7,17 +7,15 @@ import PropTypes from 'prop-types';
 class RadioSelect extends Component {
   constructor(props) {
     super(props);
-    if (!props.selectedValue) this.state = { selectedValue: '' };
     this.onChange = selectedValue => {
       this.props.onChange({ value: selectedValue, key: this.props.field });
     };
   }
 
   render() {
-    const { className, title, options } = this.props;
-    const selectedValue = this.props.selectedValue || this.state.selectedValue;
+    const { title, options, selectedValue } = this.props;
     return (
-      <div className={classNames('radio-select', className)}>
+      <div className={classNames('radio-select', this.props.className)}>
         {title && <h2> {title} </h2>}
         {options.map((option, i) => (
           <RadioOption

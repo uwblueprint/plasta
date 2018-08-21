@@ -14,9 +14,9 @@ class TextAreaInput extends Component {
   }
 
   render() {
-    const { className, label } = this.props;
+    const { label } = this.props;
     return (
-      <div className={classNames('text-area-input', className)}>
+      <div className={classNames('text-area-input', this.props.className)}>
         {label && <label>{label}</label>}
         <textarea onChange={this.onChange} value={this.props.value} />
       </div>
