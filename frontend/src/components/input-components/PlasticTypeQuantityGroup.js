@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { List, Map } from 'immutable';
 import classNames from 'classnames';
 import TextInput from './TextInput';
 import SearchSelect from './SearchSelect';
 import './InputGroup.css';
 
-class KeyValueInputGroup extends Component {
+class PlasticTypeQuantityGroup extends Component {
   constructor(props) {
     super(props);
     this.onAddInput = this.onAddInput.bind(this);
@@ -15,12 +16,8 @@ class KeyValueInputGroup extends Component {
 
   onTextChange(updatedVal, field, idx) {
     const list = this.props.listOfPairs;
-    const updatedList = list.map((pair, i) => {
-      if (i === idx) {
-        if (field === 0) return [updatedVal, pair[1]];
-        return [pair[0], updatedVal];
-      }
-      return pair;
+    const updatedList = list.update(idx, pair => {
+      return pair.set(field, updatedVal);
     });
     this.onChange(updatedList);
   }
@@ -31,13 +28,13 @@ class KeyValueInputGroup extends Component {
 
   onRemoveInput(i) {
     const list = this.props.listOfPairs;
-    const updatedList = list.slice(0, i).concat(list.slice(i + 1));
+    const updatedList = list.delete(i);
     this.onChange(updatedList);
   }
 
   onAddInput() {
     const list = this.props.listOfPairs;
-    const updatedList = [...list, ['', '']];
+    const updatedList = list.push(Map([['plasticType', ''], ['quantity', '']]));
     this.onChange(updatedList);
   }
 
@@ -49,19 +46,19 @@ class KeyValueInputGroup extends Component {
         <button onClick={this.onAddInput} type="button" className="btn btn-group-input btn-green">
           Add
         </button>
-        {listOfPairs.length ? (
+        {listOfPairs.size ? (
           listOfPairs.map((pair, i) => (
             <div key={`sibling-${i}`}>
               <SearchSelect
                 label={keyInputProps.label}
-                selectedOption={pair[0]}
-                onChange={e => this.onTextChange(e.value, 0, i)}
+                selectedOption={pair.get('plasticType')}
+                onChange={e => this.onTextChange(e.value, 'plasticType', i)}
                 {...keyInputProps}
               />
               <TextInput
-                type="text"
-                value={pair[1]}
-                onChange={e => this.onTextChange(e.value, 1, i)}
+                type="number"
+                value={pair.get('quantity')}
+                onChange={e => this.onTextChange(e.value, 'quantity', i)}
                 {...valueInputProps}
               />
               <button onClick={() => this.onRemoveInput(i)} type="button" className="btn btn-red">
@@ -77,13 +74,13 @@ class KeyValueInputGroup extends Component {
   }
 }
 
-KeyValueInputGroup.propTypes = {
+PlasticTypeQuantityGroup.propTypes = {
   className: PropTypes.string,
   label: PropTypes.string,
   keyInputProps: PropTypes.object,
   valueInputProps: PropTypes.object,
   onChange: PropTypes.func.isRequired,
-  listOfPairs: PropTypes.array.isRequired,
+  listOfPairs: PropTypes.instanceOf(List),
 };
 
-export default KeyValueInputGroup;
+export default PlasticTypeQuantityGroup;

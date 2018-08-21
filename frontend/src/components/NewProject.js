@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
+import { List } from 'immutable';
 import SearchSelect from './input-components/SearchSelect';
 import RadioSelect from './input-components/RadioSelect';
 import FormSection from './input-components/FormSection';
 import TextInput from './input-components/TextInput';
 import TextAreaInput from './input-components/TextAreaInput';
-import KeyValueInputGroup from './input-components/KeyValueInputGroup';
+import PlasticTypeQuantityGroup from './input-components/PlasticTypeQuantityGroup';
 import './NewProject.css';
 
 const staticDWCC = [{ label: 'DWCC 1', value: 'dw1' }, { label: 'DWCC 2', value: 'dw2' }];
@@ -30,7 +31,7 @@ class NewProject extends Component {
       wholesalerExworks: '',
       deliveredAmount: '',
       shippedAmount: '',
-      plasticTypes: [],
+      plasticTypes: List(),
     };
     this.onFieldChange = this.onFieldChange.bind(this);
   }
@@ -97,7 +98,7 @@ class NewProject extends Component {
         </FormSection>
 
         <FormSection title="Plastic Types">
-          <KeyValueInputGroup
+          <PlasticTypeQuantityGroup
             label="List of Plastic Types"
             field="plasticTypes"
             onChange={this.onFieldChange}
