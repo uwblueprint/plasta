@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import classNames from 'classnames';
 import RadioOption from './RadioOption';
 import './RadioSelect.css';
 import PropTypes from 'prop-types';
@@ -16,7 +17,7 @@ class RadioSelect extends Component {
     const { className, title, options } = this.props;
     const selectedValue = this.props.selectedValue || this.state.selectedValue;
     return (
-      <div className={`radio-select ${className || ''}`}>
+      <div className={classNames('radio-select', className)}>
         {title && <h2> {title} </h2>}
         {options.map((option, i) => (
           <RadioOption

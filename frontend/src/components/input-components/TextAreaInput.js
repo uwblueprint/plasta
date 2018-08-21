@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 import './TextAreaInput.css';
 
 class TextAreaInput extends Component {
@@ -15,7 +16,7 @@ class TextAreaInput extends Component {
   render() {
     const { className, label } = this.props;
     return (
-      <div className={`text-area-input ${className}`}>
+      <div className={classNames('text-area-input', className)}>
         {label && <label>{label}</label>}
         <textarea onChange={this.onChange} value={this.props.value} />
       </div>
