@@ -61,6 +61,23 @@ To exit the virtual environment:
 
     (backend) $ flask db upgrade
 
+### Seed Tool
+
+An easy way to interact with the database from the command line is using the `seed.py` located in the `tools` folder.
+
+You must be in the `backend` folder and _not_ the `tools` folder to use it.
+
+For example, to add a new vendor in the database
+
+    (backend) $ python -m tools.seed add --table vendor
+
+And you will be prompted to fill in specific details.
+
+To get more information
+
+    (backend) $ python -m tools.seed --help
+
+
 ## Contributing
 
 ### Changing requirements
@@ -80,6 +97,7 @@ After making changes to the schema with SQLALchemy, track changes using
 To actually reflect those changes on Postgresql, run
 
     (backend) $ flask db upgrade
+
 
 ### Linting
 
