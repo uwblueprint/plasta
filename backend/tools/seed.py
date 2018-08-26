@@ -17,7 +17,7 @@ def database():
 
 
 @database.command()
-@click.option('--table', type=click.Choice(TABLE_CHOICE), required=True)
+@click.option('--table', '-t', type=click.Choice(TABLE_CHOICE), required=True)
 def add(table):
     """Creates a new object in the database
 
@@ -36,7 +36,7 @@ def add(table):
 
 
 @database.command()
-@click.option('--table', type=click.Choice(TABLE_CHOICE), required=True)
+@click.option('--table', '-t', type=click.Choice(TABLE_CHOICE), required=True)
 @click.option('--object_id', type=int, required=True)
 def delete(table, object_id):
     """Deletes a object in the database
