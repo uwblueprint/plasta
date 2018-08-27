@@ -65,14 +65,10 @@ def _add_user():
     """Helper function for creating a user in the database"""
 
     params = {
-        'vendor_id':
-        click.prompt('Vendor ID', type=int),
-        'email':
-        click.prompt('Email'),
-        'active':
-        click.prompt('Active [y/N]', type=bool),
-        'password_hash':
-        bcrypt.hashpw(
+        'vendor_id': click.prompt('Vendor ID', type=int),
+        'email': click.prompt('Email'),
+        'active': click.prompt('Active [y/N]', type=bool),
+        'password_hash': bcrypt.hashpw(
             click.prompt(
                 'Password', hide_input=True, confirmation_prompt=True)
             .encode('utf8'), bcrypt.gensalt(14))
@@ -85,10 +81,9 @@ def _add_vendor():
     """Helper function for creating a vendor in the database"""
 
     params = {
-        'vendor_type':
-        click.prompt('Vendor Type', type=click.Choice(vendor_type_enum.enums)),
-        'name':
-        click.prompt('Name')
+        'vendor_type': click.prompt(
+            'Vendor Type', type=click.Choice(vendor_type_enum.enums)),
+        'name': click.prompt('Name')
     }
     return Vendor(**params)
 
