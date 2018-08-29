@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { List, Map } from 'immutable';
+import ImmutablePropTypes from 'react-immutable-proptypes';
+import { Map } from 'immutable';
 import classNames from 'classnames';
+import { plasticOptions, plasticOptionsByName } from '../utils/project';
 import TextInput from './TextInput';
 import SearchSelect from './SearchSelect';
 import './InputGroup.css';
@@ -11,14 +13,26 @@ class PlasticTypeQuantityGroup extends Component {
     super(props);
     this.onAddInput = this.onAddInput.bind(this);
     this.onChange = this.onChange.bind(this);
-    this.onTextChange = this.onTextChange.bind(this);
+    this.onFieldChange = this.onFieldChange.bind(this);
+    this.onQuantityChange = this.onQuantityChange.bind(this);
+    this.onPlasticTypeChange = this.onPlasticTypeChange.bind(this);
   }
 
-  onTextChange(updatedVal, field, idx) {
-    const list = this.props.listOfPairs;
-    const updatedList = list.update(idx, pair => {
-      return pair.set(field, updatedVal);
-    });
+  onPlasticTypeChange(newType, index) {
+    if (!newType) return;
+    this.onFieldChange(newType.value, 'plasticType', index);
+  }
+
+  onQuantityChange(newQuantity, index) {
+    const quantity = parseFloat(newQuantity, 10);
+    isNaN(quantity)
+      ? this.onFieldChange('', 'quantity', index)
+      : this.onFieldChange(quantity, 'quantity', index);
+  }
+
+  onFieldChange(updatedVal, field, index) {
+    const list = this.props.plasticQuantities;
+    const updatedList = list.update(index, pair => pair.set(field, updatedVal));
     this.onChange(updatedList);
   }
 
@@ -27,39 +41,43 @@ class PlasticTypeQuantityGroup extends Component {
   }
 
   onRemoveInput(i) {
-    const list = this.props.listOfPairs;
+    const list = this.props.plasticQuantities;
     const updatedList = list.delete(i);
     this.onChange(updatedList);
   }
 
   onAddInput() {
-    const list = this.props.listOfPairs;
-    const updatedList = list.push(Map([['plasticType', ''], ['quantity', '']]));
+    const list = this.props.plasticQuantities;
+    const updatedList = list.push(
+      Map({
+        plasticType: plasticOptions[0].value,
+        quantity: 0,
+      })
+    );
     this.onChange(updatedList);
   }
 
   render() {
-    const { keyInputProps, valueInputProps, label, listOfPairs } = this.props;
+    const { label, plasticQuantities } = this.props;
     return (
       <div className={classNames('input-group', this.props.className)}>
         {label && <label className="title">{label}</label>}
         <button onClick={this.onAddInput} type="button" className="btn btn-group-input btn-green">
           Add
         </button>
-        {listOfPairs.size ? (
-          listOfPairs.map((pair, i) => (
+        {plasticQuantities.size ? (
+          plasticQuantities.map((pair, i) => (
             <div key={`sibling-${i}`}>
               <SearchSelect
-                label={keyInputProps.label}
-                selectedOption={pair.get('plasticType')}
-                onChange={e => this.onTextChange(e.value, 'plasticType', i)}
-                {...keyInputProps}
+                options={plasticOptions}
+                selectedOption={plasticOptionsByName.get(pair.get('plasticType'))}
+                onChange={e => this.onPlasticTypeChange(e.value, i)}
               />
               <TextInput
                 type="number"
                 value={pair.get('quantity')}
-                onChange={e => this.onTextChange(e.value, 'quantity', i)}
-                {...valueInputProps}
+                rightlabel="kg"
+                onChange={e => this.onQuantityChange(e.value, i)}
               />
               <button onClick={() => this.onRemoveInput(i)} type="button" className="btn btn-red">
                 delete
@@ -77,10 +95,13 @@ class PlasticTypeQuantityGroup extends Component {
 PlasticTypeQuantityGroup.propTypes = {
   className: PropTypes.string,
   label: PropTypes.string,
-  keyInputProps: PropTypes.object,
-  valueInputProps: PropTypes.object,
   onChange: PropTypes.func.isRequired,
-  listOfPairs: PropTypes.instanceOf(List),
+  plasticQuantities: ImmutablePropTypes.listOf(
+    ImmutablePropTypes.mapContains({
+      plasticType: PropTypes.string.isRequired,
+      quantity: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+    })
+  ).isRequired,
 };
 
 export default PlasticTypeQuantityGroup;

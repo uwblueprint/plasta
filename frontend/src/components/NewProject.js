@@ -31,7 +31,7 @@ class NewProject extends Component {
       wholesalerExworks: '',
       deliveredAmount: '',
       shippedAmount: '',
-      plasticTypes: List(),
+      plasticQuantities: List(),
     };
     this.onFieldChange = this.onFieldChange.bind(this);
   }
@@ -100,15 +100,9 @@ class NewProject extends Component {
         <FormSection title="Plastic Types">
           <PlasticTypeQuantityGroup
             label="List of Plastic Types"
-            field="plasticTypes"
+            field="plasticQuantities"
             onChange={this.onFieldChange}
-            listOfPairs={this.state.plasticTypes}
-            keyInputProps={{
-              options: [{ label: 'plastic 1', value: 'p1' }],
-            }}
-            valueInputProps={{
-              rightlabel: 'kg',
-            }}
+            plasticQuantities={this.state.plasticQuantities}
           />
         </FormSection>
 
