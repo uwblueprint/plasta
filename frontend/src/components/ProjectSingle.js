@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { List } from 'immutable';
+import TransactionHistory from './TransactionHistory';
 import TextInput from './input-components/TextInput';
 import './ProjectSingle.css';
+import { fakeData } from './fakeData';
 
 class ProjectSingle extends Component {
   constructor(props) {
@@ -47,6 +49,8 @@ class ProjectSingle extends Component {
     return (
       <div className="page-wrapper" id="proj-page-wrapper">
         <h1>{this.state.name}</h1>
+        <h2>Transaction History</h2>
+        <TransactionHistory data={fakeData} />
         <h2>Project Checklist</h2>
         <TextInput
           field="newItemValue"

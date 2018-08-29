@@ -2,7 +2,6 @@ import ReactTable from 'react-table';
 import React, { Component } from 'react';
 import './TransactionHistory.css';
 import 'react-table/react-table.css';
-import { fakeData } from './fakeData.js';
 
 const columns = [
   {
@@ -34,12 +33,9 @@ const columns = [
 class TransactionHistory extends Component {
   constructor() {
     super();
-    this.state = {
-      data: fakeData,
-    };
   }
   render() {
-    const { data } = this.state;
+    const { data } = this.props;
     return (
       <div>
         <h1> Transaction History </h1>
