@@ -1,7 +1,11 @@
 import React, { Component } from 'react';
 import './AdminDashboard.css';
 
-const dummyProjects = [{ name: 'Project A' }, { name: 'Project B' }, { name: 'Project C' }];
+const dummyProjects = [
+  { name: 'Project A', slug: 'project-a' },
+  { name: 'Project B', slug: 'project-b' },
+  { name: 'Project C', slug: 'project-c' },
+];
 
 class AdminDashboard extends Component {
   render() {
@@ -21,8 +25,8 @@ class AdminDashboard extends Component {
             <button
               className="btn btn-proj"
               type="button"
-              key={project.name}
-              onClick={() => this.props.history.push(`projects/${project.name}`)}
+              key={project.slug}
+              onClick={() => this.props.history.push(`projects/${project.slug}`)}
             >
               {project.name}
             </button>
