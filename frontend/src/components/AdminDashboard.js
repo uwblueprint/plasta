@@ -17,14 +17,14 @@ class AdminDashboard extends Component {
         </button>
         <h2>Active Projects</h2>
         <div className="active-proj-wrapper">
-          {dummyProjects.map(proj => (
+          {dummyProjects.map(project => (
             <button
               className="btn btn-proj"
               type="button"
-              key={proj.name}
-              onClick={() => this.props.history.push(`projects/${proj.name}`)}
+              key={project.name}
+              onClick={() => this.props.history.push(`projects/${project.name}`)}
             >
-              {proj.name}
+              {project.name}
             </button>
           ))}
         </div>
