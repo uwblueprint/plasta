@@ -31,9 +31,6 @@ const columns = [
 ];
 
 class TransactionHistory extends Component {
-  constructor() {
-    super();
-  }
   render() {
     const { data } = this.props;
     return (
