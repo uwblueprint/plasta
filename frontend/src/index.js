@@ -5,6 +5,7 @@ import { createStore } from 'redux';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import registerServiceWorker from './registerServiceWorker';
 import rootReducer from './reducers';
+import DWCCLandingPage from './components/DWCCLandingPage';
 import LandingPage from './components/LandingPage';
 import LoginPage from './components/LoginContainer';
 import NewProject from './components/NewProject';
@@ -22,6 +23,9 @@ render(
       <Switch>
         <Route path="/" exact component={LoginPage} />
         <Route path="/landing" component={LandingPage} />
+        {/* Note: We are using a different route for DWCC landing page currently.
+        We could look into combining the different landing pages into a singular component. */}
+        <Route path="/dwcclanding" component={DWCCLandingPage} />
         <Route path="/admindash" component={AdminDashboard} />
         <Route path="/projects/new" component={NewProject} />
         <Route path="/projects/:projectSlug" component={ProjectPage} />
