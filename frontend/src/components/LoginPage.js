@@ -44,7 +44,15 @@ class LoginPage extends Component {
             />
           </div>
           <button className="btn" type="submit" onClick={() => this.props.history.push('/landing')}>
-            Login
+            Admin Login
+          </button>
+          {/* Currently displaying a different login for DWCC for testing */}
+          <button
+            className="btn"
+            type="submit"
+            onClick={() => this.props.history.push('/dwcclanding')}
+          >
+            DWCC Login
           </button>
         </form>
       </div>
