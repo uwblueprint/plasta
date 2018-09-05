@@ -9,6 +9,7 @@ class LoginPage extends Component {
     this.state = {
       email: '',
       password: '',
+      is_admin: false,
     };
     this.onChange = field => this.setState({ [field.key]: field.value });
   }
@@ -44,15 +45,7 @@ class LoginPage extends Component {
             />
           </div>
           <button className="btn" type="submit" onClick={() => this.props.history.push('/landing')}>
-            Admin Login
-          </button>
-          {/* Currently displaying a different login for DWCC for testing */}
-          <button
-            className="btn"
-            type="submit"
-            onClick={() => this.props.history.push('/dwcclanding')}
-          >
-            DWCC Login
+            Login
           </button>
         </form>
       </div>
