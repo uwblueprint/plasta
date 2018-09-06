@@ -9,7 +9,6 @@ class LoginPage extends Component {
     this.state = {
       email: '',
       password: '',
-      is_admin: false,
     };
     this.onChange = field => this.setState({ [field.key]: field.value });
   }

@@ -3,10 +3,10 @@ import './LandingPage.css';
 
 class LandingPage extends Component {
   state = {
-    is_admin: true,
+    isAdmin: true,
   };
 
-  load_admin_page = (
+  loadAdminPage = (
     <Fragment>
       <button className="btn" type="button" onClick={() => this.props.history.push('admindash')}>
         Projects
@@ -21,7 +21,7 @@ class LandingPage extends Component {
     </Fragment>
   );
 
-  load_dwcc_page = (
+  loadDwccPage = (
     <Fragment>
       <button className="btn" type="button">
         Most Recent Project
@@ -38,9 +38,7 @@ class LandingPage extends Component {
   render() {
     return (
       <div className="page-wrapper vcentre-outer" id="landing-wrapper">
-        <div className="vcentre">
-          {this.state.is_admin ? this.load_admin_page : this.load_dwcc_page}
-        </div>
+        <div className="vcentre">{this.state.isAdmin ? this.loadAdminPage : this.loadDwccPage}</div>
       </div>
     );
   }
