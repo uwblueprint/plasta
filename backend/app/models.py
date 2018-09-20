@@ -27,7 +27,7 @@ plastic_type_enum = db.Enum(
 # Fix for SQLAlchemy glitch that prevents inserting tables columns that are an array of enums
 # Workaround taken from
 # https://stackoverflow.com/questions/30783942/storing-a-postgresql-array-of-enum-values/31567612#31567612
-class ArrayOfEnum(ARRAY): # pylint: disable=too-many-ancestors
+class ArrayOfEnum(ARRAY):  # pylint: disable=too-many-ancestors
     def bind_expression(self, bindvalue):
         return cast(bindvalue, self)
 
