@@ -83,9 +83,9 @@ class Transaction(db.Model):
     project_id = db.Column(
         db.Integer, db.ForeignKey('project.id'), nullable=False)
     from_vendor_id = db.Column(
-        db.Integer, db.ForeignKey('user.id'), nullable=False)
+        db.Integer, db.ForeignKey('vendor.id'), nullable=False)
     to_vendor_id = db.Column(
-        db.Integer, db.ForeignKey('user.id'), nullable=False)
+        db.Integer, db.ForeignKey('vendor.id'), nullable=False)
     to_acknowledged = db.Column(db.Boolean, nullable=False, default=False)
     acknowledged_at = db.Column(db.DateTime)
     price = db.Column(db.Float(2), nullable=False)
