@@ -42,7 +42,7 @@ To check if the setup worked, see if `plasta` appears as a role and a database w
 
     $ cp .env.sample .env
 
-For `APP_SETTINGS`, replace `DevelopmentConfig` with `ProductionConfig` or one of the other configurations in `config.py` according to your needs. 
+For `APP_SETTINGS`, replace `DevelopmentConfig` with `ProductionConfig` or one of the other configurations in `config.py` according to your needs.
 
 #### Migrations
 
@@ -52,6 +52,8 @@ Activate the virtual environment and run the migrations (steps in the run sectio
 ## Run
 
     $ pipenv shell
+    # Make sure to have run migrations
+    (backend) $ flask run
 
 To exit the virtual environment:
 
@@ -60,6 +62,12 @@ To exit the virtual environment:
 ### Migrations
 
     (backend) $ flask db upgrade
+
+### Production
+
+On a production environment, use gunicorn:
+
+    $ pipenv run gunicorn app:app
 
 ### Seed Tool
 

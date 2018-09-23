@@ -11,6 +11,7 @@ flask-migrate = "*"
 bcrypt = "*"
 "psycopg2-binary" = "*"
 click = "*"
+gunicorn = "*"
 
 [dev-packages]
 fancycompleter = "*"
