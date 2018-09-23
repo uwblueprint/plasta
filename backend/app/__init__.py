@@ -14,6 +14,6 @@ db.init_app(app)
 migrate.init_app(app, db)
 
 #pylint: disable=wrong-import-position
-from app.project.routes import project
+from app.routes.project_routes import project_blueprint
 
-app.register_blueprint(project)
+app.register_blueprint(project_blueprint)
