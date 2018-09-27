@@ -12,6 +12,7 @@ bcrypt = "*"
 "psycopg2-binary" = "*"
 click = "*"
 gunicorn = "*"
+flask-jwt-extended = "*"
 
 [dev-packages]
 fancycompleter = "*"
