@@ -34,6 +34,7 @@ class NewProject extends Component {
       plasticQuantities: List(),
     };
     this.onFieldChange = this.onFieldChange.bind(this);
+    this.onSubmit = this.onSubmit.bind(this);
   }
 
   onFieldChange(field) {
@@ -41,7 +42,23 @@ class NewProject extends Component {
   }
 
   onSubmit() {
-    // TODO: (nick) send the state of the form to wherever
+    const url = 'http://localhost:5000/project';
+    const plasticTypes = this.state.plasticQuantities
+      .map(pair => pair.get('plasticType'))
+      .toArray();
+    const newProjectData = {
+      name: this.state.projectName,
+      project_type: this.state.projectType,
+      plastic_types: plasticTypes,
+    };
+    const data = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(newProjectData),
+    };
+    fetch(url, data);
   }
 
   render() {
@@ -212,6 +229,9 @@ class NewProject extends Component {
             onChange={this.onFieldChange}
           />
         </FormSection>
+        <button type="submit" onClick={this.onSubmit}>
+          SUBMIT
+        </button>
       </div>
     );
   }
