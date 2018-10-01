@@ -119,3 +119,31 @@ pylint can be configured with your [IDE](https://pylint.readthedocs.io/en/latest
 Please format your code with yapf before pushing, which also has [IDE](https://github.com/google/yapf/tree/2c13f6f93e8ccfa0c966b67f88eeffe20ccb32a0/plugins#ide-plugins) integrations:
 
     (backend) $ yapf --recursive --in-place .
+
+
+## API Specifications
+
+### Auth Routes
+
+`POST /login`
+
+Request:
+```
+{
+  'email': 'user@example.com',
+  'password_hash': 'password_hash123'
+}
+```
+
+Response:
+
+```
+{
+  'access_token': 'access_token_123'
+}
+```
+
+Once the user has successfully logged in, they will be provided with an access token. They must pass this access token in the headers as follows:
+
+`-H 'Authorization: Bearer ${access_token}'`
+

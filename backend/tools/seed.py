@@ -5,7 +5,7 @@ A command line tool to create data on the database
 from pprint import pprint
 import click
 import bcrypt
-from app.app import db
+from app import db
 from app.models import User, Vendor, vendor_type_enum
 
 TABLE_CHOICE = ('user', 'vendor')
