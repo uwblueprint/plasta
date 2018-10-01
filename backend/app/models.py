@@ -1,7 +1,5 @@
-import re
-
-from sqlalchemy import cast, func
-from sqlalchemy.dialects.postgresql import ARRAY, JSONB
+from sqlalchemy import func
+from sqlalchemy.dialects.postgresql import JSONB
 
 from app import db
 
@@ -22,28 +20,6 @@ plastic_type_enum = db.Enum(
     'pet_non_food_clear',
     'pet_clear',
     name='plastic_type')
-
-
-# Fix for SQLAlchemy glitch that prevents inserting tables columns that are an array of enums
-# Workaround taken from
-# https://stackoverflow.com/questions/30783942/storing-a-postgresql-array-of-enum-values/31567612#31567612
-class ArrayOfEnum(ARRAY):  # pylint: disable=too-many-ancestors
-    def bind_expression(self, bindvalue):
-        return cast(bindvalue, self)
-
-    def result_processor(self, dialect, coltype):
-        super_rp = super(ArrayOfEnum, self).result_processor(dialect, coltype)
-
-        def handle_raw_string(value):
-            if value is None:
-                return []
-            inner = re.match(r"^{(.*)}$", value).group(1)
-            return inner.split(",")
-
-        def process(value):
-            return super_rp(handle_raw_string(value))
-
-        return process
 
 
 class Vendor(db.Model):
@@ -73,7 +49,7 @@ class Project(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(255), nullable=False)
     project_type = db.Column(project_type_enum, nullable=False)
-    plastic_types = db.Column(ArrayOfEnum(plastic_type_enum))
+    plastics = db.relationship('ProjectPlasticMap', back_populates='project')
     meta_data = db.Column(JSONB)
 
 
@@ -115,6 +91,16 @@ class ProjectVendorMap(db.Model):
     __table_args__ = (db.Index('IX_project_vendor_map_project_id', project_id),
                       db.Index('IX_project_vendor_map_vendor_id', vendor_id),
                       db.UniqueConstraint('project_id', 'vendor_id'))
+
+
+class ProjectPlasticMap(db.Model):
+    __tablename__ = 'project_plastic_map'
+    project_id = db.Column(
+        db.Integer, db.ForeignKey('project.id'), primary_key=True)
+    plastic_type = db.Column(
+        plastic_type_enum, nullable=False, primary_key=True)
+    quantity = db.Column(db.Integer, nullable=False)
+    project = db.relationship('Project', back_populates='plastics')
 
 
 class TransactionPlasticMap(db.Model):
