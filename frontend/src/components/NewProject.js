@@ -7,6 +7,7 @@ import TextInput from './input-components/TextInput';
 import TextAreaInput from './input-components/TextAreaInput';
 import PlasticTypeQuantityGroup from './input-components/PlasticTypeQuantityGroup';
 import './NewProject.css';
+import { API_ENDPOINT } from './utils/constants';
 
 const staticDWCC = [{ label: 'DWCC 1', value: 'dw1' }, { label: 'DWCC 2', value: 'dw2' }];
 
@@ -42,7 +43,7 @@ class NewProject extends Component {
   }
 
   onSubmit() {
-    const url = 'http://localhost:5000/project';
+    const url = API_ENDPOINT + 'project';
     const plasticTypes = this.state.plasticQuantities
       .map(pair => pair.get('plasticType'))
       .toArray();
@@ -229,8 +230,8 @@ class NewProject extends Component {
             onChange={this.onFieldChange}
           />
         </FormSection>
-        <button type="submit" onClick={this.onSubmit}>
-          SUBMIT
+        <button className="btn btn-green uppercase" type="submit" onClick={this.onSubmit}>
+          Submit
         </button>
       </div>
     );
