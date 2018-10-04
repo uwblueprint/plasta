@@ -7,6 +7,7 @@ from app import db_client
 project_blueprint = Blueprint('project', __name__)
 CORS(project_blueprint)
 
+
 @project_blueprint.route('/project', methods=['GET', 'POST'])
 @jwt_required
 def handle_project():
