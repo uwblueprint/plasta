@@ -1,7 +1,7 @@
 from sqlalchemy import func
 from sqlalchemy.dialects.postgresql import JSONB
 
-from app import db
+from . import db
 
 vendor_type_enum = db.Enum(
     'admin',
@@ -51,6 +51,10 @@ class Project(db.Model):
     project_type = db.Column(project_type_enum, nullable=False)
     plastics = db.relationship('ProjectPlasticMap', back_populates='project')
     meta_data = db.Column(JSONB)
+
+    def save(self):
+        db.session.add(self)
+        db.session.commit()
 
 
 class Transaction(db.Model):

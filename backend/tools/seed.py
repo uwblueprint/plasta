@@ -5,8 +5,9 @@ A command line tool to create data on the database
 from pprint import pprint
 import click
 import bcrypt
-from app import db
-from app.models import User, Vendor, vendor_type_enum
+
+from app.models import db
+from app.models.models import User, Vendor, vendor_type_enum
 
 TABLE_CHOICE = ('user', 'vendor')
 
@@ -70,8 +71,8 @@ def _add_user():
         'active': click.prompt('Active [y/N]', type=bool),
         'password_hash': bcrypt.hashpw(
             click.prompt(
-                'Password', hide_input=True, confirmation_prompt=True)
-            .encode('utf8'), bcrypt.gensalt(14))
+                'Password', hide_input=True,
+                confirmation_prompt=True).encode('utf8'), bcrypt.gensalt(14))
     }
     params = {param: value for param, value in params.items() if value != ''}
     return User(**params)

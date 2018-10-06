@@ -2,8 +2,8 @@ from datetime import timedelta
 
 from flask import Blueprint, request
 from flask_jwt_extended import create_access_token
-from app.routes.route_utils import error_response, success
-from app import db_client
+from .route_utils import error_response, success
+from . import db_client
 
 auth_blueprint = Blueprint('auth', __name__)
 
@@ -20,5 +20,6 @@ def login():
         return error_response("User cannot be found")
 
     validity_time = timedelta(days=7)
-    access_token = create_access_token(identity=email, expires_delta=validity_time)
+    access_token = create_access_token(
+        identity=email, expires_delta=validity_time)
     return success(**{"access_token": access_token})
