@@ -2,6 +2,7 @@ from sqlalchemy import func
 from sqlalchemy.dialects.postgresql import JSONB
 
 from . import db
+from .mixins import CRUDMixin
 
 vendor_type_enum = db.Enum(
     'admin',
@@ -22,7 +23,7 @@ plastic_type_enum = db.Enum(
     name='plastic_type')
 
 
-class Vendor(db.Model):
+class Vendor(CRUDMixin, db.Model):
     __tablename__ = 'vendor'
     id = db.Column(db.Integer, primary_key=True)
     vendor_type = db.Column(vendor_type_enum, nullable=False)
@@ -31,7 +32,7 @@ class Vendor(db.Model):
     created_at = db.Column(db.DateTime, server_default=db.func.now())
 
 
-class User(db.Model):
+class User(CRUDMixin, db.Model):
     __tablename__ = 'user'
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(255), nullable=False, unique=True)
@@ -44,7 +45,7 @@ class User(db.Model):
     __table_args__ = (db.Index('IX_user_email', func.lower(email)), )
 
 
-class Project(db.Model):
+class Project(CRUDMixin, db.Model):
     __tablename__ = 'project'
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(255), nullable=False)
@@ -52,12 +53,8 @@ class Project(db.Model):
     plastics = db.relationship('ProjectPlasticMap', back_populates='project')
     meta_data = db.Column(JSONB)
 
-    def save(self):
-        db.session.add(self)
-        db.session.commit()
 
-
-class Transaction(db.Model):
+class Transaction(CRUDMixin, db.Model):
     __tablename__ = 'transaction'
     id = db.Column(db.Integer, primary_key=True)
     project_id = db.Column(

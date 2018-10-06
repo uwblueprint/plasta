@@ -1,14 +1,17 @@
 from flask import jsonify
-
-# Note: Error codes should follow the format found here:
-#   https://www.restapitutorial.com/httpstatuscodes.html
+from werkzeug.http import HTTP_STATUS_CODES
 
 
-def error_response(msg):
-    return jsonify({
-        "msg": msg,
-    }), 400
+def error_response(message=None, status_code=400):
+    payload = {'error': HTTP_STATUS_CODES.get(status_code, 'Unknown error')}
+    if message:
+        payload['message'] = message
+    response = jsonify(payload)
+    response.status_code = status_code
+    return response
 
 
 def success(**kwargs):
-    return jsonify(kwargs), 200
+    response = jsonify(kwargs)
+    response.status_code = 200
+    return response
