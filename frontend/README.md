@@ -10,6 +10,10 @@
 
         $ npm install
 
+ 1. Copy environment variables from .env.sample:
+
+        $ cp .env.sample .env
+
 ## Run
 
     $ npm start
