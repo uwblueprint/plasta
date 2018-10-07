@@ -1,6 +1,5 @@
 from . import db
 
-
 # Stolen from https://gist.github.com/YukSeungChan/851967b04d1f7cb6ba56
 
 

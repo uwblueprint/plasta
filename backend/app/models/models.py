@@ -4,14 +4,6 @@ from sqlalchemy.dialects.postgresql import JSONB
 from . import db
 from .mixins import CRUDMixin
 
-vendor_type_enum = db.Enum(
-    'admin',
-    'wastepicker',
-    'dwcc',
-    'wholesaler',
-    'manufacturer',
-    name='vendor_type')
-
 project_type_enum = db.Enum('internal', 'external', name='project_type')
 
 plastic_type_enum = db.Enum(
@@ -21,15 +13,6 @@ plastic_type_enum = db.Enum(
     'pet_non_food_clear',
     'pet_clear',
     name='plastic_type')
-
-
-class Vendor(CRUDMixin, db.Model):
-    __tablename__ = 'vendor'
-    id = db.Column(db.Integer, primary_key=True)
-    vendor_type = db.Column(vendor_type_enum, nullable=False)
-    name = db.Column(db.String(255), nullable=False)
-    meta_data = db.Column(JSONB)
-    created_at = db.Column(db.DateTime, server_default=db.func.now())
 
 
 class User(CRUDMixin, db.Model):
