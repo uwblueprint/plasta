@@ -1,4 +1,4 @@
-"""empty message
+"""add vendor id
 
 Revision ID: ada1700cd552
 Revises: a1b8a4cb1c13

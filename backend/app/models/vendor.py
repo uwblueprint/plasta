@@ -1,0 +1,65 @@
+from sqlalchemy.dialects.postgresql import JSONB
+
+from . import db
+from .mixins import CRUDMixin
+
+vendor_type_enum = db.Enum(
+    'admin',
+    'wastepicker',
+    'dwcc',
+    'wholesaler',
+    'manufacturer',
+    name='vendor_type')
+
+vendor_subtype_enum = db.Enum(
+    'wastepicker',
+    'home_based_worker',
+    'itinerant_buyer',
+    'wp_community_leader',
+    'small_scrap_shop',
+    'scrap_shop',
+    'van_unit',
+    'dwcc',
+    'wholesaler',
+    'export_wholesaler',
+    'franchisee_partner',
+    'processor',
+    'brand',
+    'admin',
+    name='vendor_subtype')
+
+vendor_subtype_map = {
+    'admin': 'admin',
+    'wastepicker': 'wastepicker',
+    'home_based_worker': 'wastepicker',
+    'itinerant_buyer': 'wastepicker',
+    'wp_community_leader': 'wastepicker',
+    'small_scrap_shop': 'dwcc',
+    'scrap_shop': 'dwcc',
+    'van_unit': 'dwcc',
+    'dwcc': 'dwcc',
+    'wholesaler': 'wholesaler',
+    'export_wholesaler': 'wholesaler',
+    'franchisee_partner': 'wholesaler',
+    'processor': 'manufacturer',
+    'brand': 'manufacturer',
+}
+
+
+class Vendor(CRUDMixin, db.Model):
+    __tablename__ = 'vendor'
+    id = db.Column(db.Integer, primary_key=True)
+    vendor_type = db.Column(vendor_type_enum, nullable=False)
+    vendor_subtype = db.Column(vendor_subtype_enum, nullable=False)
+    name = db.Column(db.String(255), nullable=False)
+    meta_data = db.Column(JSONB)
+    created_at = db.Column(db.DateTime, server_default=db.func.now())
+
+    @classmethod
+    def create(cls, **kwargs):
+        # Override the `create` method to enforce that `vendor_type` is
+        # the proper parent of `vendor_subtype`.
+        subtype = kwargs['vendor_subtype']
+        kwargs['vendor_type'] = vendor_subtype_map[subtype]
+        instance = cls(**kwargs)
+        return instance.save()
