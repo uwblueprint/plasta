@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import TransactionHistory from './TransactionHistory';
-import { fakeData } from './fakeData';
 import './ProjectPage.css';
+
+const data = [];
 
 class ProjectPage extends Component {
   constructor(props) {
@@ -12,11 +13,20 @@ class ProjectPage extends Component {
     };
   }
 
+  componentDidMount() {
+    const url =
+      process.env.REACT_APP_API_URL + 'project/' + this.props.project_id + '/transactions';
+
+    fetch(url).then(function(res) {
+      data = res.data['transactions'];
+    });
+  }
+
   render() {
     return (
       <div className="page-wrapper" id="proj-page-wrapper">
         <h1>{this.state.name}</h1>
-        <TransactionHistory data={fakeData} />
+        <TransactionHistory data={data} />
       </div>
     );
   }
