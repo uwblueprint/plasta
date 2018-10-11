@@ -24,7 +24,7 @@ render(
         <Route path="/landing" component={LandingPage} />
         <Route path="/admindash" component={AdminDashboard} />
         <Route path="/projects/new" component={NewProject} />
-        <Route path="/projects/:projectSlug" component={ProjectPage} />
+        <Route path="/projects/:projectId" component={ProjectPage} />
         <Route path="/admin/stakeholders/new" component={AdminNewStakeholder} />
         <Route path="/admin/stakeholders" component={AdminStakeholder} />
       </Switch>
