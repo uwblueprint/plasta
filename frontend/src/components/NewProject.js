@@ -6,7 +6,7 @@ import FormSection from './input-components/FormSection';
 import TextInput from './input-components/TextInput';
 import TextAreaInput from './input-components/TextAreaInput';
 import PlasticTypeQuantityGroup from './input-components/PlasticTypeQuantityGroup';
-import { postHTTPRequest } from './utils/globalHelpers.js';
+import { post } from './utils/requests';
 import './NewProject.css';
 
 const staticDWCC = [{ label: 'DWCC 1', value: 'dw1' }, { label: 'DWCC 2', value: 'dw2' }];
@@ -43,13 +43,12 @@ class NewProject extends Component {
   }
 
   onSubmit() {
-    const plasticsArray = this.state.plasticQuantities.map(mapObj => mapObj.toJSON()).toArray();
     const newProjectData = {
       name: this.state.projectName,
       project_type: this.state.projectType,
-      plastics: plasticsArray,
+      plastics: this.state.plasticQuantities,
     };
-    postHTTPRequest('project', newProjectData);
+    post('/projects', newProjectData);
   }
 
   render() {
