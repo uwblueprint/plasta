@@ -6,6 +6,7 @@ import FormSection from './input-components/FormSection';
 import TextInput from './input-components/TextInput';
 import TextAreaInput from './input-components/TextAreaInput';
 import PlasticTypeQuantityGroup from './input-components/PlasticTypeQuantityGroup';
+import { postHTTPRequest } from './utils/globalHelpers.js';
 import './NewProject.css';
 
 const staticDWCC = [{ label: 'DWCC 1', value: 'dw1' }, { label: 'DWCC 2', value: 'dw2' }];
@@ -42,23 +43,13 @@ class NewProject extends Component {
   }
 
   onSubmit() {
-    const url = process.env.REACT_APP_API_URL + 'project';
-    const plasticTypes = this.state.plasticQuantities
-      .map(pair => pair.get('plasticType'))
-      .toArray();
+    const plasticsArray = this.state.plasticQuantities.map(mapObj => mapObj.toJSON()).toArray();
     const newProjectData = {
       name: this.state.projectName,
       project_type: this.state.projectType,
-      plastic_types: plasticTypes,
+      plastics: plasticsArray,
     };
-    const data = {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(newProjectData),
-    };
-    fetch(url, data);
+    postHTTPRequest('project', newProjectData);
   }
 
   render() {
