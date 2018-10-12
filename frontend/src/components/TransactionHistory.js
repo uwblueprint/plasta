@@ -6,38 +6,78 @@ import 'react-table/react-table.css';
 const columns = [
   {
     Header: 'To',
-    accessor: 'to',
+    accessor: 'to_vendor_id',
   },
   {
     Header: 'From',
-    accessor: 'from',
+    accessor: 'from_vendor_id',
   },
   {
     Header: 'Rupees',
-    accessor: 'rs',
+    accessor: 'price',
   },
   {
     Header: 'Kilograms',
-    accessor: 'kg',
+    accessor: 'plastics.quantity',
   },
   {
     Header: 'Type',
-    accessor: 'type',
+    accessor: 'plastics.plastic_type',
   },
   {
     Header: 'Date',
-    accessor: 'date',
+    accessor: 'sale_date',
+  },
+];
+
+const dummyTransactions = [
+  {
+    id: 1,
+    project_id: 1,
+    from_vendor_id: 1,
+    to_vendor_id: 2,
+    to_acknowledged: false,
+    acknowledged_at: null,
+    price: 10.99,
+    sale_date: Date.now(),
+    plastics: {
+      transaction_id: 100,
+      plastic_type: 'brown_pet',
+      quantity: 99,
+      price: 10.99,
+    },
+    creator_id: 3,
+    created_at: Date.now(),
+  },
+  {
+    id: 2,
+    project_id: 3,
+    from_vendor_id: 1,
+    to_vendor_id: 2,
+    to_acknowledged: false,
+    acknowledged_at: null,
+    price: 10.99,
+    sale_date: Date.now(),
+    plastics: {
+      transaction_id: 100,
+      plastic_type: 'pet_light_blue',
+      quantity: 99,
+      price: 10.99,
+    },
+    creator_id: 5,
+    created_at: Date.now(),
   },
 ];
 
 class TransactionHistory extends Component {
   render() {
-    const { data } = this.props;
+    // TODO (ahmed): Once backend is implemented, I can use that data
+    // const { data } = this.props;
     return (
       <div>
         <h1> Transaction History </h1>
         <ReactTable
-          data={data}
+          data={dummyTransactions}
           columns={columns}
           defaultPageSize={5}
           className="-striped -highlight table"
