@@ -1,13 +1,33 @@
 import React, { Component } from 'react';
 import './AdminDashboard.css';
-
-const dummyProjects = [
-  { name: 'Project A', id: '1' },
-  { name: 'Project B', id: '2' },
-  { name: 'Project C', id: '3' },
-];
+import { get } from './utils/requests.js';
 
 class AdminDashboard extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      projectList: [],
+      showPlaceholderText: false,
+      placeholderText: 'No projects to display.',
+    };
+  }
+
+  componentDidMount() {
+    get('/projects')
+      .then(res => {
+        this.setState({
+          projectList: res.data,
+          showPlaceholderText: res.data.length ? false : true,
+        });
+      })
+      .catch(err => {
+        this.setState({
+          showPlaceholderText: true,
+          placeholderText: 'Something went wrong. Unable to fetch projects at this time.',
+        });
+      });
+  }
+
   render() {
     return (
       <div className="page-wrapper" id="admin-dash-wrapper">
@@ -21,16 +41,20 @@ class AdminDashboard extends Component {
         </button>
         <h2>Active Projects</h2>
         <div className="active-proj-wrapper">
-          {dummyProjects.map(project => (
-            <button
-              className="btn btn-proj"
-              type="button"
-              key={project.id}
-              onClick={() => this.props.history.push(`projects/${project.id}`)}
-            >
-              {project.name}
-            </button>
-          ))}
+          {this.state.showPlaceholderText ? (
+            <div className="error-placeholder">{this.state.placeholderText}</div>
+          ) : (
+            this.state.projectList.map(project => (
+              <button
+                className="btn btn-proj"
+                type="button"
+                key={project.id}
+                onClick={() => this.props.history.push(`projects/${project.id}`)}
+              >
+                {project.name}
+              </button>
+            ))
+          )}
         </div>
         <button className="btn" id="btn-archive" type="button">
           Archive

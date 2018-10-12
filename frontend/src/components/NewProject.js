@@ -48,7 +48,8 @@ class NewProject extends Component {
       project_type: this.state.projectType,
       plastics: this.state.plasticQuantities,
     };
-    post('/projects', newProjectData);
+    // TODO: (XIN) Handle proj creation error
+    post('/projects', newProjectData).catch(err => {});
   }
 
   render() {

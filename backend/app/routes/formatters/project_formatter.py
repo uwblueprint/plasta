@@ -1,7 +1,7 @@
 # TODO(imran): Make sure this handles `relationship` columns
 def format_project(project):
-    fields = ['name', 'project_type', 'plastics']
-    project_dict = project.to_dict()
+    fields = ['id', 'name', 'project_type']
+    project_dict = vars(project)
     return {field: project_dict[field] for field in fields}
 
 
