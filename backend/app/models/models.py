@@ -77,7 +77,7 @@ class ProjectVendorMap(db.Model):
                       db.UniqueConstraint('project_id', 'vendor_id'))
 
 
-class ProjectPlasticMap(db.Model):
+class ProjectPlasticMap(CRUDMixin, db.Model):
     __tablename__ = 'project_plastic_map'
     project_id = db.Column(
         db.Integer, db.ForeignKey('project.id'), primary_key=True)
