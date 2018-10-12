@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import TransactionHistory from './TransactionHistory';
 import './ProjectPage.css';
 
-const data = [];
+let data = [];
 
 class ProjectPage extends Component {
   constructor(props) {
@@ -14,11 +14,11 @@ class ProjectPage extends Component {
   }
 
   componentDidMount() {
-    const { project_id } = this.props.match.params;
-    const url = process.env.REACT_APP_API_URL + `project/${project_id}/transactions`;
+    const { projectId } = this.props.match.params;
+    const url = process.env.REACT_APP_API_URL + `project/${projectId}/transactions`;
 
     fetch(url).then(function(res) {
-      data = res.data['transactions'];
+      data = res.body['transactions'];
     });
   }
 
