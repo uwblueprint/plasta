@@ -5,10 +5,10 @@ from flask_jwt_extended import create_access_token
 from .route_utils import error_response, success
 from . import db_client
 
-auth_blueprint = Blueprint('auth', __name__)
+blueprint = Blueprint('auth', __name__, url_prefix='/auth')
 
 
-@auth_blueprint.route('/login', methods=['POST'])
+@blueprint.route('/login', methods=['POST'])
 def login():
     if not request.is_json:
         return error_response(message="Request is not JSON")

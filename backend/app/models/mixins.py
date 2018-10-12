@@ -44,4 +44,4 @@ class CRUDMixin(object):
         return commit and db.session.commit()
 
     def to_dict(self):
-        return self._as_dict()
+        return vars(self)
