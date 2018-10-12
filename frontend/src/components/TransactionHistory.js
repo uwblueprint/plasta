@@ -1,32 +1,43 @@
 import ReactTable from 'react-table';
 import React, { Component } from 'react';
+import moment from 'moment';
 import './TransactionHistory.css';
 import 'react-table/react-table.css';
 
 const columns = [
   {
     Header: 'To',
-    accessor: 'to_vendor_id',
+    accessor: 'to_vendor.name',
   },
   {
     Header: 'From',
-    accessor: 'from_vendor_id',
+    accessor: 'from_vendor.name',
   },
   {
+    id: 'price',
     Header: 'Rupees',
-    accessor: 'price',
+    accessor: transaction =>
+      transaction.plastics.map(plastic => plastic.price).reduce((a, b) => a + b, 0),
   },
   {
+    id: 'plasticQuantity',
     Header: 'Kilograms',
-    accessor: 'plastics.quantity',
+    accessor: transaction =>
+      transaction.plastics.map(plastic => plastic.quantity).reduce((a, b) => a + b, 0),
   },
   {
+    id: 'plasticType',
     Header: 'Type',
-    accessor: 'plastics.plastic_type',
+    accessor: transaction => transaction.plastics.map(plastic => plastic.plastic_type).join(', '),
   },
   {
+    id: 'saleDate',
     Header: 'Date',
-    accessor: 'sale_date',
+    accessor: transaction => {
+      return moment(transaction.sale_date)
+        .local()
+        .format('DD-MM-YYYY hh:mm:ss a');
+    },
   },
 ];
 
@@ -34,36 +45,74 @@ const dummyTransactions = [
   {
     id: 1,
     project_id: 1,
-    from_vendor_id: 1,
-    to_vendor_id: 2,
+    from_vendor: {
+      id: 1,
+      vendor_type: 'wastepicker',
+      name: 'James Michael McAdoo',
+      meta_data: {},
+      created_at: Date.now(),
+    },
+    to_vendor: {
+      id: 2,
+      vendor_type: 'dwcc',
+      name: 'Stephen Curry',
+      meta_data: {},
+      created_at: Date.now(),
+    },
     to_acknowledged: false,
     acknowledged_at: null,
-    price: 10.99,
     sale_date: Date.now(),
-    plastics: {
-      transaction_id: 100,
-      plastic_type: 'brown_pet',
-      quantity: 99,
-      price: 10.99,
-    },
+    plastics: [
+      {
+        transaction_id: 100,
+        plastic_type: 'brown_pet',
+        quantity: 99,
+        price: 10.99,
+      },
+    ],
     creator_id: 3,
     created_at: Date.now(),
   },
   {
     id: 2,
     project_id: 3,
-    from_vendor_id: 1,
-    to_vendor_id: 2,
+    from_vendor: {
+      id: 1,
+      vendor_type: 'wholesaler',
+      name: 'Lamarcus Aldridge',
+      meta_data: {},
+      created_at: Date.now(),
+    },
+    to_vendor: {
+      id: 2,
+      vendor_type: 'manufacturer',
+      name: 'Lebron James',
+      meta_data: {},
+      created_at: Date.now(),
+    },
     to_acknowledged: false,
     acknowledged_at: null,
-    price: 10.99,
     sale_date: Date.now(),
-    plastics: {
-      transaction_id: 100,
-      plastic_type: 'pet_light_blue',
-      quantity: 99,
-      price: 10.99,
-    },
+    plastics: [
+      {
+        transaction_id: 100,
+        plastic_type: 'pet_light_blue',
+        quantity: 99,
+        price: 10.99,
+      },
+      {
+        transaction_id: 100,
+        plastic_type: 'brown_pet',
+        quantity: 90,
+        price: 10.99,
+      },
+      {
+        transaction_id: 100,
+        plastic_type: 'green_pet',
+        quantity: 80,
+        price: 2.79,
+      },
+    ],
     creator_id: 5,
     created_at: Date.now(),
   },
