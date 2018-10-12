@@ -15,7 +15,7 @@ class ProjectPage extends Component {
 
   componentDidMount() {
     const { projectId } = this.props.match.params;
-    const url = process.env.REACT_APP_API_URL + `project/${projectId}/transactions`;
+    const url = process.env.REACT_APP_API_URL + `/projects/${projectId}/transactions`;
 
     fetch(url).then(function(res) {
       data = res.body['transactions'];
