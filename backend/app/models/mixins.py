@@ -1,11 +1,9 @@
 from . import db
+from sqlalchemy import inspect
+from sqlalchemy.orm.properties import ColumnProperty
 
-# Stolen from https://gist.github.com/YukSeungChan/851967b04d1f7cb6ba56
 
-
-# This Mixin object allows us to implement a CRUD interface with all of our
-# model objects. We get a clean way to get, save, update and delete our objects.
-class CRUDMixin(object):
+class BaseMixin(object):
     __table_args__ = {'extend_existing': True}
 
     @classmethod
@@ -19,6 +17,7 @@ class CRUDMixin(object):
             return rows.first()
         return rows.all()
 
+    # TODO(imran): Find abstraction to recursively create subobjects
     @classmethod
     def create(cls, **kwargs):
         instance = cls(**kwargs)
@@ -45,3 +44,21 @@ class CRUDMixin(object):
 
     def to_dict(self):
         return vars(self)
+
+    def format(self, include_relationships=False):
+        cls = type(self)
+        # `mapper` allows us to grab the columns of a Model
+        mapper = inspect(cls)
+        formatted = {}
+        for column in mapper.attrs:
+            field = column.key
+            attr = getattr(self, field)
+            # If it's a regular column, extract the value
+            if isinstance(column, ColumnProperty):
+                formatted[field] = attr
+            # Otherwise, it's a relationship field
+            elif include_relationships:
+                # Recursively format the relationship
+                # Don't format the relationship's relationships
+                formatted[field] = [obj.format() for obj in attr]
+        return formatted
