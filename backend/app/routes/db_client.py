@@ -1,6 +1,7 @@
 from ..models.models import Project, User, Transaction, ProjectPlasticMap
 
 
+# TODO(imran): write decorator to make db reads/writes atomic
 def create_project(data):
     # We use `data.pop()` to get the value and also remove it
     # from the dict. If it the key is not present, we raise a
@@ -13,9 +14,10 @@ def create_project(data):
         plastic_qty = plastic_info['plastic_qty']
 
         # We should probably try/except this, but later.
-        ProjectPlasticMap.create(project_id=project.id,
-                                 plastic_type=plastic_type,
-                                 quantity=plastic_qty)
+        ProjectPlasticMap.create(
+            project_id=project.id,
+            plastic_type=plastic_type,
+            quantity=plastic_qty)
     return project
 
 

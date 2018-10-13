@@ -2,7 +2,7 @@ from sqlalchemy import func
 from sqlalchemy.dialects.postgresql import JSONB
 
 from . import db
-from .mixins import CRUDMixin
+from .mixins import BaseMixin
 
 project_type_enum = db.Enum('internal', 'external', name='project_type')
 
@@ -15,7 +15,7 @@ plastic_type_enum = db.Enum(
     name='plastic_type')
 
 
-class User(CRUDMixin, db.Model):
+class User(BaseMixin, db.Model):
     __tablename__ = 'user'
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(255), nullable=False, unique=True)
@@ -28,7 +28,7 @@ class User(CRUDMixin, db.Model):
     __table_args__ = (db.Index('IX_user_email', func.lower(email)), )
 
 
-class Project(CRUDMixin, db.Model):
+class Project(BaseMixin, db.Model):
     __tablename__ = 'project'
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(255), nullable=False)
@@ -37,7 +37,7 @@ class Project(CRUDMixin, db.Model):
     meta_data = db.Column(JSONB)
 
 
-class Transaction(CRUDMixin, db.Model):
+class Transaction(BaseMixin, db.Model):
     __tablename__ = 'transaction'
     id = db.Column(db.Integer, primary_key=True)
     project_id = db.Column(
@@ -77,7 +77,7 @@ class ProjectVendorMap(db.Model):
                       db.UniqueConstraint('project_id', 'vendor_id'))
 
 
-class ProjectPlasticMap(CRUDMixin, db.Model):
+class ProjectPlasticMap(BaseMixin, db.Model):
     __tablename__ = 'project_plastic_map'
     project_id = db.Column(
         db.Integer, db.ForeignKey('project.id'), primary_key=True)

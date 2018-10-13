@@ -1,7 +1,7 @@
 from sqlalchemy.dialects.postgresql import JSONB
 
 from . import db
-from .mixins import CRUDMixin
+from .mixins import BaseMixin
 
 vendor_type_enum = db.Enum(
     'admin',
@@ -46,7 +46,7 @@ vendor_subtype_map = {
 }
 
 
-class Vendor(CRUDMixin, db.Model):
+class Vendor(BaseMixin, db.Model):
     __tablename__ = 'vendor'
     id = db.Column(db.Integer, primary_key=True)
     vendor_type = db.Column(vendor_type_enum, nullable=False)
