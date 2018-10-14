@@ -6,10 +6,14 @@ from pprint import pprint
 import click
 import bcrypt
 
+from app import create_app
 from app.models import db
-from app.models.models import User, Vendor, vendor_type_enum
+from app.models.models import User
+from app.models.vendor import Vendor, vendor_subtype_enum
 
 TABLE_CHOICE = ('user', 'vendor')
+
+create_app()
 
 
 @click.group()
@@ -32,7 +36,7 @@ def add(table):
     db.session.add(new_object)
     db.session.flush()
     print('Sucessfully created')
-    pprint(new_object.__dict__)
+    pprint(new_object.format())
     db.session.commit()
 
 
@@ -75,18 +79,18 @@ def _add_user():
                 confirmation_prompt=True).encode('utf8'), bcrypt.gensalt(14))
     }
     params = {param: value for param, value in params.items() if value != ''}
-    return User(**params)
+    return User.create(**params)
 
 
 def _add_vendor():
     """Helper function for creating a vendor in the database"""
 
     params = {
-        'vendor_type': click.prompt(
-            'Vendor Type', type=click.Choice(vendor_type_enum.enums)),
+        'vendor_subtype': click.prompt(
+            'Vendor Subtype', type=click.Choice(vendor_subtype_enum.enums)),
         'name': click.prompt('Name')
     }
-    return Vendor(**params)
+    return Vendor.create(**params)
 
 
 if __name__ == '__main__':
