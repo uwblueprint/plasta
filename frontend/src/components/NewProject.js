@@ -61,10 +61,6 @@ class NewProject extends Component {
   }
 
   onSubmit() {
-    const plasticTypes = this.state.plasticQuantities
-      .map(pair => pair.get('plasticType'))
-      .toArray();
-
     const metaData = {
       brand_name: this.state.brandName,
       description: this.state.description,
@@ -91,7 +87,7 @@ class NewProject extends Component {
     const newProjectData = {
       name: this.state.projectName,
       project_type: this.state.projectType,
-      plastics: plasticTypes,
+      plastics: this.state.plasticQuantities,
       meta_data: metaData,
     };
     // TODO: (XIN) Handle proj creation error

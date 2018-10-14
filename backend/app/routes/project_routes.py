@@ -17,7 +17,7 @@ def get_project():
 def create_project():
     project_data = request.json
     project = db_client.create_project(project_data)
-    return success(data=project.format())
+    return success(data=project.format(include_relationships=True))
 
 
 @blueprint.route('/<int:project_id>/transactions', methods=['GET'])
