@@ -98,26 +98,27 @@ class NewProject extends Component {
     return (
       <div className="page-wrapper" id="new-proj-wrapper">
         <h1>Create New Project</h1>
-        <FormSection title="Project Name">
+        <FormSection className="formsection" title="Project Name *">
           <TextInput
             id="proj-name-field"
             className="full-width"
             field="projectName"
             value={this.state.projectName}
-            placeholder="Your answer"
+            placeholder="Enter your project name here"
             onChange={this.onFieldChange}
           />
         </FormSection>
 
-        <FormSection title="Project Description">
+        <FormSection className="formsection" title="Project Description">
           <TextAreaInput
             field="description"
             value={this.state.description}
+            placeholder="Enter your description here"
             onChange={this.onFieldChange}
           />
         </FormSection>
 
-        <FormSection title="Google Drive Link">
+        <FormSection className="formsection" title="Google Drive Link">
           <TextInput
             field="gDriveLink"
             className="full-width"
@@ -126,7 +127,7 @@ class NewProject extends Component {
           />
         </FormSection>
 
-        <FormSection title="Project Type">
+        <FormSection className="formsection" title="Project Type *">
           <RadioSelect
             field="projectType"
             selectedValue={this.state.projectType}
@@ -138,7 +139,7 @@ class NewProject extends Component {
           />
         </FormSection>
 
-        <FormSection title="Plastic Types">
+        <FormSection className="formsection" title="Plastic Types *">
           <PlasticTypeQuantityGroup
             label="List of Plastic Types"
             field="plasticQuantities"
@@ -147,7 +148,7 @@ class NewProject extends Component {
           />
         </FormSection>
 
-        <FormSection title="Brand Name">
+        <FormSection className="formsection" title="Brand Name *">
           <SearchSelect
             field="brandName"
             selectedOption={this.state.brandName}
@@ -156,7 +157,7 @@ class NewProject extends Component {
           />
         </FormSection>
 
-        <FormSection title="DWCC">
+        <FormSection className="formsection" title="DWCC *">
           <SearchSelect
             options={staticDWCC}
             field="dwccSelected"
@@ -166,7 +167,7 @@ class NewProject extends Component {
           />
         </FormSection>
 
-        <FormSection title="Wholesaler">
+        <FormSection className="formsection" title="Wholesaler *">
           <SearchSelect
             options={staticWholesaler}
             field="wholesalerSelected"
@@ -176,7 +177,7 @@ class NewProject extends Component {
           />
         </FormSection>
 
-        <FormSection title="Shipping Address">
+        <FormSection className="formsection" title="Shipping Address *">
           <TextInput
             field="shippingAddress"
             className="full-width"
@@ -185,7 +186,7 @@ class NewProject extends Component {
           />
         </FormSection>
 
-        <FormSection title="Shipping Terms">
+        <FormSection className="formsection" title="Shipping Terms *">
           <SearchSelect
             field="shippingTerms"
             selectedOption={this.state.shippingTerms}
@@ -194,7 +195,7 @@ class NewProject extends Component {
           />
         </FormSection>
 
-        <FormSection title="PO Number">
+        <FormSection className="formsection" title="PO Number *">
           <TextInput
             className="full-width"
             field="poNumber"
@@ -203,7 +204,7 @@ class NewProject extends Component {
           />
         </FormSection>
 
-        <FormSection title="Start Date">
+        <FormSection className="formsection" title="Start Date *">
           <TextInput
             className="full-width"
             field="startDate"
@@ -213,7 +214,7 @@ class NewProject extends Component {
           />
         </FormSection>
 
-        <FormSection title="End Date">
+        <FormSection className="formsection" title="End Date *">
           <TextInput
             className="full-width"
             field="endDate"
@@ -223,53 +224,65 @@ class NewProject extends Component {
           />
         </FormSection>
 
-        <FormSection title="Cost Model">
+        <FormSection className="formsection" title="Cost Model">
+          <p className="priceHeader">Wholesaler Sell Price *</p>
           <TextInput
-            leftlabel="Wholesaler Sell Price"
-            rightlabel="₹/kg"
+            className="priceField"
+            rightlabel="₹ / kg"
             type="number"
             field="wholesalerSellPrice"
             value={this.state.wholesalerSellPrice}
+            placeholder="100.00"
             onChange={this.onFieldChange}
           />
+          <p className="priceHeader">Wastepicker Sell Price *</p>
           <TextInput
-            leftlabel="Wastepicker Sell Price"
-            rightlabel="₹kg"
+            className="priceField"
+            rightlabel="₹ / kg"
             type="number"
             field="wastepickerSellPrice"
             value={this.state.wastepickerSellPrice}
+            placeholder="100.00"
             onChange={this.onFieldChange}
           />
+          <p className="priceHeader">DWCC Sell Price *</p>
           <TextInput
-            leftlabel="DWCC Sell Price"
-            rightlabel="₹/kg"
+            className="priceField"
+            rightlabel="₹ / kg"
             type="number"
             field="dwccSellPrice"
             value={this.state.dwccSellPrice}
+            placeholder="100.00"
             onChange={this.onFieldChange}
           />
+          <p className="priceHeader">Price Buoyancy *</p>
           <TextInput
-            leftlabel="Price Buoyancy"
+            className="priceField"
             rightlabel="₹"
             type="number"
             field="priceBuoyancy"
             value={this.state.priceBuoyancy}
+            placeholder="100.00"
             onChange={this.onFieldChange}
           />
+          <p className="priceHeader">Delivered *</p>
           <TextInput
-            leftlabel="Delivered"
+            className="priceField"
             rightlabel="₹"
             type="number"
             field="deliveredPrice"
             value={this.state.deliveredPrice}
+            placeholder="100.00"
             onChange={this.onFieldChange}
           />
+          <p className="priceHeader">Shipped *</p>
           <TextInput
-            leftlabel="Shipped"
+            className="priceField"
             rightlabel="₹"
             type="number"
             field="shippingPrice"
             value={this.state.shippingPrice}
+            placeholder="100.00"
             onChange={this.onFieldChange}
           />
         </FormSection>
