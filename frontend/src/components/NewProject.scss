@@ -20,6 +20,22 @@
     padding-bottom: 10px;
   }
 
+  .formsection {
+    max-width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .priceHeader {
+    margin-bottom: 0px;
+    margin-top: 0px;
+  }
+
+  .priceField {
+    padding-top: 5px;
+    display: inline-block;
+  }
+
   textarea {
     min-height: 80px;
     width: 100%;
