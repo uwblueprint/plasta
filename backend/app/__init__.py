@@ -4,6 +4,8 @@ from flask import Flask
 
 
 def create_app():
+    '''Called implicity by flask through flask run'''
+
     app = Flask(__name__)
     app.config.from_object(os.environ['APP_SETTINGS'])
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
