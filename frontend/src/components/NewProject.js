@@ -61,7 +61,6 @@ class NewProject extends Component {
   }
 
   onSubmit() {
-    const url = process.env.REACT_APP_API_URL + 'project';
     const plasticTypes = this.state.plasticQuantities
       .map(pair => pair.get('plasticType'))
       .toArray();
@@ -273,8 +272,8 @@ class NewProject extends Component {
             leftlabel="Shipped"
             rightlabel="₹"
             type="number"
-            field="shippedPrice"
-            value={this.state.shippedPrice}
+            field="shippingPrice"
+            value={this.state.shippingPrice}
             onChange={this.onFieldChange}
           />
         </FormSection>
