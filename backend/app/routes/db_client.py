@@ -6,6 +6,7 @@ def create_project(data):
     # We use `data.pop()` to get the value and also remove it
     # from the dict. If it the key is not present, we raise a
     # KeyError (as expected).
+
     plastics = data.pop('plastics')
     project = Project.create(**data)
 
