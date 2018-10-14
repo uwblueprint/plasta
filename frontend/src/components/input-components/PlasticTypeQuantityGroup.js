@@ -20,7 +20,7 @@ class PlasticTypeQuantityGroup extends Component {
 
   onPlasticTypeChange(newType, index) {
     if (!newType) return;
-    this.onFieldChange(newType.value, 'plasticType', index);
+    this.onFieldChange(newType.value, 'plastic_type', index);
   }
 
   onQuantityChange(newQuantity, index) {
@@ -50,7 +50,7 @@ class PlasticTypeQuantityGroup extends Component {
     const list = this.props.plasticQuantities;
     const updatedList = list.push(
       Map({
-        plasticType: plasticOptions[0].value,
+        plastic_type: plasticOptions[0].value,
         quantity: 0,
       })
     );
@@ -70,7 +70,7 @@ class PlasticTypeQuantityGroup extends Component {
             <div key={`sibling-${i}`}>
               <SearchSelect
                 options={plasticOptions}
-                selectedOption={plasticOptionsByName.get(pair.get('plasticType'))}
+                selectedOption={plasticOptionsByName.get(pair.get('plastic_type'))}
                 onChange={e => this.onPlasticTypeChange(e.value, i)}
               />
               <TextInput
@@ -98,7 +98,7 @@ PlasticTypeQuantityGroup.propTypes = {
   onChange: PropTypes.func.isRequired,
   plasticQuantities: ImmutablePropTypes.listOf(
     ImmutablePropTypes.mapContains({
-      plasticType: PropTypes.string.isRequired,
+      plastic_type: PropTypes.string.isRequired,
       quantity: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
     })
   ).isRequired,

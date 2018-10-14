@@ -11,13 +11,13 @@ def create_project(data):
 
     for plastic_info in plastics:
         plastic_type = plastic_info['plastic_type']
-        plastic_qty = plastic_info['plastic_qty']
+        quantity = plastic_info['quantity']
 
         # We should probably try/except this, but later.
         ProjectPlasticMap.create(
             project_id=project.id,
             plastic_type=plastic_type,
-            quantity=plastic_qty)
+            quantity=quantity)
     return project
 
 
