@@ -98,6 +98,9 @@ class NewProject extends Component {
     return (
       <div className="page-wrapper" id="new-proj-wrapper">
         <h1>Create New Project</h1>
+        <p className="required_field">
+          All fields marked with <b>*</b> are required.
+        </p>
         <FormSection className="formsection" title="Project Name *">
           <TextInput
             id="proj-name-field"
