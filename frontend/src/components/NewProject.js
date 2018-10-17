@@ -107,7 +107,7 @@ class NewProject extends Component {
             className="full-width"
             field="projectName"
             value={this.state.projectName}
-            placeholder="Enter your project name here"
+            placeholder="Enter project name here"
             onChange={this.onFieldChange}
           />
         </FormSection>
@@ -115,8 +115,9 @@ class NewProject extends Component {
         <FormSection className="formsection" title="Project Description">
           <TextAreaInput
             field="description"
+            className="full-width"
             value={this.state.description}
-            placeholder="Enter your description here"
+            placeholder="Enter description here"
             onChange={this.onFieldChange}
           />
         </FormSection>
@@ -151,7 +152,7 @@ class NewProject extends Component {
           />
         </FormSection>
 
-        <FormSection className="formsection" title="Brand Name *">
+        <FormSection className="formsection" title="Brand Name">
           <SearchSelect
             field="brandName"
             selectedOption={this.state.brandName}
@@ -180,7 +181,7 @@ class NewProject extends Component {
           />
         </FormSection>
 
-        <FormSection className="formsection" title="Shipping Address *">
+        <FormSection className="formsection" title="Shipping Address">
           <TextInput
             field="shippingAddress"
             className="full-width"
@@ -189,7 +190,7 @@ class NewProject extends Component {
           />
         </FormSection>
 
-        <FormSection className="formsection" title="Shipping Terms *">
+        <FormSection className="formsection" title="Shipping Terms">
           <SearchSelect
             field="shippingTerms"
             selectedOption={this.state.shippingTerms}
@@ -198,7 +199,7 @@ class NewProject extends Component {
           />
         </FormSection>
 
-        <FormSection className="formsection" title="PO Number *">
+        <FormSection className="formsection" title="PO Number">
           <TextInput
             className="full-width"
             field="poNumber"
@@ -207,7 +208,7 @@ class NewProject extends Component {
           />
         </FormSection>
 
-        <FormSection className="formsection" title="Start Date *">
+        <FormSection className="formsection" title="Start Date">
           <TextInput
             className="full-width"
             field="startDate"
@@ -217,7 +218,7 @@ class NewProject extends Component {
           />
         </FormSection>
 
-        <FormSection className="formsection" title="End Date *">
+        <FormSection className="formsection" title="End Date">
           <TextInput
             className="full-width"
             field="endDate"
@@ -228,7 +229,7 @@ class NewProject extends Component {
         </FormSection>
 
         <FormSection className="formsection" title="Cost Model">
-          <p className="priceHeader">Wholesaler Sell Price *</p>
+          <p className="priceHeader">Wholesaler Sell Price</p>
           <TextInput
             className="priceField"
             rightlabel="₹ / kg"
@@ -238,7 +239,7 @@ class NewProject extends Component {
             placeholder="100.00"
             onChange={this.onFieldChange}
           />
-          <p className="priceHeader">Wastepicker Sell Price *</p>
+          <p className="priceHeader">Wastepicker Sell Price</p>
           <TextInput
             className="priceField"
             rightlabel="₹ / kg"
@@ -248,7 +249,7 @@ class NewProject extends Component {
             placeholder="100.00"
             onChange={this.onFieldChange}
           />
-          <p className="priceHeader">DWCC Sell Price *</p>
+          <p className="priceHeader">DWCC Sell Price</p>
           <TextInput
             className="priceField"
             rightlabel="₹ / kg"
@@ -258,7 +259,7 @@ class NewProject extends Component {
             placeholder="100.00"
             onChange={this.onFieldChange}
           />
-          <p className="priceHeader">Price Buoyancy *</p>
+          <p className="priceHeader">Price Buoyancy</p>
           <TextInput
             className="priceField"
             rightlabel="₹"
@@ -268,7 +269,7 @@ class NewProject extends Component {
             placeholder="100.00"
             onChange={this.onFieldChange}
           />
-          <p className="priceHeader">Delivered *</p>
+          <p className="priceHeader">Delivered</p>
           <TextInput
             className="priceField"
             rightlabel="₹"
@@ -278,7 +279,7 @@ class NewProject extends Component {
             placeholder="100.00"
             onChange={this.onFieldChange}
           />
-          <p className="priceHeader">Shipped *</p>
+          <p className="priceHeader">Shipped</p>
           <TextInput
             className="priceField"
             rightlabel="₹"
