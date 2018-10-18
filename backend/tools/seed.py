@@ -36,7 +36,7 @@ def add(table):
     db.session.add(new_object)
     db.session.flush()
     print('Sucessfully created')
-    pprint(new_object.format())
+    pprint(new_object.to_dict())
     db.session.commit()
 
 

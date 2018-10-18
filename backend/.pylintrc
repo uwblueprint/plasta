@@ -25,4 +25,5 @@ generated-members=
   delete,
   enums,
   flush,
-  query
+  query,
+  rollback
