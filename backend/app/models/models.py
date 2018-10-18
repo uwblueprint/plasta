@@ -1,7 +1,6 @@
 from sqlalchemy import func
 from sqlalchemy.dialects.postgresql import JSONB
 
-from . import project_metadata
 from . import db
 from .mixins import BaseMixin
 
@@ -36,8 +35,6 @@ class Project(BaseMixin, db.Model):
     project_type = db.Column(project_type_enum, nullable=False)
     plastics = db.relationship('ProjectPlasticMap', back_populates='project')
     meta_data = db.Column(JSONB)
-
-    METADATA_SPECIFICATION = project_metadata.SPECIFICATION 
 
 
 class Transaction(BaseMixin, db.Model):
