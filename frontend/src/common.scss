@@ -44,8 +44,7 @@ a {
 
 /*******************
       buttons
-
-******************/
+*******************/
 button:hover {
   cursor: pointer;
 }
@@ -61,32 +60,22 @@ button:focus {
 
 button {
   color: inherit;
-  border-color: inherit;
-}
-
-.btn {
-  border: 1px solid inherit;
+  border: 1px solid $mediumGrey;
+  border-radius: 25px;
   font-family: $font;
+  font-weight: bolder;
   margin: 0 auto;
   padding: 10px 25px;
   display: block;
   font-size: 16px;
   background-color: white;
-  border-radius: 25px;
 }
 
 .btn-small {
   font-size: 14px;
 }
 
-.btn-green {
-  background-color: #87d37c;
-  border-color: white;
-  color: white;
-}
-
-.btn-red {
-  background-color: #f03434;
+.btn-dark {
   border-color: white;
   color: white;
 }
@@ -97,7 +86,7 @@ button {
 
 /*******************
    form elements
-******************/
+*******************/
 
 textarea,
 input {
@@ -109,3 +98,19 @@ input:focus {
   outline: none;
   border-color: $lightGrey;
 }
+
+/*******************
+      bg colors
+*******************/
+
+.bg-red {
+  background-color: $dangerRed;
+}
+
+.bg-green {
+  background-color: $successGreen;
+}
+
+/*******************
+      fg colors
+*******************/

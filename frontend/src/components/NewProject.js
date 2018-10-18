@@ -6,7 +6,7 @@ import FormSection from './input-components/FormSection';
 import TextInput from './input-components/TextInput';
 import TextAreaInput from './input-components/TextAreaInput';
 import PlasticTypeQuantityGroup from './input-components/PlasticTypeQuantityGroup';
-import { post } from './utils/requests';
+import { post, get } from './utils/requests';
 import './NewProject.css';
 
 const staticDWCC = [{ label: 'DWCC 1', value: 'dw1' }, { label: 'DWCC 2', value: 'dw2' }];
@@ -32,6 +32,7 @@ class NewProject extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      errors: {},
       projectName: '',
       brandName: '',
       description: '',
@@ -54,6 +55,7 @@ class NewProject extends Component {
     };
     this.onFieldChange = this.onFieldChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
+    this.validateName = this.validateName.bind(this);
   }
 
   onFieldChange(field) {
@@ -66,7 +68,6 @@ class NewProject extends Component {
       description: this.state.description,
       gdrive_link: this.state.gDriveLink,
       project_type: this.state.projectType,
-      project_status: this.state.projectStatus,
       dwcc_selected: this.state.dwccSelected,
       wholesaler_selected: this.state.wholesalerSelected,
       shipping_address: this.state.shippingAddress,
@@ -92,6 +93,15 @@ class NewProject extends Component {
     };
     // TODO: (XIN) Handle proj creation error
     post('/projects', newProjectData).catch(err => {});
+  }
+
+  validateName() {
+    this.setState({
+      errors: {
+        ...this.state.errors,
+        projectName: this.state.projectName ? false : true,
+      },
+    });
   }
 
   render() {
@@ -290,7 +300,8 @@ class NewProject extends Component {
             onChange={this.onFieldChange}
           />
         </FormSection>
-        <button className="btn btn-green uppercase" type="submit" onClick={this.onSubmit}>
+
+        <button className="btn-dark bg-green uppercase" type="submit" onClick={this.onSubmit}>
           Submit
         </button>
       </div>

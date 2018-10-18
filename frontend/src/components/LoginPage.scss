@@ -38,11 +38,11 @@
     width: 150px;
   }
 
-  .btn:focus {
+  button:focus {
     outline: none;
   }
 
-  .btn {
+  button {
     border: 2px solid grey;
     font-size: 12px;
     padding: 10px 20px;

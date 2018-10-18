@@ -90,11 +90,7 @@ class AdminNewStakeholder extends Component {
             className="form-element"
           />
         </FormSection>
-        <button
-          className="btn"
-          type="button"
-          onClick={() => this.props.history.push('/admin/stakeholders')}
-        >
+        <button type="button" onClick={() => this.props.history.push('/admin/stakeholders')}>
           Submit
         </button>
       </div>
