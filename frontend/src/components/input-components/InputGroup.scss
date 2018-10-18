@@ -2,9 +2,11 @@
   .field-wrapper {
     margin-top: 10px;
   }
+
   label.title {
     font-size: 1.2em;
   }
+
   .search-select-wrapper {
     display: inline-block;
     width: 50%;
@@ -17,16 +19,18 @@
       width: 3.5em !important;
     }
   }
-  .btn {
+
+  button {
     margin-left: 10px;
     opacity: 0.6;
     padding: 5px 8px;
     display: inline-block;
     font-size: 10px;
   }
-  .btn:focus,
-  .btn:active,
-  .btn:hover {
+
+  button:focus,
+  button:active,
+  button:hover {
     opacity: 1;
   }
 }

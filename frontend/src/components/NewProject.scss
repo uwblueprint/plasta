@@ -78,4 +78,8 @@
   #proj-name-field input:focus {
     outline: none;
   }
+
+  .invalid-input-message i {
+    margin-right: 5px;
+  }
 }

@@ -23,7 +23,6 @@ class AdminStakeholder extends Component {
           </TabList>
           <TabPanel>
             <button
-              className="btn"
               type="button"
               onClick={() => this.props.history.push('/admin/stakeholders/new')}
             >
@@ -33,7 +32,6 @@ class AdminStakeholder extends Component {
           </TabPanel>
           <TabPanel>
             <button
-              className="btn"
               type="button"
               onClick={() => this.props.history.push('/admin/stakeholders/new')}
             >

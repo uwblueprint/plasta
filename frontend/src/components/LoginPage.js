@@ -43,7 +43,7 @@ class LoginPage extends Component {
               onChange={this.onChange}
             />
           </div>
-          <button className="btn" type="submit" onClick={() => this.props.history.push('/landing')}>
+          <button type="submit" onClick={() => this.props.history.push('/landing')}>
             Login
           </button>
         </form>

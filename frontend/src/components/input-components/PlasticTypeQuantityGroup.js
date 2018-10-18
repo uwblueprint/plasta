@@ -62,7 +62,11 @@ class PlasticTypeQuantityGroup extends Component {
     return (
       <div className={classNames('input-group', this.props.className)}>
         {label && <label className="title">{label}</label>}
-        <button onClick={this.onAddInput} type="button" className="btn btn-group-input btn-green">
+        <button
+          onClick={this.onAddInput}
+          type="button"
+          className="btn-group-input bg-green btn-dark"
+        >
           Add
         </button>
         {plasticQuantities.size ? (
@@ -79,7 +83,11 @@ class PlasticTypeQuantityGroup extends Component {
                 rightlabel="kg"
                 onChange={e => this.onQuantityChange(e.value, i)}
               />
-              <button onClick={() => this.onRemoveInput(i)} type="button" className="btn btn-red">
+              <button
+                onClick={() => this.onRemoveInput(i)}
+                type="button"
+                className="bg-red btn-dark"
+              >
                 delete
               </button>
             </div>

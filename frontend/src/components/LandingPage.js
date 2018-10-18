@@ -8,14 +8,10 @@ class LandingPage extends Component {
 
   loadAdminPage = (
     <Fragment>
-      <button className="btn" type="button" onClick={() => this.props.history.push('admindash')}>
+      <button type="button" onClick={() => this.props.history.push('admindash')}>
         Projects
       </button>
-      <button
-        className="btn"
-        type="button"
-        onClick={() => this.props.history.push('/admin/stakeholders')}
-      >
+      <button type="button" onClick={() => this.props.history.push('/admin/stakeholders')}>
         Stakeholders
       </button>
     </Fragment>
@@ -23,15 +19,9 @@ class LandingPage extends Component {
 
   loadDwccPage = (
     <Fragment>
-      <button className="btn" type="button">
-        Most Recent Project
-      </button>
-      <button className="btn" type="button">
-        Projects
-      </button>
-      <button className="btn" type="button">
-        Wastepickers
-      </button>
+      <button type="button">Most Recent Project</button>
+      <button type="button">Projects</button>
+      <button type="button">Wastepickers</button>
     </Fragment>
   );
 
