@@ -30,7 +30,7 @@ class BaseMixin(object):
 
             if isinstance(datum, dict):
                 sanitized[field] = cls.sanitize_metadata(datum, rules['specification'])
-            elif isinstance(datum, specification[field]['type']):
+            elif isinstance(datum, required_type):
                 sanitized[field] = datum
             else:
                 raise TypeError(
