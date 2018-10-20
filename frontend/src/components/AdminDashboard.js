@@ -32,7 +32,7 @@ class AdminDashboard extends Component {
     return (
       <div className="page-wrapper" id="admin-dash-wrapper">
         <button
-          className=" btn-small"
+          className="btn-small"
           id="btn-new-proj"
           type="button"
           onClick={() => this.props.history.push('/projects/new')}
@@ -46,7 +46,7 @@ class AdminDashboard extends Component {
           ) : (
             this.state.projectList.map(project => (
               <button
-                className=" btn-proj"
+                className="btn-proj"
                 type="button"
                 key={project.id}
                 onClick={() => this.props.history.push(`projects/${project.id}`)}

@@ -6,6 +6,7 @@ import FormSection from './input-components/FormSection';
 import TextInput from './input-components/TextInput';
 import TextAreaInput from './input-components/TextAreaInput';
 import PlasticTypeQuantityGroup from './input-components/PlasticTypeQuantityGroup';
+import InvalidInputMessage from './InvalidInputMessage';
 import { post } from './utils/requests';
 import { fieldToLabelMap } from './utils/project';
 import './NewProject.css';
@@ -28,14 +29,6 @@ const staticShippingTerms = [
   { label: 'CIF', value: 'cif' },
   { label: 'DDP', value: 'ddp' },
 ];
-
-// Move to sep file once complete
-const InvalidInputMessage = props => (
-  <div className="invalid-input-message font-small red">
-    {props.showIcon && <i className="red fas fa-exclamation-circle" />}
-    {props.msg}
-  </div>
-);
 
 class NewProject extends Component {
   constructor(props) {
@@ -141,7 +134,7 @@ class NewProject extends Component {
     return (
       <div className="page-wrapper" id="new-proj-wrapper">
         <h1>Create New Project</h1>
-        <p className="required_field">
+        <p className="required-field-notif">
           All fields marked with <b>*</b> are required.
         </p>
         <FormSection className="formsection" title="Project Name *">
@@ -156,7 +149,7 @@ class NewProject extends Component {
             onBlur={this.validateRequiredField}
           />
           {this.state.errors.projectName && (
-            <InvalidInputMessage showIcon msg={this.state.errors.projectName} />
+            <InvalidInputMessage showIcon message={this.state.errors.projectName} />
           )}
         </FormSection>
 
@@ -210,7 +203,7 @@ class NewProject extends Component {
             onBlur={this.validateRequiredField}
           />
           {this.state.errors.dwccSelected && (
-            <InvalidInputMessage showIcon msg={this.state.errors.dwccSelected} />
+            <InvalidInputMessage showIcon message={this.state.errors.dwccSelected} />
           )}
         </FormSection>
 
@@ -224,7 +217,7 @@ class NewProject extends Component {
             multi
           />
           {this.state.errors.wholesalerSelected && (
-            <InvalidInputMessage showIcon msg={this.state.errors.wholesalerSelected} />
+            <InvalidInputMessage showIcon message={this.state.errors.wholesalerSelected} />
           )}
         </FormSection>
 
