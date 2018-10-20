@@ -7,6 +7,11 @@ class TextInput extends Component {
   constructor(props) {
     super(props);
     this.onChange = this.onChange.bind(this);
+    this.onBlur = this.onBlur.bind(this);
+  }
+
+  onBlur(e) {
+    this.props.onBlur && this.props.onBlur({ value: e.target.value, key: this.props.field });
   }
 
   onChange(e) {
@@ -14,15 +19,15 @@ class TextInput extends Component {
   }
 
   render() {
-    const { id, className, name, leftlabel, rightlabel, value, ...rest } = this.props;
+    const { id, className, leftlabel, rightlabel, value, ...rest } = this.props;
     return (
       <div id={id} className={classNames('field-wrapper', className)}>
         {leftlabel && <span> {leftlabel} </span>}
         <input
           {...rest}
           className="text-input-field"
-          name={name}
           onChange={this.onChange}
+          onBlur={this.onBlur}
           value={value}
         />
         {rightlabel && <span> {rightlabel} </span>}
