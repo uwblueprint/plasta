@@ -87,7 +87,7 @@ class NewProject extends Component {
 
   isFormValid() {
     this.validateAll();
-    return Object.keys(this.state.errors).reduce((prev, err) => {
+    return Object.values(this.state.errors).reduce((prev, err) => {
       return prev && !err;
     }, true);
   }
@@ -124,7 +124,7 @@ class NewProject extends Component {
       name: this.state.projectName,
       project_type: this.state.projectType,
       plastics: this.state.plasticQuantities,
-      meta_data: metaData,
+      // meta_data: metaData,
     };
     // TODO: (XIN) Handle proj creation error
     post('/projects', newProjectData).catch(err => {});
