@@ -1,5 +1,6 @@
 @import '../_constants.scss';
-#new-proj-wrapper {
+#new-proj-wrapper,
+#create-wastepicker-wrapper {
   padding-left: 40px;
   padding-right: 40px;
 
@@ -14,12 +15,17 @@
     font-size: 30px;
   }
 
-  .field-wrapper {
-    padding-top: 10px;
-    padding-bottom: 10px;
+  /* a larger label for inputs */
+  h3.label {
+    margin-bottom: 5px;
   }
 
-  .formsection {
+  .field-wrapper {
+    padding-top: 10px;
+    padding-bottom: 20px;
+  }
+
+  .form-section {
     max-width: 400px;
     margin-left: auto;
     margin-right: auto;
@@ -53,24 +59,27 @@
 
   .text-input-field,
   textarea {
+    font-size: 16px;
     margin: 0 auto;
     max-width: 400px;
-    font-size: 14px;
-    padding: 5px 10px;
+    padding: 10px 15px;
   }
+
   .text-input-field {
-    width: 6em;
+    width: 8em;
   }
+
   .full-width input {
     width: 100%;
   }
-  #proj-name-field {
-    font-size: 18px;
+
+  .large-input input {
+    font-size: 20px;
   }
-  #proj-name-field input {
+  .emphasis-input input {
+    font-size: 20px;
     padding: 0;
     padding-bottom: 10px;
-    font-size: 20px;
     border-top: none;
     border-left: none;
     border-right: none;

@@ -12,6 +12,7 @@ import ProjectPage from './components/ProjectPage';
 import AdminDashboard from './components/AdminDashboard';
 import AdminStakeholder from './components/AdminStakeholder';
 import AdminNewStakeholder from './components/AdminNewStakeholder';
+import CreateWastePicker from './components/CreateWastePicker';
 import './common.css';
 
 const store = createStore(rootReducer);
@@ -27,6 +28,7 @@ render(
         <Route path="/projects/:projectId" component={ProjectPage} />
         <Route path="/admin/stakeholders/new" component={AdminNewStakeholder} />
         <Route path="/admin/stakeholders" component={AdminStakeholder} />
+        <Route path="/dwcc/wastepickers/new" component={CreateWastePicker} />
       </Switch>
     </Router>
   </Provider>,
