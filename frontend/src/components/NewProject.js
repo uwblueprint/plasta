@@ -9,10 +9,10 @@ import PlasticTypeQuantityGroup from './input-components/PlasticTypeQuantityGrou
 import InvalidInputMessage from './InvalidInputMessage';
 import { post } from './utils/requests';
 import { fieldToLabelMap } from './utils/project';
-import './NewProject.css';
 import DayPickerInput from 'react-day-picker/DayPickerInput';
 import 'react-day-picker/lib/style.css';
 import moment from 'moment';
+import './FormPage.css';
 
 const staticDWCC = [{ label: 'DWCC 1', value: 'dw1' }, { label: 'DWCC 2', value: 'dw2' }];
 
@@ -147,11 +147,9 @@ class NewProject extends Component {
         <p className="required-field-notif">
           All fields marked with <b>*</b> are required.
         </p>
-        <FormSection className="formsection" title="Project Name *">
+        <FormSection title="Project Name *">
           <TextInput
-            width={10}
-            id="proj-name-field"
-            className="full-width"
+            className="emphasis-input full-width"
             field="projectName"
             value={this.state.projectName}
             placeholder="Enter project name here"
@@ -163,7 +161,7 @@ class NewProject extends Component {
           )}
         </FormSection>
 
-        <FormSection className="formsection" title="Project Description">
+        <FormSection title="Project Description">
           <TextAreaInput
             field="description"
             className="full-width"
@@ -173,7 +171,7 @@ class NewProject extends Component {
           />
         </FormSection>
 
-        <FormSection className="formsection" title="Project Type">
+        <FormSection title="Project Type">
           <RadioSelect
             field="projectType"
             selectedValue={this.state.projectType}
@@ -185,7 +183,7 @@ class NewProject extends Component {
           />
         </FormSection>
 
-        <FormSection className="formsection" title="Plastic Types">
+        <FormSection title="Plastic Types *">
           <PlasticTypeQuantityGroup
             label="List of Plastic Types"
             field="plasticQuantities"
@@ -194,7 +192,7 @@ class NewProject extends Component {
           />
         </FormSection>
 
-        <FormSection className="formsection" title="Brand Name">
+        <FormSection title="Brand Name">
           <SearchSelect
             field="brandName"
             selectedOption={this.state.brandName}
@@ -203,7 +201,7 @@ class NewProject extends Component {
           />
         </FormSection>
 
-        <FormSection className="formsection" title="DWCC *">
+        <FormSection title="DWCC *">
           <SearchSelect
             options={staticDWCC}
             field="dwccSelected"
@@ -217,7 +215,7 @@ class NewProject extends Component {
           )}
         </FormSection>
 
-        <FormSection className="formsection" title="Wholesaler *">
+        <FormSection title="Wholesaler *">
           <SearchSelect
             options={staticWholesaler}
             field="wholesalerSelected"
@@ -231,7 +229,7 @@ class NewProject extends Component {
           )}
         </FormSection>
 
-        <FormSection className="formsection" title="Shipping Address">
+        <FormSection title="Shipping Address">
           <TextInput
             field="shippingAddress"
             className="full-width"
@@ -240,7 +238,7 @@ class NewProject extends Component {
           />
         </FormSection>
 
-        <FormSection className="formsection" title="Shipping Terms">
+        <FormSection title="Shipping Terms">
           <SearchSelect
             field="shippingTerms"
             selectedOption={this.state.shippingTerms}
@@ -249,7 +247,7 @@ class NewProject extends Component {
           />
         </FormSection>
 
-        <FormSection className="formsection" title="PO Number">
+        <FormSection title="PO Number">
           <TextInput
             className="full-width"
             field="poNumber"
@@ -274,7 +272,7 @@ class NewProject extends Component {
           />
         </FormSection>
 
-        <FormSection className="formsection" title="Cost Model">
+        <FormSection title="Cost Model">
           <p className="priceHeader">Wastepicker Sell Price</p>
           <TextInput
             className="priceField"
