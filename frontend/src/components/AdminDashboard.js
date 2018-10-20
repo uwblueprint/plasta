@@ -42,7 +42,7 @@ class AdminDashboard extends Component {
         <h2>Active Projects</h2>
         <div className="active-proj-wrapper">
           {this.state.showPlaceholderText ? (
-            <div className="error-placeholder">{this.state.placeholderText}</div>
+            <div className="text-align-center">{this.state.placeholderText}</div>
           ) : (
             this.state.projectList.map(project => (
               <button
@@ -56,9 +56,6 @@ class AdminDashboard extends Component {
             ))
           )}
         </div>
-        <button id="btn-archive" type="button">
-          Archive
-        </button>
       </div>
     );
   }

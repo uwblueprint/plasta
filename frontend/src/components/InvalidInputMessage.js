@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
+import React from 'react';
 
 const InvalidInputMessage = props => (
   <div className="invalid-input-message font-small red">
     {props.showIcon && <i className="red fas fa-exclamation-circle" />}
-    {props.msg}
+    {props.message}
   </div>
 );
 
