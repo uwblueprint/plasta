@@ -24,3 +24,9 @@ export const plasticOptions = [
 ];
 
 export const plasticOptionsByName = Map(plasticOptions.map(option => [option.value, option]));
+
+export const fieldToLabelMap = {
+  projectName: 'Project name',
+  dwccSelected: 'DWCC',
+  wholesalerSelected: 'Wholesaler',
+};

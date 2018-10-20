@@ -9,6 +9,11 @@ class SearchSelect extends Component {
   constructor(props) {
     super(props);
     this.onChange = this.onChange.bind(this);
+    this.onBlur = this.onBlur.bind(this);
+  }
+
+  onBlur(e) {
+    this.props.onBlur && this.props.onBlur({ value: e.target.value, key: this.props.field });
   }
 
   onChange(selectedOption) {
@@ -25,6 +30,7 @@ class SearchSelect extends Component {
           {...rest}
           value={selectedOption}
           onChange={this.onChange}
+          onBlur={this.onBlur}
           options={options}
           multi={multi}
         />

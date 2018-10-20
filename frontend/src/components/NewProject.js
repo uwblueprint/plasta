@@ -6,7 +6,8 @@ import FormSection from './input-components/FormSection';
 import TextInput from './input-components/TextInput';
 import TextAreaInput from './input-components/TextAreaInput';
 import PlasticTypeQuantityGroup from './input-components/PlasticTypeQuantityGroup';
-import { post, get } from './utils/requests';
+import { post } from './utils/requests';
+import { fieldToLabelMap } from './utils/project';
 import './NewProject.css';
 
 const staticDWCC = [{ label: 'DWCC 1', value: 'dw1' }, { label: 'DWCC 2', value: 'dw2' }];
@@ -28,11 +29,23 @@ const staticShippingTerms = [
   { label: 'DDP', value: 'ddp' },
 ];
 
+// Move to sep file once complete
+const InvalidInputMessage = props => (
+  <div className="invalid-input-message font-small red">
+    {props.showIcon && <i className="red fas fa-exclamation-circle" />}
+    {props.msg}
+  </div>
+);
+
 class NewProject extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      errors: {},
+      errors: {
+        projectName: '',
+        dwccSelected: '',
+        wholesalerSelected: '',
+      },
       projectName: '',
       brandName: '',
       description: '',
@@ -55,14 +68,44 @@ class NewProject extends Component {
     };
     this.onFieldChange = this.onFieldChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
-    this.validateName = this.validateName.bind(this);
+    this.validateRequiredField = this.validateRequiredField.bind(this);
+    this.validateAll = this.validateAll.bind(this);
+    this.isFormValid = this.isFormValid.bind(this);
   }
 
   onFieldChange(field) {
     this.setState({ [field.key]: field.value });
   }
 
+  validateRequiredField(field) {
+    console.log(this.state.errors);
+    const fieldObj = this.state[field.key];
+    const isFilled = Array.isArray(fieldObj) ? fieldObj.length !== 0 : fieldObj;
+    this.setState(currentState => {
+      currentState.errors[field.key] = isFilled ? '' : `${fieldToLabelMap[field.key]} is required`;
+      return currentState;
+    });
+  }
+
+  validateAll() {
+    Object.keys(this.state.errors).forEach(field => {
+      this.validateRequiredField({ key: field });
+    });
+  }
+
+  isFormValid() {
+    this.validateAll();
+    return Object.keys(this.state.errors).reduce((prev, err) => {
+      return prev && !err;
+    }, true);
+  }
+
   onSubmit() {
+    if (!this.isFormValid()) {
+      // TODO: (xin) more elegant alerting
+      alert('Please resolve errors');
+      return;
+    }
     const metaData = {
       brand_name: this.state.brandName,
       description: this.state.description,
@@ -95,15 +138,6 @@ class NewProject extends Component {
     post('/projects', newProjectData).catch(err => {});
   }
 
-  validateName() {
-    this.setState({
-      errors: {
-        ...this.state.errors,
-        projectName: this.state.projectName ? false : true,
-      },
-    });
-  }
-
   render() {
     return (
       <div className="page-wrapper" id="new-proj-wrapper">
@@ -113,13 +147,18 @@ class NewProject extends Component {
         </p>
         <FormSection className="formsection" title="Project Name *">
           <TextInput
+            width={10}
             id="proj-name-field"
             className="full-width"
             field="projectName"
             value={this.state.projectName}
             placeholder="Enter project name here"
             onChange={this.onFieldChange}
+            onBlur={this.validateRequiredField}
           />
+          {this.state.errors.projectName && (
+            <InvalidInputMessage showIcon msg={this.state.errors.projectName} />
+          )}
         </FormSection>
 
         <FormSection className="formsection" title="Project Description">
@@ -132,16 +171,7 @@ class NewProject extends Component {
           />
         </FormSection>
 
-        <FormSection className="formsection" title="Google Drive Link">
-          <TextInput
-            field="gDriveLink"
-            className="full-width"
-            value={this.state.gDriveLink}
-            onChange={this.onFieldChange}
-          />
-        </FormSection>
-
-        <FormSection className="formsection" title="Project Type *">
+        <FormSection className="formsection" title="Project Type">
           <RadioSelect
             field="projectType"
             selectedValue={this.state.projectType}
@@ -153,7 +183,7 @@ class NewProject extends Component {
           />
         </FormSection>
 
-        <FormSection className="formsection" title="Plastic Types *">
+        <FormSection className="formsection" title="Plastic Types">
           <PlasticTypeQuantityGroup
             label="List of Plastic Types"
             field="plasticQuantities"
@@ -178,7 +208,11 @@ class NewProject extends Component {
             onChange={this.onFieldChange}
             selectedOption={this.state.dwccSelected}
             multi
+            onBlur={this.validateRequiredField}
           />
+          {this.state.errors.dwccSelected && (
+            <InvalidInputMessage showIcon msg={this.state.errors.dwccSelected} />
+          )}
         </FormSection>
 
         <FormSection className="formsection" title="Wholesaler *">
@@ -187,8 +221,12 @@ class NewProject extends Component {
             field="wholesalerSelected"
             onChange={this.onFieldChange}
             selectedOption={this.state.wholesalerSelected}
+            onBlur={this.validateRequiredField}
             multi
           />
+          {this.state.errors.wholesalerSelected && (
+            <InvalidInputMessage showIcon msg={this.state.errors.wholesalerSelected} />
+          )}
         </FormSection>
 
         <FormSection className="formsection" title="Shipping Address">
@@ -297,6 +335,15 @@ class NewProject extends Component {
             field="shippingPrice"
             value={this.state.shippingPrice}
             placeholder="100.00"
+            onChange={this.onFieldChange}
+          />
+        </FormSection>
+
+        <FormSection className="formsection" title="Google Drive Link">
+          <TextInput
+            field="gDriveLink"
+            className="full-width"
+            value={this.state.gDriveLink}
             onChange={this.onFieldChange}
           />
         </FormSection>
