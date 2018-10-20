@@ -78,7 +78,6 @@ class NewProject extends Component {
   }
 
   validateRequiredField(field) {
-    console.log(this.state.errors);
     const fieldObj = this.state[field.key];
     const isFilled = Array.isArray(fieldObj) ? fieldObj.length !== 0 : fieldObj;
     this.setState(currentState => {
@@ -277,16 +276,6 @@ class NewProject extends Component {
         </FormSection>
 
         <FormSection className="formsection" title="Cost Model">
-          <p className="priceHeader">Wholesaler Sell Price</p>
-          <TextInput
-            className="priceField"
-            rightlabel="₹ / kg"
-            type="number"
-            field="wholesalerSellPrice"
-            value={this.state.wholesalerSellPrice}
-            placeholder="100.00"
-            onChange={this.onFieldChange}
-          />
           <p className="priceHeader">Wastepicker Sell Price</p>
           <TextInput
             className="priceField"
@@ -307,6 +296,16 @@ class NewProject extends Component {
             placeholder="100.00"
             onChange={this.onFieldChange}
           />
+          <p className="priceHeader">Wholesaler Sell Price</p>
+          <TextInput
+            className="priceField"
+            rightlabel="₹ / kg"
+            type="number"
+            field="wholesalerSellPrice"
+            value={this.state.wholesalerSellPrice}
+            placeholder="100.00"
+            onChange={this.onFieldChange}
+          />
           <p className="priceHeader">Price Buoyancy</p>
           <TextInput
             className="priceField"
@@ -317,23 +316,23 @@ class NewProject extends Component {
             placeholder="100.00"
             onChange={this.onFieldChange}
           />
-          <p className="priceHeader">Delivered</p>
-          <TextInput
-            className="priceField"
-            rightlabel="₹"
-            type="number"
-            field="deliveredPrice"
-            value={this.state.deliveredPrice}
-            placeholder="100.00"
-            onChange={this.onFieldChange}
-          />
-          <p className="priceHeader">Shipped</p>
+          <p className="priceHeader">Shipping</p>
           <TextInput
             className="priceField"
             rightlabel="₹"
             type="number"
             field="shippingPrice"
             value={this.state.shippingPrice}
+            placeholder="100.00"
+            onChange={this.onFieldChange}
+          />
+          <p className="priceHeader">Wholesaler Delivered</p>
+          <TextInput
+            className="priceField"
+            rightlabel="₹"
+            type="number"
+            field="deliveredPrice"
+            value={this.state.deliveredPrice}
             placeholder="100.00"
             onChange={this.onFieldChange}
           />
