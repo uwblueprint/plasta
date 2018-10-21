@@ -15,6 +15,7 @@ gunicorn = "*"
 flask-jwt-extended = "*"
 flask-cors = "*"
 "boto3" = "*"
+uwsgi = "*"
 
 [dev-packages]
 fancycompleter = "*"
