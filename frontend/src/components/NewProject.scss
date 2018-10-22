@@ -35,11 +35,7 @@
     display: inline-block;
   }
 
-  .priceField input {
-    text-align: right;
-  }
-
-  .required-field-notif {
+  .required_field {
     max-width: 400px;
     margin-left: auto;
     margin-right: auto;
@@ -83,7 +79,10 @@
     outline: none;
   }
 
-  .invalid-input-message i {
-    margin-right: 5px;
+  .date-input-field,
+  input {
+    max-width: 400px;
+    font-size: 14px;
+    padding: 5px 10px;
   }
 }

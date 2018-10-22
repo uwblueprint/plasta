@@ -10,6 +10,9 @@ import InvalidInputMessage from './InvalidInputMessage';
 import { post } from './utils/requests';
 import { fieldToLabelMap } from './utils/project';
 import './NewProject.css';
+import DayPickerInput from 'react-day-picker/DayPickerInput';
+import 'react-day-picker/lib/style.css';
+import moment from 'moment';
 
 const staticDWCC = [{ label: 'DWCC 1', value: 'dw1' }, { label: 'DWCC 2', value: 'dw2' }];
 
@@ -64,6 +67,7 @@ class NewProject extends Component {
     this.validateRequiredField = this.validateRequiredField.bind(this);
     this.validateAll = this.validateAll.bind(this);
     this.isFormValid = this.isFormValid.bind(this);
+    this.handleDayChange = this.handleDayChange.bind(this);
   }
 
   onFieldChange(field) {
@@ -90,6 +94,12 @@ class NewProject extends Component {
     return Object.values(this.state.errors).reduce((prev, err) => {
       return prev && !err;
     }, true);
+  }
+
+  handleDayChange(input, value) {
+    this.setState({
+      [input]: moment(value).format('YYYY-MM-DD'),
+    });
   }
 
   onSubmit() {
@@ -249,22 +259,18 @@ class NewProject extends Component {
         </FormSection>
 
         <FormSection className="formsection" title="Start Date">
-          <TextInput
-            className="full-width"
-            field="startDate"
-            value={this.state.startDate}
-            placeholder="YYYY/MM/DD"
-            onChange={this.onFieldChange}
+          <DayPickerInput
+            className="date-input-field"
+            placeholder="YYYY-MM-DD"
+            onDayChange={day => this.handleDayChange('startDate', day)}
           />
         </FormSection>
 
         <FormSection className="formsection" title="End Date">
-          <TextInput
-            className="full-width"
-            field="endDate"
-            value={this.state.endDate}
-            placeholder="YYYY/MM/DD"
-            onChange={this.onFieldChange}
+          <DayPickerInput
+            className="date-input-field"
+            placeholder="YYYY-MM-DD"
+            onDayChange={day => this.handleDayChange('endDate', day)}
           />
         </FormSection>
 
