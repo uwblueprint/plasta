@@ -1,0 +1,32 @@
+[
+  {
+    "name": "test_project",
+    "project_type": "internal",
+    "plastics": [
+      {
+        "plastic_type": "green_pet",
+        "quantity": 10
+      },
+      {
+        "plastic_type": "brown_pet",
+        "quantity": 10
+      }
+    ],
+    "metadata": {
+      "brand_name": "test brand",
+      "description": "test description",
+      "gdrive_link": "test gdrive link",
+      "shipping_terms": "test terms",
+      "cost_model": {
+        "wastepicker_sell_price": 1.00,
+        "wastepicker_purchase_price": 1.00,
+        "wholesaler_sell_price": 1.00,
+        "price_buoyancy": 1.00,
+        "wholesaler_exworks_price": 1.00,
+        "wholesaler_shipping_price": 1.00,
+        "wholesaler_delivered_price": 1.00,
+        "pfc_transaction_fee": 1.00
+      }
+    }
+  }
+]

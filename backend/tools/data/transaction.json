@@ -1,0 +1,22 @@
+[
+  {
+    "project_id": 1,
+    "from_vendor_id": 1,
+    "to_vendor_id": 2,
+    "to_acknowledged": true,
+    "price": 1.00,
+    "plastics": [
+      {
+        "plastic_type": "green_pet",
+        "quantity": 10,
+        "price": 1
+      },
+      {
+        "plastic_type": "brown_pet",
+        "quantity": 10,
+        "price": 1
+      }
+    ],
+    "creator_id": 1
+  }
+]

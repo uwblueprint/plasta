@@ -5,6 +5,8 @@ from sqlalchemy.orm.properties import ColumnProperty
 from . import db
 from .metadata_specs import METADATA_SPECS
 
+METADATA_COLUMN = 'meta_data'
+
 
 class BaseMixin:
     __table_args__ = {'extend_existing': True}
@@ -47,12 +49,12 @@ class BaseMixin:
             return rows.first()
         return rows.all()
 
-    # TODO(imran): Find abstraction to recursively create subobjects
     @classmethod
     def create(cls, **kwargs):
-        if 'meta_data' in kwargs and cls.METADATA_SPEC is not None:
-            kwargs['meta_data'] = cls.sanitize_metadata(
-                kwargs['meta_data'], cls.METADATA_SPEC)
+        if METADATA_COLUMN in kwargs and cls.METADATA_SPEC is not None:
+            kwargs[METADATA_COLUMN] = cls.sanitize_metadata(
+                kwargs[METADATA_COLUMN], cls.METADATA_SPEC)
+
         instance = cls(**kwargs)
         return instance.save()
 

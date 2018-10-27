@@ -1,4 +1,5 @@
 from flask import Blueprint, request
+
 from . import db_client
 from .route_utils import success
 
@@ -9,7 +10,8 @@ blueprint = Blueprint('project', __name__, url_prefix='/projects')
 def get_project():
     projects = db_client.get_projects()
     return success(data=[
-        project.to_dict(include_relationships=True) for project in projects
+        project.to_dict(include_relationships=True)
+        for project in projects
     ])
 
 
@@ -23,4 +25,7 @@ def create_project():
 @blueprint.route('/<int:project_id>/transactions', methods=['GET'])
 def get_project_transactions(project_id):
     transactions = db_client.get_project_transactions(project_id)
-    return success(data=[txn.to_dict() for txn in transactions])
+    return success(data=[
+        transaction.to_dict(include_relationships=True)
+        for transaction in transactions
+    ])
