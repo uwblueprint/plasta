@@ -32,6 +32,7 @@
   "scripts": {
     "precommit": "lint-staged",
     "start": "npm-run-all -p watch-css start-js",
+    "deploy": "pm2 start ./server.sh --name plasta-frontend",
     "build": "webpack -d && cp src/index.html dist/index.html && webpack-dev-server --hot --inline --colors --progress --content-base src/",
     "build:prod": "react-scripts build",
     "build-css": "node-sass-chokidar --include-path ./src --include-path ./node_modules src/ -o src/",
@@ -40,7 +41,6 @@
     "build-js": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
-    "build-prod": "webpack -p && cp src/index.html dist/index.html",
     "lint": "esw src --color",
     "lint:watch": "npm run lint -- --watch"
   },
