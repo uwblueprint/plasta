@@ -1,0 +1,14 @@
+[
+  {
+    "id": 1,
+    "vendor_subtype": "scrap_shop",
+    "name": "test_vendor_1",
+    "metadata": {}
+  },
+  {
+    "id": 2,
+    "vendor_subtype": "export_wholesaler",
+    "name": "test_vendor_2",
+    "metadata": {}
+  }
+]

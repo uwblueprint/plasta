@@ -63,3 +63,12 @@ class Vendor(BaseMixin, db.Model):
         kwargs['vendor_type'] = vendor_subtype_map[subtype]
         instance = cls(**kwargs)
         return instance.save()
+
+
+class DWCCWastepickerMap(db.Model):
+    __tablename__ = 'dwcc_wastepicker_map'
+    wastepicker_id = db.Column(
+        db.Integer, db.ForeignKey('vendor.id'), primary_key=True)
+    dwcc_id = db.Column(db.Integer, db.ForeignKey('vendor.id'))
+    __table_args__ = (db.Index('IX_dwcc_wastepicker_map_dwcc_id', dwcc_id),
+                      db.UniqueConstraint('dwcc_id', 'wastepicker_id'))

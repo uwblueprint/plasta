@@ -1,7 +1,7 @@
 from datetime import timedelta
-
 from flask import Blueprint, request
 from flask_jwt_extended import create_access_token
+
 from .route_utils import error_response, success
 from . import db_client
 

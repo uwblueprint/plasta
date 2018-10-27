@@ -1,5 +1,5 @@
 """
-A command line tool to create data on the database
+A command line tool to create data for the database
 """
 
 from pprint import pprint
@@ -8,7 +8,7 @@ import bcrypt
 
 from app import create_app
 from app.models import db
-from app.models.models import User
+from app.models.user import User
 from app.models.vendor import Vendor, vendor_subtype_enum
 
 TABLE_CHOICE = ('user', 'vendor')
