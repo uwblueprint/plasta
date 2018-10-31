@@ -13,6 +13,7 @@ import AdminDashboard from './components/AdminDashboard';
 import AdminStakeholder from './components/AdminStakeholder';
 import AdminNewStakeholder from './components/AdminNewStakeholder';
 import './common.css';
+import 'tachyons-lite';
 
 const store = createStore(rootReducer);
 
