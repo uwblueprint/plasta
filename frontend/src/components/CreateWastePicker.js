@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import SearchSelect from './input-components/SearchSelect';
-// import RadioSelect from './input-components/RadioSelect';
 import FormSection from './input-components/FormSection';
 import TextInput from './input-components/TextInput';
-// import { post } from './utils/requests';
 import './FormPage.css';
 
 class CreateWastePicker extends Component {
@@ -73,6 +71,7 @@ class CreateWastePicker extends Component {
             field="wastePickerType"
             selectedOption={this.state.wastePickerType}
             options={[{ label: 'Wastepicker (general)', value: 'wastepickerGeneral' }]}
+            // TODO (xin): Select from all subtype options
             onChange={this.onFieldChange}
           />
 
@@ -82,7 +81,7 @@ class CreateWastePicker extends Component {
             type="file"
             field="picture"
             value={this.state.picture}
-            // onChange={this.onFieldChange}
+            // TODO: onChange
           />
 
           <h3 className="label">Address</h3>
