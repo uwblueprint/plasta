@@ -14,6 +14,7 @@ import AdminStakeholder from './components/AdminStakeholder';
 import AdminNewStakeholder from './components/AdminNewStakeholder';
 import './common.css';
 import 'tachyons-lite';
+import { TachyonsExample } from './components/test-component/TachyonExample.component';
 
 const store = createStore(rootReducer);
 
@@ -21,6 +22,7 @@ render(
   <Provider store={store}>
     <Router>
       <Switch>
+        <Route path="/test" exact component={TachyonsExample} />
         <Route path="/" exact component={LoginPage} />
         <Route path="/landing" component={LandingPage} />
         <Route path="/admindash" component={AdminDashboard} />
