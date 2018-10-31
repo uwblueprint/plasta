@@ -43,7 +43,7 @@ class CreateWastePicker extends Component {
             className="emphasis-input full-width"
             field="wastePickerName"
             value={this.state.wastePickerName}
-            placeholder="John Doe"
+            placeholder="Ramnath"
             onChange={this.onFieldChange}
           />
 
