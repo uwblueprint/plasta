@@ -16,6 +16,7 @@ import CreateWastePicker from './components/DWCC/CreateWastePicker';
 import CreateExternalDWCC from './components/DWCC/CreateExternalDWCC';
 import './common.css';
 import DwccTransactionHistory from './components/DwccTransactionHistory';
+import DWCCTransaction from './components/DWCCTransaction';
 
 const store = createStore(rootReducer);
 
@@ -23,6 +24,7 @@ render(
   <Provider store={store}>
     <Router>
       <Switch>
+        <Route path="/dwcc/transactions" exact component={DWCCTransaction} />
         <Route path="/" exact component={LoginPage} />
         <Route path="/landing" component={LandingPage} />
         <Route path="/admindash" component={AdminDashboard} />

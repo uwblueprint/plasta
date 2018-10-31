@@ -1,4 +1,5 @@
 @import '../_constants.scss';
+#transactions-wrapper,
 #new-proj-wrapper,
 #create-wastepicker-wrapper {
   padding-left: 40px;
@@ -23,6 +24,10 @@
   .field-wrapper {
     padding-top: 10px;
     padding-bottom: 20px;
+  }
+
+  .margin-right-20 {
+    margin-right: 20px;
   }
 
   .form-section {
@@ -71,6 +76,14 @@
 
   .full-width input {
     width: 100%;
+  }
+
+  .half-width input {
+    width: 42%;
+  }
+
+  .inline {
+    display: inline;
   }
 
   .large-input input {
