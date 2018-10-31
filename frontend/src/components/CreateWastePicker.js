@@ -53,7 +53,7 @@ class CreateWastePicker extends Component {
             type="tel"
             field="telephone"
             value={this.state.telephone}
-            placeholder="123456789"
+            placeholder="9988776655"
             onChange={this.onFieldChange}
           />
 
