@@ -107,6 +107,7 @@ class CreateWastePicker extends Component {
             field="adhaarID"
             value={this.state.adhaarID}
             onChange={this.onFieldChange}
+            placeholder="1111 2222 3333"
           />
 
           <h3 className="label">HD Member ID</h3>
