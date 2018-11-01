@@ -4,6 +4,24 @@ import FormSection from './input-components/FormSection';
 import TextInput from './input-components/TextInput';
 import './FormPage.css';
 
+// TODO (XIN): get from endpoints
+
+const availableLanguages = [
+  { label: 'English', value: 'english' },
+  { label: 'Hindi', value: 'hindi' },
+  { label: 'Urdu', value: 'urdu' },
+  { label: 'Bengali', value: 'bengali' },
+  { label: 'Tamil', value: 'tamil' },
+];
+
+const wastePickerTypes = [
+  { label: 'Waste Picker (general)', value: 'wastepicker' },
+  { label: 'Home Basked Worker', value: 'home_based_worker' },
+  { label: 'Itinerant Buyer', value: 'itinerant_buyer' },
+  { label: 'Waste Picker Community Leader', value: 'wp_community_leader' },
+  { label: 'Small Scrap Shop', value: 'small_scrap_shop' },
+];
+
 class CreateWastePicker extends Component {
   constructor(props) {
     super(props);
@@ -27,7 +45,6 @@ class CreateWastePicker extends Component {
   }
 
   onSubmit() {
-    // const newWastePickerData = {};
     // TODO (xin) send data
   }
 
@@ -70,8 +87,7 @@ class CreateWastePicker extends Component {
           <SearchSelect
             field="wastePickerType"
             selectedOption={this.state.wastePickerType}
-            options={[{ label: 'Wastepicker (general)', value: 'wastepickerGeneral' }]}
-            // TODO (xin): Select from all subtype options
+            options={wastePickerTypes}
             onChange={this.onFieldChange}
           />
 
@@ -81,7 +97,7 @@ class CreateWastePicker extends Component {
             type="file"
             field="picture"
             value={this.state.picture}
-            // TODO: onChange
+            // TODO (XIN): onChange
           />
 
           <h3 className="label">Address</h3>
@@ -96,7 +112,7 @@ class CreateWastePicker extends Component {
           <SearchSelect
             field="language"
             selectedOption={this.state.language}
-            options={[{ label: 'English', value: 'english' }]}
+            options={availableLanguages}
             onChange={this.onFieldChange}
           />
 
