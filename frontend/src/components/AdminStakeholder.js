@@ -35,7 +35,7 @@ class AdminStakeholder extends Component {
               type="button"
               onClick={() => this.props.history.push('/admin/stakeholders/new')}
             >
-              > New Wholesaler
+              New Wholesaler
             </button>
             <AdminStakeholderInfo stakeholders={WholesalerData} />
           </TabPanel>

@@ -1,17 +1,16 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import TransactionHistory from './TransactionHistory';
+import './ProjectPage.css';
+
+let data = [];
 
 class AdminStakeholderInfo extends Component {
   render() {
     return (
-      <React.Fragment>
-        {this.props.stakeholders.map(stakeholder => (
-          <div key={stakeholder.id}>
-            <h1> {stakeholder.name} </h1>
-            {stakeholder.projects.map(project => <p key={project.id}>{project.name}</p>)}
-          </div>
-        ))}
-      </React.Fragment>
+      <div className="page-wrapper" id="proj-page-wrapper">
+        <TransactionHistory data={data} />
+      </div>
     );
   }
 }
