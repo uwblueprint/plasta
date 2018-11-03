@@ -15,6 +15,7 @@ import AdminNewStakeholder from './components/PFCAdmin/AdminNewStakeholder';
 import CreateWastePicker from './components/DWCC/CreateWastePicker';
 import CreateExternalDWCC from './components/DWCC/CreateExternalDWCC';
 import './common.css';
+import DwccTransactionHistory from './components/DwccTransactionHistory';
 
 const store = createStore(rootReducer);
 
@@ -31,6 +32,7 @@ render(
         <Route path="/admin/stakeholders" component={AdminStakeholder} />
         <Route path="/dwcc/wastepickers/new" component={CreateWastePicker} />
         <Route path="/dwcc/external-dwcc/new" component={CreateExternalDWCC} />
+        <Route path="/dwcc/transaction-history" component={DwccTransactionHistory} />
       </Switch>
     </Router>
   </Provider>,

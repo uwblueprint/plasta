@@ -1,18 +1,18 @@
 import ReactTable from 'react-table';
 import React, { Component } from 'react';
 import moment from 'moment';
-import './TransactionHistory.css';
+import './DwccTransactionHistory.css';
 import 'react-table/react-table.css';
-import { getTotalPlasticsPrice, getTotalPlasticsQuantity } from './utils/project';
+import {
+  plasticOptionsByName,
+  getTotalPlasticsPrice,
+  getTotalPlasticsQuantity,
+} from './utils/project';
 
 const columns = [
   {
-    Header: 'To',
+    Header: 'Name',
     accessor: 'to_vendor.name',
-  },
-  {
-    Header: 'From',
-    accessor: 'from_vendor.name',
   },
   {
     id: 'price',
@@ -27,7 +27,10 @@ const columns = [
   {
     id: 'plasticType',
     Header: 'Type',
-    accessor: transaction => transaction.plastics.map(plastic => plastic.plastic_type).join(', '),
+    accessor: transaction =>
+      transaction.plastics
+        .map(plastic => plasticOptionsByName.get(plastic.plastic_type).label)
+        .join(', '),
   },
   {
     id: 'saleDate',
@@ -47,14 +50,14 @@ const dummyTransactions = [
     from_vendor: {
       id: 1,
       vendor_type: 'wastepicker',
-      name: 'James Michael McAdoo',
+      name: 'Rahul',
       meta_data: {},
       created_at: Date.now(),
     },
     to_vendor: {
       id: 2,
       vendor_type: 'dwcc',
-      name: 'Stephen Curry',
+      name: 'Rohit',
       meta_data: {},
       created_at: Date.now(),
     },
@@ -78,14 +81,14 @@ const dummyTransactions = [
     from_vendor: {
       id: 1,
       vendor_type: 'wholesaler',
-      name: 'Lamarcus Aldridge',
+      name: 'Lakhan',
       meta_data: {},
       created_at: Date.now(),
     },
     to_vendor: {
       id: 2,
       vendor_type: 'manufacturer',
-      name: 'Lebron James',
+      name: 'Mohit',
       meta_data: {},
       created_at: Date.now(),
     },
@@ -97,7 +100,7 @@ const dummyTransactions = [
         transaction_id: 100,
         plastic_type: 'pet_light_blue',
         quantity: 99,
-        price: 10.99,
+        price: 5.99,
       },
       {
         transaction_id: 100,
@@ -117,22 +120,28 @@ const dummyTransactions = [
   },
 ];
 
-class TransactionHistory extends Component {
+class DwccTransactionHistory extends Component {
   render() {
-    // TODO (ahmed): Once backend is implemented, I can use that data
-    // const { data } = this.props;
     return (
       <div>
         <h1> Transaction History </h1>
+        <h2>Buy</h2>
         <ReactTable
           data={dummyTransactions}
           columns={columns}
           defaultPageSize={5}
-          className="-striped -highlight table"
+          className="-striped-highlight table"
+        />
+        <h2>Sell</h2>
+        <ReactTable
+          data={dummyTransactions}
+          columns={columns}
+          defaultPageSize={5}
+          className="-striped-highlight table"
         />
       </div>
     );
   }
 }
 
-export default TransactionHistory;
+export default DwccTransactionHistory;

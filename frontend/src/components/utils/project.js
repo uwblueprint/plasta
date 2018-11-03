@@ -25,6 +25,14 @@ export const plasticOptions = [
 
 export const plasticOptionsByName = Map(plasticOptions.map(option => [option.value, option]));
 
+export const getTotalPlasticsPrice = transaction => {
+  return transaction.plastics.map(plastic => plastic.price).reduce((a, b) => a + b, 0);
+};
+
+export const getTotalPlasticsQuantity = transaction => {
+  return transaction.plastics.map(plastic => plastic.quantity).reduce((a, b) => a + b, 0);
+};
+
 export const fieldToLabelMap = {
   projectName: 'Project name',
   dwccSelected: 'DWCC',
