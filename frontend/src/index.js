@@ -17,6 +17,7 @@ import CreateExternalDWCC from './components/DWCC/CreateExternalDWCC';
 import './common.css';
 import DwccTransactionHistory from './components/DwccTransactionHistory';
 import DWCCBuyTransaction from './components/DWCC/DWCCBuyTransaction';
+import DWCCSellTransaction from './components/DWCC/DWCCSellTransaction';
 
 const store = createStore(rootReducer);
 
@@ -24,6 +25,7 @@ render(
   <Provider store={store}>
     <Router>
       <Switch>
+        <Route path="/dwcc/transactions/sell" exact component={DWCCSellTransaction} />
         <Route path="/dwcc/transactions/buy" exact component={DWCCBuyTransaction} />
         <Route path="/" exact component={LoginPage} />
         <Route path="/landing" component={LandingPage} />

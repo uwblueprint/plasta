@@ -1,17 +1,16 @@
 import React, { Component } from 'react';
 import moment from 'moment';
 // import { post } from './utils/requests';
+import { fieldToLabelMap } from '../utils/transactions';
+
 import DWCCTransaction from './DWCCTransaction';
 
-export const fieldToLabelMap = {
-  projectName: 'Project name',
-  dwccSelected: 'DWCC',
-  wholesalerSelected: 'Wholesaler',
-};
-
-const staticWholesaler = [
-  { label: 'Wholesaler 1', value: 'WS1' },
-  { label: 'Wholesaler 2', value: 'WS2' },
+const staticBuyStakeholders = [
+  { label: 'Rahul Gupta', value: 'WP1' },
+  { label: 'Rohit Patel', value: 'WP2' },
+  { label: 'Lakhan Bakshi', value: 'WP2' },
+  { label: 'DWCC 1', value: 'DWCC1' },
+  { label: 'DWCC 2', value: 'DWCC2' },
 ];
 
 export default class DWCCBuyTransaction extends Component {
@@ -19,9 +18,11 @@ export default class DWCCBuyTransaction extends Component {
     super(props);
     this.state = {
       errors: {
-        projectName: '',
-        dwccSelected: '',
-        wholesalerSelected: '',
+        stakeholderName: '',
+        plasticType: '',
+        price: '',
+        weight: '',
+        transactionDate: '',
       },
       stakeholderName: '',
       plasticType: '',
@@ -80,13 +81,14 @@ export default class DWCCBuyTransaction extends Component {
   render() {
     return (
       <DWCCTransaction
+        title={'Buy'}
         onSubmit={this.onSubmit}
         onFieldChange={this.onFieldChange}
         validateRequiredField={this.validateRequiredField}
         validateAll={this.validateAll}
         isFormValid={this.isFormValid}
         handleDayChange={this.handleDayChange}
-        stakeholderOptions={staticWholesaler}
+        stakeholderOptions={staticBuyStakeholders}
         {...this.state}
       />
     );
