@@ -5,17 +5,9 @@ import DayPickerInput from 'react-day-picker/DayPickerInput';
 import 'react-day-picker/lib/style.css';
 import TextInput from '../input-components/TextInput';
 import './../FormPage.css';
+import PropTypes from 'prop-types';
 
 export default class DWCCTransaction extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
-
-  onFieldChange(field) {
-    this.setState({ [field.key]: field.value });
-  }
-
   render() {
     return (
       <div className="page-wrapper" id={`transactions-wrapper`}>
@@ -23,18 +15,20 @@ export default class DWCCTransaction extends Component {
         <FormSection className="formsection" title="Stakeholder Name">
           <SearchSelect
             field="stakeholderName"
-            selectedOption={this.state.brandName}
-            options={staticWholesaler}
+            selectedOption={this.props.stakeholderName}
+            options={this.props.stakeholderOptions}
+            onChange={
+              this.props.onFieldChange // TODO: Update names
+            }
           />
-          // onChange={this.onFieldChange}
         </FormSection>
         <FormSection className="formsection" title="Plastic Type">
           <SearchSelect
             field="plasticType"
-            selectedOption={this.state.brandName}
+            selectedOption={this.props.plasticType}
             options={staticPlasticTypes}
+            onChange={this.props.onFieldChange}
           />
-          // onChange={this.onFieldChange}
         </FormSection>
         <FormSection className="formsection" title="Amount">
           <TextInput
@@ -42,28 +36,33 @@ export default class DWCCTransaction extends Component {
             className="half-width inline margin-right-20"
             field="price"
             rightlabel="₹"
+            value={this.props.price}
+            placeholder={'0.00'}
+            onChange={this.props.onFieldChange}
           />
-          // value={this.state.projectName}
-          // placeholder="Enter project name here" // onChange={this.onFieldChange}
-          // onBlur={this.validateRequiredField}
-          <TextInput id="weight" className="half-width inline" field="weight" rightlabel="Kg" />
-          // value={this.state.projectName}
-          // placeholder="Enter project name here" // onChange={this.onFieldChange}
-          // onBlur={this.validateRequiredField}
+          <TextInput
+            id="weight"
+            className="half-width inline"
+            field="weight"
+            rightlabel="Kg"
+            value={this.props.weight}
+            onChange={this.props.onFieldChange}
+          />
         </FormSection>
         <FormSection className="formsection" title="Date">
-          <DayPickerInput className="date-input-field" placeholder="YYYY-MM-DD" />
-          // onDayChange={day => this.handleDayChange('startDate', day)}
+          <DayPickerInput
+            className="date-input-field"
+            placeholder="YYYY-MM-DD"
+            onDayChange={day => this.props.handleDayChange('transactionDate', day)}
+          />
         </FormSection>
+        <button type="submit" onClick={this.props.onSubmit}>
+          Submit
+        </button>
       </div>
     );
   }
 }
-
-const staticWholesaler = [
-  { label: 'Wholesaler 1', value: 'WS1' },
-  { label: 'Wholesaler 2', value: 'WS2' },
-];
 
 const staticPlasticTypes = [
   { label: 'PET', value: 'p' },
@@ -71,3 +70,7 @@ const staticPlasticTypes = [
   { label: 'HDP', value: 'WS2' },
   { label: 'Films', value: 'WS2' },
 ];
+
+// DWCCTransaction.propTypes {
+//   brandName: PropTypes.string
+// };
