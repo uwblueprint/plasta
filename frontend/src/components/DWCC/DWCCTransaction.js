@@ -7,6 +7,7 @@ import TextInput from '../input-components/TextInput';
 import './../FormPage.css';
 import PropTypes from 'prop-types';
 import InvalidInputMessage from '../InvalidInputMessage';
+import CreatableSelect from 'react-select/lib/Creatable';
 
 export default class DWCCTransaction extends Component {
   render() {
@@ -14,13 +15,24 @@ export default class DWCCTransaction extends Component {
       <div className="page-wrapper" id={`transactions-wrapper`}>
         <h1>{this.props.title}</h1>
         <FormSection className="formsection" title="Stakeholder Name">
-          <SearchSelect
-            field="stakeholderName"
-            selectedOption={this.props.stakeholderName}
-            options={this.props.stakeholderOptions}
-            onChange={this.props.onFieldChange}
-            onBlur={this.props.validateRequiredField}
-          />
+          {this.props.title === 'Buy' ? (
+            <CreatableSelect
+              field="stakeholderName"
+              selectedOption={this.props.stakeholderName}
+              options={this.props.stakeholderOptions}
+              onChange={this.props.onFieldChange}
+              onBlur={this.props.validateRequiredField}
+              onNewOptionClick={this.props.handleNewStakeholder}
+            />
+          ) : (
+            <SearchSelect
+              field="stakeholderName"
+              selectedOption={this.props.stakeholderName}
+              options={this.props.stakeholderOptions}
+              onChange={this.props.onFieldChange}
+              onBlur={this.props.validateRequiredField}
+            />
+          )}
           {this.props.errors.stakeholderName && (
             <InvalidInputMessage showIcon message={this.props.errors.stakeholderName} />
           )}
@@ -105,9 +117,10 @@ DWCCTransaction.propTypes = {
   stakeholderOptions: PropTypes.array.isRequired,
   errors: PropTypes.object.isRequired,
   title: PropTypes.string.isRequired,
+  handleNewStakeholder: PropTypes.func,
   // field values
   price: PropTypes.string.isRequired,
   weight: PropTypes.string.isRequired,
-  plasticType: PropTypes.string.isRequired,
+  plasticType: PropTypes.object.isRequired,
   stakeholderName: PropTypes.string.isRequired,
 };
