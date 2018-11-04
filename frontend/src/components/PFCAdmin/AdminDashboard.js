@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './AdminDashboard.css';
-import { get } from './utils/requests.js';
+import { get } from '../utils/requests.js';
 
 class AdminDashboard extends Component {
   constructor(props) {

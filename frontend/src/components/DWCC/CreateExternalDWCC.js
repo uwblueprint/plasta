@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import FormSection from './input-components/FormSection';
-import TextInput from './input-components/TextInput';
-import './FormPage.css';
+import FormSection from '../input-components/FormSection';
+import TextInput from '../input-components/TextInput';
+import '../FormPage.css';
 
 export default class CreateExternalDWCC extends Component {
   constructor(props) {
