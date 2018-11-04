@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import SearchSelect from './input-components/SearchSelect';
-import FormSection from './input-components/FormSection';
-import TextInput from './input-components/TextInput';
-import './FormPage.css';
+import SearchSelect from '../input-components/SearchSelect';
+import FormSection from '../input-components/FormSection';
+import TextInput from '../input-components/TextInput';
+import '../FormPage.css';
 
 // TODO (XIN): get from endpoints
 

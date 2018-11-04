@@ -2,7 +2,7 @@ import './AdminStakeholder.css';
 import React, { Component } from 'react';
 import { Tabs, TabList, Tab, TabPanel } from 'react-tabs';
 import AdminStakeholderInfo from './AdminStakeholderInfo';
-import { DWCCData, WholesalerData } from './fakeData';
+import { DWCCData, WholesalerData } from '../fakeData';
 
 class AdminStakeholder extends Component {
   constructor() {

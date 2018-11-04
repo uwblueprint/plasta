@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import { ProjectData } from './fakeData';
-import FormSection from './input-components/FormSection';
-import TextInput from './input-components/TextInput';
-import SearchSelect from './input-components/SearchSelect';
+import { ProjectData } from '../fakeData';
+import FormSection from '../input-components/FormSection';
+import TextInput from '../input-components/TextInput';
+import SearchSelect from '../input-components/SearchSelect';
 
 class AdminNewStakeholder extends Component {
   constructor(props) {

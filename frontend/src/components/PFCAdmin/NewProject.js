@@ -1,18 +1,18 @@
 import React, { Component } from 'react';
 import { List } from 'immutable';
-import SearchSelect from './input-components/SearchSelect';
-import RadioSelect from './input-components/RadioSelect';
-import FormSection from './input-components/FormSection';
-import TextInput from './input-components/TextInput';
-import TextAreaInput from './input-components/TextAreaInput';
-import PlasticTypeQuantityGroup from './input-components/PlasticTypeQuantityGroup';
-import InvalidInputMessage from './InvalidInputMessage';
-import { post } from './utils/requests';
-import { fieldToLabelMap } from './utils/project';
+import SearchSelect from '../input-components/SearchSelect';
+import RadioSelect from '../input-components/RadioSelect';
+import FormSection from '../input-components/FormSection';
+import TextInput from '../input-components/TextInput';
+import TextAreaInput from '../input-components/TextAreaInput';
+import PlasticTypeQuantityGroup from '../input-components/PlasticTypeQuantityGroup';
+import InvalidInputMessage from '../InvalidInputMessage';
+import { post } from '../utils/requests';
+import { fieldToLabelMap } from '../utils/project';
 import DayPickerInput from 'react-day-picker/DayPickerInput';
 import 'react-day-picker/lib/style.css';
 import moment from 'moment';
-import './FormPage.css';
+import '../FormPage.css';
 
 const staticDWCC = [{ label: 'DWCC 1', value: 'dw1' }, { label: 'DWCC 2', value: 'dw2' }];
 
