@@ -6,48 +6,68 @@ import 'react-day-picker/lib/style.css';
 import TextInput from '../input-components/TextInput';
 import './../FormPage.css';
 import PropTypes from 'prop-types';
+import InvalidInputMessage from '../InvalidInputMessage';
 
 export default class DWCCTransaction extends Component {
   render() {
     return (
       <div className="page-wrapper" id={`transactions-wrapper`}>
-        <h1>Sell</h1>
+        <h1>{this.props.title}</h1>
         <FormSection className="formsection" title="Stakeholder Name">
           <SearchSelect
             field="stakeholderName"
             selectedOption={this.props.stakeholderName}
             options={this.props.stakeholderOptions}
-            onChange={
-              this.props.onFieldChange // TODO: Update names
-            }
+            onChange={this.props.onFieldChange}
+            onBlur={this.props.validateRequiredField}
           />
+          {this.props.errors.stakeholderName && (
+            <InvalidInputMessage showIcon message={this.props.errors.stakeholderName} />
+          )}
         </FormSection>
+
         <FormSection className="formsection" title="Plastic Type">
           <SearchSelect
             field="plasticType"
             selectedOption={this.props.plasticType}
             options={staticPlasticTypes}
             onChange={this.props.onFieldChange}
+            onBlur={this.props.validateRequiredField}
           />
+          {this.props.errors.plasticType && (
+            <InvalidInputMessage showIcon message={this.props.errors.plasticType} />
+          )}
         </FormSection>
         <FormSection className="formsection" title="Amount">
           <TextInput
             id="price"
             className="half-width inline margin-right-20"
             field="price"
-            rightlabel="₹"
+            rightlabel=" ₹"
             value={this.props.price}
             placeholder={'0.00'}
+            type="number"
             onChange={this.props.onFieldChange}
+            onBlur={this.props.validateRequiredField}
           />
+
           <TextInput
             id="weight"
             className="half-width inline"
             field="weight"
-            rightlabel="Kg"
+            rightlabel=" Kg"
+            type="number"
             value={this.props.weight}
+            placeholder={'0'}
             onChange={this.props.onFieldChange}
+            onBlur={this.props.validateRequiredField}
           />
+          {this.props.errors.price && (
+            <InvalidInputMessage showIcon message={this.props.errors.price} />
+          )}
+          {this.props.errors.weight && (
+            <InvalidInputMessage showIcon message={this.props.errors.weight} />
+          )}
         </FormSection>
         <FormSection className="formsection" title="Date">
           <DayPickerInput
@@ -56,7 +76,11 @@ export default class DWCCTransaction extends Component {
             onDayChange={day => this.props.handleDayChange('transactionDate', day)}
           />
         </FormSection>
-        <button type="submit" onClick={this.props.onSubmit}>
+        <button
+          type="submit"
+          onClick={this.props.onSubmit}
+          className="btn-dark bg-green uppercase margin-top"
+        >
           Submit
         </button>
       </div>
@@ -71,6 +95,19 @@ const staticPlasticTypes = [
   { label: 'Films', value: 'WS2' },
 ];
 
-// DWCCTransaction.propTypes {
-//   brandName: PropTypes.string
-// };
+DWCCTransaction.propTypes = {
+  onSubmit: PropTypes.func.isRequired,
+  onFieldChange: PropTypes.func.isRequired,
+  validateRequiredField: PropTypes.func.isRequired,
+  validateAll: PropTypes.func.isRequired,
+  isFormValid: PropTypes.func.isRequired,
+  handleDayChange: PropTypes.func.isRequired,
+  stakeholderOptions: PropTypes.array.isRequired,
+  errors: PropTypes.object.isRequired,
+  title: PropTypes.string.isRequired,
+  // field values
+  price: PropTypes.string.isRequired,
+  weight: PropTypes.string.isRequired,
+  plasticType: PropTypes.string.isRequired,
+  stakeholderName: PropTypes.string.isRequired,
+};
