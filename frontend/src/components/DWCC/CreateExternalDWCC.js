@@ -37,13 +37,13 @@ export default class CreateExternalDWCC extends Component {
             onChange={this.onFieldChange}
           />
 
-          <h3 className="label">Phone *</h3>
+          <h3 className="label">Phone</h3>
           <TextInput
             className="large-input full-width"
             type="tel"
             field="telephone"
             value={this.state.telephone}
-            placeholder="123456789"
+            placeholder="9988776655"
             onChange={this.onFieldChange}
           />
 
