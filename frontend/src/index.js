@@ -13,6 +13,7 @@ import AdminDashboard from './components/AdminDashboard';
 import AdminStakeholder from './components/AdminStakeholder';
 import AdminNewStakeholder from './components/AdminNewStakeholder';
 import CreateWastePicker from './components/CreateWastePicker';
+import CreateExternalDWCC from './components/CreateExternalDWCC';
 import './common.css';
 
 const store = createStore(rootReducer);
@@ -29,6 +30,7 @@ render(
         <Route path="/admin/stakeholders/new" component={AdminNewStakeholder} />
         <Route path="/admin/stakeholders" component={AdminStakeholder} />
         <Route path="/dwcc/wastepickers/new" component={CreateWastePicker} />
+        <Route path="/dwcc/external-dwcc/new" component={CreateExternalDWCC} />
       </Switch>
     </Router>
   </Provider>,
