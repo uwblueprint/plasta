@@ -25,7 +25,7 @@ export default class DWCCBuyTransaction extends Component {
         transactionDate: '',
       },
       stakeholderName: '',
-      plasticType: '',
+      plasticType: {},
       price: '',
       weight: '',
       transactionDate: '',
@@ -36,10 +36,16 @@ export default class DWCCBuyTransaction extends Component {
     this.validateAll = this.validateAll.bind(this);
     this.isFormValid = this.isFormValid.bind(this);
     this.handleDayChange = this.handleDayChange.bind(this);
+    this.handleNewStakeholder = this.handleNewStakeholder.bind(this);
   }
 
   onFieldChange(field) {
     this.setState({ [field.key]: field.value });
+  }
+
+  handleNewStakeholder(option) {
+    console.log(option);
+    alert('Create new DWCC or Wastepicker?');
   }
 
   validateRequiredField(field) {
@@ -89,6 +95,7 @@ export default class DWCCBuyTransaction extends Component {
         isFormValid={this.isFormValid}
         handleDayChange={this.handleDayChange}
         stakeholderOptions={staticBuyStakeholders}
+        handleNewStakeholder={this.handleNewStakeholder}
         {...this.state}
       />
     );
