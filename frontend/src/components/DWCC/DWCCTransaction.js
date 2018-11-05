@@ -20,9 +20,12 @@ export default class DWCCTransaction extends Component {
 
   render() {
     return (
-      <div className="page-wrapper" id={`transactions-wrapper`}>
+      <div className="page-wrapper" id="transactions-wrapper">
         <h1>{this.props.title}</h1>
-        <FormSection className="formsection" title="Stakeholder Name">
+        <p className="required-field-notif">
+          All fields marked with <b>*</b> are required.
+        </p>
+        <FormSection className="formsection" title="Stakeholder Name *">
           {this.props.title === 'Buy' ? (
             <React.Fragment>
               <CreatableSelect
@@ -54,7 +57,7 @@ export default class DWCCTransaction extends Component {
           )}
         </FormSection>
 
-        <FormSection className="formsection" title="Plastic Type">
+        <FormSection className="formsection" title="Plastic Type *">
           <SearchSelect
             field="plasticType"
             selectedOption={this.props.plasticType}
@@ -66,7 +69,7 @@ export default class DWCCTransaction extends Component {
             <InvalidInputMessage showIcon message={this.props.errors.plasticType} />
           )}
         </FormSection>
-        <FormSection className="formsection" title="Amount">
+        <FormSection className="formsection" title="Amount *">
           <TextInput
             id="price"
             className="half-width inline margin-right-20"
