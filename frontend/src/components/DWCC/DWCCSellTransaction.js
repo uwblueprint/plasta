@@ -22,7 +22,7 @@ export default class DWCCSellTransaction extends Component {
         transactionDate: '',
       },
       stakeholderName: '',
-      plasticType: '',
+      plasticType: {},
       price: '',
       weight: '',
       transactionDate: '',
