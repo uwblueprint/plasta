@@ -17,18 +17,13 @@ export default class DWCCBuyTransaction extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      errors: {
-        stakeholderName: '',
-        plasticType: '',
-        price: '',
-        weight: '',
-        transactionDate: '',
-      },
+      errors: { stakeholderName: '', plasticType: '', price: '', weight: '', transactionDate: '' },
       stakeholderName: '',
       plasticType: {},
       price: '',
       weight: '',
       transactionDate: '',
+      showModal: false,
     };
     this.onFieldChange = this.onFieldChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
@@ -37,15 +32,19 @@ export default class DWCCBuyTransaction extends Component {
     this.isFormValid = this.isFormValid.bind(this);
     this.handleDayChange = this.handleDayChange.bind(this);
     this.handleNewStakeholder = this.handleNewStakeholder.bind(this);
+    this.hideModal = this.hideModal.bind(this);
+  }
+
+  hideModal() {
+    this.setState({ showModal: false });
   }
 
   onFieldChange(field) {
     this.setState({ [field.key]: field.value });
   }
 
-  handleNewStakeholder(option) {
-    console.log(option);
-    alert('Create new DWCC or Wastepicker?');
+  handleNewStakeholder() {
+    this.setState({ showModal: true });
   }
 
   validateRequiredField(field) {
@@ -71,9 +70,7 @@ export default class DWCCBuyTransaction extends Component {
   }
 
   handleDayChange(input, value) {
-    this.setState({
-      [input]: moment(value).format('YYYY-MM-DD'),
-    });
+    this.setState({ [input]: moment(value).format('YYYY-MM-DD') });
   }
 
   onSubmit() {
@@ -96,6 +93,8 @@ export default class DWCCBuyTransaction extends Component {
         handleDayChange={this.handleDayChange}
         stakeholderOptions={staticBuyStakeholders}
         handleNewStakeholder={this.handleNewStakeholder}
+        showModal={this.showModal}
+        hideModal={this.hideModal}
         {...this.state}
       />
     );
