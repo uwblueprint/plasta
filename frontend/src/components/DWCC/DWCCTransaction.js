@@ -11,13 +11,6 @@ import CreatableSelect from 'react-select/lib/Creatable';
 import Modal from '../input-components/Modal';
 
 export default class DWCCTransaction extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      show: false,
-    };
-  }
-
   render() {
     return (
       <div className="page-wrapper" id="transactions-wrapper">
@@ -26,7 +19,7 @@ export default class DWCCTransaction extends Component {
           All fields marked with <b>*</b> are required.
         </p>
         <FormSection className="formsection" title="Stakeholder Name *">
-          {this.props.title === 'Buy' ? (
+          {this.props.title === 'Buy' ? ( //TODO: Modal route to Create DWCC & Wastepicker
             <React.Fragment>
               <CreatableSelect
                 field="stakeholderName"
