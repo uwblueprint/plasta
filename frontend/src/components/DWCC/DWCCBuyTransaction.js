@@ -1,23 +1,13 @@
 import React, { Component } from 'react';
 import moment from 'moment';
-// import { post } from './utils/requests';
 import { fieldToLabelMap } from '../utils/transactions';
-
 import DWCCTransaction from './DWCCTransaction';
-
-const staticBuyStakeholders = [
-  { label: 'Rahul Gupta', value: 'WP1' },
-  { label: 'Rohit Patel', value: 'WP2' },
-  { label: 'Lakhan Bakshi', value: 'WP2' },
-  { label: 'DWCC 1', value: 'DWCC1' },
-  { label: 'DWCC 2', value: 'DWCC2' },
-];
 
 export default class DWCCBuyTransaction extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      errors: { stakeholderName: '', plasticType: '', price: '', weight: '', transactionDate: '' },
+      errors: { stakeholderName: '', plasticType: '', price: '', weight: '' },
       stakeholderName: '',
       plasticType: {},
       price: '',
@@ -78,8 +68,8 @@ export default class DWCCBuyTransaction extends Component {
       alert('Please resolve errors');
       return;
     }
+    // TODO: POST Request to the backend
     // post('/projects', newProjectData).catch(err => {});
-    console.log(this.state);
   }
   render() {
     return (
@@ -91,7 +81,7 @@ export default class DWCCBuyTransaction extends Component {
         validateAll={this.validateAll}
         isFormValid={this.isFormValid}
         handleDayChange={this.handleDayChange}
-        stakeholderOptions={staticBuyStakeholders}
+        stakeholderOptions={staticBuyStakeholders} // TODO: Get DWCC & Wastepickers
         handleNewStakeholder={this.handleNewStakeholder}
         showModal={this.showModal}
         hideModal={this.hideModal}
@@ -100,3 +90,11 @@ export default class DWCCBuyTransaction extends Component {
     );
   }
 }
+
+const staticBuyStakeholders = [
+  { label: 'Rahul Gupta', value: 'WP1' },
+  { label: 'Rohit Patel', value: 'WP2' },
+  { label: 'Lakhan Bakshi', value: 'WP2' },
+  { label: 'DWCC 1', value: 'DWCC1' },
+  { label: 'DWCC 2', value: 'DWCC2' },
+];

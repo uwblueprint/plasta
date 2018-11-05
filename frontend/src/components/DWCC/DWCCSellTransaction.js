@@ -1,14 +1,7 @@
 import React, { Component } from 'react';
 import moment from 'moment';
-// import { post } from './utils/requests';
 import { fieldToLabelMap } from '../utils/transactions';
-
 import DWCCTransaction from './DWCCTransaction';
-
-const staticWholesaler = [
-  { label: 'Wholesaler 1', value: 'WS1' },
-  { label: 'Wholesaler 2', value: 'WS2' },
-];
 
 export default class DWCCSellTransaction extends Component {
   constructor(props) {
@@ -19,7 +12,6 @@ export default class DWCCSellTransaction extends Component {
         plasticType: '',
         price: '',
         weight: '',
-        transactionDate: '',
       },
       stakeholderName: '',
       plasticType: {},
@@ -72,8 +64,8 @@ export default class DWCCSellTransaction extends Component {
       alert('Please resolve errors');
       return;
     }
+    // TODO: send POST with Buy transaction data
     // post('/projects', newProjectData).catch(err => {});
-    console.log(this.state);
   }
   render() {
     return (
@@ -85,9 +77,15 @@ export default class DWCCSellTransaction extends Component {
         validateAll={this.validateAll}
         isFormValid={this.isFormValid}
         handleDayChange={this.handleDayChange}
-        stakeholderOptions={staticWholesaler}
+        stakeholderOptions={staticSellStakeholders} //TODO: GET Sell Stakeholders from DB
         {...this.state}
       />
     );
   }
 }
+
+const staticSellStakeholders = [
+  { label: 'Wholesaler 1', value: 'WS1' },
+  { label: 'Wholesaler 2', value: 'WS2' },
+  { label: 'DWCC 1', value: 'DWCC' },
+];
