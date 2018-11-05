@@ -8,22 +8,38 @@ import './../FormPage.css';
 import PropTypes from 'prop-types';
 import InvalidInputMessage from '../InvalidInputMessage';
 import CreatableSelect from 'react-select/lib/Creatable';
+import Modal from '../input-components/Modal';
 
 export default class DWCCTransaction extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      show: false,
+    };
+  }
+
   render() {
     return (
       <div className="page-wrapper" id={`transactions-wrapper`}>
         <h1>{this.props.title}</h1>
         <FormSection className="formsection" title="Stakeholder Name">
           {this.props.title === 'Buy' ? (
-            <CreatableSelect
-              field="stakeholderName"
-              selectedOption={this.props.stakeholderName}
-              options={this.props.stakeholderOptions}
-              onChange={this.props.onFieldChange}
-              onBlur={this.props.validateRequiredField}
-              onNewOptionClick={this.props.handleNewStakeholder}
-            />
+            <React.Fragment>
+              <CreatableSelect
+                field="stakeholderName"
+                selectedOption={this.props.stakeholderName}
+                options={this.props.stakeholderOptions}
+                onChange={this.props.onFieldChange}
+                onBlur={this.props.validateRequiredField}
+                onNewOptionClick={this.props.handleNewStakeholder}
+                promptTextCreator={search => `${search} not found, create a new stakeholder`}
+              />
+              <Modal show={this.props.showModal} handleClose={this.props.hideModal}>
+                <h1>Create a new...</h1>
+                <button>Wastepicker</button>
+                <button>DWCC</button>
+              </Modal>
+            </React.Fragment>
           ) : (
             <SearchSelect
               field="stakeholderName"
@@ -118,6 +134,8 @@ DWCCTransaction.propTypes = {
   errors: PropTypes.object.isRequired,
   title: PropTypes.string.isRequired,
   handleNewStakeholder: PropTypes.func,
+  showModal: PropTypes.bool,
+  hideModal: PropTypes.func,
   // field values
   price: PropTypes.string.isRequired,
   weight: PropTypes.string.isRequired,
