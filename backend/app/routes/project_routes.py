@@ -7,11 +7,10 @@ blueprint = Blueprint('project', __name__, url_prefix='/projects')
 
 
 @blueprint.route('/', methods=['GET'])
-def get_project():
+def get_projects():
     projects = db_client.get_projects()
     return success(data=[
-        project.to_dict(include_relationships=True)
-        for project in projects
+        project.to_dict(include_relationships=True) for project in projects
     ])
 
 
@@ -26,6 +25,6 @@ def create_project():
 def get_project_transactions(project_id):
     transactions = db_client.get_project_transactions(project_id)
     return success(data=[
-        transaction.to_dict(include_relationships=True)
-        for transaction in transactions
+        transaction.to_dict(
+            include_relationships=True) for transaction in transactions
     ])

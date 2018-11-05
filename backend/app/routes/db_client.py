@@ -6,13 +6,9 @@ from ..models.vendor import Vendor
 
 # TODO(imran): write decorator to make db reads/writes atomic
 def create_project(data):
-    # We use `data.pop()` to get the value and also remove it
-    # from the dict. If it the key is not present, we raise a
-    # KeyError (as expected).
     plastics = data.pop('plastics')
     project = Project.create(**data)
     project.create_plastics(plastics)
-
     return project
 
 
@@ -42,3 +38,9 @@ def get_user(email):
 # TODO(imran): Insert into DWCCWasterPickerMap appropriately
 def create_vendor(data):
     return Vendor.create(**data)
+
+
+def get_vendors(vendor_types):
+    if not vendor_types:
+        return Vendor.query.all()
+    return Vendor.query.filter(Vendor.vendor_type.in_(vendor_types)).all()

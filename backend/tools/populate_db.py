@@ -1,6 +1,7 @@
-import bcrypt
 import os
 import json
+import bcrypt
+
 from app import create_app
 from app.routes import db_client
 
