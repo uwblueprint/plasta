@@ -15,4 +15,4 @@ class User(BaseMixin, db.Model):
         db.Integer, db.ForeignKey('vendor.id'), nullable=False)
     meta_data = db.Column(JSONB)
     created_at = db.Column(db.DateTime, server_default=db.func.now())
-    __table_args__ = (db.Index('IX_user_email', func.lower(email)),)
+    __table_args__ = (db.Index('IX_user_email', func.lower(email)), )
