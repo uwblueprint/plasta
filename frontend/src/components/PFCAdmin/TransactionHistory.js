@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import moment from 'moment';
 import './TransactionHistory.css';
 import 'react-table/react-table.css';
-import { getTotalPlasticsPrice, getTotalPlasticsQuantity } from './utils/project';
+import { getTotalPlasticsPrice, getTotalPlasticsQuantity } from '../utils/project';
 
 const columns = [
   {
