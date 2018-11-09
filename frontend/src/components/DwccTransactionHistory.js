@@ -1,5 +1,6 @@
 import ReactTable from 'react-table';
 import React, { Component } from 'react';
+import DWCCNavBar from './DWCC/DWCCNavBar.js';
 import moment from 'moment';
 import './DwccTransactionHistory.css';
 import 'react-table/react-table.css';
@@ -139,6 +140,7 @@ class DwccTransactionHistory extends Component {
           defaultPageSize={5}
           className="-striped-highlight table"
         />
+        <DWCCNavBar />
       </div>
     );
   }
