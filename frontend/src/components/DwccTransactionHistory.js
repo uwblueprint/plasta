@@ -131,14 +131,14 @@ class DwccTransactionHistory extends Component {
           data={dummyTransactions}
           columns={columns}
           defaultPageSize={5}
-          className="-striped-highlight table"
+          className="-striped-highlight table buy"
         />
         <h2>Sell</h2>
         <ReactTable
           data={dummyTransactions}
           columns={columns}
           defaultPageSize={5}
-          className="-striped-highlight table"
+          className="-striped-highlight table sell"
         />
         <DWCCNavBar />
       </div>
