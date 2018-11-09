@@ -21,12 +21,6 @@ const staticWholesaler = [
   { label: 'Wholesaler 2', value: 'WS2' },
 ];
 
-const staticBrands = [
-  { label: 'Brand A', value: 'a' },
-  { label: 'Brand B', value: 'b' },
-  { label: 'Brand C', value: 'c' },
-];
-
 const staticShippingTerms = [
   { label: 'FOB', value: 'fob' },
   { label: 'CIF', value: 'cif' },
@@ -193,10 +187,11 @@ class NewProject extends Component {
         </FormSection>
 
         <FormSection title="Brand Name">
-          <SearchSelect
+          <TextInput
             field="brandName"
-            selectedOption={this.state.brandName}
-            options={staticBrands}
+            className="full-width"
+            value={this.state.brandName}
+            placeholder="Enter brand name here"
             onChange={this.onFieldChange}
           />
         </FormSection>
