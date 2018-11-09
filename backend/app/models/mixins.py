@@ -1,5 +1,4 @@
 from sqlalchemy import inspect
-from sqlalchemy.ext.declarative import declared_attr
 from sqlalchemy.orm.properties import ColumnProperty
 
 from . import db
@@ -10,11 +9,6 @@ METADATA_COLUMN = 'meta_data'
 
 class BaseMixin:
     __table_args__ = {'extend_existing': True}
-
-    @classmethod
-    @declared_attr
-    def METADATA_SPEC(cls):
-        return METADATA_SPECS.get(cls.__tablename__, {})
 
     @classmethod
     def sanitize_metadata(cls, metadata, specification):
@@ -51,9 +45,10 @@ class BaseMixin:
 
     @classmethod
     def create(cls, **kwargs):
-        if METADATA_COLUMN in kwargs and cls.METADATA_SPEC is not None:
+        metadata_spec = METADATA_SPECS.get(cls.__tablename__, {})
+        if METADATA_COLUMN in kwargs and metadata_spec is not None:
             kwargs[METADATA_COLUMN] = cls.sanitize_metadata(
-                kwargs[METADATA_COLUMN], cls.METADATA_SPEC)
+                kwargs[METADATA_COLUMN], metadata_spec)
 
         instance = cls(**kwargs)
         return instance.save()
