@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import moment from 'moment';
 import { fieldToLabelMap } from '../utils/transactions';
-import DWCCTransaction from './DWCCTransaction';
+import DWCCTransaction, { transactionTypes } from './DWCCTransaction';
 
 export default class DWCCBuyTransaction extends Component {
   constructor(props) {
@@ -75,6 +75,7 @@ export default class DWCCBuyTransaction extends Component {
     return (
       <DWCCTransaction
         title={'Buy'}
+        transactionType={transactionTypes.BUY}
         onSubmit={this.onSubmit}
         onFieldChange={this.onFieldChange}
         validateRequiredField={this.validateRequiredField}

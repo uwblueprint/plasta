@@ -10,7 +10,49 @@ import InvalidInputMessage from '../InvalidInputMessage';
 import CreatableSelect from 'react-select/lib/Creatable';
 import Modal from '../input-components/Modal';
 
+export const transactionTypes = {
+  BUY: 1,
+  SELL: 2,
+};
 export default class DWCCTransaction extends Component {
+  constructor(props) {
+    super(props);
+    this.buyStakeholderSelect = this.buyStakeholderSelect.bind(this);
+    this.sellStakeholderSelect = this.sellStakeholderSelect.bind(this);
+  }
+  buyStakeholderSelect() {
+    return (
+      <React.Fragment>
+        <CreatableSelect
+          field="stakeholderName"
+          selectedOption={this.props.stakeholderName}
+          options={this.props.stakeholderOptions}
+          onChange={this.props.onFieldChange}
+          onBlur={this.props.validateRequiredField}
+          onNewOptionClick={this.props.handleNewStakeholder}
+          promptTextCreator={search => `${search} not found, create a new stakeholder`}
+        />
+        <Modal show={this.props.showModal} handleClose={this.props.hideModal}>
+          <h1>Create a new...</h1>
+          <button>Wastepicker</button>
+          <button>DWCC</button>
+        </Modal>
+      </React.Fragment>
+    );
+  }
+
+  sellStakeholderSelect() {
+    return (
+      <SearchSelect
+        field="stakeholderName"
+        selectedOption={this.props.stakeholderName}
+        options={this.props.stakeholderOptions}
+        onChange={this.props.onFieldChange}
+        onBlur={this.props.validateRequiredField}
+      />
+    );
+  }
+
   render() {
     return (
       <div className="page-wrapper" id="transactions-wrapper">
@@ -18,33 +60,13 @@ export default class DWCCTransaction extends Component {
         <p className="required-field-notif">
           All fields marked with <b>*</b> are required.
         </p>
-        <FormSection className="formsection" title="Stakeholder Name *">
-          {this.props.title === 'Buy' ? ( //TODO: Modal route to Create DWCC & Wastepicker
-            <React.Fragment>
-              <CreatableSelect
-                field="stakeholderName"
-                selectedOption={this.props.stakeholderName}
-                options={this.props.stakeholderOptions}
-                onChange={this.props.onFieldChange}
-                onBlur={this.props.validateRequiredField}
-                onNewOptionClick={this.props.handleNewStakeholder}
-                promptTextCreator={search => `${search} not found, create a new stakeholder`}
-              />
-              <Modal show={this.props.showModal} handleClose={this.props.hideModal}>
-                <h1>Create a new...</h1>
-                <button>Wastepicker</button>
-                <button>DWCC</button>
-              </Modal>
-            </React.Fragment>
-          ) : (
-            <SearchSelect
-              field="stakeholderName"
-              selectedOption={this.props.stakeholderName}
-              options={this.props.stakeholderOptions}
-              onChange={this.props.onFieldChange}
-              onBlur={this.props.validateRequiredField}
-            />
-          )}
+        <FormSection
+          className="formsection"
+          title={`${this.props.transactionType === transactionTypes.BUY ? `From` : `To`} *`}
+        >
+          {this.props.transactionType === transactionTypes.BUY //TODO: Modal route to Create DWCC & Wastepicker
+            ? this.buyStakeholderSelect()
+            : this.sellStakeholderSelect()}
           {this.props.errors.stakeholderName && (
             <InvalidInputMessage showIcon message={this.props.errors.stakeholderName} />
           )}
@@ -67,7 +89,7 @@ export default class DWCCTransaction extends Component {
             id="price"
             className="half-width inline margin-right-20"
             field="price"
-            rightlabel=" ₹"
+            rightlabel=" ₹/Kg"
             value={this.props.price}
             placeholder={'0.00'}
             type="number"
@@ -132,6 +154,7 @@ DWCCTransaction.propTypes = {
   handleNewStakeholder: PropTypes.func,
   showModal: PropTypes.bool,
   hideModal: PropTypes.func,
+  transactionType: PropTypes.number.isRequired,
   // field values
   price: PropTypes.string.isRequired,
   weight: PropTypes.string.isRequired,
