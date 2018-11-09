@@ -6,9 +6,13 @@ METADATA_SPECS = {
         },
         'description': {
             'type': str,
-            'required': True
+            'required': False
         },
         'gdrive_link': {
+            'type': str,
+            'required': False
+        },
+        'project_terms': {
             'type': str,
             'required': True
         },
