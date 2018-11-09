@@ -1,7 +1,4 @@
-.transaction_history,
-.buy,
-.sell,
-.create_new {
+.button {
   position: relative;
   display: flex;
   margin: 0;
@@ -9,10 +6,16 @@
   width: 25%;
 }
 
-.transaction_history:hover,
-.buy:hover,
-.sell:hover,
-.create_new:hover {
+.transaction_history,
+.buy,
+.sell,
+.create_new {
+  position: relative;
+  display: flex;
+  margin: auto;
+}
+
+.button:hover {
   border-right-style: solid;
   border-left-style: solid;
   border-right-width: 1px;
@@ -22,6 +25,7 @@
 
 .navbar {
   display: flex;
+  position: absolute;
   margin: 0;
   padding: 0;
   border-top-style: solid;
