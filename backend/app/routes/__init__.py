@@ -17,6 +17,7 @@ def init_app(app):
     from flask_cors import CORS
 
     CORS(project_routes.blueprint)
+    CORS(vendor_routes.blueprint)
 
     app.register_blueprint(auth_routes.blueprint)
     app.register_blueprint(project_routes.blueprint)
