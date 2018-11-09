@@ -15,8 +15,9 @@ def login():
 
     email = request.json.get('email', None)
     # password = request.json.get('password', None)
+    user = db_client.get_user(email)
 
-    if not db_client.get_user(email):
+    if not user:
         return error_response(message="User cannot be found")
 
     validity_time = timedelta(days=7)
@@ -24,4 +25,5 @@ def login():
         identity=email,
         expires_delta=validity_time,
     )
-    return success(access_token=access_token)
+
+    return success(access_token=access_token, data=user.to_dict())

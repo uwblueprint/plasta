@@ -79,6 +79,10 @@ class BaseMixin:
         formatted = {}
         for column in mapper.attrs:
             field = column.key
+            if hasattr(cls, 'TO_DICT_WHITELIST') and \
+                    field not in cls.TO_DICT_WHITELIST:
+                continue
+
             attr = getattr(self, field)
             # If it's a regular column, extract the value
             if isinstance(column, ColumnProperty):
