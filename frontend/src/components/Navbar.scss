@@ -24,9 +24,11 @@
 }
 
 .navbar {
+  background-color: white;
   display: flex;
-  position: absolute;
-  margin: 0;
+  position: fixed;
+  bottom: 0;
+  z-index: 100;
   padding: 0;
   border-top-style: solid;
   border-bottom-style: solid;
