@@ -1,0 +1,40 @@
+.transaction_history,
+.buy,
+.sell,
+.create_new {
+  position: relative;
+  display: flex;
+  margin: 0;
+  padding: 0;
+  width: 25%;
+}
+
+.transaction_history:hover,
+.buy:hover,
+.sell:hover,
+.create_new:hover {
+  border-right-style: solid;
+  border-left-style: solid;
+  border-right-width: 1px;
+  border-left-width: 1px;
+  border-color: lightgrey;
+}
+
+.navbar {
+  display: flex;
+  margin: 0;
+  padding: 0;
+  border-top-style: solid;
+  border-bottom-style: solid;
+  border-color: lightgrey;
+  height: 40px;
+  width: 100%;
+  border-top-width: 1px;
+  border-bottom-width: 1px;
+  margin-top: 20px;
+}
+
+.navbar_button {
+  padding: 5px;
+  height: 30px;
+}
