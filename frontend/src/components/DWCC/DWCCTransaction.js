@@ -158,6 +158,6 @@ DWCCTransaction.propTypes = {
   // field values
   price: PropTypes.string.isRequired,
   weight: PropTypes.string.isRequired,
-  plasticType: PropTypes.object.isRequired,
+  plasticType: PropTypes.object,
   stakeholderName: PropTypes.string.isRequired,
 };
