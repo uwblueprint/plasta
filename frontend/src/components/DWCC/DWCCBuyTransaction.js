@@ -93,9 +93,9 @@ export default class DWCCBuyTransaction extends Component {
 }
 
 const staticBuyStakeholders = [
-  { label: 'Rahul Gupta', value: 'WP1' },
-  { label: 'Rohit Patel', value: 'WP2' },
-  { label: 'Lakhan Bakshi', value: 'WP2' },
+  { label: 'Rahul', value: 'WP1' },
+  { label: 'Rohit', value: 'WP2' },
+  { label: 'Lakhan', value: 'WP2' },
   { label: 'DWCC 1', value: 'DWCC1' },
   { label: 'DWCC 2', value: 'DWCC2' },
 ];
