@@ -1,46 +1,40 @@
-.button {
-  position: relative;
-  display: flex;
-  margin: 0;
-  padding: 0;
-  width: 25%;
-}
+#nav-bar-wrapper {
+  .tab {
+    position: relative;
+    display: flex;
+    margin: 0;
+    padding: 0;
+    width: 25%;
+  }
 
-.transaction_history,
-.buy,
-.sell,
-.create_new {
-  position: relative;
-  display: flex;
-  margin: auto;
-}
+  .tab:hover {
+    border-right-style: solid;
+    border-left-style: solid;
+    border-right-width: 1px;
+    border-left-width: 1px;
+    border-color: lightgrey;
+  }
 
-.button:hover {
-  border-right-style: solid;
-  border-left-style: solid;
-  border-right-width: 1px;
-  border-left-width: 1px;
-  border-color: lightgrey;
-}
+  .navbar {
+    background-color: white;
+    display: flex;
+    position: fixed;
+    bottom: 0;
+    z-index: 100;
+    padding: 0;
+    border-top-style: solid;
+    border-bottom-style: solid;
+    border-color: lightgrey;
+    height: 40px;
+    width: 100%;
+    border-top-width: 1px;
+    border-bottom-width: 1px;
+    margin-top: 20px;
+  }
 
-.navbar {
-  background-color: white;
-  display: flex;
-  position: fixed;
-  bottom: 0;
-  z-index: 100;
-  padding: 0;
-  border-top-style: solid;
-  border-bottom-style: solid;
-  border-color: lightgrey;
-  height: 40px;
-  width: 100%;
-  border-top-width: 1px;
-  border-bottom-width: 1px;
-  margin-top: 20px;
-}
-
-.navbar_button {
-  padding: 5px;
-  height: 30px;
+  .image {
+    height: 30px;
+    width: 30px;
+    margin: auto;
+  }
 }
