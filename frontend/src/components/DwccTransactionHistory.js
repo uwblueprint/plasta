@@ -1,8 +1,8 @@
 import ReactTable from 'react-table';
 import React, { Component } from 'react';
-import DWCCNavBar from './DWCC/DWCCNavBar.js';
+import DWCCBottomBar from './DWCC/DWCCNavBar.js';
 import moment from 'moment';
-import './DwccTransactionHistory.css';
+import './DWCC/DWCC.css';
 import 'react-table/react-table.css';
 import {
   plasticOptionsByName,
@@ -125,22 +125,24 @@ class DwccTransactionHistory extends Component {
   render() {
     return (
       <div>
-        <h1> Transaction History </h1>
-        <h2>Buy</h2>
-        <ReactTable
-          data={dummyTransactions}
-          columns={columns}
-          defaultPageSize={5}
-          className="-striped-highlight table buy"
-        />
-        <h2>Sell</h2>
-        <ReactTable
-          data={dummyTransactions}
-          columns={columns}
-          defaultPageSize={5}
-          className="-striped-highlight table sell"
-        />
-        <DWCCNavBar />
+        <div id="dwcc-page-wrapper">
+          <h1> Transaction History </h1>
+          <h2>Buy</h2>
+          <ReactTable
+            data={dummyTransactions}
+            columns={columns}
+            defaultPageSize={5}
+            className="-striped-highlight table"
+          />
+          <h2>Sell</h2>
+          <ReactTable
+            data={dummyTransactions}
+            columns={columns}
+            defaultPageSize={5}
+            className="-striped-highlight table"
+          />
+        </div>
+        <DWCCBottomBar />
       </div>
     );
   }
