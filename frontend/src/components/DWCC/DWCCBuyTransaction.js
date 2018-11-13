@@ -10,7 +10,7 @@ export default class DWCCBuyTransaction extends Component {
     super(props);
     this.state = {
       errors: { stakeholderName: '', plasticType: '', price: '', weight: '' },
-      stakeholderName: '',
+      stakeholderName: {},
       plasticType: {},
       price: '',
       weight: '',
@@ -98,9 +98,9 @@ export default class DWCCBuyTransaction extends Component {
 }
 
 const staticBuyStakeholders = [
-  { label: 'Rahul', value: 'WP1' },
-  { label: 'Rohit', value: 'WP2' },
-  { label: 'Lakhan', value: 'WP2' },
-  { label: 'DWCC 1', value: 'DWCC1' },
-  { label: 'DWCC 2', value: 'DWCC2' },
+  { label: 'Rahul', value: 'rahul-id' },
+  { label: 'Rohit', value: 'rohit-id' },
+  { label: 'Lakhan', value: 'rakhan-id' },
+  { label: 'DWCC 1', value: 'dwcc1-id' },
+  { label: 'DWCC 2', value: 'dwcc2-id' },
 ];

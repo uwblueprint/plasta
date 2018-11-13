@@ -15,7 +15,7 @@ export default class DWCCSellTransaction extends Component {
         price: '',
         weight: '',
       },
-      stakeholderName: '',
+      stakeholderName: {},
       plasticType: {},
       price: '',
       weight: '',
