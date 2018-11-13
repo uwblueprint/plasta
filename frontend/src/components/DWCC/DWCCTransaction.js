@@ -34,8 +34,12 @@ export default class DWCCTransaction extends Component {
         />
         <Modal show={this.props.showModal} handleClose={this.props.hideModal}>
           <h1>Create a new...</h1>
-          <button>Wastepicker</button>
-          <button>DWCC</button>
+          <button type="button" onClick={() => this.props.history.push('/dwcc/wastepickers/new')}>
+            Wastepicker
+          </button>
+          <button type="button" onClick={() => this.props.history.push('/dwcc/external-dwcc/new')}>
+            DWCC
+          </button>
         </Modal>
       </React.Fragment>
     );
@@ -64,7 +68,7 @@ export default class DWCCTransaction extends Component {
           className="formsection"
           title={`${this.props.transactionType === transactionTypes.BUY ? `From` : `To`} *`}
         >
-          {this.props.transactionType === transactionTypes.BUY //TODO: Modal route to Create DWCC & Wastepicker
+          {this.props.transactionType === transactionTypes.BUY
             ? this.buyStakeholderSelect()
             : this.sellStakeholderSelect()}
           {this.props.errors.stakeholderName && (
@@ -156,8 +160,8 @@ DWCCTransaction.propTypes = {
   hideModal: PropTypes.func,
   transactionType: PropTypes.number.isRequired,
   // field values
-  price: PropTypes.string.isRequired,
-  weight: PropTypes.string.isRequired,
+  price: PropTypes.number.isRequired,
+  weight: PropTypes.number.isRequired,
   plasticType: PropTypes.object,
-  stakeholderName: PropTypes.string.isRequired,
+  stakeholderName: PropTypes.object.isRequired,
 };
