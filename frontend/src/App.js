@@ -1,7 +1,8 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { connect } from 'react-redux';
 import LandingPage from './components/LandingPage';
-import LoginPage from './components/LoginContainer';
+import LoginPage from './components/LoginPage';
 import NewProject from './components/PFCAdmin/NewProject';
 import ProjectPage from './components/PFCAdmin/ProjectPage';
 import AdminDashboard from './components/PFCAdmin/AdminDashboard';
@@ -11,13 +12,13 @@ import CreateWastePicker from './components/DWCC/CreateWastePicker';
 import CreateExternalDWCC from './components/DWCC/CreateExternalDWCC';
 import DwccTransactionHistory from './components/DwccTransactionHistory';
 import { get } from './components/utils/requests';
+import { appLoad } from './actions';
 import './common.css';
 
-export default class App extends React.Component {
+class App extends React.Component {
   componentDidMount() {
-    // fetch vendor data
-    const vendors = get('/vendors').then(results => {
-      console.log(results);
+    get('/vendors').then(results => {
+      this.props.onLoad({ vendors: results.data });
     });
   }
 
@@ -40,3 +41,12 @@ export default class App extends React.Component {
     );
   }
 }
+
+const mapDispatchToProps = dispatch => ({
+  onLoad: payload => dispatch(appLoad(payload)),
+});
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(App);
