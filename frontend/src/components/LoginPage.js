@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import TextInput from './input-components/TextInput.js';
+import { onFieldChange } from './utils/form';
+import { userAuthentication } from '../actions';
 import './LoginPage.css';
 
 class LoginPage extends Component {
@@ -10,7 +13,10 @@ class LoginPage extends Component {
       email: '',
       password: '',
     };
-    this.onChange = field => this.setState({ [field.key]: field.value });
+    this.onChange = onFieldChange.bind(this);
+    this.onSubmit = () => {
+      // TODO (xin): LOGIN THROUGH BACKEND
+    };
   }
 
   render() {
@@ -43,7 +49,7 @@ class LoginPage extends Component {
               onChange={this.onChange}
             />
           </div>
-          <button type="submit" onClick={() => this.props.history.push('/landing')}>
+          <button type="button" onClick={this.onSubmit}>
             Login
           </button>
         </form>
@@ -52,8 +58,20 @@ class LoginPage extends Component {
   }
 }
 
+const mapStateToProps = state => ({
+  userObject: state.userObject,
+  vendors: state.vendors,
+});
+
+const mapDispatchToProps = dispatch => ({
+  onAuthentication: payload => dispatch(userAuthentication(payload)),
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(LoginPage);
+
 LoginPage.propTypes = {
   onSubmit: PropTypes.func,
 };
-
-export default LoginPage;

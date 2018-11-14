@@ -1,8 +1,10 @@
 import { combineReducers } from 'redux';
-import userEmail from './userEmail';
+import userObject from './userObject';
+import vendors from './vendors';
 
 const rootReducer = combineReducers({
-  userEmail,
+  userObject,
+  vendors,
 });
 
 export default rootReducer;
