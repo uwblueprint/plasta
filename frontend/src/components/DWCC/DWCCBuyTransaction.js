@@ -76,7 +76,7 @@ export default class DWCCBuyTransaction extends Component {
   render() {
     return (
       <div id="transactions-wrapper">
-        <CancelButton />
+        <CancelButton context={this.context} />
         <DWCCTransaction
           title={'Buy'}
           transactionType={transactionTypes.BUY}

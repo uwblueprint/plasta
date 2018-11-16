@@ -51,7 +51,7 @@ class CreateWastePicker extends Component {
   render() {
     return (
       <div className="page-wrapper" id="create-wastepicker-wrapper">
-        <CancelButton />
+        <CancelButton context={this.context} />
         <h1 className="dwcc-title">Create Waste Picker</h1>
         <FormSection>
           <h3 className="label">Name *</h3>
