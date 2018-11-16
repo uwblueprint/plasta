@@ -5,6 +5,8 @@ import TextInput from './input-components/TextInput.js';
 import { onFieldChange } from './utils/form';
 import { userAuthentication } from '../actions';
 import './LoginPage.css';
+import { post } from './utils/requests';
+import { Cookies } from 'react-cookie';
 
 class LoginPage extends Component {
   constructor(props) {
@@ -14,9 +16,25 @@ class LoginPage extends Component {
       password: '',
     };
     this.onChange = onFieldChange.bind(this);
-    this.onSubmit = () => {
-      // TODO (xin): LOGIN THROUGH BACKEND
+    this.onSubmit = this.onSubmit.bind(this);
+  }
+
+  onSubmit(e) {
+    e.preventDefault();
+    const loginData = {
+      email: this.state.email,
+      password: this.state.password,
     };
+    this.props.userAuthentication({ email: this.state.email });
+
+    post('/auth/login', loginData)
+      .then(results => {
+        console.log(results);
+        console.log(results.access_token);
+        Cookies.set('access_token', results.access_token);
+        this.props.history.push('/landing');
+      })
+      .catch(err => {});
   }
 
   render() {

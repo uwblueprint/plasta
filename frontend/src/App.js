@@ -13,6 +13,7 @@ import CreateExternalDWCC from './components/DWCC/CreateExternalDWCC';
 import DwccTransactionHistory from './components/DwccTransactionHistory';
 import { get } from './components/utils/requests';
 import { appLoad } from './actions';
+import { withCookies } from 'react-cookie';
 import './common.css';
 
 class App extends React.Component {
@@ -26,7 +27,7 @@ class App extends React.Component {
     return (
       <Router>
         <Switch>
-          <Route path="/" exact component={LoginPage} />
+          <Route path="/" exact render={() => <LoginPage cookies={this.props.cookies} />} />
           <Route path="/landing" component={LandingPage} />
           <Route path="/admindash" component={AdminDashboard} />
           <Route path="/projects/new" component={NewProject} />
@@ -42,11 +43,20 @@ class App extends React.Component {
   }
 }
 
+const mapStateToProps = (state, ownProps) => {
+  return {
+    state: state,
+    cookies: ownProps.cookies,
+  };
+};
+
 const mapDispatchToProps = dispatch => ({
   appLoad: payload => dispatch(appLoad(payload)),
 });
 
-export default connect(
-  null,
+export const AppContainer = connect(
+  mapStateToProps,
   mapDispatchToProps
 )(App);
+
+export default withCookies(AppContainer);
