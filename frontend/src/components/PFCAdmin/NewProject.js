@@ -9,6 +9,7 @@ import PlasticTypeQuantityGroup from '../input-components/PlasticTypeQuantityGro
 import InvalidInputMessage from '../InvalidInputMessage';
 import { post } from '../utils/requests';
 import { fieldToLabelMap } from '../utils/project';
+import { onFieldChange } from '../utils/form';
 import DayPickerInput from 'react-day-picker/DayPickerInput';
 import 'react-day-picker/lib/style.css';
 import moment from 'moment';
@@ -57,16 +58,12 @@ class NewProject extends Component {
       deliveredPrice: '',
       plasticQuantities: List(),
     };
-    this.onFieldChange = this.onFieldChange.bind(this);
+    this.onFieldChange = onFieldChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
     this.validateRequiredField = this.validateRequiredField.bind(this);
     this.validateAll = this.validateAll.bind(this);
     this.isFormValid = this.isFormValid.bind(this);
     this.handleDayChange = this.handleDayChange.bind(this);
-  }
-
-  onFieldChange(field) {
-    this.setState({ [field.key]: field.value });
   }
 
   validateRequiredField(field) {

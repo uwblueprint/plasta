@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import SearchSelect from '../input-components/SearchSelect';
 import FormSection from '../input-components/FormSection';
 import TextInput from '../input-components/TextInput';
+import { onFieldChange } from '../utils/form';
 import '../FormPage.css';
 import CancelButton from '../common/CancelButton.js';
 
@@ -36,12 +37,8 @@ class CreateWastePicker extends Component {
       adhaarID: '',
       hdMemberID: '',
     };
-    this.onFieldChange = this.onFieldChange.bind(this);
+    this.onFieldChange = onFieldChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
-  }
-
-  onFieldChange(field) {
-    this.setState({ [field.key]: field.value });
   }
 
   onSubmit() {
