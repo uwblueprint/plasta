@@ -122,6 +122,10 @@ const dummyTransactions = [
 ];
 
 class DwccTransactionHistory extends Component {
+  constructor(props) {
+    super(props);
+  }
+
   render() {
     return (
       <div>
@@ -142,7 +146,7 @@ class DwccTransactionHistory extends Component {
             className="-striped-highlight table"
           />
         </div>
-        <DWCCBottomBar />
+        <DWCCBottomBar history={this.props.history} />
       </div>
     );
   }
