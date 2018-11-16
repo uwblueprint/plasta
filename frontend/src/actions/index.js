@@ -1,6 +1,6 @@
-export const userAuthentication = payload => ({
+export const userAuthentication = currentUser => ({
   type: 'USER_LOGIN',
-  email: payload.email,
+  currentUser,
 });
 
 export const appLoad = payload => ({
