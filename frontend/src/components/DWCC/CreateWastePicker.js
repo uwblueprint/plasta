@@ -19,7 +19,6 @@ const wastePickerTypes = [
   { label: 'Home Basked Worker', value: 'home_based_worker' },
   { label: 'Itinerant Buyer', value: 'itinerant_buyer' },
   { label: 'Waste Picker Community Leader', value: 'wp_community_leader' },
-  { label: 'Small Scrap Shop', value: 'small_scrap_shop' },
 ];
 
 class CreateWastePicker extends Component {
