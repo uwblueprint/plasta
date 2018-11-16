@@ -1,5 +1,6 @@
 [
   {
+    "id": 1,
     "name": "test_project",
     "project_type": "internal",
     "plastics": [
@@ -12,6 +13,7 @@
         "quantity": 10
       }
     ],
+    "vendors": [1],
     "metadata": {
       "brand_name": "test brand",
       "description": "test description",

@@ -27,8 +27,12 @@ class Project(BaseMixin, db.Model):
             plastic['project_id'] = self.id
             ProjectPlasticMap.create(**plastic)
 
+    def link_vendors(self, vendors):
+        for vendor in vendors:
+            ProjectVendorMap.create(project_id=self.id, vendor_id=vendor)
 
-class ProjectVendorMap(db.Model):
+
+class ProjectVendorMap(BaseMixin, db.Model):
     __tablename__ = 'project_vendor_map'
     project_id = db.Column(
         db.Integer, db.ForeignKey('project.id'), primary_key=True)
