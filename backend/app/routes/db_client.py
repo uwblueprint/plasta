@@ -3,6 +3,8 @@ from ..models.transaction import Transaction
 from ..models.user import User
 from ..models.vendor import Vendor
 
+from sqlalchemy import or_
+
 
 # TODO(imran): write decorator to make db reads/writes atomic
 def create_project(data):
@@ -44,3 +46,10 @@ def get_vendors(vendor_types):
     if not vendor_types:
         return Vendor.query.all()
     return Vendor.query.filter(Vendor.vendor_type.in_(vendor_types)).all()
+
+
+def get_vendor_transactions(vendor_id):
+    return Transaction.query.filter(
+        or_(Transaction.from_vendor_id == vendor_id,
+            Transaction.to_vendor_id == vendor_id)
+    )
