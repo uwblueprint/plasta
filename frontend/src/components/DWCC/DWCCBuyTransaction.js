@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import moment from 'moment';
 import { fieldToLabelMap } from '../utils/transactions';
 import DWCCTransaction, { transactionTypes } from './DWCCTransaction';
+import CancelButton from '../common/CancelButton.js';
+import './../FormPage.css';
 
 export default class DWCCBuyTransaction extends Component {
   constructor(props) {
@@ -73,21 +75,24 @@ export default class DWCCBuyTransaction extends Component {
   }
   render() {
     return (
-      <DWCCTransaction
-        title={'Buy'}
-        transactionType={transactionTypes.BUY}
-        onSubmit={this.onSubmit}
-        onFieldChange={this.onFieldChange}
-        validateRequiredField={this.validateRequiredField}
-        validateAll={this.validateAll}
-        isFormValid={this.isFormValid}
-        handleDayChange={this.handleDayChange}
-        stakeholderOptions={staticBuyStakeholders} // TODO: Get DWCC & Wastepickers
-        handleNewStakeholder={this.handleNewStakeholder}
-        showModal={this.showModal}
-        hideModal={this.hideModal}
-        {...this.state}
-      />
+      <div id="transactions-wrapper">
+        <CancelButton />
+        <DWCCTransaction
+          title={'Buy'}
+          transactionType={transactionTypes.BUY}
+          onSubmit={this.onSubmit}
+          onFieldChange={this.onFieldChange}
+          validateRequiredField={this.validateRequiredField}
+          validateAll={this.validateAll}
+          isFormValid={this.isFormValid}
+          handleDayChange={this.handleDayChange}
+          stakeholderOptions={staticBuyStakeholders} // TODO: Get DWCC & Wastepickers
+          handleNewStakeholder={this.handleNewStakeholder}
+          showModal={this.showModal}
+          hideModal={this.hideModal}
+          {...this.state}
+        />
+      </div>
     );
   }
 }
