@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Route, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import TextInput from './input-components/TextInput.js';
@@ -7,6 +8,7 @@ import { userAuthentication } from '../actions';
 import './LoginPage.css';
 import { post } from './utils/requests';
 import { Cookies } from 'react-cookie';
+import InvalidInputMessage from './InvalidInputMessage.js';
 
 class LoginPage extends Component {
   constructor(props) {
@@ -14,6 +16,8 @@ class LoginPage extends Component {
     this.state = {
       email: '',
       password: '',
+      submitted: '',
+      errorMessage: '',
     };
     this.onChange = onFieldChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
@@ -21,23 +25,32 @@ class LoginPage extends Component {
 
   onSubmit(e) {
     e.preventDefault();
+    this.setState({
+      submitted: true,
+      errorMessage: '',
+    });
     const loginData = {
       email: this.state.email,
       password: this.state.password,
     };
-    this.props.userAuthentication({ email: this.state.email });
 
-    post('/auth/login', loginData)
-      .then(results => {
-        console.log(results);
-        console.log(results.access_token);
-        Cookies.set('access_token', results.access_token);
-        this.props.history.push('/landing');
-      })
-      .catch(err => {});
+    if (this.state.email && this.state.password) {
+      post('/auth/login', loginData)
+        .then(results => {
+          this.props.userAuthentication(results.data);
+          this.props.history.push('/landing');
+          this.props.cookies.set('access_token', results.access_token);
+        })
+        .catch(err => {
+          this.setState({
+            errorMessage: 'Email or Password is invalid. Please try again.',
+          });
+        });
+    }
   }
 
   render() {
+    const { email, password, submitted, errorMessage } = this.state;
     return (
       <div className="page-wrapper" id="login-wrapper">
         <img alt="Plastics For Change" src="/images/pfc-logo.png" />
@@ -53,6 +66,7 @@ class LoginPage extends Component {
               value={this.state.email}
               onChange={this.onChange}
             />
+            {submitted && !email && <InvalidInputMessage showIcon message="Email is required" />}
           </div>
           <div className="input-block">
             <label className="block" htmlFor="password">
@@ -66,7 +80,10 @@ class LoginPage extends Component {
               value={this.state.password}
               onChange={this.onChange}
             />
+            {submitted &&
+              !password && <InvalidInputMessage showIcon message="Password is required" />}
           </div>
+          {errorMessage && <InvalidInputMessage showIcon message={errorMessage} />}
           <button type="button" onClick={this.onSubmit}>
             Login
           </button>
@@ -82,13 +99,15 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  userAuthentication: payload => dispatch(userAuthentication(payload)),
+  userAuthentication: currentUser => dispatch(userAuthentication(currentUser)),
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(LoginPage);
+export default withRouter(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(LoginPage)
+);
 
 LoginPage.propTypes = {
   onSubmit: PropTypes.func,

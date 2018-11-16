@@ -15,10 +15,15 @@ import DWCCBuyTransaction from './components/DWCC/DWCCBuyTransaction';
 import DWCCSellTransaction from './components/DWCC/DWCCSellTransaction';
 import { get } from './components/utils/requests';
 import { appLoad } from './actions';
-import { withCookies } from 'react-cookie';
+import { Cookies, withCookies } from 'react-cookie';
+import { instanceOf } from 'prop-types';
 import './common.css';
 
 class App extends React.Component {
+  static propTypes = {
+    cookies: instanceOf(Cookies).isRequired,
+  };
+
   componentDidMount() {
     get('/vendors').then(results => {
       this.props.appLoad({ vendors: results.data });
