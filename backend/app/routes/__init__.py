@@ -18,6 +18,7 @@ def init_app(app):
 
     CORS(project_routes.blueprint)
     CORS(vendor_routes.blueprint)
+    CORS(auth_routes.blueprint)
 
     app.register_blueprint(auth_routes.blueprint)
     app.register_blueprint(project_routes.blueprint)
