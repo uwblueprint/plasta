@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import '../Navbar.css';
 import './DWCC.css';
 import transaction from './NavbarImages/transaction.png';
@@ -14,13 +14,13 @@ class DWCCBottomBar extends Component {
           <a href="#" className="tab">
             <img src={transaction} alt={'transactions'} />
           </a>
-          <a href="#" className="tab">
+          <a className="tab" onClick={() => this.props.history.push('/dwcc/transactions/buy')}>
             <img src={buy} alt={'buy'} />
           </a>
-          <a href="#" className="tab">
+          <a className="tab" onClick={() => this.props.history.push('/dwcc/transactions/sell')}>
             <img src={sell} alt={'sell'} />
           </a>
-          <a href="#" className="tab">
+          <a className="tab" onClick={() => this.props.history.push('/dwcc/wastepickers/new')}>
             <img src={createnew} alt={'create new'} />
           </a>
         </nav>
