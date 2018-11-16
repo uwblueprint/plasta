@@ -2,8 +2,10 @@
 #transactions-wrapper,
 #new-proj-wrapper,
 #create-wastepicker-wrapper {
-  padding-left: 40px;
-  padding-right: 40px;
+  padding-left: 20px;
+  padding-right: 20px;
+  max-width: 450px;
+  margin: auto;
 
   h2,
   h3,
@@ -19,6 +21,10 @@
   /* a larger label for inputs */
   h3.label {
     margin-bottom: 5px;
+  }
+
+  .dwcc-title {
+    display: inline-block;
   }
 
   .field-wrapper {

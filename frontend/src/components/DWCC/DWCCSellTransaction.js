@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import moment from 'moment';
 import { fieldToLabelMap } from '../utils/transactions';
 import DWCCTransaction, { transactionTypes } from './DWCCTransaction';
+import CancelButton from '../common/CancelButton.js';
+import './../FormPage.css';
 
 export default class DWCCSellTransaction extends Component {
   constructor(props) {
@@ -69,18 +71,21 @@ export default class DWCCSellTransaction extends Component {
   }
   render() {
     return (
-      <DWCCTransaction
-        title={'Sell'}
-        transactionType={transactionTypes.SELL}
-        onSubmit={this.onSubmit}
-        onFieldChange={this.onFieldChange}
-        validateRequiredField={this.validateRequiredField}
-        validateAll={this.validateAll}
-        isFormValid={this.isFormValid}
-        handleDayChange={this.handleDayChange}
-        stakeholderOptions={staticSellStakeholders} //TODO: GET Sell Stakeholders from DB
-        {...this.state}
-      />
+      <div id="transactions-wrapper">
+        <CancelButton />
+        <DWCCTransaction
+          title={'Sell'}
+          transactionType={transactionTypes.SELL}
+          onSubmit={this.onSubmit}
+          onFieldChange={this.onFieldChange}
+          validateRequiredField={this.validateRequiredField}
+          validateAll={this.validateAll}
+          isFormValid={this.isFormValid}
+          handleDayChange={this.handleDayChange}
+          stakeholderOptions={staticSellStakeholders} //TODO: GET Sell Stakeholders from DB
+          {...this.state}
+        />
+      </div>
     );
   }
 }

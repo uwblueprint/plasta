@@ -3,6 +3,7 @@ import SearchSelect from '../input-components/SearchSelect';
 import FormSection from '../input-components/FormSection';
 import TextInput from '../input-components/TextInput';
 import '../FormPage.css';
+import CancelButton from '../common/CancelButton.js';
 
 // TODO (XIN): get from endpoints
 
@@ -50,7 +51,8 @@ class CreateWastePicker extends Component {
   render() {
     return (
       <div className="page-wrapper" id="create-wastepicker-wrapper">
-        <h1>Create Waste Picker</h1>
+        <CancelButton />
+        <h1 className="dwcc-title">Create Waste Picker</h1>
         <FormSection>
           <h3 className="label">Name *</h3>
           <TextInput
