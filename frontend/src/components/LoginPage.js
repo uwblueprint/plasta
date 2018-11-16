@@ -59,12 +59,12 @@ class LoginPage extends Component {
 }
 
 const mapStateToProps = state => ({
-  userObject: state.userObject,
+  currentUser: state.currentUser,
   vendors: state.vendors,
 });
 
 const mapDispatchToProps = dispatch => ({
-  onAuthentication: payload => dispatch(userAuthentication(payload)),
+  userAuthentication: payload => dispatch(userAuthentication(payload)),
 });
 
 export default connect(

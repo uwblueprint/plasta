@@ -1,4 +1,4 @@
-const userObject = (prevState = {}, action) => {
+const currentUser = (prevState = {}, action) => {
   switch (action.type) {
     case 'USER_LOGIN':
       return { email: action.email } || {};
@@ -7,4 +7,4 @@ const userObject = (prevState = {}, action) => {
   }
 };
 
-export default userObject;
+export default currentUser;

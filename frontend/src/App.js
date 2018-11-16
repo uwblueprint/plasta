@@ -18,7 +18,7 @@ import './common.css';
 class App extends React.Component {
   componentDidMount() {
     get('/vendors').then(results => {
-      this.props.onLoad({ vendors: results.data });
+      this.props.appLoad({ vendors: results.data });
     });
   }
 
@@ -43,7 +43,7 @@ class App extends React.Component {
 }
 
 const mapDispatchToProps = dispatch => ({
-  onLoad: payload => dispatch(appLoad(payload)),
+  appLoad: payload => dispatch(appLoad(payload)),
 });
 
 export default connect(
