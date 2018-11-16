@@ -8,9 +8,13 @@ from sqlalchemy import or_
 
 # TODO(imran): write decorator to make db reads/writes atomic
 def create_project(data):
-    plastics = data.pop('plastics')
+    plastics = data.pop('plastics', {})
+    vendors = data.pop('vendors', [])
+
     project = Project.create(**data)
     project.create_plastics(plastics)
+    project.link_vendors(vendors)
+
     return project
 
 
