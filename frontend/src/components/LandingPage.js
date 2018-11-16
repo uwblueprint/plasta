@@ -8,7 +8,7 @@ class LandingPage extends Component {
 
   loadAdminPage = (
     <Fragment>
-      <button type="button" onClick={() => this.props.history.push('admindash')}>
+      <button type="button" onClick={() => this.props.history.push('/projects')}>
         Projects
       </button>
       <button type="button" onClick={() => this.props.history.push('/admin/stakeholders')}>

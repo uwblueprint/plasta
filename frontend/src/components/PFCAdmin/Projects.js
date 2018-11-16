@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import './AdminDashboard.css';
+import './Projects.css';
 import { get } from '../utils/requests.js';
 
-class AdminDashboard extends Component {
+class Projects extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -49,7 +49,7 @@ class AdminDashboard extends Component {
                 className="btn-proj"
                 type="button"
                 key={project.id}
-                onClick={() => this.props.history.push(`projects/${project.id}`)}
+                onClick={() => this.props.history.push(`/projects/${project.id}`)}
               >
                 {project.name}
               </button>
@@ -61,4 +61,4 @@ class AdminDashboard extends Component {
   }
 }
 
-export default AdminDashboard;
+export default Projects;
