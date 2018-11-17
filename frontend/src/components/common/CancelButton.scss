@@ -1,15 +1,13 @@
-#cancel-button-wrapper {
-  .cancel-button {
-    font-size: 48px;
-    float: right;
-    border: none;
-    height: 60px;
-    width: 60px;
-    border-radius: 100%;
-    padding: 0;
-    padding-top: 10px;
-    right: 0;
-    opacity: 0.7;
-    display: inline-block;
-  }
+.CancelButton {
+  font-size: 48px;
+  float: right;
+  border: none;
+  height: 60px;
+  width: 60px;
+  border-radius: 100%;
+  padding: 0;
+  padding-top: 10px;
+  right: 0;
+  opacity: 0.7;
+  display: inline-block;
 }
