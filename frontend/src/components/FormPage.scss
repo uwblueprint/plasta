@@ -2,10 +2,8 @@
 #transactions-wrapper,
 #new-proj-wrapper,
 #create-wastepicker-wrapper {
-  padding-left: 20px;
-  padding-right: 20px;
-  max-width: 450px;
-  margin: auto;
+  padding-left: 40px;
+  padding-right: 40px;
 
   h2,
   h3,
@@ -24,7 +22,7 @@
   }
 
   .dwcc-title {
-    display: inline-block;
+    display: block;
   }
 
   .field-wrapper {

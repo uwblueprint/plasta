@@ -5,8 +5,8 @@ import { withRouter } from 'react-router-dom';
 class CancelButton extends Component {
   render() {
     return (
-      <div id="cancel-button-wrapper">
-        <button className="cancel-button" onClick={this.props.history.goBack}>
+      <div>
+        <button className="CancelButton" onClick={this.props.history.goBack}>
           <i className="far fa-times-circle" />
         </button>
       </div>
