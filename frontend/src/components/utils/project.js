@@ -6,20 +6,96 @@ export const plasticOptions = [
     label: 'Green PET',
   },
   {
-    value: 'pet_light_blue',
-    label: 'Light Blue PET',
+    value: 'blue_pet',
+    label: 'Blue PET',
   },
   {
     value: 'brown_pet',
     label: 'Brown PET',
   },
   {
-    value: 'pet_non_food_clear',
-    label: 'Non-food Clear PET',
+    value: 'non_food_clear_pet',
+    label: 'Non-Food Clear PET',
   },
   {
-    value: 'pet_clear',
+    value: 'clear_pet',
     label: 'Clear PET',
+  },
+  {
+    value: 'mlp',
+    label: 'MLP',
+  },
+  {
+    value: 'clear_film',
+    label: 'Clear Film',
+  },
+  {
+    value: 'mixed_colour_film',
+    label: 'Mixed Colour Film',
+  },
+  {
+    value: 'natural_pp',
+    label: 'Natural PP',
+  },
+  {
+    value: 'white_pp',
+    label: 'White PP',
+  },
+  {
+    value: 'unlabelled_pp',
+    label: 'Unlabelled PP',
+  },
+  {
+    value: 'labelled_pp',
+    label: 'Labelled PP',
+  },
+  {
+    value: 'foodgrade_pp',
+    label: 'Foodgrade PP',
+  },
+  {
+    value: 'other_pp',
+    label: 'Other PP',
+  },
+  {
+    value: 'natural_hdpe',
+    label: 'Natural HDPE',
+  },
+  {
+    value: 'white_hdpe',
+    label: 'White HDPE',
+  },
+  {
+    value: 'black_hdpe',
+    label: 'Black HDPE',
+  },
+  {
+    value: 'blue_hdpe',
+    label: 'Blue HDPE',
+  },
+  {
+    value: 'unlabelled_hdpe',
+    label: 'Unlabelled HDPE',
+  },
+  {
+    value: 'labelled_hdpe',
+    label: 'Labelled HDPE',
+  },
+  {
+    value: 'mixed_colour_hdpe',
+    label: 'Mixed Colour HDPE',
+  },
+  {
+    value: 'ld_mix',
+    label: 'LD Mix',
+  },
+  {
+    value: 'hip',
+    label: 'HIP',
+  },
+  {
+    value: 'abs',
+    label: 'ABS',
   },
 ];
 
