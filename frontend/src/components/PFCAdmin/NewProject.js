@@ -198,20 +198,6 @@ class NewProject extends Component {
           />
         </FormSection>
 
-        <FormSection title="DWCC *">
-          <SearchSelect
-            options={staticDWCC}
-            field="dwccSelected"
-            onChange={this.onFieldChange}
-            selectedOption={this.state.dwccSelected}
-            multi
-            onBlur={this.validateRequiredField}
-          />
-          {this.state.errors.dwccSelected && (
-            <InvalidInputMessage showIcon message={this.state.errors.dwccSelected} />
-          )}
-        </FormSection>
-
         <FormSection title="Wholesaler *">
           <SearchSelect
             options={staticWholesaler}
@@ -223,6 +209,20 @@ class NewProject extends Component {
           />
           {this.state.errors.wholesalerSelected && (
             <InvalidInputMessage showIcon message={this.state.errors.wholesalerSelected} />
+          )}
+        </FormSection>
+
+        <FormSection title="DWCC *">
+          <SearchSelect
+            options={staticDWCC}
+            field="dwccSelected"
+            onChange={this.onFieldChange}
+            selectedOption={this.state.dwccSelected}
+            multi
+            onBlur={this.validateRequiredField}
+          />
+          {this.state.errors.dwccSelected && (
+            <InvalidInputMessage showIcon message={this.state.errors.dwccSelected} />
           )}
         </FormSection>
 
