@@ -31,6 +31,12 @@ class Project(BaseMixin, db.Model):
         for vendor in vendors:
             ProjectVendorMap.create(project_id=self.id, vendor_id=vendor)
 
+    def to_dict(self, include_relationships=False):
+        data = super(Project, self).to_dict(include_relationships)
+        project_vendor_entries = ProjectVendorMap.get_by(project_id=self.id)
+        data['vendors'] = [entry.vendor_id for entry in project_vendor_entries]
+        return data
+
 
 class ProjectVendorMap(BaseMixin, db.Model):
     __tablename__ = 'project_vendor_map'
