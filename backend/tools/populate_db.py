@@ -30,10 +30,6 @@ def populate():
 
         create = create_model_functions[table]
         for args in data:
-            if table == "user":
-                args['password_hash'] = bcrypt.hashpw(
-                    args['password_hash'].encode('ascii', 'ignore'),
-                    bcrypt.gensalt(14))
             try:
                 create(args)
             except Exception as e:

@@ -2,7 +2,7 @@
   {
     "id": 1,
     "email": "test@example.com",
-    "password_hash": "password123",
+    "password": "password123",
     "active": true,
     "vendor_id": 1,
     "metadata": {}
