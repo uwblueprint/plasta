@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { get } from '../utils/requests';
 import TransactionHistory from './TransactionHistory';
 import './ProjectPage.css';
 
@@ -15,11 +16,10 @@ class ProjectPage extends Component {
 
   componentDidMount() {
     const { projectId } = this.props.match.params;
-    const url = process.env.REACT_APP_API_URL + `/projects/${projectId}/transactions`;
-
-    fetch(url).then(function(res) {
-      data = res.body['transactions'];
-    });
+    const url = `/projects/${projectId}/transactions`;
+    get(url)
+      .then(res => res.data)
+      .catch();
   }
 
   render() {
