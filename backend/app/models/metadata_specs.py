@@ -58,5 +58,31 @@ METADATA_SPECS = {
                 },
             }
         },
+    },
+    'vendor': {
+        'phone_number': {
+            'type': str,
+            'required': True
+        },
+        'phone_type': {
+            'type': str,
+            'required': False
+        },
+        'address': {
+            'type': str,
+            'required': True
+        },
+        'language': {
+            'type': str,
+            'required': False
+        },
+        'aadhaar_id': {
+            'type': str,
+            'required': False
+        },
+        'hd_member_id': {
+            'type': str,
+            'required': False
+        },
     }
 }
