@@ -12,6 +12,7 @@ import { fieldToLabelMap } from '../utils/project';
 import DayPickerInput from 'react-day-picker/DayPickerInput';
 import 'react-day-picker/lib/style.css';
 import moment from 'moment';
+import CancelButton from '../common/CancelButton.js';
 import '../FormPage.css';
 
 const staticDWCC = [{ label: 'DWCC 1', value: 'dw1' }, { label: 'DWCC 2', value: 'dw2' }];
@@ -137,6 +138,7 @@ class NewProject extends Component {
   render() {
     return (
       <div className="page-wrapper" id="new-proj-wrapper">
+        <CancelButton context={this.context} />
         <h1>Create New Project</h1>
         <p className="required-field-notif">
           All fields marked with <b>*</b> are required.
