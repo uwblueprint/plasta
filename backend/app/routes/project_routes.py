@@ -16,8 +16,7 @@ def get_projects():
 
 @blueprint.route('/', methods=['POST'])
 def create_project():
-    project_data = request.json
-    project = db_client.create_project(project_data)
+    project = db_client.create_project(request.json)
     return success(data=project.to_dict(include_relationships=True))
 
 
@@ -25,6 +24,6 @@ def create_project():
 def get_project_transactions(project_id):
     transactions = db_client.get_project_transactions(project_id)
     return success(data=[
-        transaction.to_dict(include_relationships=True)
-        for transaction in transactions
+        transaction.to_dict(
+            include_relationships=True) for transaction in transactions
     ])
