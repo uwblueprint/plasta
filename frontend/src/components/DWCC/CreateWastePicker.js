@@ -52,7 +52,10 @@ class CreateWastePicker extends Component {
     return (
       <div className="page-wrapper" id="create-wastepicker-wrapper">
         <CancelButton context={this.context} />
-        <h1 className="dwcc-title">Create Waste Picker</h1>
+        <h1>Create Waste Picker</h1>
+        <p className="required-field-notif">
+          All fields marked with <b>*</b> are required.
+        </p>
         <FormSection>
           <h3 className="label">Name *</h3>
           <TextInput

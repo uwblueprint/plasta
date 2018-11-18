@@ -56,7 +56,7 @@ export default class DWCCTransaction extends Component {
   render() {
     return (
       <div className="page-wrapper" id="transactions-wrapper">
-        <h1 className="dwcc-title">{this.props.title}</h1>
+        <h1>{this.props.title}</h1>
         <p className="required-field-notif">
           All fields marked with <b>*</b> are required.
         </p>
