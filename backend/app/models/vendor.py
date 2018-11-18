@@ -61,8 +61,7 @@ class Vendor(BaseMixin, db.Model):
         # the proper parent of `vendor_subtype`.
         subtype = kwargs['vendor_subtype']
         kwargs['vendor_type'] = vendor_subtype_map[subtype]
-        instance = cls(**kwargs)
-        return instance.save()
+        return super().create(**kwargs)
 
 
 class DWCCWastepickerMap(db.Model):
