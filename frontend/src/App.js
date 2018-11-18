@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import LandingPage from './components/LandingPage';
 import LoginPage from './components/LoginPage';
@@ -17,6 +17,7 @@ import { get } from './components/utils/requests';
 import { appLoad } from './actions';
 import { Cookies, withCookies } from 'react-cookie';
 import { instanceOf } from 'prop-types';
+import { PrivateRoute } from './components/utils/private-route';
 import './common.css';
 
 class App extends React.Component {
@@ -30,22 +31,68 @@ class App extends React.Component {
     });
   }
 
+  isLoggedIn = () => !!this.props.cookies.get('access_token');
+
   render() {
     return (
       <Router>
         <Switch>
           <Route path="/" exact render={() => <LoginPage cookies={this.props.cookies} />} />
-          <Route path="/landing" component={LandingPage} />
-          <Route path="/projects" exact component={Projects} />
-          <Route path="/projects/new" component={NewProject} />
-          <Route path="/projects/:projectId" component={ProjectPage} />
-          <Route path="/admin/stakeholders/new" component={AdminNewStakeholder} />
-          <Route path="/admin/stakeholders" component={AdminStakeholder} />
-          <Route path="/dwcc/transaction-history" component={DwccTransactionHistory} />
-          <Route path="/dwcc/transactions/sell" exact component={DWCCSellTransaction} />
-          <Route path="/dwcc/transactions/buy" exact component={DWCCBuyTransaction} />
-          <Route path="/dwcc/wastepickers/new" component={CreateWastePicker} />
-          <Route path="/dwcc/external-dwcc/new" component={CreateExternalDWCC} />
+          <PrivateRoute path="/landing" isLoggedIn={this.isLoggedIn()} component={LandingPage} />
+          <PrivateRoute
+            path="/projects"
+            exact
+            isLoggedIn={this.isLoggedIn()}
+            component={Projects}
+            onEnter={this.requireAuth}
+          />
+          <PrivateRoute
+            path="/projects/new"
+            isLoggedIn={this.isLoggedIn()}
+            component={NewProject}
+          />
+          <PrivateRoute
+            path="/projects/:projectId"
+            isLoggedIn={this.isLoggedIn()}
+            component={ProjectPage}
+          />
+          <PrivateRoute
+            path="/admin/stakeholders/new"
+            isLoggedIn={this.isLoggedIn()}
+            component={AdminNewStakeholder}
+          />
+          <PrivateRoute
+            path="/admin/stakeholders"
+            isLoggedIn={this.isLoggedIn()}
+            component={AdminStakeholder}
+          />
+          <PrivateRoute
+            path="/dwcc/transaction-history"
+            isLoggedIn={this.isLoggedIn()}
+            component={DwccTransactionHistory}
+          />
+          <PrivateRoute
+            path="/dwcc/transactions/sell"
+            exact
+            isLoggedIn={this.isLoggedIn()}
+            component={DWCCSellTransaction}
+          />
+          <PrivateRoute
+            path="/dwcc/transactions/buy"
+            exact
+            isLoggedIn={this.isLoggedIn()}
+            component={DWCCBuyTransaction}
+          />
+          <PrivateRoute
+            path="/dwcc/wastepickers/new"
+            isLoggedIn={this.isLoggedIn()}
+            component={CreateWastePicker}
+          />
+          <PrivateRoute
+            path="/dwcc/external-dwcc/new"
+            isLoggedIn={this.isLoggedIn()}
+            component={CreateExternalDWCC}
+          />
         </Switch>
       </Router>
     );

@@ -33,13 +33,12 @@ class LoginPage extends Component {
       email: this.state.email,
       password: this.state.password,
     };
-
     if (this.state.email && this.state.password) {
       post('/auth/login', loginData)
         .then(results => {
           this.props.userAuthentication(results.data);
-          this.props.history.push('/landing');
           this.props.cookies.set('access_token', results.access_token);
+          this.props.history.push('/landing');
         })
         .catch(err => {
           this.setState({
