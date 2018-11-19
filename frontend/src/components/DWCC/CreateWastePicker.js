@@ -2,9 +2,17 @@ import React, { Component } from 'react';
 import SearchSelect from '../input-components/SearchSelect';
 import FormSection from '../input-components/FormSection';
 import TextInput from '../input-components/TextInput';
-import { onFieldChange } from '../utils/form';
 import '../FormPage.css';
+import {
+  errorTypes,
+  onFieldChange,
+  isFieldEmpty,
+  onFieldBlur,
+  isFormValid,
+  getErrorMessage,
+} from '../utils/form';
 import CancelButton from '../common/CancelButton.js';
+import InvalidInputMessage from '../InvalidInputMessage';
 
 // TODO (XIN): get from endpoints
 
@@ -16,29 +24,35 @@ const availableLanguages = [
   { label: 'Tamil', value: 'tamil' },
 ];
 
-const wastePickerTypes = [
+const wastepickerTypes = [
   { label: 'Waste Picker (general)', value: 'wastepicker' },
   { label: 'Home Basked Worker', value: 'home_based_worker' },
   { label: 'Itinerant Buyer', value: 'itinerant_buyer' },
   { label: 'Waste Picker Community Leader', value: 'wp_community_leader' },
 ];
 
+const fieldsInfo = {
+  wastepickerName: { label: 'Name', default: '', isRequired: true },
+  phone: { label: 'Phone', default: '', isRequired: true },
+  phoneType: { label: 'Type of Phone', default: '', isRequired: false },
+  wastepickerType: { label: 'Wastepicker Type', default: '', isRequired: true },
+  picture: { label: 'Wastepicker Picture', default: '', isRequired: false },
+  address: { label: 'Address', default: '', isRequired: false },
+  language: { label: 'Spoken Language', default: '', isRequired: false },
+  adhaarID: { label: 'Adhaar ID', default: '', isRequired: false },
+  hdMemberID: { label: 'HD Member ID', default: '', isRequired: false },
+};
+
 class CreateWastePicker extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      wastePickerName: '',
-      telephone: '',
-      phoneType: '',
-      wastePickerType: '',
-      picture: '',
-      address: '',
-      language: '',
-      adhaarID: '',
-      hdMemberID: '',
-    };
-    this.onFieldChange = onFieldChange.bind(this);
+    this.state = {};
+    Object.keys(fieldsInfo).forEach(field => (this.state[field] = fieldsInfo[field].default));
     this.onSubmit = this.onSubmit.bind(this);
+    this.onFieldChange = onFieldChange.bind(this);
+    this.onFieldBlur = onFieldBlur.bind(this);
+    this.onSubmit = this.onSubmit.bind(this);
+    this.isFormValid = isFormValid.bind(this);
   }
 
   onSubmit() {
@@ -57,21 +71,40 @@ class CreateWastePicker extends Component {
           <h3 className="label">Name *</h3>
           <TextInput
             className="emphasis-input full-width"
-            field="wastePickerName"
-            value={this.state.wastePickerName}
+            field="wastepickerName"
+            value={this.state.wastepickerName}
             placeholder="Ramnath"
             onChange={this.onFieldChange}
+            onBlur={this.onFieldBlur}
           />
+          {this.state.wastepickerNameTouched &&
+            isFieldEmpty(this.state.wastepickerName) && (
+              <InvalidInputMessage
+                showIcon
+                message={getErrorMessage(
+                  errorTypes.FIELD_REQUIRED,
+                  fieldsInfo.wastepickerName.label
+                )}
+              />
+            )}
 
           <h3 className="label">Phone *</h3>
           <TextInput
             className="large-input full-width"
             type="tel"
-            field="telephone"
-            value={this.state.telephone}
+            field="phone"
+            value={this.state.phone}
             placeholder="9988776655"
             onChange={this.onFieldChange}
+            onBlur={this.onFieldBlur}
           />
+          {this.state.phoneTouched &&
+            isFieldEmpty(this.state.phone) && (
+              <InvalidInputMessage
+                showIcon
+                message={getErrorMessage(errorTypes.FIELD_REQUIRED, fieldsInfo.phone.label)}
+              />
+            )}
 
           <h3 className="label">Type of Phone</h3>
           <SearchSelect
@@ -84,19 +117,31 @@ class CreateWastePicker extends Component {
             onChange={this.onFieldChange}
           />
 
-          <h3 className="label">Waste Picker Type *</h3>
+          <h3 className="label">Wastepicker Type *</h3>
           <SearchSelect
-            field="wastePickerType"
-            selectedOption={this.state.wastePickerType}
-            options={wastePickerTypes}
+            field="wastepickerType"
+            selectedOption={this.state.wastepickerType}
+            options={wastepickerTypes}
             onChange={this.onFieldChange}
+            onBlur={this.onFieldBlur}
           />
+          {this.state.wastepickerTypeTouched &&
+            isFieldEmpty(this.state.wastepickerType) && (
+              <InvalidInputMessage
+                showIcon
+                message={getErrorMessage(
+                  errorTypes.FIELD_REQUIRED,
+                  fieldsInfo.wastepickerType.label
+                )}
+              />
+            )}
 
           <h3 className="label">Upload Picture</h3>
           <TextInput
             className="large-input full-width"
             type="file"
             field="picture"
+            onChange={() => {}} // TODO (XIN)
             value={this.state.picture}
             // TODO (XIN): onChange
           />

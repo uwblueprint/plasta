@@ -2,7 +2,7 @@ METADATA_SPECS = {
     'project': {
         'brand_name': {
             'type': str,
-            'required': True
+            'required': False
         },
         'description': {
             'type': str,
@@ -14,11 +14,11 @@ METADATA_SPECS = {
         },
         'project_terms': {
             'type': str,
-            'required': True
+            'required': False
         },
         'shipping_terms': {
             'type': str,
-            'required': True
+            'required': False
         },
         'cost_model': {
             'type': dict,
@@ -26,35 +26,35 @@ METADATA_SPECS = {
             'specification': {
                 'wastepicker_sell_price': {
                     'type': float,
-                    'required': True
+                    'required': False
                 },
                 'wastepicker_purchase_price': {
                     'type': float,
-                    'required': True
+                    'required': False
                 },
                 'wholesaler_sell_price': {
                     'type': float,
-                    'required': True
+                    'required': False
                 },
                 'price_buoyancy': {
                     'type': float,
-                    'required': True
+                    'required': False
                 },
                 'wholesaler_exworks_price': {
                     'type': float,
-                    'required': True
+                    'required': False
                 },
                 'wholesaler_shipping_price': {
                     'type': float,
-                    'required': True
+                    'required': False
                 },
                 'wholesaler_delivered_price': {
                     'type': float,
-                    'required': True
+                    'required': False
                 },
                 'pfc_transaction_fee': {
                     'type': float,
-                    'required': True
+                    'required': False
                 },
             }
         },

@@ -1,4 +1,94 @@
-import { Map } from 'immutable';
+import { Map, List } from 'immutable';
+
+export const fieldsInfo = {
+  projectName: { key: 'projectName', label: 'Project Name', default: '', isRequired: true },
+  projectType: {
+    label: 'Project Type',
+    default: 'external',
+    isRequired: false,
+  },
+  plastics: { key: 'plastics', label: 'Plastic Types', default: List(), isRequired: false },
+  description: {
+    label: 'Description',
+    default: '',
+    isRequired: false,
+    type: 'metaData',
+  },
+  brandName: {
+    label: 'Brand Name',
+    default: '',
+    isRequired: false,
+    type: 'metaData',
+  },
+  gdriveLink: {
+    label: 'Google Drive Link',
+    default: '',
+    isRequired: false,
+    type: 'metaData',
+  },
+  wholesalers: {
+    label: 'Wholesaler(s)',
+    default: [],
+    isRequired: true,
+    type: 'metaData',
+  },
+  shippingAddress: {
+    label: 'Shipping Address',
+    default: '',
+    isRequired: false,
+    type: 'metaData',
+  },
+  shippingTerms: {
+    label: 'Shipping Terms',
+    default: '',
+    isRequired: false,
+    type: 'metaData',
+  },
+  poNumber: {
+    label: 'PO Number',
+    default: '',
+    isRequired: false,
+    type: 'metaData',
+  },
+  startDate: {
+    label: 'Start Date',
+    default: '',
+    isRequired: false,
+    type: 'metaData',
+  },
+  endDate: { label: 'End Date', default: '', isRequired: false, type: 'metaData' },
+  wastepickerSellPrice: {
+    label: 'Wastepicker Sell Price',
+    default: '',
+    isRequired: false,
+    type: 'costModel',
+  },
+  dwccSellPrice: { default: '', isRequired: false, type: 'costModel' },
+  wholesalerSellPrice: {
+    label: 'Wholesaler Sell Price',
+    default: '',
+    isRequired: false,
+    type: 'costModel',
+  },
+  priceBuoyancy: {
+    label: 'Price Buoyancy',
+    default: '',
+    isRequired: false,
+    type: 'costModel',
+  },
+  wholesalerShippingPrice: {
+    label: 'Wholesaler Shipping Price',
+    default: '',
+    isRequired: false,
+    type: 'costModel',
+  },
+  wholesalerDeliveredPrice: {
+    label: 'Wholesaler Delivery Price',
+    default: '',
+    isRequired: false,
+    type: 'costModel',
+  },
+};
 
 export const plasticOptions = [
   {
@@ -107,10 +197,4 @@ export const getTotalPlasticsPrice = transaction => {
 
 export const getTotalPlasticsQuantity = transaction => {
   return transaction.plastics.map(plastic => plastic.quantity).reduce((a, b) => a + b, 0);
-};
-
-export const fieldToLabelMap = {
-  projectName: 'Project name',
-  dwccSelected: 'DWCC',
-  wholesalerSelected: 'Wholesaler',
 };
