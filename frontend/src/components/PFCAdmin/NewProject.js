@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import { List } from 'immutable';
+import moment from 'moment';
+import DayPickerInput from 'react-day-picker/DayPickerInput';
+import { snakeCase } from 'lodash';
 import SearchSelect from '../input-components/SearchSelect';
 import RadioSelect from '../input-components/RadioSelect';
 import FormSection from '../input-components/FormSection';
@@ -8,12 +10,16 @@ import TextAreaInput from '../input-components/TextAreaInput';
 import PlasticTypeQuantityGroup from '../input-components/PlasticTypeQuantityGroup';
 import InvalidInputMessage from '../InvalidInputMessage';
 import { post } from '../utils/requests';
-import { fieldToLabelMap } from '../utils/project';
-import { onFieldChange } from '../utils/form';
-import DayPickerInput from 'react-day-picker/DayPickerInput';
+import { fieldsInfo } from '../utils/project';
+import {
+  errorTypes,
+  onFieldChange,
+  isFieldEmpty,
+  onFieldBlur,
+  isFormValid,
+  getErrorMessage,
+} from '../utils/form';
 import 'react-day-picker/lib/style.css';
-import moment from 'moment';
-import CancelButton from '../common/CancelButton.js';
 import '../FormPage.css';
 
 const staticDWCC = [{ label: 'DWCC 1', value: 'dw1' }, { label: 'DWCC 2', value: 'dw2' }];
@@ -32,60 +38,15 @@ const staticShippingTerms = [
 class NewProject extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      errors: {
-        projectName: '',
-        dwccSelected: '',
-        wholesalerSelected: '',
-      },
-      projectName: '',
-      brandName: '',
-      description: '',
-      gDriveLink: '',
-      projectType: 'external',
-      dwccSelected: [],
-      wholesalerSelected: [],
-      wholesalerSellPrice: '',
-      wastepickerSellPrice: '',
-      dwccSellPrice: '',
-      shippingAddress: '',
-      shippingTerms: '',
-      poNumber: '',
-      startDate: '',
-      endDate: '',
-      priceBuoyancy: '',
-      shippingPrice: '',
-      deliveredPrice: '',
-      plasticQuantities: List(),
-    };
+    this.state = {};
+    Object.keys(fieldsInfo).map(field => {
+      this.state[field] = fieldsInfo[field].default;
+    });
     this.onFieldChange = onFieldChange.bind(this);
+    this.onFieldBlur = onFieldBlur.bind(this);
+    this.isFormValid = isFormValid.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
-    this.validateRequiredField = this.validateRequiredField.bind(this);
-    this.validateAll = this.validateAll.bind(this);
-    this.isFormValid = this.isFormValid.bind(this);
     this.handleDayChange = this.handleDayChange.bind(this);
-  }
-
-  validateRequiredField(field) {
-    const fieldObj = this.state[field.key];
-    const isFilled = Array.isArray(fieldObj) ? fieldObj.length !== 0 : fieldObj;
-    this.setState(currentState => {
-      currentState.errors[field.key] = isFilled ? '' : `${fieldToLabelMap[field.key]} is required`;
-      return currentState;
-    });
-  }
-
-  validateAll() {
-    Object.keys(this.state.errors).forEach(field => {
-      this.validateRequiredField({ key: field });
-    });
-  }
-
-  isFormValid() {
-    this.validateAll();
-    return Object.values(this.state.errors).reduce((prev, err) => {
-      return prev && !err;
-    }, true);
   }
 
   handleDayChange(input, value) {
@@ -95,40 +56,28 @@ class NewProject extends Component {
   }
 
   onSubmit() {
-    if (!this.isFormValid()) {
+    if (!this.isFormValid(fieldsInfo)) {
       // TODO: (xin) more elegant alerting
       alert('Please resolve errors');
       return;
     }
     const metaData = {
-      brand_name: this.state.brandName,
-      description: this.state.description,
-      gdrive_link: this.state.gDriveLink,
-      project_type: this.state.projectType,
-      dwcc_selected: this.state.dwccSelected,
-      wholesaler_selected: this.state.wholesalerSelected,
-      shipping_address: this.state.shippingAddress,
-      shipping_terms: this.state.shippingTerms,
-      po_number: this.state.poNumber,
-      start_date: this.state.startDate,
-      end_date: this.state.endDate,
-      cost_model: {
-        wholesaler_sell_price: this.state.wholesalerSellPrice,
-        wastepicker_sell_price: this.state.wastepickerSellPrice,
-        dwcc_sell_price: this.state.dwccSellPrice,
-        price_buoyancy: this.state.priceBuoyancy,
-        wholesaler_shipping_price: this.state.shippingPrice,
-        // sell price + shipping_price = delivered_price
-        wholesaler_delivered_price: this.state.deliveredPrice,
-      },
+      cost_model: {},
     };
+
+    Object.keys(fieldsInfo).forEach(field => {
+      const snakeField = snakeCase(field);
+      if (fieldsInfo[field].type === 'metaData') metaData[snakeField] = this.state[field];
+      else if (fieldsInfo[field].type === 'costModel')
+        metaData['cost_model'][snakeField] = this.state[field];
+    });
+    // TODO: (XIN) Handle proj creation error
     const newProjectData = {
       name: this.state.projectName,
       project_type: this.state.projectType,
-      plastics: this.state.plasticQuantities,
-      meta_data: metaData,
+      plastics: this.state.plastics,
+      // meta_data: metaData,
     };
-    // TODO: (XIN) Handle proj creation error
     post('/projects', newProjectData).catch(err => {});
   }
 
@@ -147,11 +96,15 @@ class NewProject extends Component {
             value={this.state.projectName}
             placeholder="Enter project name here"
             onChange={this.onFieldChange}
-            onBlur={this.validateRequiredField}
+            onBlur={this.onFieldBlur}
           />
-          {this.state.errors.projectName && (
-            <InvalidInputMessage showIcon message={this.state.errors.projectName} />
-          )}
+          {this.state.projectNameTouched &&
+            isFieldEmpty(this.state.projectName) && (
+              <InvalidInputMessage
+                showIcon
+                message={getErrorMessage(errorTypes.FIELD_REQUIRED, fieldsInfo.projectName.label)}
+              />
+            )}
         </FormSection>
 
         <FormSection title="Project Description">
@@ -179,9 +132,9 @@ class NewProject extends Component {
         <FormSection title="Plastic Types *">
           <PlasticTypeQuantityGroup
             label="List of Plastic Types"
-            field="plasticQuantities"
+            field="plastics"
             onChange={this.onFieldChange}
-            plasticQuantities={this.state.plasticQuantities}
+            plasticQuantities={this.state.plastics}
           />
         </FormSection>
 
@@ -195,18 +148,22 @@ class NewProject extends Component {
           />
         </FormSection>
 
-        <FormSection title="Wholesaler *">
+        <FormSection title="Wholesalers *">
           <SearchSelect
             options={staticWholesaler}
-            field="wholesalerSelected"
+            field="wholesalers"
             onChange={this.onFieldChange}
-            selectedOption={this.state.wholesalerSelected}
-            onBlur={this.validateRequiredField}
+            selectedOption={this.state.wholesalers}
+            onBlur={this.onFieldBlur}
             multi
           />
-          {this.state.errors.wholesalerSelected && (
-            <InvalidInputMessage showIcon message={this.state.errors.wholesalerSelected} />
-          )}
+          {this.state.wholesalersTouched &&
+            isFieldEmpty(this.state.wholesalers) && (
+              <InvalidInputMessage
+                showIcon
+                message={getErrorMessage(errorTypes.FIELD_REQUIRED, fieldsInfo.wholesalers.label)}
+              />
+            )}
         </FormSection>
 
         <FormSection title="DWCC *">
@@ -313,7 +270,7 @@ class NewProject extends Component {
             rightlabel="₹"
             type="number"
             field="shippingPrice"
-            value={this.state.shippingPrice}
+            value={this.state.wholesalerShippingPrice}
             placeholder="100.00"
             onChange={this.onFieldChange}
           />
@@ -322,8 +279,8 @@ class NewProject extends Component {
             className="priceField"
             rightlabel="₹"
             type="number"
-            field="deliveredPrice"
-            value={this.state.deliveredPrice}
+            field="wholesalerDeliveredPrice"
+            value={this.state.wholesalerDeliveredPrice}
             placeholder="100.00"
             onChange={this.onFieldChange}
           />
@@ -333,7 +290,7 @@ class NewProject extends Component {
           <TextInput
             field="gDriveLink"
             className="full-width"
-            value={this.state.gDriveLink}
+            value={this.state.gdriveLink}
             onChange={this.onFieldChange}
           />
         </FormSection>
