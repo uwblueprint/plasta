@@ -1,24 +1,14 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import './Modal.css';
+import './CreateStakeholderModal.css';
 import { withRouter } from 'react-router-dom';
 
 export class CreateStakeholderModal extends Component {
-  constructor(props) {
-    super(props);
-  }
-
-  static propTypes = {
-    handleClose: PropTypes.func,
-    show: PropTypes.bool.isRequired,
-  };
-
   render() {
-    const showHideClassName = 'modal display-block';
     return (
       <div id="modal-wrapper">
         {this.props.show && (
-          <div className={showHideClassName}>
+          <div className="modal">
             <section className="modal-main">
               <button className="cancel-button" onClick={this.props.handleClose}>
                 <i className="far fa-times-circle" />
