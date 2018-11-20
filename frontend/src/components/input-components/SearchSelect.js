@@ -4,6 +4,7 @@ import Select from 'react-select';
 import classNames from 'classnames';
 import 'react-select/dist/react-select.css';
 import './SearchSelect.css';
+import CreatableSelect from 'react-select/lib/Creatable';
 
 class SearchSelect extends Component {
   constructor(props) {
@@ -26,14 +27,25 @@ class SearchSelect extends Component {
     return (
       <div className={classNames('search-select-wrapper', className)}>
         {label && <label>{label}</label>}
-        <Select
-          {...rest}
-          value={selectedOption}
-          onChange={this.onChange}
-          onBlur={this.onBlur}
-          options={options}
-          multi={multi}
-        />
+        {this.props.createable ? (
+          <CreatableSelect
+            {...rest}
+            value={selectedOption}
+            onChange={this.onChange}
+            onBlur={this.onBlur}
+            options={options}
+            multi={multi}
+          />
+        ) : (
+          <Select
+            {...rest}
+            value={selectedOption}
+            onChange={this.onChange}
+            onBlur={this.onBlur}
+            options={options}
+            multi={multi}
+          />
+        )}
       </div>
     );
   }
@@ -48,6 +60,9 @@ SearchSelect.propTypes = {
     .isRequired,
   onChange: PropTypes.func.isRequired,
   label: PropTypes.string,
+  createable: PropTypes.bool,
+  onNewOptionClick: PropTypes.func,
+  promptTextCreator: PropTypes.func,
 };
 
 export default SearchSelect;
