@@ -12,8 +12,8 @@ export default class DWCCBuyTransaction extends Component {
       errors: { stakeholderName: '', plasticType: '', price: '', weight: '' },
       stakeholderName: {},
       plasticType: {},
-      price: '',
-      weight: '',
+      price: 0,
+      weight: 0,
       transactionDate: '',
       showModal: false,
     };

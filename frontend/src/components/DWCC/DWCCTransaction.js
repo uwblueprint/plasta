@@ -7,14 +7,15 @@ import TextInput from '../input-components/TextInput';
 import './../FormPage.css';
 import PropTypes from 'prop-types';
 import InvalidInputMessage from '../InvalidInputMessage';
-import CreatableSelect from 'react-select/lib/Creatable';
-import Modal from '../input-components/Modal';
+import { withRouter } from 'react-router-dom';
+import { CreateStakeholderModal } from '../input-components/CreateStakeholderModal';
 
 export const transactionTypes = {
   BUY: 1,
   SELL: 2,
 };
-export default class DWCCTransaction extends Component {
+
+class DWCCTransaction extends Component {
   constructor(props) {
     super(props);
     this.buyStakeholderSelect = this.buyStakeholderSelect.bind(this);
@@ -23,7 +24,8 @@ export default class DWCCTransaction extends Component {
   buyStakeholderSelect() {
     return (
       <React.Fragment>
-        <CreatableSelect
+        <SearchSelect
+          createable
           field="stakeholderName"
           selectedOption={this.props.stakeholderName}
           options={this.props.stakeholderOptions}
@@ -32,15 +34,7 @@ export default class DWCCTransaction extends Component {
           onNewOptionClick={this.props.handleNewStakeholder}
           promptTextCreator={search => `${search} not found, create a new stakeholder`}
         />
-        <Modal show={this.props.showModal} handleClose={this.props.hideModal}>
-          <h1>Create a new...</h1>
-          <button type="button" onClick={() => this.props.history.push('/dwcc/wastepickers/new')}>
-            Wastepicker
-          </button>
-          <button type="button" onClick={() => this.props.history.push('/dwcc/external-dwcc/new')}>
-            DWCC
-          </button>
-        </Modal>
+        <CreateStakeholderModal show={this.props.showModal} handleClose={this.props.hideModal} />
       </React.Fragment>
     );
   }
@@ -165,3 +159,5 @@ DWCCTransaction.propTypes = {
   plasticType: PropTypes.object,
   stakeholderName: PropTypes.object.isRequired,
 };
+
+export default withRouter(DWCCTransaction);

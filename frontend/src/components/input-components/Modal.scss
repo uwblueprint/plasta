@@ -12,6 +12,7 @@
     position: absolute;
     background: white;
     width: 80%;
+    max-width: 500px;
     height: auto;
     top: 50%;
     left: 50%;
@@ -30,5 +31,16 @@
   button {
     margin-top: 20px;
     margin-bottom: 20px;
+  }
+
+  .cancel-button {
+    font-size: 30px;
+    border: none;
+    position: absolute;
+    right: 10px;
+    top: 5px;
+    margin: 0;
+    padding: 0;
+    opacity: 0.7%;
   }
 }
