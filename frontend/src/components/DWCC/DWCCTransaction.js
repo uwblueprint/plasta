@@ -85,7 +85,7 @@ class DWCCTransaction extends Component {
         <FormSection className="formsection" title="Amount *">
           <TextInput
             id="price"
-            className="half-width inline margin-right-20"
+            className="amount-input inline margin-right-20"
             field="price"
             rightlabel=" ₹/Kg"
             value={this.props.price}
@@ -97,7 +97,7 @@ class DWCCTransaction extends Component {
 
           <TextInput
             id="weight"
-            className="half-width inline"
+            className="amount-input inline"
             field="weight"
             rightlabel=" Kg"
             type="number"
