@@ -8,7 +8,7 @@ import './../FormPage.css';
 import PropTypes from 'prop-types';
 import InvalidInputMessage from '../InvalidInputMessage';
 import { withRouter } from 'react-router-dom';
-import { CreateStakeholderModal } from '../input-components/CreateStakeholderModal';
+import CreateStakeholderModal from './CreateStakeholderModal';
 
 export const transactionTypes = {
   BUY: 1,
