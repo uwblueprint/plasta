@@ -85,7 +85,7 @@ class AdminNewStakeholder extends Component {
           <SearchSelect
             options={ProjectData}
             onChange={selectedOption => this.setState({ projectSelected: selectedOption })}
-            selectedOption={this.state.projectSelected}
+            value={this.state.projectSelected}
             multi
             className="form-element"
           />

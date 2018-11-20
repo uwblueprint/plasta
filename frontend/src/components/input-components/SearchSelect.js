@@ -1,63 +1,30 @@
-import React, { Component } from 'react';
+import React from 'react';
+import CreatableSelect from 'react-select/lib/Creatable';
 import PropTypes from 'prop-types';
 import Select from 'react-select';
 import classNames from 'classnames';
 import 'react-select/dist/react-select.css';
+import InvalidInputMessage from '../InvalidInputMessage';
+import composeInput from './InputContainer';
 import './SearchSelect.css';
-import CreatableSelect from 'react-select/lib/Creatable';
 
-class SearchSelect extends Component {
-  constructor(props) {
-    super(props);
-    this.onChange = this.onChange.bind(this);
-    this.onBlur = this.onBlur.bind(this);
-  }
-
-  onBlur(e) {
-    this.props.onBlur && this.props.onBlur({ value: e.target.value, key: this.props.field });
-  }
-
-  onChange(selectedOption) {
-    if (!this.props.onChange) return;
-    this.props.onChange({ value: selectedOption, key: this.props.field });
-  }
-
-  render() {
-    const { className, label, options, multi, selectedOption, ...rest } = this.props;
-    return (
-      <div className={classNames('search-select-wrapper', className)}>
-        {label && <label>{label}</label>}
-        {this.props.createable ? (
-          <CreatableSelect
-            {...rest}
-            value={selectedOption}
-            onChange={this.onChange}
-            onBlur={this.onBlur}
-            options={options}
-            multi={multi}
-          />
-        ) : (
-          <Select
-            {...rest}
-            value={selectedOption}
-            onChange={this.onChange}
-            onBlur={this.onBlur}
-            options={options}
-            multi={multi}
-          />
-        )}
-      </div>
-    );
-  }
-}
+const SearchSelect = props => {
+  const { className, label, errors, createable, showErrors, ...rest } = props;
+  return (
+    <div className={classNames('search-select-wrapper', className)}>
+      {label && <label>{label}</label>}
+      {createable ? <CreatableSelect {...rest} /> : <Select {...rest} />}
+      {showErrors && errors.map((err, i) => <InvalidInputMessage key={i} showIcon message={err} />)}
+    </div>
+  );
+};
 
 SearchSelect.propTypes = {
   className: PropTypes.string,
   field: PropTypes.string,
   multi: PropTypes.bool,
   options: PropTypes.array,
-  selectedOption: PropTypes.oneOfType([PropTypes.object, PropTypes.string, PropTypes.array])
-    .isRequired,
+  value: PropTypes.oneOfType([PropTypes.object, PropTypes.string, PropTypes.array]).isRequired,
   onChange: PropTypes.func.isRequired,
   label: PropTypes.string,
   createable: PropTypes.bool,
@@ -69,4 +36,8 @@ SearchSelect.defaultProps = {
   createable: false,
 };
 
-export default SearchSelect;
+export default composeInput(SearchSelect, {
+  onChange: function onChange(selectedOption) {
+    this.props.onChange && this.props.onChange({ value: selectedOption, key: this.props.field });
+  },
+});

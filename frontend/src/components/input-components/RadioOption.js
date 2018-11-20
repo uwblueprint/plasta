@@ -1,28 +1,19 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import './RadioOption.css';
 
-class RadioOption extends Component {
-  render() {
-    const { checked, label, onChange } = this.props;
-    const value = this.props.value;
-    return (
-      <div className="radio-option-wrapper">
-        <label>
-          <input
-            type="radio"
-            value={this.props.value}
-            checked={checked}
-            id={value}
-            onChange={onChange}
-          />
-          <span className="radio-custom" />
-          {label}
-        </label>
-      </div>
-    );
-  }
-}
+const RadioOption = props => {
+  const { checked, label, onChange, value } = props;
+  return (
+    <div className="radio-option-wrapper">
+      <label>
+        <input type="radio" value={value} checked={checked} id={value} onChange={onChange} />
+        <span className="radio-custom" />
+        {label}
+      </label>
+    </div>
+  );
+};
 
 RadioOption.propTypes = {
   checked: PropTypes.bool,

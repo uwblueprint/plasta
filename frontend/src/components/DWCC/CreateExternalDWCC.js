@@ -1,15 +1,7 @@
 import React, { Component } from 'react';
 import FormSection from '../input-components/FormSection';
 import TextInput from '../input-components/TextInput';
-import InvalidInputMessage from '../InvalidInputMessage';
-import {
-  errorTypes,
-  onFieldChange,
-  isFieldEmpty,
-  onFieldBlur,
-  isFormValid,
-  getErrorMessage,
-} from '../utils/form';
+import { ruleTypes, onFieldChange, isFormValid, onValidation } from '../utils/form';
 import '../FormPage.css';
 
 const fieldsInfo = {
@@ -24,13 +16,9 @@ export default class CreateExternalDWCC extends Component {
     this.state = {};
     Object.keys(fieldsInfo).forEach(field => (this.state[field] = fieldsInfo[field].default));
     this.onFieldChange = onFieldChange.bind(this);
-    this.onFieldBlur = onFieldBlur.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
     this.isFormValid = isFormValid.bind(this);
-  }
-
-  onFieldChange(field) {
-    this.setState({ [field.key]: field.value });
+    this.onValidation = onValidation.bind(this);
   }
 
   onSubmit() {
@@ -53,15 +41,9 @@ export default class CreateExternalDWCC extends Component {
             value={this.state.dwccName}
             placeholder="Your answer here..."
             onChange={this.onFieldChange}
-            onBlur={this.onFieldBlur}
+            onValidation={this.onValidation}
+            rules={[ruleTypes.FIELD_REQUIRED]}
           />
-          {this.state.dwccNameTouched &&
-            isFieldEmpty(this.state.dwccName) && (
-              <InvalidInputMessage
-                showIcon
-                message={getErrorMessage(errorTypes.FIELD_REQUIRED, fieldsInfo.dwccName.label)}
-              />
-            )}
 
           <h3 className="label">Phone</h3>
           <TextInput

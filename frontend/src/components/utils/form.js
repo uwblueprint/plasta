@@ -4,31 +4,34 @@ export function onFieldChange(field) {
 
 /* form validation */
 
-export const isFieldEmpty = field => {
-  return Array.isArray(field) ? field.length === 0 : field === '';
+export const fieldRules = {
+  FIELD_REQUIRED: {
+    message: 'This field is required',
+    isTrue: field => (Array.isArray(field) ? field.length !== 0 : field !== ''),
+  },
 };
 
-export function onFieldBlur(field) {
-  const touched = `${field.key}Touched`;
-  this.setState({ [touched]: true });
-}
-
-export const errorTypes = {
-  FIELD_REQUIRED: 0,
+export const ruleTypes = {
+  FIELD_REQUIRED: 'FIELD_REQUIRED',
 };
-Object.freeze(errorTypes);
+Object.freeze(ruleTypes);
 
 export const getErrorMessage = (error, field) => {
   switch (error) {
-    case errorTypes.FIELD_REQUIRED:
+    case ruleTypes.FIELD_REQUIRED:
       return `${field} is required`;
     default:
       return '';
   }
 };
 
-export function isFormValid(fieldsInfo) {
-  return !Object.keys(fieldsInfo).some(
-    field => fieldsInfo[field].isRequired && isFieldEmpty(this.state[field])
-  );
+export function isFormValid() {
+  console.log(this.state.errors);
+  return !Object.keys(this.state.errors).some(fieldErrors => fieldErrors.length !== 0);
+}
+
+export function onValidation(results) {
+  const errors = { ...this.state.errors };
+  errors[results.field] = results.errors;
+  this.setState({ errors });
 }

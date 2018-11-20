@@ -8,17 +8,10 @@ import FormSection from '../input-components/FormSection';
 import TextInput from '../input-components/TextInput';
 import TextAreaInput from '../input-components/TextAreaInput';
 import PlasticTypeQuantityGroup from '../input-components/PlasticTypeQuantityGroup';
-import InvalidInputMessage from '../InvalidInputMessage';
+import CancelButton from '../common/CancelButton';
 import { post } from '../utils/requests';
 import { fieldsInfo } from '../utils/project';
-import {
-  errorTypes,
-  onFieldChange,
-  isFieldEmpty,
-  onFieldBlur,
-  isFormValid,
-  getErrorMessage,
-} from '../utils/form';
+import { onFieldChange, ruleTypes, onValidation, isFormValid } from '../utils/form';
 import 'react-day-picker/lib/style.css';
 import '../FormPage.css';
 
@@ -38,15 +31,17 @@ const staticShippingTerms = [
 class NewProject extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
-    Object.keys(fieldsInfo).map(field => {
+    this.state = {
+      submitAttempted: false,
+    };
+    Object.keys(fieldsInfo).forEach(field => {
       this.state[field] = fieldsInfo[field].default;
     });
     this.onFieldChange = onFieldChange.bind(this);
-    this.onFieldBlur = onFieldBlur.bind(this);
-    this.isFormValid = isFormValid.bind(this);
-    this.onSubmit = this.onSubmit.bind(this);
     this.handleDayChange = this.handleDayChange.bind(this);
+    this.onValidation = onValidation.bind(this);
+    this.onSubmit = this.onSubmit.bind(this);
+    this.isFormValid = isFormValid.bind(this);
   }
 
   handleDayChange(input, value) {
@@ -56,7 +51,8 @@ class NewProject extends Component {
   }
 
   onSubmit() {
-    if (!this.isFormValid(fieldsInfo)) {
+    if (!this.state.submitAttempted) this.setState({ submitAttempted: true }); // move out once onsubmit dispatched through redux
+    if (!this.isFormValid()) {
       // TODO: (xin) more elegant alerting
       alert('Please resolve errors');
       return;
@@ -82,6 +78,7 @@ class NewProject extends Component {
   }
 
   render() {
+    const submitAttempted = this.state.submitAttempted;
     return (
       <div className="page-wrapper" id="new-proj-wrapper">
         <CancelButton context={this.context} />
@@ -96,17 +93,11 @@ class NewProject extends Component {
             value={this.state.projectName}
             placeholder="Enter project name here"
             onChange={this.onFieldChange}
-            onBlur={this.onFieldBlur}
+            rules={[ruleTypes.FIELD_REQUIRED]}
+            onValidation={this.onValidation}
+            showErrors={submitAttempted}
           />
-          {this.state.projectNameTouched &&
-            isFieldEmpty(this.state.projectName) && (
-              <InvalidInputMessage
-                showIcon
-                message={getErrorMessage(errorTypes.FIELD_REQUIRED, fieldsInfo.projectName.label)}
-              />
-            )}
         </FormSection>
-
         <FormSection title="Project Description">
           <TextAreaInput
             field="description"
@@ -116,19 +107,17 @@ class NewProject extends Component {
             onChange={this.onFieldChange}
           />
         </FormSection>
-
         <FormSection title="Project Type">
           <RadioSelect
             field="projectType"
-            selectedValue={this.state.projectType}
+            value={this.state.projectType}
             options={[
               { label: 'External', value: 'external' },
               { label: 'Internal', value: 'internal' },
             ]}
             onChange={this.onFieldChange}
           />
-        </FormSection>
-
+        </FormSection>f
         <FormSection title="Plastic Types *">
           <PlasticTypeQuantityGroup
             label="List of Plastic Types"
@@ -137,7 +126,6 @@ class NewProject extends Component {
             plasticQuantities={this.state.plastics}
           />
         </FormSection>
-
         <FormSection title="Brand Name">
           <TextInput
             field="brandName"
@@ -147,39 +135,30 @@ class NewProject extends Component {
             onChange={this.onFieldChange}
           />
         </FormSection>
-
         <FormSection title="Wholesalers *">
           <SearchSelect
             options={staticWholesaler}
             field="wholesalers"
             onChange={this.onFieldChange}
-            selectedOption={this.state.wholesalers}
-            onBlur={this.onFieldBlur}
+            value={this.state.wholesalers}
+            rules={[ruleTypes.FIELD_REQUIRED]}
+            onValidation={this.onValidation}
+            showErrors={submitAttempted}
             multi
           />
-          {this.state.wholesalersTouched &&
-            isFieldEmpty(this.state.wholesalers) && (
-              <InvalidInputMessage
-                showIcon
-                message={getErrorMessage(errorTypes.FIELD_REQUIRED, fieldsInfo.wholesalers.label)}
-              />
-            )}
         </FormSection>
-
-        <FormSection title="DWCC *">
+        <FormSection title="Primary Segregator(s) *">
           <SearchSelect
             options={staticDWCC}
-            field="dwccSelected"
+            field="primarySegregators"
             onChange={this.onFieldChange}
-            selectedOption={this.state.dwccSelected}
+            value={this.state.primarySegregators}
             multi
-            onBlur={this.validateRequiredField}
+            rules={[ruleTypes.FIELD_REQUIRED]}
+            onValidation={this.onValidation}
+            showErrors={submitAttempted}
           />
-          {this.state.errors.dwccSelected && (
-            <InvalidInputMessage showIcon message={this.state.errors.dwccSelected} />
-          )}
         </FormSection>
-
         <FormSection title="Shipping Address">
           <TextInput
             field="shippingAddress"
@@ -188,16 +167,14 @@ class NewProject extends Component {
             onChange={this.onFieldChange}
           />
         </FormSection>
-
         <FormSection title="Shipping Terms">
           <SearchSelect
             field="shippingTerms"
-            selectedOption={this.state.shippingTerms}
+            value={this.state.shippingTerms}
             options={staticShippingTerms}
             onChange={this.onFieldChange}
           />
         </FormSection>
-
         <FormSection title="PO Number">
           <TextInput
             className="full-width"
@@ -206,7 +183,6 @@ class NewProject extends Component {
             onChange={this.onFieldChange}
           />
         </FormSection>
-
         <FormSection className="formsection" title="Start Date">
           <DayPickerInput
             className="date-input-field"
@@ -214,7 +190,6 @@ class NewProject extends Component {
             onDayChange={day => this.handleDayChange('startDate', day)}
           />
         </FormSection>
-
         <FormSection className="formsection" title="End Date">
           <DayPickerInput
             className="date-input-field"
@@ -222,7 +197,6 @@ class NewProject extends Component {
             onDayChange={day => this.handleDayChange('endDate', day)}
           />
         </FormSection>
-
         <FormSection title="Cost Model">
           <p className="priceHeader">Wastepicker Sell Price</p>
           <TextInput
@@ -285,7 +259,6 @@ class NewProject extends Component {
             onChange={this.onFieldChange}
           />
         </FormSection>
-
         <FormSection className="formsection" title="Google Drive Link">
           <TextInput
             field="gDriveLink"
@@ -294,7 +267,6 @@ class NewProject extends Component {
             onChange={this.onFieldChange}
           />
         </FormSection>
-
         <button className="btn-dark bg-green uppercase" type="submit" onClick={this.onSubmit}>
           Submit
         </button>

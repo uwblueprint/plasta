@@ -74,7 +74,7 @@ class PlasticTypeQuantityGroup extends Component {
             <div key={`sibling-${i}`}>
               <SearchSelect
                 options={plasticOptions}
-                selectedOption={plasticOptionsByName.get(pair.get('plastic_type'))}
+                value={plasticOptionsByName.get(pair.get('plastic_type'))}
                 onChange={e => this.onPlasticTypeChange(e.value, i)}
               />
               <TextInput

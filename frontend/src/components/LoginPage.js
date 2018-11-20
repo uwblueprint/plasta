@@ -3,12 +3,10 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import TextInput from './input-components/TextInput.js';
-import { onFieldChange } from './utils/form';
+import { post } from './utils/requests';
+import { onFieldChange, ruleTypes } from './utils/form';
 import { userAuthentication } from '../actions';
 import './LoginPage.css';
-import { post } from './utils/requests';
-import { Cookies } from 'react-cookie';
-import InvalidInputMessage from './InvalidInputMessage.js';
 
 class LoginPage extends Component {
   constructor(props) {
@@ -49,7 +47,6 @@ class LoginPage extends Component {
   }
 
   render() {
-    const { email, password, submitted, errorMessage } = this.state;
     return (
       <div className="page-wrapper" id="login-wrapper">
         <img alt="Plastics For Change" src="/images/pfc-logo.png" />
@@ -64,8 +61,8 @@ class LoginPage extends Component {
               field="email"
               value={this.state.email}
               onChange={this.onChange}
+              rules={[ruleTypes.FIELD_REQUIRED]}
             />
-            {submitted && !email && <InvalidInputMessage showIcon message="Email is required" />}
           </div>
           <div className="input-block">
             <label className="block" htmlFor="password">
@@ -78,11 +75,9 @@ class LoginPage extends Component {
               field="password"
               value={this.state.password}
               onChange={this.onChange}
+              rules={[ruleTypes.FIELD_REQUIRED]}
             />
-            {submitted &&
-              !password && <InvalidInputMessage showIcon message="Password is required" />}
           </div>
-          {errorMessage && <InvalidInputMessage showIcon message={errorMessage} />}
           <button type="button" onClick={this.onSubmit}>
             Login
           </button>
