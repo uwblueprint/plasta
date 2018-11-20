@@ -1,42 +1,33 @@
-import React, { Component } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import RadioOption from './RadioOption';
+import InvalidInputMessage from '../InvalidInputMessage';
+import composeInput from './InputContainer';
 import './RadioSelect.css';
-import PropTypes from 'prop-types';
 
-class RadioSelect extends Component {
-  constructor(props) {
-    super(props);
-    if (!props.selectedValue) this.state = { selectedValue: '' };
-    this.onChange = selectedValue => {
-      this.props.onChange({ value: selectedValue, key: this.props.field });
-    };
-  }
-
-  render() {
-    const { className, title, options } = this.props;
-    const selectedValue = this.props.selectedValue || this.state.selectedValue;
-    return (
-      <div className={classNames('radio-select', className)}>
-        {title && <h2> {title} </h2>}
-        {options.map((option, i) => (
-          <RadioOption
-            key={option.value}
-            checked={selectedValue === option.value}
-            label={option.label}
-            value={option.value}
-            onChange={() => {
-              this.onChange(option.value);
-            }}
-          />
-        ))}
-      </div>
-    );
-  }
-}
+const RadioSelect = props => {
+  const { className, title, options, value, errors, showErrors, ...rest } = props;
+  return (
+    <div className={classNames('radio-select', className)}>
+      {title && <h2> {title} </h2>}
+      {options.map((option, i) => (
+        <RadioOption
+          {...rest}
+          key={option.value}
+          checked={value === option.value}
+          label={option.label}
+          value={option.value}
+          onChange={props.onChange}
+        />
+      ))}
+      {showErrors && errors.map((err, i) => <InvalidInputMessage key={i} showIcon message={err} />)}
+    </div>
+  );
+};
 
 RadioSelect.propTypes = {
-  selectedValue: PropTypes.any.isRequired,
+  value: PropTypes.any.isRequired,
   field: PropTypes.string,
   title: PropTypes.string,
   options: PropTypes.array,
@@ -44,4 +35,4 @@ RadioSelect.propTypes = {
   onChange: PropTypes.func.isRequired,
 };
 
-export default RadioSelect;
+export default composeInput(RadioSelect);

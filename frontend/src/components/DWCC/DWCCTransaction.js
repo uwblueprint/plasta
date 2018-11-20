@@ -27,7 +27,7 @@ class DWCCTransaction extends Component {
         <SearchSelect
           createable
           field="stakeholderName"
-          selectedOption={this.props.stakeholderName}
+          value={this.props.stakeholderName}
           options={this.props.stakeholderOptions}
           onChange={this.props.onFieldChange}
           onBlur={this.props.validateRequiredField}
@@ -43,7 +43,7 @@ class DWCCTransaction extends Component {
     return (
       <SearchSelect
         field="stakeholderName"
-        selectedOption={this.props.stakeholderName}
+        value={this.props.stakeholderName}
         options={this.props.stakeholderOptions}
         onChange={this.props.onFieldChange}
         onBlur={this.props.validateRequiredField}
@@ -73,7 +73,7 @@ class DWCCTransaction extends Component {
         <FormSection className="formsection" title="Plastic Type *">
           <SearchSelect
             field="plasticType"
-            selectedOption={this.props.plasticType}
+            value={this.props.plasticType}
             options={staticPlasticTypes}
             onChange={this.props.onFieldChange}
             onBlur={this.props.validateRequiredField}

@@ -1,18 +1,11 @@
 import React, { Component } from 'react';
 import SearchSelect from '../input-components/SearchSelect';
+import RadioSelect from '../input-components/RadioSelect';
 import FormSection from '../input-components/FormSection';
 import TextInput from '../input-components/TextInput';
 import '../FormPage.css';
-import {
-  errorTypes,
-  onFieldChange,
-  isFieldEmpty,
-  onFieldBlur,
-  isFormValid,
-  getErrorMessage,
-} from '../utils/form';
+import { ruleTypes, onFieldChange, isFormValid, onValidation } from '../utils/form';
 import CancelButton from '../common/CancelButton.js';
-import InvalidInputMessage from '../InvalidInputMessage';
 
 // TODO (XIN): get from endpoints
 
@@ -46,17 +39,22 @@ const fieldsInfo = {
 class CreateWastePicker extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      errors: {},
+    };
     Object.keys(fieldsInfo).forEach(field => (this.state[field] = fieldsInfo[field].default));
     this.onSubmit = this.onSubmit.bind(this);
     this.onFieldChange = onFieldChange.bind(this);
-    this.onFieldBlur = onFieldBlur.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
     this.isFormValid = isFormValid.bind(this);
+    this.onValidation = onValidation.bind(this);
   }
 
   onSubmit() {
     // TODO (xin) send data
+    if (!this.isFormValid()) {
+      alert('error');
+    }
   }
 
   render() {
@@ -75,18 +73,9 @@ class CreateWastePicker extends Component {
             value={this.state.wastepickerName}
             placeholder="Ramnath"
             onChange={this.onFieldChange}
-            onBlur={this.onFieldBlur}
+            rules={[ruleTypes.FIELD_REQUIRED]}
+            onValidation={this.onValidation}
           />
-          {this.state.wastepickerNameTouched &&
-            isFieldEmpty(this.state.wastepickerName) && (
-              <InvalidInputMessage
-                showIcon
-                message={getErrorMessage(
-                  errorTypes.FIELD_REQUIRED,
-                  fieldsInfo.wastepickerName.label
-                )}
-              />
-            )}
 
           <h3 className="label">Phone *</h3>
           <TextInput
@@ -96,20 +85,14 @@ class CreateWastePicker extends Component {
             value={this.state.phone}
             placeholder="9988776655"
             onChange={this.onFieldChange}
-            onBlur={this.onFieldBlur}
+            rules={[ruleTypes.FIELD_REQUIRED]}
+            onValidation={this.onValidation}
           />
-          {this.state.phoneTouched &&
-            isFieldEmpty(this.state.phone) && (
-              <InvalidInputMessage
-                showIcon
-                message={getErrorMessage(errorTypes.FIELD_REQUIRED, fieldsInfo.phone.label)}
-              />
-            )}
 
           <h3 className="label">Type of Phone</h3>
-          <SearchSelect
+          <RadioSelect
             field="phoneType"
-            selectedOption={this.state.phoneType}
+            value={this.state.phoneType}
             options={[
               { label: 'Basic Phone', value: 'basic' },
               { label: 'Smart Phone', value: 'smart' },
@@ -120,21 +103,12 @@ class CreateWastePicker extends Component {
           <h3 className="label">Wastepicker Type *</h3>
           <SearchSelect
             field="wastepickerType"
-            selectedOption={this.state.wastepickerType}
+            value={this.state.wastepickerType}
             options={wastepickerTypes}
             onChange={this.onFieldChange}
-            onBlur={this.onFieldBlur}
+            rules={[ruleTypes.FIELD_REQUIRED]}
+            onValidation={this.onValidation}
           />
-          {this.state.wastepickerTypeTouched &&
-            isFieldEmpty(this.state.wastepickerType) && (
-              <InvalidInputMessage
-                showIcon
-                message={getErrorMessage(
-                  errorTypes.FIELD_REQUIRED,
-                  fieldsInfo.wastepickerType.label
-                )}
-              />
-            )}
 
           <h3 className="label">Upload Picture</h3>
           <TextInput
@@ -157,7 +131,7 @@ class CreateWastePicker extends Component {
           <h3 className="label">Language</h3>
           <SearchSelect
             field="language"
-            selectedOption={this.state.language}
+            value={this.state.language}
             options={availableLanguages}
             onChange={this.onFieldChange}
           />
