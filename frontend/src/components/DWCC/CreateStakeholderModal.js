@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import './CreateStakeholderModal.css';
 import { withRouter } from 'react-router-dom';
 
-export class CreateStakeholderModal extends Component {
+class CreateStakeholderModal extends Component {
   render() {
     return (
       <div id="modal-wrapper">
