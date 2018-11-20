@@ -8,7 +8,7 @@ import './../FormPage.css';
 import PropTypes from 'prop-types';
 import InvalidInputMessage from '../InvalidInputMessage';
 import { withRouter } from 'react-router-dom';
-import { CreateStakeholderModal } from './CreateStakeholderModal';
+import CreateStakeholderModal from './CreateStakeholderModal';
 
 export const transactionTypes = {
   BUY: 1,
@@ -85,7 +85,7 @@ class DWCCTransaction extends Component {
         <FormSection className="formsection" title="Amount *">
           <TextInput
             id="price"
-            className="amount-input inline margin-right-20"
+            className="amount-input half-width inline margin-right-20"
             field="price"
             rightlabel=" ₹/Kg"
             value={this.props.price}
@@ -97,7 +97,7 @@ class DWCCTransaction extends Component {
 
           <TextInput
             id="weight"
-            className="amount-input inline"
+            className="amount-input half-width inline"
             field="weight"
             rightlabel=" Kg"
             type="number"

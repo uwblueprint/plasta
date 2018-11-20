@@ -78,8 +78,15 @@
     width: 8em;
   }
 
-  .amount-input input {
+  .full-width input {
+    width: 100%;
+  }
+
+  .half-width input {
     width: 30%;
+  }
+
+  .amount-input input {
     padding-top: 4.5px;
     padding-bottom: 4.5px;
   }
