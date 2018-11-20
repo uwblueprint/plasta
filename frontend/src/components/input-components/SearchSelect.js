@@ -65,4 +65,8 @@ SearchSelect.propTypes = {
   promptTextCreator: PropTypes.func,
 };
 
+SearchSelect.defaultProps = {
+  createable: false,
+};
+
 export default SearchSelect;
