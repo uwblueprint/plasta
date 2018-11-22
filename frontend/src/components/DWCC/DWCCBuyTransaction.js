@@ -10,10 +10,10 @@ export default class DWCCBuyTransaction extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      errors: { stakeholderName: '', plasticType: '', price: '', weight: '' },
+      errors: { stakeholderName: '', plasticType: '', unitPrice: '', weight: '' },
       stakeholderName: {},
       plasticType: {},
-      price: 0,
+      unitPrice: 0,
       weight: 0,
       transactionDate: '',
       showModal: false,
@@ -71,19 +71,19 @@ export default class DWCCBuyTransaction extends Component {
       alert('Please resolve errors');
       return;
     }
-    const totalPrice = this.state.price * this.state.weight;
+    const totalPrice = this.state.unitPrice * this.state.weight;
     const transactionData = {
       // TODO(Nick): Get from_vendor_id & creator_id from user object in Redux store
       project_id: 1,
       from_vendor_id: 1,
       to_vendor_id: this.state.stakeholderName.value,
-      price: totalPrice,
+      unitPrice: totalPrice,
       // TODO
       plastics: [
         {
           plastic_type: this.state.plasticType.value,
           quantity: this.state.weight,
-          price: totalPrice,
+          unitPrice: totalPrice,
         },
       ],
       sale_date: this.state.transactionDate,
