@@ -13,7 +13,10 @@ const fieldsInfo = {
 export default class CreateExternalDWCC extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      errors: {},
+      submitAttempted: false,
+    };
     Object.keys(fieldsInfo).forEach(field => (this.state[field] = fieldsInfo[field].default));
     this.onFieldChange = onFieldChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
@@ -22,6 +25,7 @@ export default class CreateExternalDWCC extends Component {
   }
 
   onSubmit() {
+    if (!this.state.submitAttempted) this.setState({ submitAttempted: true }); // move out once onsubmit dispatched through redux
     if (!this.isFormValid(fieldsInfo)) {
       alert('resolve errors'); // TODO (XIN): modal error
       return;
@@ -43,6 +47,7 @@ export default class CreateExternalDWCC extends Component {
             onChange={this.onFieldChange}
             onValidation={this.onValidation}
             rules={[ruleTypes.FIELD_REQUIRED]}
+            showErrors={this.state.submitAttempted}
           />
 
           <h3 className="label">Phone</h3>
