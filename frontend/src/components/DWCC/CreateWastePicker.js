@@ -41,6 +41,7 @@ class CreateWastePicker extends Component {
     super(props);
     this.state = {
       errors: {},
+      submitAttempted: false,
     };
     Object.keys(fieldsInfo).forEach(field => (this.state[field] = fieldsInfo[field].default));
     this.onSubmit = this.onSubmit.bind(this);
@@ -51,6 +52,7 @@ class CreateWastePicker extends Component {
   }
 
   onSubmit() {
+    if (!this.state.submitAttempted) this.setState({ submitAttempted: true }); // move out once onsubmit dispatched through redux
     // TODO (xin) send data
     if (!this.isFormValid()) {
       alert('error');
@@ -58,6 +60,7 @@ class CreateWastePicker extends Component {
   }
 
   render() {
+    const submitAttempted = this.state.submitAttempted;
     return (
       <div className="page-wrapper" id="create-wastepicker-wrapper">
         <CancelButton context={this.context} />
@@ -75,6 +78,7 @@ class CreateWastePicker extends Component {
             onChange={this.onFieldChange}
             rules={[ruleTypes.FIELD_REQUIRED]}
             onValidation={this.onValidation}
+            showErrors={submitAttempted}
           />
 
           <h3 className="label">Phone *</h3>
@@ -87,6 +91,7 @@ class CreateWastePicker extends Component {
             onChange={this.onFieldChange}
             rules={[ruleTypes.FIELD_REQUIRED]}
             onValidation={this.onValidation}
+            showErrors={submitAttempted}
           />
 
           <h3 className="label">Type of Phone</h3>
@@ -108,6 +113,7 @@ class CreateWastePicker extends Component {
             onChange={this.onFieldChange}
             rules={[ruleTypes.FIELD_REQUIRED]}
             onValidation={this.onValidation}
+            showErrors={submitAttempted}
           />
 
           <h3 className="label">Upload Picture</h3>
