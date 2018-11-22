@@ -3,6 +3,7 @@ import moment from 'moment';
 import { fieldToLabelMap } from '../utils/transactions';
 import DWCCTransaction, { transactionTypes } from './DWCCTransaction';
 import CancelButton from '../common/CancelButton.js';
+import { post } from '../utils/requests';
 import './../FormPage.css';
 
 export default class DWCCBuyTransaction extends Component {
@@ -70,8 +71,25 @@ export default class DWCCBuyTransaction extends Component {
       alert('Please resolve errors');
       return;
     }
-    // TODO: POST Request to the backend
-    // post('/projects', newProjectData).catch(err => {});
+    const totalPrice = this.state.price * this.state.weight;
+    const transactionData = {
+      // TODO(Nick): Get from_vendor_id & creator_id from user object in Redux store
+      project_id: 1,
+      from_vendor_id: 1,
+      to_vendor_id: this.state.stakeholderName.value,
+      price: totalPrice,
+      // TODO
+      plastics: [
+        {
+          plastic_type: this.state.plasticType.value,
+          quantity: this.state.weight,
+          price: totalPrice,
+        },
+      ],
+      sale_date: '1999-10-14 14:25:32.096052',
+      creator_id: 1,
+    };
+    post('/vendors/1/transactions', transactionData).catch(err => {});
   }
   render() {
     return (
@@ -97,10 +115,4 @@ export default class DWCCBuyTransaction extends Component {
   }
 }
 
-const staticBuyStakeholders = [
-  { label: 'Rahul', value: 'rahul-id' },
-  { label: 'Rohit', value: 'rohit-id' },
-  { label: 'Lakhan', value: 'rakhan-id' },
-  { label: 'DWCC 1', value: 'dwcc1-id' },
-  { label: 'DWCC 2', value: 'dwcc2-id' },
-];
+const staticBuyStakeholders = [{ label: 'DWCC 1', value: '1' }];

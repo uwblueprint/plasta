@@ -26,6 +26,13 @@ def get_vendor_transactions(vendor_id):
     ])
 
 
+@blueprint.route('/<int:vendor_id>/transactions', methods=['POST'])
+def create_transaction(vendor_id):
+    transaction_data = request.json
+    transaction = db_client.create_transaction(transaction_data)
+    return success(data=transaction.to_dict(include_relationships=True))
+
+
 # TODO(imran): Only certain vendor types should have the power to create
 # other vendor types. For example, DWCCs can only create other DWCCs.
 # We should prevent vendors from creating other vendors inappropriately.
@@ -34,3 +41,4 @@ def get_vendor_transactions(vendor_id):
 def create_vendor():
     vendor = db_client.create_vendor(request.json)
     return success(data=vendor.to_dict(include_relationships=True))
+    
