@@ -3,6 +3,7 @@ import moment from 'moment';
 import { fieldToLabelMap } from '../utils/transactions';
 import DWCCTransaction, { transactionTypes } from './DWCCTransaction';
 import CancelButton from '../common/CancelButton.js';
+import { post } from '../utils/requests';
 import './../FormPage.css';
 
 export default class DWCCSellTransaction extends Component {
@@ -66,8 +67,25 @@ export default class DWCCSellTransaction extends Component {
       alert('Please resolve errors');
       return;
     }
-    // TODO: send POST with Buy transaction data
-    // post('/projects', newProjectData).catch(err => {});
+    const totalPrice = this.state.price * this.state.weight;
+    const transactionData = {
+      // TODO(Nick): Get from_vendor_id & creator_id from user object in Redux store
+      project_id: 1,
+      from_vendor_id: 1,
+      to_vendor_id: this.state.stakeholderName.value,
+      price: totalPrice,
+      plastics: [
+        {
+          plastic_type: this.state.plasticType.value,
+          quantity: this.state.weight,
+          price: totalPrice,
+        },
+      ],
+      sale_date: '1999-10-14 14:25:32.096052',
+      creator_id: 1,
+    };
+    post('/vendors/1/transactions', transactionData).catch(err => {});
+    //TODO:(Nick) Better error handling (possibly with modal?)
   }
   render() {
     return (
@@ -90,8 +108,4 @@ export default class DWCCSellTransaction extends Component {
   }
 }
 
-const staticSellStakeholders = [
-  { label: 'Wholesaler 1', value: 'WS1' },
-  { label: 'Wholesaler 2', value: 'WS2' },
-  { label: 'DWCC 1', value: 'DWCC' },
-];
+const staticSellStakeholders = [{ label: 'Wholesaler 1', value: 2 }];
