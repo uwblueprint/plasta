@@ -86,10 +86,10 @@ export default class DWCCBuyTransaction extends Component {
           price: totalPrice,
         },
       ],
-      sale_date: '1999-10-14 14:25:32.096052',
+      sale_date: this.state.transactionDate,
       creator_id: 1,
     };
-    post('/vendors/1/transactions', transactionData).catch(err => {});
+    post('/vendors/1/transactions', transactionData).catch(err => {}); // TODO(Nick): Add Error catching.
   }
   render() {
     return (
