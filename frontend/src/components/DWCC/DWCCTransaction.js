@@ -132,12 +132,7 @@ class DWCCTransaction extends Component {
   }
 }
 
-const staticPlasticTypes = [
-  { label: 'PET', value: 'p' },
-  { label: 'Pugga', value: 'WS2' },
-  { label: 'HDP', value: 'WS2' },
-  { label: 'Films', value: 'WS2' },
-];
+const staticPlasticTypes = [{ label: 'Green PET', value: 'green_pet' }];
 
 DWCCTransaction.propTypes = {
   onSubmit: PropTypes.func.isRequired,
