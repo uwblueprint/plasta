@@ -84,11 +84,11 @@ class DWCCTransaction extends Component {
         </FormSection>
         <FormSection className="formsection" title="Amount *">
           <TextInput
-            id="price"
+            id="unitPrice"
             className="amount-input half-width inline margin-right-20"
-            field="price"
+            field="unitPrice"
             rightlabel=" ₹/Kg"
-            value={this.props.price}
+            value={this.props.unitPrice}
             placeholder={'0.00'}
             type="number"
             onChange={this.props.onFieldChange}
@@ -106,8 +106,8 @@ class DWCCTransaction extends Component {
             onChange={this.props.onFieldChange}
             onBlur={this.props.validateRequiredField}
           />
-          {this.props.errors.price && (
-            <InvalidInputMessage showIcon message={this.props.errors.price} />
+          {this.props.errors.unitPrice && (
+            <InvalidInputMessage showIcon message={this.props.errors.unitPrice} />
           )}
           {this.props.errors.weight && (
             <InvalidInputMessage showIcon message={this.props.errors.weight} />
@@ -149,7 +149,7 @@ DWCCTransaction.propTypes = {
   hideModal: PropTypes.func,
   transactionType: PropTypes.number.isRequired,
   // field values
-  price: PropTypes.number.isRequired,
+  unitPrice: PropTypes.number.isRequired,
   weight: PropTypes.number.isRequired,
   plasticType: PropTypes.object,
   stakeholderName: PropTypes.object.isRequired,
