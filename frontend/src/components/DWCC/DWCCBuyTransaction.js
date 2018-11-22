@@ -78,7 +78,6 @@ export default class DWCCBuyTransaction extends Component {
       from_vendor_id: 1,
       to_vendor_id: this.state.stakeholderName.value,
       unitPrice: totalPrice,
-      // TODO
       plastics: [
         {
           plastic_type: this.state.plasticType.value,
