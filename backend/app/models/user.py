@@ -5,6 +5,7 @@ from sqlalchemy.dialects.postgresql import JSONB
 
 from . import db
 from .mixins import BaseMixin
+from .vendor import Vendor
 
 
 class User(BaseMixin, db.Model):
@@ -17,7 +18,7 @@ class User(BaseMixin, db.Model):
         db.Integer, db.ForeignKey('vendor.id'), nullable=False)
     meta_data = db.Column(JSONB)
     created_at = db.Column(db.DateTime, server_default=db.func.now())
-    __table_args__ = (db.Index('IX_user_email', func.lower(email)),)
+    __table_args__ = (db.Index('IX_user_email', func.lower(email)), )
 
     TO_DICT_WHITELIST = ['id', 'email', 'active', 'vendor_id', 'meta_data']
 
@@ -33,3 +34,8 @@ class User(BaseMixin, db.Model):
         if bcrypt.hashpw(password, self.password_hash) == self.password_hash:
             return self
         return None
+
+    def to_dict(self, include_relationships=False):
+        data = super(User, self).to_dict(include_relationships)
+        data['vendor'] = Vendor.get(self.vendor_id).to_dict()
+        return data

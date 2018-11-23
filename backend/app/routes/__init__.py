@@ -6,7 +6,7 @@ jwt = JWTManager()
 def init_app(app):
     jwt.init_app(app)
 
-    from .converters import ListConverter
+    from .utils.converters import ListConverter
 
     app.url_map.converters['list'] = ListConverter
 
