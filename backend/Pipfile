@@ -14,6 +14,7 @@ click = "*"
 gunicorn = "*"
 flask-jwt-extended = "*"
 flask-cors = "*"
+"boto3" = "*"
 
 [dev-packages]
 fancycompleter = "*"
