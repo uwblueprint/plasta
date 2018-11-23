@@ -1,7 +1,7 @@
 from flask import Blueprint, request
 
 from . import db_client
-from .route_utils import success
+from .utils.route_utils import success
 
 blueprint = Blueprint('vendor', __name__, url_prefix='/vendors')
 
@@ -21,8 +21,8 @@ def get_vendors(vendor_types):
 def get_vendor_transactions(vendor_id):
     transactions = db_client.get_vendor_transactions(vendor_id)
     return success(data=[
-        transaction.to_dict(
-            include_relationships=True) for transaction in transactions
+        transaction.to_dict(include_relationships=True)
+        for transaction in transactions
     ])
 
 

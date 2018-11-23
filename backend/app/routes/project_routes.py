@@ -1,7 +1,7 @@
 from flask import Blueprint, request
 
 from . import db_client
-from .route_utils import success
+from .utils.route_utils import success
 
 blueprint = Blueprint('project', __name__, url_prefix='/projects')
 
@@ -24,6 +24,6 @@ def create_project():
 def get_project_transactions(project_id):
     transactions = db_client.get_project_transactions(project_id)
     return success(data=[
-        transaction.to_dict(
-            include_relationships=True) for transaction in transactions
+        transaction.to_dict(include_relationships=True)
+        for transaction in transactions
     ])

@@ -1,9 +1,10 @@
 from datetime import timedelta
+
 from flask import Blueprint, request
 from flask_jwt_extended import create_access_token
 
-from .route_utils import error_response, success
 from . import db_client
+from .utils.route_utils import error_response, success
 
 blueprint = Blueprint('auth', __name__, url_prefix='/auth')
 
