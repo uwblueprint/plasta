@@ -4,9 +4,11 @@ import { fieldToLabelMap } from '../utils/transactions';
 import DWCCTransaction, { transactionTypes } from './DWCCTransaction';
 import CancelButton from '../common/CancelButton.js';
 import { post } from '../utils/requests';
+import { connect } from 'react-redux';
 import './../FormPage.css';
+import PropTypes from 'prop-types';
 
-export default class DWCCBuyTransaction extends Component {
+class DWCCBuyTransaction extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -75,7 +77,7 @@ export default class DWCCBuyTransaction extends Component {
     const transactionData = {
       // TODO(Nick): Get from_vendor_id & creator_id from user object in Redux store
       from_vendor_id: this.state.stakeholderName.value,
-      to_vendor_id: 1,
+      to_vendor_id: this.props.currentVendorId,
       price: totalPrice,
       plastics: [
         {
@@ -116,3 +118,15 @@ export default class DWCCBuyTransaction extends Component {
 }
 
 const staticBuyStakeholders = [{ label: 'DWCC 1', value: '1' }];
+
+const mapStateToProps = state => {
+  return {
+    currentVendorId: state.currentUser.vendor_id,
+  };
+};
+
+DWCCBuyTransaction.propTypes = {
+  currentVendorId: PropTypes.number.isRequired,
+};
+
+export default connect(mapStateToProps)(DWCCBuyTransaction);
