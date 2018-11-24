@@ -27,7 +27,7 @@ def get_vendor_transactions(vendor_id):
 
 
 @blueprint.route('/<int:vendor_id>/transactions', methods=['POST'])
-def create_transaction(vendor_id):
+def create_vendor_transaction(vendor_id):
     transaction_data = request.json
     transaction = db_client.create_transaction(transaction_data)
     return success(data=transaction.to_dict(include_relationships=True))
