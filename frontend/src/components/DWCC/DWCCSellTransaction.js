@@ -73,19 +73,20 @@ export default class DWCCSellTransaction extends Component {
       project_id: 1,
       from_vendor_id: 1,
       to_vendor_id: this.state.stakeholderName.value,
-      unitPrice: totalPrice,
+      price: totalPrice,
       plastics: [
         {
           plastic_type: this.state.plasticType.value,
           quantity: this.state.weight,
-          unitPrice: totalPrice,
+          price: totalPrice,
         },
       ],
       sale_date: this.state.transactionDate,
       creator_id: 1,
     };
-    post('/vendors/1/transactions', transactionData).catch(err => {});
-    //TODO:(Nick) Better error handling (possibly with modal?)
+    post('/vendors/1/transactions', transactionData).catch(err => {
+      alert('There was a problem submitting the transaction. Please try again.');
+    });
   }
   render() {
     return (
