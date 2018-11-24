@@ -4,9 +4,11 @@ import { fieldToLabelMap } from '../utils/transactions';
 import PrimarySegregatorTransaction, { transactionTypes } from './PrimarySegregatorTransaction';
 import CancelButton from '../common/CancelButton.js';
 import { post } from '../utils/requests';
+import { connect } from 'react-redux';
 import './../FormPage.css';
+import PropTypes from 'prop-types';
 
-export default class PrimarySegregatorBuyTransaction extends Component {
+class PrimarySegregatorBuyTransaction extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -75,7 +77,7 @@ export default class PrimarySegregatorBuyTransaction extends Component {
     const transactionData = {
       // TODO(Nick): Get from_vendor_id & creator_id from user object in Redux store
       from_vendor_id: this.state.stakeholderName.value,
-      to_vendor_id: 1,
+      to_vendor_id: this.props.currentVendorId,
       price: totalPrice,
       plastics: [
         {
@@ -116,3 +118,15 @@ export default class PrimarySegregatorBuyTransaction extends Component {
 }
 
 const staticBuyStakeholders = [{ label: 'Primary Segregator 1', value: '1' }];
+
+const mapStateToProps = state => {
+  return {
+    currentVendorId: state.currentUser.vendor_id,
+  };
+};
+
+PrimarySegregatorBuyTransaction.propTypes = {
+  currentVendorId: PropTypes.number.isRequired,
+};
+
+export default connect(mapStateToProps)(PrimarySegregatorTransaction);
