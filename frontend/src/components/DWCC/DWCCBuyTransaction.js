@@ -75,8 +75,8 @@ export default class DWCCBuyTransaction extends Component {
     const transactionData = {
       // TODO(Nick): Get from_vendor_id & creator_id from user object in Redux store
       project_id: 1,
-      from_vendor_id: 1,
-      to_vendor_id: this.state.stakeholderName.value,
+      from_vendor_id: this.state.stakeholderName.value,
+      to_vendor_id: 1,
       unitPrice: totalPrice,
       plastics: [
         {
