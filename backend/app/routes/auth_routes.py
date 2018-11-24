@@ -34,6 +34,6 @@ def _authenticate_user(email, password):
 def _create_access_token(user):
     validity_time = timedelta(days=7)
     return create_access_token(
-        identity=user.email,
+        identity=user.to_dict(),
         expires_delta=validity_time,
     )
