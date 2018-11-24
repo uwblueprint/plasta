@@ -5,8 +5,10 @@ import DWCCTransaction, { transactionTypes } from './DWCCTransaction';
 import CancelButton from '../common/CancelButton.js';
 import { post } from '../utils/requests';
 import './../FormPage.css';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
-export default class DWCCSellTransaction extends Component {
+class DWCCSellTransaction extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -70,7 +72,7 @@ export default class DWCCSellTransaction extends Component {
     const totalPrice = this.state.unitPrice * this.state.weight;
     const transactionData = {
       // TODO(Nick): Get from_vendor_id & creator_id from user object in Redux store
-      from_vendor_id: 1,
+      from_vendor_id: this.currentVendorId,
       to_vendor_id: this.state.stakeholderName.value,
       price: totalPrice,
       plastics: [
@@ -109,3 +111,15 @@ export default class DWCCSellTransaction extends Component {
 }
 
 const staticSellStakeholders = [{ label: 'Wholesaler 1', value: 2 }];
+
+const mapStateToProps = state => {
+  return {
+    currentVendorId: state.currentUser.vendor_id,
+  };
+};
+
+DWCCSellTransaction.propTypes = {
+  currentVendorId: PropTypes.number.isRequired,
+};
+
+export default connect(mapStateToProps)(DWCCSellTransaction);
