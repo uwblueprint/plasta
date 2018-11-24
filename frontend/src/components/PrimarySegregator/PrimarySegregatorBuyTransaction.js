@@ -87,7 +87,7 @@ class PrimarySegregatorBuyTransaction extends Component {
         },
       ],
       sale_date: this.state.transactionDate,
-      creator_id: 1,
+      creator_id: this.currentVendorId,
     };
     post('/vendors/1/transactions', transactionData).catch(err => {
       alert('There was a problem submitting the transaction. Please try again.');
