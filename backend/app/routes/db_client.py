@@ -1,6 +1,7 @@
 from flask_jwt_extended import get_jwt_identity
 from sqlalchemy import or_
 
+from . import s3_client
 from ..models.project import Project
 from ..models.transaction import Transaction
 from ..models.user import User
@@ -50,6 +51,9 @@ def create_vendor(data, current_user=None):
         DWCCWastepickerMap.create(
             dwcc_id=current_user['vendor_id'],
             wastepicker_id=vendor.id)
+    if 'photo' in data:
+        image_link = s3_client.upload_user_image(data['photo'])
+        data['image_link'] = image_link
     return vendor
 
 

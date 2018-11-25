@@ -52,6 +52,7 @@ class Vendor(BaseMixin, db.Model):
     vendor_type = db.Column(vendor_type_enum, nullable=False)
     vendor_subtype = db.Column(vendor_subtype_enum, nullable=False)
     name = db.Column(db.String(255), nullable=False)
+    image_link = db.Column(db.String(255), nullable=True)
     meta_data = db.Column(JSONB)
     created_at = db.Column(db.DateTime, server_default=db.func.now())
 
