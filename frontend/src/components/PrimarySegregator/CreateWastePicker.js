@@ -3,10 +3,12 @@ import SearchSelect from '../input-components/SearchSelect';
 import RadioSelect from '../input-components/RadioSelect';
 import FormSection from '../input-components/FormSection';
 import TextInput from '../input-components/TextInput';
-import '../FormPage.css';
 import { ruleTypes, onFieldChange, isFormValid, onValidation } from '../utils/form';
-import CancelButton from '../common/CancelButton.js';
 import OnSubmitButton from '../common/OnSubmitButton';
+import FileInput from '../input-components/FileInput';
+import CancelButton from '../common/CancelButton.js';
+import { postMultiType } from '../utils/requests';
+import '../FormPage.css';
 
 // TODO (XIN): get from endpoints
 
@@ -54,10 +56,13 @@ class CreateWastePicker extends Component {
 
   async onSubmit() {
     if (!this.state.submitAttempted) this.setState({ submitAttempted: true }); // move out once onsubmit dispatched through redux
-    // TODO (xin) send data
     if (!this.isFormValid()) {
       return Promise.reject('Please resolve all errors before submitting.');
     }
+    postMultiType(
+      '/vendors',
+      Object.keys(this.state).map(field => ({ key: field, value: this.state[field] }))
+    );
   }
 
   render() {
@@ -114,13 +119,12 @@ class CreateWastePicker extends Component {
           />
 
           <h3 className="label">Upload Picture</h3>
-          <TextInput
+          <FileInput
             className="large-input full-width"
-            type="file"
             field="picture"
             onChange={() => {}} // TODO (XIN)
             value={this.state.picture}
-            // TODO (XIN): onChange
+            onChange={this.onFieldChange}
           />
 
           <h3 className="label">Address</h3>
