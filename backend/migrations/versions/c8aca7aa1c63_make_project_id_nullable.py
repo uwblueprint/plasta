@@ -1,7 +1,7 @@
 """make project_id nullable
 
 Revision ID: c8aca7aa1c63
-Revises: 3e6fd1fe1f30
+Revises: 6ffe250980f5
 Create Date: 2018-11-25 13:20:52.582123
 
 """
