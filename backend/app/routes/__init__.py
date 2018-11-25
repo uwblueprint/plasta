@@ -1,5 +1,7 @@
+import boto3
 from flask_jwt_extended import JWTManager
 
+s3_resource = boto3.resource('s3')
 jwt = JWTManager()
 
 
