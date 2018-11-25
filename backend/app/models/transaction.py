@@ -6,8 +6,7 @@ from .plastic_type_enum import plastic_type_enum
 class Transaction(BaseMixin, db.Model):
     __tablename__ = 'transaction'
     id = db.Column(db.Integer, primary_key=True)
-    project_id = db.Column(
-        db.Integer, db.ForeignKey('project.id'), nullable=False)
+    project_id = db.Column(db.Integer, db.ForeignKey('project.id'))
     from_vendor_id = db.Column(
         db.Integer, db.ForeignKey('vendor.id'), nullable=False)
     to_vendor_id = db.Column(
