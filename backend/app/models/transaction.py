@@ -1,13 +1,6 @@
 from . import db
 from .mixins import BaseMixin
-
-plastic_type_enum = db.Enum(
-    'green_pet',
-    'pet_light_blue',
-    'brown_pet',
-    'pet_non_food_clear',
-    'pet_clear',
-    name='plastic_type')
+from .plastic_type_enum import plastic_type_enum
 
 
 class Transaction(BaseMixin, db.Model):
