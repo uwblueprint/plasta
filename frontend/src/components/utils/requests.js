@@ -18,6 +18,20 @@ export function post(path, payload) {
     });
 }
 
+// TODO : accept multiple images
+export function postMultiType(path, fields) {
+  const url = process.env.REACT_APP_API_URL + path;
+  const formData = new FormData();
+  fields.forEach(field => {
+    formData.append(field.key, field.value);
+  });
+  console.log(formData.get('picture'));
+  return fetch(url, {
+    method: 'POST',
+    body: formData,
+  });
+}
+
 export function get(path, payload) {
   const url = process.env.REACT_APP_API_URL + path;
   const data = {
