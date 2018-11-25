@@ -81,6 +81,8 @@ export const fieldsInfo = {
   },
 };
 
+export const fieldKeys = Object.keys(fieldsInfo).map(fieldName => fieldName);
+
 export const plasticOptions = [
   {
     value: 'green_pet',

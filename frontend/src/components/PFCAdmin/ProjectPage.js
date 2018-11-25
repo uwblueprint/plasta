@@ -17,9 +17,7 @@ class ProjectPage extends Component {
   componentDidMount() {
     const { projectId } = this.props.match.params;
     const url = `/projects/${projectId}/transactions`;
-    get(url)
-      .then(res => res.data)
-      .catch();
+    get(url).then(res => res.data);
   }
 
   render() {

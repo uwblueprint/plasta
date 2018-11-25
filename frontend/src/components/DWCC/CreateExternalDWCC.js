@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
+import { snakeCase } from 'lodash';
 import FormSection from '../input-components/FormSection';
 import TextInput from '../input-components/TextInput';
 import { ruleTypes, onFieldChange, isFormValid, onValidation } from '../utils/form';
 import '../FormPage.css';
 
 const fieldsInfo = {
-  dwccName: { label: 'Name', default: '', isRequired: true },
+  name: { label: 'Name', default: '', isRequired: true },
   phone: { label: 'Phone', default: '', isRequired: false },
   address: { label: 'Address', default: '', sisRequired: false },
 };
@@ -26,11 +27,11 @@ export default class CreateExternalDWCC extends Component {
 
   onSubmit() {
     if (!this.state.submitAttempted) this.setState({ submitAttempted: true }); // move out once onsubmit dispatched through redux
-    if (!this.isFormValid(fieldsInfo)) {
-      alert('resolve errors'); // TODO (XIN): modal error
+    if (!this.isFormValid()) {
+      alert('Please resolve all errors before submitting.'); // TODO (XIN): modal error
       return;
     }
-    // TODO: send data
+    // TODO : Change vendor_type to primary_segregator once identical backend rename done
   }
 
   render() {
@@ -41,8 +42,8 @@ export default class CreateExternalDWCC extends Component {
           <h3 className="label">Name *</h3>
           <TextInput
             className="emphasis-input full-width"
-            field="dwccName"
-            value={this.state.dwccName}
+            field="name"
+            value={this.state.name}
             placeholder="Your answer here..."
             onChange={this.onFieldChange}
             onValidation={this.onValidation}

@@ -35,6 +35,7 @@ class NewProject extends Component {
       errors: {},
       submitAttempted: false,
     };
+
     Object.keys(fieldsInfo).forEach(field => {
       this.state[field] = fieldsInfo[field].default;
     });
@@ -118,7 +119,7 @@ class NewProject extends Component {
             ]}
             onChange={this.onFieldChange}
           />
-        </FormSection>f
+        </FormSection>
         <FormSection title="Plastic Types *">
           <PlasticTypeQuantityGroup
             label="List of Plastic Types"
@@ -244,7 +245,7 @@ class NewProject extends Component {
             className="priceField"
             rightlabel="₹"
             type="number"
-            field="shippingPrice"
+            field="wholesalerShippingPrice"
             value={this.state.wholesalerShippingPrice}
             placeholder="100.00"
             onChange={this.onFieldChange}
