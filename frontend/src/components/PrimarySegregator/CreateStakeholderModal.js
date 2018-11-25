@@ -14,17 +14,11 @@ class CreateStakeholderModal extends Component {
                 <i className="far fa-times-circle" />
               </button>
               <h1>Create a new...</h1>
-              <button
-                type="button"
-                onClick={() => this.props.history.push('/dwcc/wastepickers/new')}
-              >
+              <button type="button" onClick={() => this.props.history.push('/ps/wastepickers/new')}>
                 Wastepicker
               </button>
-              <button
-                type="button"
-                onClick={() => this.props.history.push('/dwcc/external-dwcc/new')}
-              >
-                DWCC
+              <button type="button" onClick={() => this.props.history.push('/ps/external-ps/new')}>
+                Primary Segregator
               </button>
             </section>
           </div>

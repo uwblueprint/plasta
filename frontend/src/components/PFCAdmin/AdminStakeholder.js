@@ -2,7 +2,7 @@ import './AdminStakeholder.css';
 import React, { Component } from 'react';
 import { Tabs, TabList, Tab, TabPanel } from 'react-tabs';
 import AdminStakeholderInfo from './AdminStakeholderInfo';
-import { DWCCData, WholesalerData } from '../fakeData';
+import { PrimarySegregatorData, WholesalerData } from '../fakeData';
 
 class AdminStakeholder extends Component {
   constructor() {
@@ -18,7 +18,7 @@ class AdminStakeholder extends Component {
           onSelect={selectedTab => this.setState({ selectedTab })}
         >
           <TabList>
-            <Tab>DWCC</Tab>
+            <Tab>Primary Segregator</Tab>
             <Tab>Wholesaler</Tab>
           </TabList>
           <TabPanel>
@@ -26,9 +26,9 @@ class AdminStakeholder extends Component {
               type="button"
               onClick={() => this.props.history.push('/admin/stakeholders/new')}
             >
-              New DWCC
+              New Primary Segregator
             </button>
-            <AdminStakeholderInfo stakeholders={DWCCData} />
+            <AdminStakeholderInfo stakeholders={PrimarySegregatorData} />
           </TabPanel>
           <TabPanel>
             <button

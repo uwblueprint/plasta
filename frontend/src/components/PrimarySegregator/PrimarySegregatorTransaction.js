@@ -15,7 +15,7 @@ export const transactionTypes = {
   SELL: 2,
 };
 
-class DWCCTransaction extends Component {
+class PrimarySegregatorTransaction extends Component {
   constructor(props) {
     super(props);
     this.buyStakeholderSelect = this.buyStakeholderSelect.bind(this);
@@ -134,7 +134,7 @@ class DWCCTransaction extends Component {
 
 const staticPlasticTypes = [{ label: 'Green PET', value: 'green_pet' }];
 
-DWCCTransaction.propTypes = {
+PrimarySegregatorTransaction.propTypes = {
   onSubmit: PropTypes.func.isRequired,
   onFieldChange: PropTypes.func.isRequired,
   validateRequiredField: PropTypes.func.isRequired,
@@ -155,4 +155,4 @@ DWCCTransaction.propTypes = {
   stakeholderName: PropTypes.object.isRequired,
 };
 
-export default withRouter(DWCCTransaction);
+export default withRouter(PrimarySegregatorTransaction);

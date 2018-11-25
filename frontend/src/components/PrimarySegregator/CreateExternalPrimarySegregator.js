@@ -13,7 +13,7 @@ const fieldsInfo = {
   address: { label: 'Address', default: '', type: 'metaData' },
 };
 
-export default class CreateExternalDWCC extends Component {
+export default class CreateExternalPrimarySegregator extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -44,7 +44,7 @@ export default class CreateExternalDWCC extends Component {
   render() {
     return (
       <div className="page-wrapper" id="create-wastepicker-wrapper">
-        <h1>Create External DWCC</h1>
+        <h1>Create External Primary Segregator</h1>
         <FormSection title="Identification">
           <h3 className="label">Name *</h3>
           <TextInput

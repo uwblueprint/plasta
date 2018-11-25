@@ -16,7 +16,10 @@ import { onFieldChange, ruleTypes, onValidation, isFormValid } from '../utils/fo
 import 'react-day-picker/lib/style.css';
 import '../FormPage.css';
 
-const staticDWCC = [{ label: 'DWCC 1', value: 'dw1' }, { label: 'DWCC 2', value: 'dw2' }];
+const staticPrimarySegregator = [
+  { label: 'Primary Segregator 1', value: 'ps1' },
+  { label: 'Primary Segregator 2', value: 'ps2' },
+];
 
 const staticWholesaler = [
   { label: 'Wholesaler 1', value: 'WS1' },
@@ -148,7 +151,7 @@ class NewProject extends Component {
         </FormSection>
         <FormSection title="Primary Segregator(s) *">
           <SearchSelect
-            options={staticDWCC}
+            options={staticPrimarySegregator}
             field="primarySegregators"
             onChange={this.onFieldChange}
             value={this.state.primarySegregators}
@@ -207,13 +210,13 @@ class NewProject extends Component {
             placeholder="100.00"
             onChange={this.onFieldChange}
           />
-          <p className="priceHeader">DWCC Sell Price</p>
+          <p className="priceHeader">Primary Segregator Sell Price</p>
           <TextInput
             className="priceField"
             rightlabel="₹ / kg"
             type="number"
-            field="dwccSellPrice"
-            value={this.state.dwccSellPrice}
+            field="primarySegregatorSellPrice"
+            value={this.state.primarySegregatorSellPrice}
             placeholder="100.00"
             onChange={this.onFieldChange}
           />

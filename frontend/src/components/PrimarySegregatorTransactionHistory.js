@@ -1,8 +1,8 @@
 import ReactTable from 'react-table';
 import React, { Component } from 'react';
-import DWCCBottomBar from './DWCC/DWCCNavBar.js';
+import PrimarySegregatorBottomBar from './PrimarySegregator/PrimarySegregatorNavBar.js';
 import moment from 'moment';
-import './DWCC/DWCC.css';
+import './PrimarySegregator/PrimarySegregator.css';
 import 'react-table/react-table.css';
 import {
   plasticOptionsByName,
@@ -99,7 +99,7 @@ const dummyTransactions = [
     plastics: [
       {
         transaction_id: 100,
-        plastic_type: 'pet_light_blue',
+        plastic_type: 'blue_pet',
         quantity: 99,
         price: 5.99,
       },
@@ -121,11 +121,11 @@ const dummyTransactions = [
   },
 ];
 
-class DwccTransactionHistory extends Component {
+class PrimarySegregatorTransactionHistory extends Component {
   render() {
     return (
       <div>
-        <div id="dwcc-page-wrapper">
+        <div id="primary-segregator-page-wrapper">
           <h1> Transaction History </h1>
           <h2>Buy</h2>
           <ReactTable
@@ -142,10 +142,10 @@ class DwccTransactionHistory extends Component {
             className="-striped-highlight table"
           />
         </div>
-        <DWCCBottomBar history={this.props.history} />
+        <PrimarySegregatorBottomBar history={this.props.history} />
       </div>
     );
   }
 }
 
-export default DwccTransactionHistory;
+export default PrimarySegregatorTransactionHistory;

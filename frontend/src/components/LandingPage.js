@@ -17,7 +17,7 @@ class LandingPage extends Component {
     </Fragment>
   );
 
-  loadDwccPage = (
+  loadPrimarySegregatorPage = (
     <Fragment>
       <button type="button">Most Recent Project</button>
       <button type="button">Projects</button>
@@ -28,7 +28,9 @@ class LandingPage extends Component {
   render() {
     return (
       <div className="page-wrapper vcentre-outer" id="landing-wrapper">
-        <div className="vcentre">{this.state.isAdmin ? this.loadAdminPage : this.loadDwccPage}</div>
+        <div className="vcentre">
+          {this.state.isAdmin ? this.loadAdminPage : this.loadPrimarySegregatorPage}
+        </div>
       </div>
     );
   }

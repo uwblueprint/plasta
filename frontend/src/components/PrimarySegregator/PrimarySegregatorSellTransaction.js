@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import moment from 'moment';
 import { fieldToLabelMap } from '../utils/transactions';
-import DWCCTransaction, { transactionTypes } from './DWCCTransaction';
+import PrimarySegregatorTransaction, { transactionTypes } from './PrimarySegregatorTransaction';
 import CancelButton from '../common/CancelButton.js';
 import { post } from '../utils/requests';
 import './../FormPage.css';
 
-export default class DWCCSellTransaction extends Component {
+export default class PrimarySegregatorSellTransaction extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -91,7 +91,7 @@ export default class DWCCSellTransaction extends Component {
     return (
       <div id="transactions-wrapper">
         <CancelButton context={this.context} />
-        <DWCCTransaction
+        <PrimarySegregatorTransaction
           title={'Sell'}
           transactionType={transactionTypes.SELL}
           onSubmit={this.onSubmit}
