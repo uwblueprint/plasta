@@ -8,11 +8,11 @@ import ProjectPage from './components/PFCAdmin/ProjectPage';
 import Projects from './components/PFCAdmin/Projects';
 import AdminStakeholder from './components/PFCAdmin/AdminStakeholder';
 import AdminNewStakeholder from './components/PFCAdmin/AdminNewStakeholder';
-import CreateWastePicker from './components/DWCC/CreateWastePicker';
-import CreateExternalDWCC from './components/DWCC/CreateExternalDWCC';
-import DwccTransactionHistory from './components/DwccTransactionHistory';
-import DWCCBuyTransaction from './components/DWCC/DWCCBuyTransaction';
-import DWCCSellTransaction from './components/DWCC/DWCCSellTransaction';
+import CreateWastePicker from './components/PrimarySegregator/CreateWastePicker';
+import CreateExternalPrimarySegregator from './components/PrimarySegregator/CreateExternalPrimarySegregator';
+import PrimarySegregatorTransactionHistory from './components/PrimarySegregatorTransactionHistory';
+import PrimarySegregatorBuyTransaction from './components/PrimarySegregator/PrimarySegregatorBuyTransaction';
+import PrimarySegregatorSellTransaction from './components/PrimarySegregator/PrimarySegregatorSellTransaction';
 import { get } from './components/utils/requests';
 import { appLoad } from './actions';
 import { Cookies, withCookies } from 'react-cookie';
@@ -68,31 +68,31 @@ class App extends React.Component {
               component={AdminStakeholder}
             />
             <PrivateRoute
-              path="/dwcc/transaction-history"
+              path="/ps/transaction-history"
               isLoggedIn={this.isLoggedIn()}
-              component={DwccTransactionHistory}
+              component={PrimarySegregatorTransactionHistory}
             />
             <PrivateRoute
-              path="/dwcc/transactions/sell"
+              path="/ps/transactions/sell"
               exact
               isLoggedIn={this.isLoggedIn()}
-              component={DWCCSellTransaction}
+              component={PrimarySegregatorSellTransaction}
             />
             <PrivateRoute
-              path="/dwcc/transactions/buy"
+              path="/ps/transactions/buy"
               exact
               isLoggedIn={this.isLoggedIn()}
-              component={DWCCBuyTransaction}
+              component={PrimarySegregatorBuyTransaction}
             />
             <PrivateRoute
-              path="/dwcc/wastepickers/new"
+              path="/ps/wastepickers/new"
               isLoggedIn={this.isLoggedIn()}
               component={CreateWastePicker}
             />
             <PrivateRoute
-              path="/dwcc/external-dwcc/new"
+              path="/ps/external-ps/new"
               isLoggedIn={this.isLoggedIn()}
-              component={CreateExternalDWCC}
+              component={CreateExternalPrimarySegregator}
             />
           </Switch>
         </Router>

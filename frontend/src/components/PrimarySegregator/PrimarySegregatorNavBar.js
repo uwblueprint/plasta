@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import '../Navbar.css';
-import './DWCC.css';
+import './PrimarySegregator.css';
 import transaction from './NavbarImages/transaction.png';
 import buy from './NavbarImages/buy.png';
 import sell from './NavbarImages/sell.png';
 import createnew from './NavbarImages/createnew.png';
 
-class DWCCBottomBar extends Component {
+class PrimarySegregatorBottomBar extends Component {
   render() {
     return (
       <div id="nav-bar-wrapper">
@@ -14,13 +14,13 @@ class DWCCBottomBar extends Component {
           <a className="tab">
             <img src={transaction} alt={'transactions'} />
           </a>
-          <a className="tab" onClick={() => this.props.history.push('/dwcc/transactions/buy')}>
+          <a className="tab" onClick={() => this.props.history.push('/ps/transactions/buy')}>
             <img src={buy} alt={'buy'} />
           </a>
-          <a className="tab" onClick={() => this.props.history.push('/dwcc/transactions/sell')}>
+          <a className="tab" onClick={() => this.props.history.push('/ps/transactions/sell')}>
             <img src={sell} alt={'sell'} />
           </a>
-          <a className="tab" onClick={() => this.props.history.push('/dwcc/wastepickers/new')}>
+          <a className="tab" onClick={() => this.props.history.push('/ps/wastepickers/new')}>
             <img src={createnew} alt={'create new'} />
           </a>
         </nav>
@@ -29,4 +29,4 @@ class DWCCBottomBar extends Component {
   }
 }
 
-export default DWCCBottomBar;
+export default PrimarySegregatorBottomBar;

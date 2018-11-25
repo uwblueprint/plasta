@@ -1,11 +1,11 @@
-const DWCCData = [
+const PrimarySegregatorData = [
   {
-    name: 'DWCC1',
+    name: 'Primary Segregator 1',
     projects: [{ name: 'Project A', id: 109 }, { name: 'Project D', id: 108 }],
     id: 125,
   },
   {
-    name: 'DWCC2',
+    name: 'Primary Segregator 2',
     projects: [
       { name: 'Project E', id: 100 },
       { name: 'Project F', id: 100 },
@@ -61,4 +61,4 @@ const fakeData = [
   },
 ];
 
-export { fakeData, DWCCData, WholesalerData, ProjectData };
+export { fakeData, PrimarySegregatorData, WholesalerData, ProjectData };

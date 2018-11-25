@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import moment from 'moment';
 import { fieldToLabelMap } from '../utils/transactions';
-import DWCCTransaction, { transactionTypes } from './DWCCTransaction';
+import PrimarySegregatorTransaction, { transactionTypes } from './PrimarySegregatorTransaction';
 import CancelButton from '../common/CancelButton.js';
 import { post } from '../utils/requests';
 import './../FormPage.css';
 
-export default class DWCCBuyTransaction extends Component {
+export default class PrimarySegregatorBuyTransaction extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -95,7 +95,7 @@ export default class DWCCBuyTransaction extends Component {
     return (
       <div id="transactions-wrapper">
         <CancelButton context={this.context} />
-        <DWCCTransaction
+        <PrimarySegregatorTransaction
           title={'Buy'}
           transactionType={transactionTypes.BUY}
           onSubmit={this.onSubmit}
@@ -104,7 +104,7 @@ export default class DWCCBuyTransaction extends Component {
           validateAll={this.validateAll}
           isFormValid={this.isFormValid}
           handleDayChange={this.handleDayChange}
-          stakeholderOptions={staticBuyStakeholders} // TODO: Get DWCC & Wastepickers
+          stakeholderOptions={staticBuyStakeholders} // TODO: Get Primary Segregators & Wastepickers
           handleNewStakeholder={this.handleNewStakeholder}
           showModal={this.showModal}
           hideModal={this.hideModal}
@@ -115,4 +115,4 @@ export default class DWCCBuyTransaction extends Component {
   }
 }
 
-const staticBuyStakeholders = [{ label: 'DWCC 1', value: '1' }];
+const staticBuyStakeholders = [{ label: 'Primary Segregator 1', value: '1' }];
