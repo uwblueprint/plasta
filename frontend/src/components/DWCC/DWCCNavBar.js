@@ -11,7 +11,7 @@ class DWCCBottomBar extends Component {
     return (
       <div id="nav-bar-wrapper">
         <nav className="navbar">
-          <a href="#" className="tab">
+          <a className="tab">
             <img src={transaction} alt={'transactions'} />
           </a>
           <a className="tab" onClick={() => this.props.history.push('/dwcc/transactions/buy')}>

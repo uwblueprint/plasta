@@ -41,4 +41,3 @@ def create_vendor_transaction(vendor_id):
 def create_vendor():
     vendor = db_client.create_vendor(request.json)
     return success(data=vendor.to_dict(include_relationships=True))
-    
