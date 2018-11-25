@@ -7,6 +7,8 @@ import { post, get } from './utils/requests';
 import { onFieldChange, ruleTypes } from './utils/form';
 import { userAuthentication } from '../actions';
 import './LoginPage.css';
+import { post, get } from './utils/requests';
+import InvalidInputMessage from './InvalidInputMessage.js';
 
 class LoginPage extends Component {
   constructor(props) {
@@ -18,6 +20,29 @@ class LoginPage extends Component {
     };
     this.onChange = onFieldChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
+    this.isUserAuthorized = this.isUserAuthorized.bind(this);
+    this.storeUser = this.storeUser.bind(this);
+    this.redirectUser = this.redirectUser.bind(this);
+  }
+
+  redirectUser(userType) {
+    if (userType === 'dwcc') {
+      this.props.history.push('/dwcc/transaction-history');
+    } else {
+      this.props.history.push('/landing');
+    }
+  }
+
+  isUserAuthorized() {
+    if (!!this.props.cookies.get('access_token')) {
+      get('/user/current', this.props.cookies).then(results => {
+        this.redirectUser(this.props.currentUser.userType);
+      });
+    }
+  }
+
+  componentDidMount() {
+    this.isUserAuthorized();
   }
 
   async onSubmit() {

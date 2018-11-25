@@ -14,15 +14,31 @@ import PrimarySegregatorTransactionHistory from './components/PrimarySegregatorT
 import PrimarySegregatorBuyTransaction from './components/PrimarySegregator/PrimarySegregatorBuyTransaction';
 import PrimarySegregatorSellTransaction from './components/PrimarySegregator/PrimarySegregatorSellTransaction';
 import { get } from './components/utils/requests';
-import { appLoad } from './actions';
+import { appLoad, userAuthentication } from './actions';
 import { Cookies, withCookies } from 'react-cookie';
 import { instanceOf } from 'prop-types';
-import { PrivateRoute } from './components/utils/private-route';
+import { PrivateRoute } from './components/PrivateRoute';
 import './common.css';
 class App extends React.Component {
   static propTypes = {
     cookies: instanceOf(Cookies).isRequired,
   };
+
+  storeUser(results) {
+    const userInfo = {
+      userDetails: results.data,
+      userType: results.data.vendor.vendor_type,
+    };
+    this.props.userAuthentication(userInfo);
+  }
+
+  isUserAuthorized() {
+    if (!!this.props.cookies.get('access_token')) {
+      get('/user/current', this.props.cookies).then(results => {
+        this.storeUser(results);
+      });
+    }
+  }
 
   componentDidMount() {
     if (!this.isLoggedIn()) return;
@@ -30,6 +46,15 @@ class App extends React.Component {
     get('/vendors').then(results => {
       this.props.appLoad({ vendors: results.data });
     });
+    if (!!this.props.cookies.get('access_token')) {
+      get('/user/current', this.props.cookies).then(results => {
+        const userInfo = {
+          userDetails: results.data,
+          userType: results.data.vendor.vendor_type,
+        };
+        this.props.userAuthentication(userInfo);
+      });
+    }
   }
 
   isLoggedIn = () => !!this.props.cookies.get('access_token');
@@ -110,6 +135,7 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = dispatch => ({
   appLoad: payload => dispatch(appLoad(payload)),
+  userAuthentication: currentUser => dispatch(userAuthentication(currentUser)),
 });
 
 export default withCookies(
