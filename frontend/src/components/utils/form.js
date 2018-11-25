@@ -26,8 +26,7 @@ export const getErrorMessage = (error, field) => {
 };
 
 export function isFormValid() {
-  console.log(this.state.errors);
-  return !Object.keys(this.state.errors).some(fieldErrors => fieldErrors.length !== 0);
+  return !Object.values(this.state.errors).some(fieldErrors => fieldErrors.length !== 0);
 }
 
 export function onValidation(results) {

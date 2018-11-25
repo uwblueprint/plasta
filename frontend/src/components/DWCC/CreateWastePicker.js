@@ -19,7 +19,7 @@ const availableLanguages = [
 
 const wastepickerTypes = [
   { label: 'Waste Picker (general)', value: 'wastepicker' },
-  { label: 'Home Basked Worker', value: 'home_based_worker' },
+  { label: 'Home Based Worker', value: 'home_based_worker' },
   { label: 'Itinerant Buyer', value: 'itinerant_buyer' },
   { label: 'Waste Picker Community Leader', value: 'wp_community_leader' },
 ];
@@ -32,7 +32,7 @@ const fieldsInfo = {
   picture: { label: 'Wastepicker Picture', default: '', isRequired: false },
   address: { label: 'Address', default: '', isRequired: false },
   language: { label: 'Spoken Language', default: '', isRequired: false },
-  adhaarID: { label: 'Adhaar ID', default: '', isRequired: false },
+  aadhaarID: { label: 'Aadhaar ID', default: '', isRequired: false },
   hdMemberID: { label: 'HD Member ID', default: '', isRequired: false },
 };
 
@@ -55,7 +55,7 @@ class CreateWastePicker extends Component {
     if (!this.state.submitAttempted) this.setState({ submitAttempted: true }); // move out once onsubmit dispatched through redux
     // TODO (xin) send data
     if (!this.isFormValid()) {
-      alert('error');
+      alert('Please resolve all errors before submitting.');
     }
   }
 

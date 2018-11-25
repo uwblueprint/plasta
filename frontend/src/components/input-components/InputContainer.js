@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 import { fieldRules } from '../utils/form';
 
 function composeInput(InputComponent, override = {}) {
@@ -11,12 +10,15 @@ function composeInput(InputComponent, override = {}) {
         errors: [],
         touched: false,
       };
-
       this.onChange = override.onChange ? override.onChange.bind(this) : this.onChange.bind(this);
       this.onBlur = override.onBlur ? override.onBlur.bind(this) : this.onBlur.bind(this);
       this.getErrors = this.getErrors.bind(this);
       this.validate = this.validate.bind(this);
     }
+
+    static defaultProps = {
+      validateOnBlur: true,
+    };
 
     componentDidMount() {
       this.validate();
@@ -49,10 +51,11 @@ function composeInput(InputComponent, override = {}) {
     }
 
     render() {
-      const showErrors = this.state.touched || this.props.showErrors;
+      const showErrors = (this.state.touched && this.props.validateOnBlur) || this.props.showErrors;
+      const { onValidation, validateOnBlur, ...props } = this.props; // extract to elim. console errors
       return (
         <InputComponent
-          {...this.props}
+          {...props}
           errors={this.state.errors}
           onChange={this.onChange}
           onBlur={this.onBlur}
