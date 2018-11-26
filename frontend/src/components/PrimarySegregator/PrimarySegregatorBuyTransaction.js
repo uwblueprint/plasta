@@ -106,7 +106,7 @@ class PrimarySegregatorBuyTransaction extends Component {
           validateAll={this.validateAll}
           isFormValid={this.isFormValid}
           handleDayChange={this.handleDayChange}
-          stakeholderOptions={staticBuyStakeholders} // TODO: Get Primary Segregators & Wastepickers
+          stakeholderOptions={this.props.buyStakeholders}
           handleNewStakeholder={this.handleNewStakeholder}
           showModal={this.showModal}
           hideModal={this.hideModal}
@@ -117,16 +117,26 @@ class PrimarySegregatorBuyTransaction extends Component {
   }
 }
 
-const staticBuyStakeholders = [{ label: 'Primary Segregator 1', value: '1' }];
-
 const mapStateToProps = state => {
+  const buyStakeholders = state.vendors
+    .filter(
+      ({ vendor_subtype, vendor_type }) =>
+        vendor_type === 'wastepicker' ||
+        (vendor_type === 'dwcc' && vendor_subtype === 'small_scrap_shop')
+    )
+    .map(buyVendor => ({
+      label: buyVendor.name,
+      value: buyVendor.id,
+    }));
   return {
     currentVendorId: state.currentUser.vendor_id,
+    buyStakeholders: buyStakeholders,
   };
 };
 
 PrimarySegregatorBuyTransaction.propTypes = {
   currentVendorId: PropTypes.number.isRequired,
+  buyStakeholders: PropTypes.array.isRequired,
 };
 
 export default connect(mapStateToProps)(PrimarySegregatorTransaction);
