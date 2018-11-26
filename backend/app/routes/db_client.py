@@ -1,9 +1,10 @@
+from flask_jwt_extended import get_jwt_identity
 from sqlalchemy import or_
 
 from ..models.project import Project
 from ..models.transaction import Transaction
 from ..models.user import User
-from ..models.vendor import Vendor
+from ..models.vendor import DWCCWastepickerMap, Vendor
 
 
 # TODO(imran): write decorator to make db reads/writes atomic
@@ -41,9 +42,15 @@ def get_user(email):
     return User.get_by(first=True, email=email)
 
 
-# TODO(imran): Insert into DWCCWasterPickerMap appropriately
-def create_vendor(data):
-    return Vendor.create(**data)
+def create_vendor(data, current_user=None):
+    vendor = Vendor.create(**data)
+    if current_user is not None \
+            and current_user['vendor']['vendor_type'] == 'dwcc' \
+            and vendor.vendor_type == 'wastepicker':
+        DWCCWastepickerMap.create(
+            dwcc_id=current_user['vendor_id'],
+            wastepicker_id=vendor.id)
+    return vendor
 
 
 def get_vendors(vendor_types):
@@ -56,3 +63,10 @@ def get_vendor_transactions(vendor_id):
     return Transaction.query.filter(
         or_(Transaction.from_vendor_id == vendor_id,
             Transaction.to_vendor_id == vendor_id))
+
+
+def get_dwcc_associated_wastepickers(dwcc_id):
+    return [
+        entry.wastepicker_id
+        for entry in DWCCWastepickerMap.get_by(dwcc_id=dwcc_id)
+    ]

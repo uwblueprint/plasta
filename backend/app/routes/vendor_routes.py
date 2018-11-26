@@ -1,4 +1,5 @@
 from flask import Blueprint, request
+from flask_jwt_extended import get_jwt_identity
 
 from . import db_client
 from .utils.route_utils import success
@@ -39,5 +40,12 @@ def create_vendor_transaction(vendor_id):
 # This requires having a `current_user` object.
 @blueprint.route('/', methods=['POST'])
 def create_vendor():
-    vendor = db_client.create_vendor(request.json)
+    current_user = get_jwt_identity()
+    vendor = db_client.create_vendor(request.json, current_user)
     return success(data=vendor.to_dict(include_relationships=True))
+
+
+@blueprint.route('/dwcc/<int:dwcc_id>/wastepickers', methods=['GET'])
+def get_dwcc_associated_wastepickers(dwcc_id):
+    wastepicker_ids = db_client.get_dwcc_associated_wastepickers(dwcc_id)
+    return success(data=wastepicker_ids)

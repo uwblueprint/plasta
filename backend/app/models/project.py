@@ -20,9 +20,9 @@ class Project(BaseMixin, db.Model):
             plastic['project_id'] = self.id
             ProjectPlasticMap.create(**plastic)
 
-    def link_vendors(self, vendors):
-        for vendor in vendors:
-            ProjectVendorMap.create(project_id=self.id, vendor_id=vendor)
+    def link_vendors(self, vendor_ids):
+        for vendor_id in vendor_ids:
+            ProjectVendorMap.create(project_id=self.id, vendor_id=vendor_id)
 
     def to_dict(self, include_relationships=False):
         data = super(Project, self).to_dict(include_relationships)
