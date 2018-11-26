@@ -64,7 +64,7 @@ class Vendor(BaseMixin, db.Model):
         return super().create(**kwargs)
 
 
-class DWCCWastepickerMap(db.Model):
+class DWCCWastepickerMap(BaseMixin, db.Model):
     __tablename__ = 'dwcc_wastepicker_map'
     wastepicker_id = db.Column(
         db.Integer, db.ForeignKey('vendor.id'), primary_key=True)
