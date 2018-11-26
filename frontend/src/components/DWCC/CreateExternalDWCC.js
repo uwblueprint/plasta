@@ -3,12 +3,13 @@ import { snakeCase } from 'lodash';
 import FormSection from '../input-components/FormSection';
 import TextInput from '../input-components/TextInput';
 import { ruleTypes, onFieldChange, isFormValid, onValidation } from '../utils/form';
+import { post } from '../utils/requests';
 import '../FormPage.css';
 
 const fieldsInfo = {
-  name: { label: 'Name', default: '', isRequired: true },
-  phone: { label: 'Phone', default: '', isRequired: false },
-  address: { label: 'Address', default: '', sisRequired: false },
+  name: { label: 'Name', default: '' },
+  phoneNumber: { label: 'Phone', default: '', type: 'metaData' },
+  address: { label: 'Address', default: '', type: 'metaData' },
 };
 
 export default class CreateExternalDWCC extends Component {
@@ -31,7 +32,13 @@ export default class CreateExternalDWCC extends Component {
       alert('Please resolve all errors before submitting.'); // TODO (XIN): modal error
       return;
     }
-    // TODO : Change vendor_type to primary_segregator once identical backend rename done
+    const data = { vendor_type: 'dwcc', vendor_subtype: 'small_scrap_shop', meta_data: {} };
+    Object.keys(fieldsInfo).forEach(field => {
+      if (fieldsInfo[field].type === 'metaData')
+        data.meta_data[snakeCase(field)] = this.state[field];
+      else data[snakeCase(field)] = this.state[field];
+    });
+    post('/vendors', data);
   }
 
   render() {
@@ -55,8 +62,8 @@ export default class CreateExternalDWCC extends Component {
           <TextInput
             className="large-input full-width"
             type="tel"
-            field="phone"
-            value={this.state.phone}
+            field="phoneNumber"
+            value={this.state.phoneNumber}
             placeholder="9988776655"
             onChange={this.onFieldChange}
           />
