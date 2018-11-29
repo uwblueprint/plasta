@@ -4,6 +4,7 @@ import FormSection from '../input-components/FormSection';
 import TextInput from '../input-components/TextInput';
 import { ruleTypes, onFieldChange, isFormValid, onValidation } from '../utils/form';
 import { post } from '../utils/requests';
+import OnSubmitButton from '../common/OnSubmitButton';
 import '../FormPage.css';
 
 const fieldsInfo = {
@@ -26,11 +27,10 @@ export default class CreateExternalDWCC extends Component {
     this.onValidation = onValidation.bind(this);
   }
 
-  onSubmit() {
+  async onSubmit() {
     if (!this.state.submitAttempted) this.setState({ submitAttempted: true }); // move out once onsubmit dispatched through redux
     if (!this.isFormValid()) {
-      alert('Please resolve all errors before submitting.'); // TODO (XIN): modal error
-      return;
+      return Promise.reject('Please resolve all errors before submitting.');
     }
     const data = { vendor_type: 'dwcc', vendor_subtype: 'small_scrap_shop', meta_data: {} };
     Object.keys(fieldsInfo).forEach(field => {
@@ -76,10 +76,8 @@ export default class CreateExternalDWCC extends Component {
             onChange={this.onFieldChange}
           />
         </FormSection>
-
-        <button className="bg-green btn-dark uppercase" type="submit" onClick={this.onSubmit}>
-          Submit
-        </button>
+        {/* TODO (XIN): Add nextPath for on successful submit*/}
+        <OnSubmitButton onClick={this.onSubmit} />
       </div>
     );
   }
