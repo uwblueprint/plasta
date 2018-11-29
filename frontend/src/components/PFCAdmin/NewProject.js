@@ -9,6 +9,7 @@ import TextInput from '../input-components/TextInput';
 import TextAreaInput from '../input-components/TextAreaInput';
 import PlasticTypeQuantityGroup from '../input-components/PlasticTypeQuantityGroup';
 import CancelButton from '../common/CancelButton';
+import OnSubmitButton from '../common/OnSubmitButton';
 import { post } from '../utils/requests';
 import { fieldsInfo } from '../utils/project';
 import { onFieldChange, ruleTypes, onValidation, isFormValid } from '../utils/form';
@@ -52,17 +53,13 @@ class NewProject extends Component {
     });
   }
 
-  onSubmit() {
-    if (!this.state.submitAttempted) this.setState({ submitAttempted: true }); // move out once onsubmit dispatched through redux
+  async onSubmit() {
+    if (!this.state.submitAttempted) this.setState({ submitAttempted: true });
     if (!this.isFormValid()) {
-      // TODO: (xin) more elegant alerting
-      alert('Please resolve errors');
-      return;
+      return Promise.reject('Please resolve all errors before submitting.');
     }
-    const metaData = {
-      cost_model: {},
-    };
 
+    const metaData = { cost_model: {} };
     Object.keys(fieldsInfo).forEach(field => {
       const snakeField = snakeCase(field);
       if (fieldsInfo[field].type === 'metaData') metaData[snakeField] = this.state[field];
@@ -76,7 +73,7 @@ class NewProject extends Component {
       plastics: this.state.plastics,
       // meta_data: metaData,
     };
-    post('/projects', newProjectData).catch(err => {});
+    return post('/projects', newProjectData);
   }
 
   render() {
@@ -269,9 +266,7 @@ class NewProject extends Component {
             onChange={this.onFieldChange}
           />
         </FormSection>
-        <button className="btn-dark bg-green uppercase" type="submit" onClick={this.onSubmit}>
-          Submit
-        </button>
+        <OnSubmitButton nextPath="/projects" onClick={this.onSubmit} />
       </div>
     );
   }
