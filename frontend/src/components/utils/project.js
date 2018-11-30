@@ -58,7 +58,7 @@ export const fieldsInfo = {
     default: '',
     type: 'costModel',
   },
-  dwccSellPrice: { default: '', isRequired: false, type: 'costModel' },
+  primarySegregatorSellPrice: { default: '', isRequired: false, type: 'costModel' },
   wholesalerSellPrice: {
     label: 'Wholesaler Sell Price',
     default: '',

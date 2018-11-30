@@ -28,8 +28,7 @@ class LoginPage extends Component {
     };
     try {
       const auth = await post('/auth/login', loginData);
-      const vendors = await get('/vendors');
-      this.props.userAuthentication(auth.data, vendors.data);
+      this.props.userAuthentication(auth.data);
       this.props.cookies.set('access_token', auth.access_token);
       this.props.history.push('/landing');
     } catch (err) {

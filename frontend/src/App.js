@@ -32,7 +32,7 @@ class App extends React.Component {
     });
   }
 
-  isLoggedIn = () => this.props.cookies.get('access_token');
+  isLoggedIn = () => !!this.props.cookies.get('access_token');
 
   render() {
     const isLoggedIn = this.isLoggedIn();
