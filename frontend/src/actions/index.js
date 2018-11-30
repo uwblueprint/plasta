@@ -11,8 +11,7 @@ export const submitForm = () => ({
   type: 'SUBMIT_FORM',
 });
 
-export const userAuthentication = (currentUser, vendors = []) => ({
+export const userAuthentication = currentUser => ({
   type: 'USER_LOGIN',
   currentUser,
-  vendors,
 });

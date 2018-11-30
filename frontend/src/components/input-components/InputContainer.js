@@ -27,6 +27,7 @@ function composeInput(InputComponent, override = {}) {
     onBlur(e) {
       this.props.onBlur && this.props.onBlur({ value: e.target.value, key: this.props.field });
       if (this.props.validateOnBlur === undefined || this.props.validateOnBlur) this.validate();
+      this.setState({ touched: true });
     }
 
     onChange(e) {
