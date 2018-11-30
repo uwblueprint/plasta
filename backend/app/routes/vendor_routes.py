@@ -41,7 +41,11 @@ def create_vendor_transaction(vendor_id):
 @blueprint.route('/', methods=['POST'])
 def create_vendor():
     current_user = get_jwt_identity()
-    vendor = db_client.create_vendor(request.json, current_user)
+    vendor = db_client.create_vendor(
+        request.form,
+        current_user=current_user,
+        files=request.files
+    )
     return success(data=vendor.to_dict(include_relationships=True))
 
 

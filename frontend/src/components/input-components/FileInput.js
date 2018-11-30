@@ -15,7 +15,7 @@ class FileInput extends Component {
   }
 
   onChange(e) {
-    this.props.onChange && this.props.onChange({ value: e.target.files, key: this.props.field });
+    this.props.onChange && this.props.onChange({ value: e.target.files[0], key: this.props.field });
   }
 
   render() {
