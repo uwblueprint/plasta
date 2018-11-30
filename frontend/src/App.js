@@ -25,12 +25,14 @@ class App extends React.Component {
   };
 
   componentDidMount() {
+    if (!this.isLoggedIn()) return;
+    // TODO: GET USER OBJECT FROM ACCESS TOKEN AND PUT IN STORE
     get('/vendors').then(results => {
       this.props.appLoad({ vendors: results.data });
     });
   }
 
-  isLoggedIn = () => !!this.props.cookies.get('access_token');
+  isLoggedIn = () => this.props.cookies.get('access_token');
 
   render() {
     const isLoggedIn = this.isLoggedIn();
@@ -100,6 +102,7 @@ class App extends React.Component {
 
 const mapStateToProps = (state, ownProps) => {
   return {
+    currentUser: state.currentUser,
     cookies: ownProps.cookies,
     isLoading: state.isLoading,
   };

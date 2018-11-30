@@ -3,7 +3,7 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import TextInput from './input-components/TextInput.js';
-import { post } from './utils/requests';
+import { post, get } from './utils/requests';
 import { onFieldChange, ruleTypes } from './utils/form';
 import { userAuthentication } from '../actions';
 import './LoginPage.css';
@@ -12,37 +12,28 @@ class LoginPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      errors: {},
       email: '',
       password: '',
-      submitted: '',
-      errorMessage: '',
     };
     this.onChange = onFieldChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
   }
 
-  onSubmit(e) {
-    e.preventDefault();
-    this.setState({
-      submitted: true,
-      errorMessage: '',
-    });
+  async onSubmit() {
+    if (!this.state.email || !this.state.password) return;
     const loginData = {
       email: this.state.email,
       password: this.state.password,
     };
-    if (this.state.email && this.state.password) {
-      post('/auth/login', loginData)
-        .then(results => {
-          this.props.userAuthentication(results.data);
-          this.props.cookies.set('access_token', results.access_token);
-          this.props.history.push('/landing');
-        })
-        .catch(err => {
-          this.setState({
-            errorMessage: 'Email or Password is invalid. Please try again.',
-          });
-        });
+    try {
+      const auth = await post('/auth/login', loginData);
+      const vendors = await get('/vendors');
+      this.props.userAuthentication(auth.data, vendors.data);
+      this.props.cookies.set('access_token', auth.access_token);
+      this.props.history.push('/landing');
+    } catch (err) {
+      alert('Something went wrong.'); // TODO: NOTIFY ERROR AND LOG
     }
   }
 
