@@ -33,55 +33,52 @@ class App extends React.Component {
   isLoggedIn = () => !!this.props.cookies.get('access_token');
 
   render() {
+    const isLoggedIn = this.isLoggedIn();
     return (
       <React.Fragment>
         {this.props.isLoading && <div className="loading-overlay uppercase">Loading...</div>}
         <Router>
           <Switch>
             <Route path="/" exact render={() => <LoginPage cookies={this.props.cookies} />} />
-            <PrivateRoute path="/landing" isLoggedIn={this.isLoggedIn()} component={LandingPage} />
+            <PrivateRoute path="/landing" isLoggedIn={isLoggedIn} component={LandingPage} />
             <PrivateRoute
               path="/projects"
               exact
-              isLoggedIn={this.isLoggedIn()}
+              isLoggedIn={isLoggedIn}
               component={Projects}
               onEnter={this.requireAuth}
             />
-            <PrivateRoute
-              path="/projects/new"
-              isLoggedIn={this.isLoggedIn()}
-              component={NewProject}
-            />
+            <PrivateRoute path="/projects/new" isLoggedIn={isLoggedIn} component={NewProject} />
             <PrivateRoute
               path="/projects/:projectId"
-              isLoggedIn={this.isLoggedIn()}
+              isLoggedIn={isLoggedIn}
               component={ProjectPage}
             />
             <PrivateRoute
               path="/admin/stakeholders/new"
-              isLoggedIn={this.isLoggedIn()}
+              isLoggedIn={isLoggedIn}
               component={AdminNewStakeholder}
             />
             <PrivateRoute
               path="/admin/stakeholders"
-              isLoggedIn={this.isLoggedIn()}
+              isLoggedIn={isLoggedIn}
               component={AdminStakeholder}
             />
             <PrivateRoute
               path="/ps/transaction-history"
-              isLoggedIn={this.isLoggedIn()}
+              isLoggedIn={isLoggedIn}
               component={PrimarySegregatorTransactionHistory}
             />
             <PrivateRoute
               path="/ps/transactions/sell"
               exact
-              isLoggedIn={this.isLoggedIn()}
+              isLoggedIn={isLoggedIn}
               component={PrimarySegregatorSellTransaction}
             />
             <PrivateRoute
               path="/ps/transactions/buy"
               exact
-              isLoggedIn={this.isLoggedIn()}
+              isLoggedIn={isLoggedIn}
               component={PrimarySegregatorBuyTransaction}
             />
             <PrivateRoute
