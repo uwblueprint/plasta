@@ -82,7 +82,7 @@ class CreateWastePicker extends Component {
             showErrors={submitAttempted}
           />
 
-          <h3 className="label">Phone *</h3>
+          <h3 className="label">Phone</h3>
           <TextInput
             className="large-input full-width"
             type="tel"
@@ -91,8 +91,6 @@ class CreateWastePicker extends Component {
             placeholder="9988776655"
             onChange={this.onFieldChange}
             rules={[ruleTypes.FIELD_REQUIRED]}
-            onValidation={this.onValidation}
-            showErrors={submitAttempted}
           />
 
           <h3 className="label">Type of Phone</h3>
@@ -106,15 +104,13 @@ class CreateWastePicker extends Component {
             onChange={this.onFieldChange}
           />
 
-          <h3 className="label">Wastepicker Type *</h3>
+          <h3 className="label">Wastepicker Type</h3>
           <SearchSelect
             field="wastepickerType"
             value={this.state.wastepickerType}
             options={wastepickerTypes}
             onChange={this.onFieldChange}
             rules={[ruleTypes.FIELD_REQUIRED]}
-            onValidation={this.onValidation}
-            showErrors={submitAttempted}
           />
 
           <h3 className="label">Upload Picture</h3>
