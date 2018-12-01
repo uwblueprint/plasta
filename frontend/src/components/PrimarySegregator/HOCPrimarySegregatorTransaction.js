@@ -3,7 +3,7 @@ import { onFieldChange, isFormValid, onValidation } from '../utils/form';
 import CancelButton from '../common/CancelButton.js';
 import './../FormPage.css';
 import moment from 'moment';
-import DWCCTransaction from './DWCCTransaction';
+import PrimarySegregatorTransaction from './PrimarySegregatorTransaction';
 
 export const transactionTypes = {
   BUY: 1,
@@ -24,7 +24,7 @@ function composeTransaction(members) {
         transactionDate: '',
         showModal: false,
       };
-      console.log(members);
+      console.log(members.onSubmit);
       this.onSubmit = members.onSubmit.bind(this);
       this.onFieldChange = onFieldChange.bind(this);
       this.handleDayChange = this.handleDayChange.bind(this);
@@ -50,14 +50,16 @@ function composeTransaction(members) {
       return (
         <div id="transactions-wrapper">
           <CancelButton context={this.context} />
-          <DWCCTransaction
-            title={'Buy'}
+          <PrimarySegregatorTransaction
+            title={members.transactionType === transactionTypes.BUY ? 'Buy' : 'Sell'}
             transactionType={members.transactionType}
             onSubmit={this.onSubmit}
             onValidation={this.onValidation}
             handleDayChange={this.handleDayChange}
-            stakeholderOptions={staticBuyStakeholders} // TODO: Get DWCC & Wastepickers
-            handleNewStakeholder={this.handleNewStakeholder}
+            stakeholderOptions={staticBuyStakeholders}
+            handleNewStakeholder={
+              this.handleNewStakeholder // TODO: Get DWCC & Wastepickers
+            }
             showModal={this.showModal}
             hideModal={this.hideModal}
             onFieldChange={this.onFieldChange}
