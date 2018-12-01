@@ -1,5 +1,5 @@
 from flask import Blueprint, request
-from flask_jwt_extended import get_jwt_identity
+from flask_jwt_extended import get_jwt_identity, jwt_required
 
 from . import db_client
 from .utils.route_utils import success
@@ -8,17 +8,20 @@ blueprint = Blueprint('vendor', __name__, url_prefix='/vendors')
 
 
 @blueprint.route('/', methods=['GET'])
+@jwt_required
 def get_all_vendors():
     return get_vendors([])
 
 
 @blueprint.route('/<list:vendor_types>', methods=['GET'])
+@jwt_required
 def get_vendors(vendor_types):
     vendors = db_client.get_vendors(vendor_types)
     return success(data=[vendor.to_dict() for vendor in vendors])
 
 
 @blueprint.route('/<int:vendor_id>/transactions', methods=['GET'])
+@jwt_required
 def get_vendor_transactions(vendor_id):
     transactions = db_client.get_vendor_transactions(vendor_id)
     return success(data=[
@@ -28,6 +31,7 @@ def get_vendor_transactions(vendor_id):
 
 
 @blueprint.route('/<int:vendor_id>/transactions', methods=['POST'])
+@jwt_required
 def create_vendor_transaction(vendor_id):
     transaction_data = request.json
     transaction = db_client.create_transaction(transaction_data)
@@ -39,6 +43,7 @@ def create_vendor_transaction(vendor_id):
 # We should prevent vendors from creating other vendors inappropriately.
 # This requires having a `current_user` object.
 @blueprint.route('/', methods=['POST'])
+@jwt_required
 def create_vendor():
     current_user = get_jwt_identity()
     vendor = db_client.create_vendor(
@@ -50,6 +55,7 @@ def create_vendor():
 
 
 @blueprint.route('/dwcc/<int:dwcc_id>/wastepickers', methods=['GET'])
+@jwt_required
 def get_dwcc_associated_wastepickers(dwcc_id):
     wastepicker_ids = db_client.get_dwcc_associated_wastepickers(dwcc_id)
     return success(data=wastepicker_ids)
