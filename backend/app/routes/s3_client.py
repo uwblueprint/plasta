@@ -1,4 +1,3 @@
-import base64
 import uuid
 
 from . import s3_resource

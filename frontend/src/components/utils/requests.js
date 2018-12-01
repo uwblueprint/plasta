@@ -25,7 +25,6 @@ export function postMultiType(path, fields) {
   fields.forEach(field => {
     formData.append(field.key, field.value);
   });
-  console.log(formData.get('picture'));
   return fetch(url, {
     method: 'POST',
     body: formData,
