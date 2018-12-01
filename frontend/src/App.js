@@ -30,6 +30,7 @@ class App extends React.Component {
       userType: results.data.vendor.vendor_type,
     };
     this.props.userAuthentication(userInfo);
+    console.log(this.props.currentUser.userType);
   }
 
   initializeUser() {
@@ -45,6 +46,7 @@ class App extends React.Component {
     get('/vendors').then(results => {
       this.props.appLoad({ vendors: results.data });
     });
+    console.log(this.props.currentUser.userType);
   }
 
   isLoggedIn = () => !!this.props.cookies.get('access_token');
@@ -120,6 +122,7 @@ const mapStateToProps = (state, ownProps) => {
     currentUser: state.currentUser,
     cookies: ownProps.cookies,
     isLoading: state.isLoading,
+    currentUser: state.currentUser,
   };
 };
 
