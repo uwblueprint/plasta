@@ -7,6 +7,10 @@ export const fetchComplete = () => ({
   type: 'FETCH_COMPLETE',
 });
 
+export const fetchUser = () => ({
+  type: 'FETCH_USER',
+});
+
 export const submitForm = () => ({
   type: 'SUBMIT_FORM',
 });
