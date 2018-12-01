@@ -43,16 +43,19 @@ def get_user(email):
 
 
 def create_vendor(data, current_user=None, files=None):
+    data = data.to_dict()
+    if files is not None and 'picture' in files:
+        image_link = s3_client.upload_user_image(files['picture'])
+        data['image_link'] = image_link
+
     vendor = Vendor.create(**data)
+
     if current_user is not None \
             and current_user['vendor']['vendor_type'] == 'dwcc' \
             and vendor.vendor_type == 'wastepicker':
         DWCCWastepickerMap.create(
             dwcc_id=current_user['vendor_id'],
             wastepicker_id=vendor.id)
-    if files is not None and 'picture' in files:
-        image_link = s3_client.upload_user_image(files['picture'])
-        data['image_link'] = image_link
     return vendor
 
 

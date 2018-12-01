@@ -3,6 +3,7 @@ import uuid
 
 from . import s3_resource
 
+REGION = 'ap-south-1'
 BUCKET_NAME = 'pfc-resources'
 
 
@@ -10,13 +11,21 @@ def _generate_key():
     return str(uuid.uuid4()) + ".jpg"
 
 
-def upload_user_image(data):
-    bucket = s3_resource.Bucket(BUCKET_NAME)
+def _create_image_link(key):
+    return 'https://s3.{}.amazonaws.com/{}/{}'.format(
+        REGION,
+        BUCKET_NAME,
+        key
+    )
 
-    key = bucket.new_key(_generate_key())
-    key.set_contents_from_string(base64.b64decode(data))
-    key.set_metadata('Content-Type', 'image/jpeg')
-    key.set_acl('public-read')
 
-    s3_resource.Object(BUCKET_NAME, key).upload_file(Filename=key)
-    return key.generate_url(expires_in=0, query_auth=False)
+def upload_user_image(image):
+    image.seek(0)
+    key = _generate_key()
+    s3_resource.Bucket(name=BUCKET_NAME).upload_fileobj(
+        Fileobj=image,
+        Key=key,
+        ExtraArgs={'ACL': 'public-read'},
+    )
+
+    return _create_image_link(key)
