@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch, withRouter, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import LandingPage from './components/LandingPage';
 import LoginPage from './components/LoginPage';
@@ -32,7 +32,7 @@ class App extends React.Component {
     this.props.userAuthentication(userInfo);
   }
 
-  isUserAuthorized() {
+  initializeUser() {
     if (!!this.props.cookies.get('access_token')) {
       get('/user/current', this.props.cookies).then(results => {
         this.storeUser(results);
@@ -41,20 +41,10 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    if (!this.isLoggedIn()) return;
-    // TODO: GET USER OBJECT FROM ACCESS TOKEN AND PUT IN STORE
+    this.initializeUser();
     get('/vendors').then(results => {
       this.props.appLoad({ vendors: results.data });
     });
-    if (!!this.props.cookies.get('access_token')) {
-      get('/user/current', this.props.cookies).then(results => {
-        const userInfo = {
-          userDetails: results.data,
-          userType: results.data.vendor.vendor_type,
-        };
-        this.props.userAuthentication(userInfo);
-      });
-    }
   }
 
   isLoggedIn = () => !!this.props.cookies.get('access_token');

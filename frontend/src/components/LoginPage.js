@@ -25,6 +25,14 @@ class LoginPage extends Component {
     this.redirectUser = this.redirectUser.bind(this);
   }
 
+  storeUser(results) {
+    const userInfo = {
+      userDetails: results.data,
+      userType: results.data.vendor.vendor_type,
+    };
+    this.props.userAuthentication(userInfo);
+  }
+
   redirectUser(userType) {
     if (userType === 'dwcc') {
       this.props.history.push('/dwcc/transaction-history');
@@ -36,6 +44,7 @@ class LoginPage extends Component {
   isUserAuthorized() {
     if (!!this.props.cookies.get('access_token')) {
       get('/user/current', this.props.cookies).then(results => {
+        this.storeUser(results);
         this.redirectUser(this.props.currentUser.userType);
       });
     }
