@@ -6,14 +6,10 @@ import 'react-day-picker/lib/style.css';
 import TextInput from '../input-components/TextInput';
 import './../FormPage.css';
 import PropTypes from 'prop-types';
-import InvalidInputMessage from '../InvalidInputMessage';
 import { withRouter } from 'react-router-dom';
 import CreateStakeholderModal from './CreateStakeholderModal';
-
-export const transactionTypes = {
-  BUY: 1,
-  SELL: 2,
-};
+import { transactionTypes } from './HOCPrimarySegregatorTransaction';
+import { ruleTypes } from '../utils/form';
 
 class PrimarySegregatorTransaction extends Component {
   constructor(props) {
@@ -30,9 +26,11 @@ class PrimarySegregatorTransaction extends Component {
           value={this.props.stakeholderName}
           options={this.props.stakeholderOptions}
           onChange={this.props.onFieldChange}
-          onBlur={this.props.validateRequiredField}
           onNewOptionClick={this.props.handleNewStakeholder}
           promptTextCreator={search => `${search} not found, create a new stakeholder`}
+          onValidation={this.props.onValidation}
+          rules={[ruleTypes.FIELD_REQUIRED]}
+          showErrors={this.props.submitAttempted}
         />
         <CreateStakeholderModal show={this.props.showModal} handleClose={this.props.hideModal} />
       </React.Fragment>
@@ -46,7 +44,9 @@ class PrimarySegregatorTransaction extends Component {
         value={this.props.stakeholderName}
         options={this.props.stakeholderOptions}
         onChange={this.props.onFieldChange}
-        onBlur={this.props.validateRequiredField}
+        onValidation={this.props.onValidation}
+        rules={[ruleTypes.FIELD_REQUIRED]}
+        showErrors={this.props.submitAttempted}
       />
     );
   }
@@ -65,9 +65,6 @@ class PrimarySegregatorTransaction extends Component {
           {this.props.transactionType === transactionTypes.BUY
             ? this.buyStakeholderSelect()
             : this.sellStakeholderSelect()}
-          {this.props.errors.stakeholderName && (
-            <InvalidInputMessage showIcon message={this.props.errors.stakeholderName} />
-          )}
         </FormSection>
 
         <FormSection className="formsection" title="Plastic Type *">
@@ -76,11 +73,10 @@ class PrimarySegregatorTransaction extends Component {
             value={this.props.plasticType}
             options={staticPlasticTypes}
             onChange={this.props.onFieldChange}
-            onBlur={this.props.validateRequiredField}
+            onValidation={this.props.onValidation}
+            rules={[ruleTypes.FIELD_REQUIRED]}
+            showErrors={this.props.submitAttempted}
           />
-          {this.props.errors.plasticType && (
-            <InvalidInputMessage showIcon message={this.props.errors.plasticType} />
-          )}
         </FormSection>
         <FormSection className="formsection" title="Amount *">
           <TextInput
@@ -92,9 +88,10 @@ class PrimarySegregatorTransaction extends Component {
             placeholder={'0.00'}
             type="number"
             onChange={this.props.onFieldChange}
-            onBlur={this.props.validateRequiredField}
+            onValidation={this.props.onValidation}
+            rules={[ruleTypes.FIELD_REQUIRED]}
+            showErrors={this.props.submitAttempted}
           />
-
           <TextInput
             id="weight"
             className="amount-input half-width inline"
@@ -104,14 +101,10 @@ class PrimarySegregatorTransaction extends Component {
             value={this.props.weight}
             placeholder={'0'}
             onChange={this.props.onFieldChange}
-            onBlur={this.props.validateRequiredField}
+            onValidation={this.props.onValidation}
+            rules={[ruleTypes.FIELD_REQUIRED]}
+            showErrors={this.props.submitAttempted}
           />
-          {this.props.errors.unitPrice && (
-            <InvalidInputMessage showIcon message={this.props.errors.unitPrice} />
-          )}
-          {this.props.errors.weight && (
-            <InvalidInputMessage showIcon message={this.props.errors.weight} />
-          )}
         </FormSection>
         <FormSection className="formsection" title="Date">
           <DayPickerInput
@@ -137,9 +130,6 @@ const staticPlasticTypes = [{ label: 'Green PET', value: 'green_pet' }];
 PrimarySegregatorTransaction.propTypes = {
   onSubmit: PropTypes.func.isRequired,
   onFieldChange: PropTypes.func.isRequired,
-  validateRequiredField: PropTypes.func.isRequired,
-  validateAll: PropTypes.func.isRequired,
-  isFormValid: PropTypes.func.isRequired,
   handleDayChange: PropTypes.func.isRequired,
   stakeholderOptions: PropTypes.array.isRequired,
   errors: PropTypes.object.isRequired,
@@ -148,6 +138,8 @@ PrimarySegregatorTransaction.propTypes = {
   showModal: PropTypes.bool,
   hideModal: PropTypes.func,
   transactionType: PropTypes.number.isRequired,
+  submitAttempted: PropTypes.bool.isRequired,
+  onValidation: PropTypes.func,
   // field values
   unitPrice: PropTypes.number.isRequired,
   weight: PropTypes.number.isRequired,
