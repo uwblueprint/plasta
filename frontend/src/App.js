@@ -10,7 +10,7 @@ import AdminStakeholder from './components/PFCAdmin/AdminStakeholder';
 import AdminNewStakeholder from './components/PFCAdmin/AdminNewStakeholder';
 import CreateWastePicker from './components/PrimarySegregator/CreateWastePicker';
 import CreateExternalPrimarySegregator from './components/PrimarySegregator/CreateExternalPrimarySegregator';
-import PrimarySegregatorTransactionHistory from './components/PrimarySegregatorTransactionHistory';
+import PrimarySegregatorTransactionHistory from './components/PrimarySegregator/PrimarySegregatorTransactionHistory';
 import PrimarySegregatorBuyTransaction from './components/PrimarySegregator/PrimarySegregatorBuyTransaction';
 import PrimarySegregatorSellTransaction from './components/PrimarySegregator/PrimarySegregatorSellTransaction';
 import { get } from './components/utils/requests';
@@ -20,6 +20,12 @@ import { instanceOf } from 'prop-types';
 import { PrivateRoute } from './components/PrivateRoute';
 import './common.css';
 class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      fetchingUserData: true,
+    };
+  }
   static propTypes = {
     cookies: instanceOf(Cookies).isRequired,
   };
@@ -30,23 +36,47 @@ class App extends React.Component {
       userType: results.data.vendor.vendor_type,
     };
     this.props.userAuthentication(userInfo);
-    console.log(this.props.currentUser.userType);
   }
 
   initializeUser() {
-    if (!!this.props.cookies.get('access_token')) {
-      get('/user/current', this.props.cookies).then(results => {
-        this.storeUser(results);
-      });
+    this.setState(
+      {
+        fetchingUserData: true,
+      },
+      () => {
+        get('/user/current', this.props.cookies).then(results => {
+          this.storeUser(results);
+          this.setState({ fetchingUserData: false });
+        });
+      }
+    );
+  }
+
+  redirectUser() {
+    if (this.state.fetchingUserData) {
+      return null;
     }
+    return this.isLoggedIn() ? (
+      this.props.currentUser.userType === 'dwcc' ? (
+        <Redirect to={{ pathname: '/ps/transaction-history' }} />
+      ) : (
+        <Redirect to={{ pathname: '/landing' }} />
+      )
+    ) : (
+      <LoginPage cookies={this.props.cookies} />
+    );
   }
 
   componentDidMount() {
-    this.initializeUser();
+    if (!!this.props.cookies.get('access_token')) {
+      this.initializeUser();
+    } else {
+      this.setState({ fetchingUserData: false });
+      this.redirectUser();
+    }
     get('/vendors').then(results => {
       this.props.appLoad({ vendors: results.data });
     });
-    console.log(this.props.currentUser.userType);
   }
 
   isLoggedIn = () => !!this.props.cookies.get('access_token');
@@ -58,7 +88,7 @@ class App extends React.Component {
         {this.props.isLoading && <div className="loading-overlay uppercase">Loading...</div>}
         <Router>
           <Switch>
-            <Route path="/" exact render={() => <LoginPage cookies={this.props.cookies} />} />
+            <Route path="/" exact render={() => this.redirectUser()} />
             <PrivateRoute path="/landing" isLoggedIn={isLoggedIn} component={LandingPage} />
             <PrivateRoute
               path="/projects"

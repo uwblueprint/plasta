@@ -61,7 +61,8 @@ class CreateWastePicker extends Component {
     }
     postMultiType(
       '/vendors',
-      Object.keys(this.state).map(field => ({ key: field, value: this.state[field] }))
+      Object.keys(this.state).map(field => ({ key: field, value: this.state[field] })),
+      this.props.cookies
     );
   }
 

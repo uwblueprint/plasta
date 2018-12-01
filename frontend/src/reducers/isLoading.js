@@ -4,8 +4,6 @@ const isLoading = (prevState = false, action) => {
       return true;
     case 'FETCH_COMPLETE':
       return false;
-    case 'FETCH_USER':
-      return true;
     default:
       return prevState;
   }

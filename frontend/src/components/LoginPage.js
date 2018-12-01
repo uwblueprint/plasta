@@ -7,7 +7,6 @@ import { onFieldChange, ruleTypes } from './utils/form';
 import { userAuthentication } from '../actions';
 import './LoginPage.css';
 import { post, get } from './utils/requests';
-import InvalidInputMessage from './InvalidInputMessage.js';
 
 class LoginPage extends Component {
   constructor(props) {
@@ -16,41 +15,10 @@ class LoginPage extends Component {
       errors: {},
       email: '',
       password: '',
+      storingUserData: true,
     };
     this.onChange = onFieldChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
-    this.isUserAuthorized = this.isUserAuthorized.bind(this);
-    this.storeUser = this.storeUser.bind(this);
-    this.redirectUser = this.redirectUser.bind(this);
-  }
-
-  storeUser(results) {
-    const userInfo = {
-      userDetails: results.data,
-      userType: results.data.vendor.vendor_type,
-    };
-    this.props.userAuthentication(userInfo);
-  }
-
-  redirectUser(userType) {
-    if (userType === 'dwcc') {
-      this.props.history.push('/dwcc/transaction-history');
-    } else {
-      this.props.history.push('/landing');
-    }
-  }
-
-  isUserAuthorized() {
-    if (!!this.props.cookies.get('access_token')) {
-      get('/user/current', this.props.cookies).then(results => {
-        this.storeUser(results);
-        this.redirectUser(this.props.currentUser.userType);
-      });
-    }
-  }
-
-  componentDidMount() {
-    this.isUserAuthorized();
   }
 
   async onSubmit() {
@@ -63,7 +31,11 @@ class LoginPage extends Component {
       const auth = await post('/auth/login', loginData);
       this.props.userAuthentication(auth.data);
       this.props.cookies.set('access_token', auth.access_token);
-      this.props.history.push('/landing');
+      if (auth.data.vendor.vendor_type === 'dwcc') {
+        this.props.history.push('/ps/transaction-history');
+      } else {
+        this.props.history.push('/landing');
+      }
     } catch (err) {
       alert('Something went wrong.'); // TODO: NOTIFY ERROR AND LOG
     }
