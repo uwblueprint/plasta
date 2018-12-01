@@ -1,7 +1,9 @@
 import composeTransaction, { transactionTypes } from './HOCPrimarySegregatorTransaction';
 import { post } from '../utils/requests';
 
-const onSubmit = async () => {
+async function onSubmit() {
+  console.log(this);
+  return;
   if (!this.state.submitAttempted) this.setState({ submitAttempted: true }); // move out once onsubmit dispatched through redux
   if (!this.isFormValid()) {
     return Promise.reject('Please resolve all errors before submitting.');
@@ -25,7 +27,7 @@ const onSubmit = async () => {
   post('/vendors/1/transactions', transactionData).catch(err => {
     alert('There was a problem submitting the transaction. Please try again.');
   });
-};
+}
 
 const members = {
   onSubmit: onSubmit,
