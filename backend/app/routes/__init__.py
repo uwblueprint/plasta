@@ -1,7 +1,7 @@
+import os
 import boto3
 from flask_jwt_extended import JWTManager
 
-s3_resource = boto3.resource('s3')
 jwt = JWTManager()
 
 
@@ -28,3 +28,15 @@ def init_app(app):
     app.register_blueprint(project_routes.blueprint)
     app.register_blueprint(user_routes.blueprint)
     app.register_blueprint(vendor_routes.blueprint)
+
+
+def create_s3_resource():
+    return boto3.resource(
+        's3',
+        aws_access_key_id=os.environ['AWS_ACCESS_KEY_ID'],
+        aws_secret_access_key=os.environ['AWS_SECRET_ACCESS_KEY'],
+        region_name=os.environ['AWS_REGION_NAME']
+    )
+
+
+s3_resource = create_s3_resource()

@@ -42,7 +42,7 @@ def create_vendor_transaction(vendor_id):
 def create_vendor():
     current_user = get_jwt_identity()
     vendor = db_client.create_vendor(
-        request.form,
+        request.form.to_dict(),
         current_user=current_user,
         files=request.files
     )
