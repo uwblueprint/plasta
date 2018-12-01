@@ -34,7 +34,7 @@ vendor_subtype_map = {
     'home_based_worker': 'wastepicker',
     'itinerant_buyer': 'wastepicker',
     'wp_community_leader': 'wastepicker',
-    'small_scrap_shop': 'dwcc',
+    'small_scrap_shop': 'wastepicker',
     'scrap_shop': 'dwcc',
     'van_unit': 'dwcc',
     'dwcc': 'dwcc',
