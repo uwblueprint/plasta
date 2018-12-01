@@ -27,24 +27,25 @@ export function post(path, payload, cookies) {
     });
 }
 
-<<<<<<< HEAD
 // TODO : accept multiple images
-export function postMultiType(path, fields) {
+export function postMultiType(path, fields, cookies) {
   const url = process.env.REACT_APP_API_URL + path;
   const formData = new FormData();
   fields.forEach(field => {
     formData.append(field.key, field.value);
   });
-  return fetch(url, {
+  const data = {
     method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      ...getAuthorizationHeader(cookies),
+    },
     body: formData,
-  });
+  };
+  return fetch(url, data);
 }
 
-export function get(path, payload) {
-=======
 export function get(path, cookies) {
->>>>>>> Redirecting user to correct page based on user type + moving DWCC transaction to DWCC folder + fix for currentUser redux store
   const url = process.env.REACT_APP_API_URL + path;
   const data = {
     method: 'GET',

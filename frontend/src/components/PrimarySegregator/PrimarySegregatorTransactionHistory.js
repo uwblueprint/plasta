@@ -1,14 +1,14 @@
 import ReactTable from 'react-table';
 import React, { Component } from 'react';
-import PrimarySegregatorBottomBar from './PrimarySegregator/PrimarySegregatorNavBar.js';
+import PrimarySegregatorBottomBar from './PrimarySegregatorNavBar.js';
 import moment from 'moment';
-import './PrimarySegregator/PrimarySegregator.css';
+import './PrimarySegregator.css';
 import 'react-table/react-table.css';
 import {
   plasticOptionsByName,
   getTotalPlasticsPrice,
   getTotalPlasticsQuantity,
-} from './utils/project';
+} from '../utils/project';
 
 const columns = [
   {
