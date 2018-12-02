@@ -8,7 +8,7 @@ async function onSubmit() {
     return Promise.reject('Please resolve all errors before submitting.');
   }
   const totalPrice = this.state.unitPrice * this.state.weight;
-  const transactionData = {
+  let transactionData = {
     // TODO(Nick): Get from_vendor_id & creator_id from user object in Redux store
     from_vendor_id: 1,
     to_vendor_id: this.state.stakeholderName.value,
@@ -20,9 +20,11 @@ async function onSubmit() {
         price: totalPrice,
       },
     ],
-    sale_date: this.state.transactionDate,
     creator_id: 1,
   };
+  if (this.state.transactionDate !== '') {
+    transactionData.sale_date = this.state.transactionDate;
+  }
   post('/vendors/1/transactions', transactionData).catch(err => {
     alert('There was a problem submitting the transaction. Please try again.');
   });

@@ -141,8 +141,8 @@ PrimarySegregatorTransaction.propTypes = {
   submitAttempted: PropTypes.bool.isRequired,
   onValidation: PropTypes.func,
   // field values
-  unitPrice: PropTypes.number.isRequired,
-  weight: PropTypes.number.isRequired,
+  unitPrice: PropTypes.string.isRequired,
+  weight: PropTypes.string.isRequired,
   plasticType: PropTypes.object,
   stakeholderName: PropTypes.object.isRequired,
 };
