@@ -1,6 +1,5 @@
 [
   {
-    "id": 1,
     "name": "test_project",
     "project_type": "internal",
     "plastics": [

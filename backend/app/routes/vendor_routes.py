@@ -40,9 +40,10 @@ def create_vendor_transaction(vendor_id):
 # This requires having a `current_user` object.
 @blueprint.route('/', methods=['POST'])
 def create_vendor():
+    data = request.json if request.headers['Content-Type'] == 'application/json' else request.form.to_dict()
     current_user = get_jwt_identity()
     vendor = db_client.create_vendor(
-        request.form.to_dict(),
+        data=data,
         current_user=current_user,
         files=request.files
     )
