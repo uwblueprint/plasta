@@ -32,12 +32,13 @@ export default class CreateExternalPrimarySegregator extends Component {
     if (!this.isFormValid()) {
       return Promise.reject('Please resolve all errors before submitting.');
     }
-    const data = { vendor_type: 'dwcc', vendor_subtype: 'small_scrap_shop', meta_data: {} };
+    const data = { vendor_subtype: 'small_scrap_shop', meta_data: {} };
     Object.keys(fieldsInfo).forEach(field => {
       if (fieldsInfo[field].type === 'metaData')
         data.meta_data[snakeCase(field)] = this.state[field];
       else data[snakeCase(field)] = this.state[field];
     });
+    console.log(data);
     post('/vendors', data);
   }
 

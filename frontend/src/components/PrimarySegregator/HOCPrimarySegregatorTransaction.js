@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { onFieldChange, isFormValid, onValidation } from '../utils/form';
 import CancelButton from '../common/CancelButton.js';
 import './../FormPage.css';
+import { PropTypes } from 'prop-types';
 import moment from 'moment';
 import PrimarySegregatorTransaction from './PrimarySegregatorTransaction';
 
@@ -19,12 +20,12 @@ function composeTransaction(members) {
         submitAttempted: false,
         stakeholderName: {},
         plasticType: {},
-        unitPrice: 0,
-        weight: 0,
+        unitPrice: '',
+        weight: '',
         transactionDate: '',
         showModal: false,
+        stakeholderOptions: [],
       };
-      console.log(members.onSubmit);
       this.onSubmit = members.onSubmit.bind(this);
       this.onFieldChange = onFieldChange.bind(this);
       this.handleDayChange = this.handleDayChange.bind(this);
@@ -33,6 +34,11 @@ function composeTransaction(members) {
       this.isFormValid = isFormValid.bind(this);
       this.onValidation = onValidation.bind(this);
     }
+
+    static propTypes = {
+      currentVendorId: PropTypes.number.isRequired,
+      stakeholderOptions: PropTypes.array.isRequired,
+    };
 
     hideModal() {
       this.setState({ showModal: false });
@@ -55,14 +61,13 @@ function composeTransaction(members) {
             transactionType={members.transactionType}
             onSubmit={this.onSubmit}
             onValidation={this.onValidation}
+            isFormValid={this.isFormValid}
             handleDayChange={this.handleDayChange}
-            stakeholderOptions={staticBuyStakeholders}
-            handleNewStakeholder={
-              this.handleNewStakeholder // TODO: Get DWCC & Wastepickers
-            }
+            handleNewStakeholder={this.handleNewStakeholder}
             showModal={this.showModal}
             hideModal={this.hideModal}
             onFieldChange={this.onFieldChange}
+            stakeholderOptions={this.props.stakeholderOptions}
             {...this.state}
           />
         </div>
@@ -70,7 +75,5 @@ function composeTransaction(members) {
     }
   };
 }
-
-const staticBuyStakeholders = [{ label: 'DWCC 1', value: '1' }];
 
 export default composeTransaction;
