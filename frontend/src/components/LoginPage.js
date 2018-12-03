@@ -6,7 +6,7 @@ import TextInput from './input-components/TextInput.js';
 import { onFieldChange, ruleTypes } from './utils/form';
 import { userAuthentication } from '../actions';
 import './LoginPage.css';
-import { post, get } from './utils/requests';
+import { post } from './utils/requests';
 
 class LoginPage extends Component {
   constructor(props) {
@@ -29,7 +29,8 @@ class LoginPage extends Component {
     };
     try {
       const auth = await post('/auth/login', loginData);
-      this.props.userAuthentication(auth.data);
+      const userInfo = { userDetails: auth.data, userType: auth.data.vendor.vendor_type };
+      this.props.userAuthentication(userInfo);
       this.props.cookies.set('access_token', auth.access_token);
       if (auth.data.vendor.vendor_type === 'dwcc') {
         this.props.history.push('/ps/transaction-history');

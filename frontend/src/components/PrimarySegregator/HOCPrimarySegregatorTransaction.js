@@ -27,6 +27,7 @@ function composeTransaction(members) {
         stakeholderOptions: [],
       };
       this.onSubmit = members.onSubmit.bind(this);
+      this.getStakeholderOptions = members.getStakeholderOptions.bind(this);
       this.onFieldChange = onFieldChange.bind(this);
       this.handleDayChange = this.handleDayChange.bind(this);
       this.handleNewStakeholder = this.handleNewStakeholder.bind(this);
@@ -36,9 +37,13 @@ function composeTransaction(members) {
     }
 
     static propTypes = {
-      currentVendorId: PropTypes.number.isRequired,
-      stakeholderOptions: PropTypes.array.isRequired,
+      currentUser: PropTypes.object.isRequired,
+      vendors: PropTypes.array.isRequired,
     };
+
+    componentDidMount() {
+      this.getStakeholderOptions();
+    }
 
     hideModal() {
       this.setState({ showModal: false });
@@ -67,7 +72,7 @@ function composeTransaction(members) {
             showModal={this.showModal}
             hideModal={this.hideModal}
             onFieldChange={this.onFieldChange}
-            stakeholderOptions={this.props.stakeholderOptions}
+            stakeholderOptions={this.state.stakeholderOptions}
             {...this.state}
           />
         </div>
