@@ -30,32 +30,30 @@ async function onSubmit() {
   });
 }
 
-function getWastepickerIds() {
-  const currentVendorId = 1;
+function getStakeholderOptions() {
+  const currentVendorId = this.props.currentUser.userDetails.vendor_id;
   const url = `/vendors/dwcc/${currentVendorId}/wastepickers`;
-  get(url).then(res => console.log(res));
-  return [3, 4];
-}
-
-const mapStateToProps = state => {
-  const wastepickerIds = getWastepickerIds();
-  const buyStakeholders = state.vendors
-    .filter(({ vendor_id }) => {
-      return wastepickerIds.includes(vendor_id);
-    })
+  get(url).then(res => console.log(res.data)); // This gives me an empty array always idk why
+  const wastepickerIds = [2, 3];
+  return this.props.vendors
+    .filter(({ vendor_id }) => wastepickerIds.includes(vendor_id))
     .map(buyVendor => ({
       label: buyVendor.name,
       value: buyVendor.id,
     }));
+}
+
+const mapStateToProps = state => {
   return {
-    currentVendorId: state.currentUser.vendor_id,
-    stakeholderOptions: buyStakeholders,
+    currentUser: state.currentUser,
+    vendors: state.vendors,
   };
 };
 
 const members = {
   onSubmit: onSubmit,
   transactionType: transactionTypes.BUY,
+  getStakeholderOptions: getStakeholderOptions,
 };
 
 export default connect(mapStateToProps)(composeTransaction(members));

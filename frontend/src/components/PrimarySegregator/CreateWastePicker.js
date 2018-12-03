@@ -8,6 +8,7 @@ import OnSubmitButton from '../common/OnSubmitButton';
 import FileInput from '../input-components/FileInput';
 import CancelButton from '../common/CancelButton.js';
 import { postMultiType } from '../utils/requests';
+import { snakeCase } from 'lodash';
 import '../FormPage.css';
 
 // TODO (XIN): get from endpoints
@@ -31,7 +32,7 @@ const fieldsInfo = {
   wastepickerName: { label: 'Name', default: '', isRequired: true },
   phone: { label: 'Phone', default: '', isRequired: true },
   phoneType: { label: 'Type of Phone', default: '', isRequired: false },
-  wastepickerType: { label: 'Wastepicker Type', default: '', isRequired: true },
+  vendorSubtype: { label: 'Wastepicker Type', default: '', isRequired: true },
   picture: { label: 'Wastepicker Picture', default: '', isRequired: false },
   address: { label: 'Address', default: '', isRequired: false },
   language: { label: 'Spoken Language', default: '', isRequired: false },
@@ -61,8 +62,7 @@ class CreateWastePicker extends Component {
     }
     postMultiType(
       '/vendors',
-      Object.keys(this.state).map(field => ({ key: field, value: this.state[field] })),
-      this.props.cookies
+      Object.keys(this.state).map(field => ({ key: snakeCase(field), value: this.state[field] }))
     );
   }
 
