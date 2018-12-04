@@ -23,26 +23,29 @@ import './common.css';
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { fetchingUserData: true };
+    this.state = { fetchingData: true };
     this.redirectUser = this.redirectUser.bind(this);
+    this.getVendors = this.getVendors.bind(this);
   }
   static propTypes = {
     cookies: instanceOf(Cookies).isRequired,
   };
 
   componentDidMount() {
-    this.initializeUser().then(userInitialized => {
-      if (userInitialized) this.getVendors();
-      this.redirectUser();
-    });
+    this.setState({ fetchingData: true });
+    this.initializeUser()
+      .then(userInitialized => (userInitialized ? this.getVendors() : false))
+      .then(() => {
+        this.setState({ fetchingData: false });
+        this.redirectUser();
+      });
   }
 
   async initializeUser() {
     if (this.props.currentUser || !this.isLoggedIn()) {
-      this.setState({ fetchingUserData: false });
+      this.setState({ fetchingData: false });
       return this.props.currentUser ? true : false;
     }
-    this.setState({ fetchingUserData: true });
     try {
       const user = await get('/user/current', this.props.cookies);
       const userInfo = { userDetails: user.data, userType: user.data.vendor.vendor_type };
@@ -51,12 +54,11 @@ class App extends React.Component {
       console.error(e);
       return false;
     }
-    this.setState({ fetchingUserData: false });
     return true;
   }
 
   redirectUser(props) {
-    if (this.state.fetchingUserData) return null;
+    if (this.state.fetchingData) return null;
     return this.isLoggedIn() ? (
       this.props.currentUser.userType === 'dwcc' ? (
         <Redirect to={{ pathname: '/ps/transaction-history' }} />
@@ -74,10 +76,12 @@ class App extends React.Component {
     });
   }
 
-  isLoggedIn = () => !!this.props.cookies.get('access_token');
+  isLoggedIn = () => {
+    return !!this.props.cookies.get('access_token');
+  };
 
   render() {
-    const isDataReady = !this.state.fetchingUserData;
+    const isDataReady = !this.state.fetchingData;
     const isLoggedIn = this.isLoggedIn();
     return (
       <React.Fragment>
@@ -85,9 +89,25 @@ class App extends React.Component {
         <Router>
           <Switch>
             <Route path="/" exact render={this.redirectUser} />
-            <PrivateRoute path="/landing" isDataReady={isDataReady} component={LandingPage} />
-            <PrivateRoute path="/projects" exact isDataReady={isDataReady} component={Projects} />
-            <PrivateRoute path="/projects/new" isDataReady={isDataReady} component={NewProject} />
+            <PrivateRoute
+              path="/landing"
+              isDataReady={isDataReady}
+              isLoggedIn={isLoggedIn}
+              component={LandingPage}
+            />
+            <PrivateRoute
+              path="/projects"
+              exact
+              isDataReady={isDataReady}
+              isLoggedIn={isLoggedIn}
+              component={Projects}
+            />
+            <PrivateRoute
+              path="/projects/new"
+              isDataReady={isDataReady}
+              isLoggedIn={isLoggedIn}
+              component={NewProject}
+            />
             <PrivateRoute
               path="/projects/:projectId"
               isLoggedIn={isLoggedIn}
@@ -148,7 +168,6 @@ class App extends React.Component {
 const mapStateToProps = (state, ownProps) => {
   return {
     currentUser: state.currentUser,
-    cookies: ownProps.cookies,
     isLoading: state.isLoading,
   };
 };

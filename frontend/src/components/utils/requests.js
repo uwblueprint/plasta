@@ -1,9 +1,5 @@
 function getAuthorizationHeader(cookies) {
-  return cookies
-    ? {
-        Authorization: `Bearer ${cookies.get('access_token')}`,
-      }
-    : {};
+  return cookies ? { Authorization: `Bearer ${cookies.get('access_token')}` } : {};
 }
 
 export function post(path, payload, cookies) {
@@ -42,7 +38,15 @@ export function postMultiType(path, fields, cookies) {
     },
     body: formData,
   };
-  return fetch(url, data);
+  return fetch(url, data)
+    .then(response => {
+      if (response.ok) return response.json();
+      throw response;
+    })
+    .catch(err => {
+      console.error(err);
+      throw err;
+    });
 }
 
 export function get(path, cookies) {

@@ -42,7 +42,7 @@ function composeTransaction(members) {
     };
 
     componentDidMount() {
-      this.getStakeholderOptions();
+      this.setState({ stakeholderOptions: this.getStakeholderOptions() });
     }
 
     hideModal() {

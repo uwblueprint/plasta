@@ -1,15 +1,16 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import FormSection from '../input-components/FormSection';
 import SearchSelect from '../input-components/SearchSelect';
 import DayPickerInput from 'react-day-picker/DayPickerInput';
 import 'react-day-picker/lib/style.css';
 import TextInput from '../input-components/TextInput';
-import './../FormPage.css';
-import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import CreateStakeholderModal from './CreateStakeholderModal';
+import OnSubmitButton from '../common/OnSubmitButton';
 import { transactionTypes } from './HOCPrimarySegregatorTransaction';
 import { ruleTypes } from '../utils/form';
+import './../FormPage.css';
 
 class PrimarySegregatorTransaction extends Component {
   constructor(props) {
@@ -113,13 +114,7 @@ class PrimarySegregatorTransaction extends Component {
             onDayChange={day => this.props.handleDayChange('transactionDate', day)}
           />
         </FormSection>
-        <button
-          type="submit"
-          onClick={this.props.onSubmit}
-          className="btn-dark bg-green uppercase margin-top"
-        >
-          Submit
-        </button>
+        <OnSubmitButton nextPath="/ps/transactions" onClick={this.props.onSubmit} />
       </div>
     );
   }

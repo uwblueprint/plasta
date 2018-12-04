@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { withCookies } from 'react-cookie';
 import SearchSelect from '../input-components/SearchSelect';
 import RadioSelect from '../input-components/RadioSelect';
 import FormSection from '../input-components/FormSection';
@@ -32,10 +33,10 @@ const fieldsInfo = {
   wastepickerName: { label: 'Name', default: '', isRequired: true },
   phone: { label: 'Phone', default: '', isRequired: true },
   phoneType: { label: 'Type of Phone', default: '', isRequired: false },
-  vendorSubtype: { label: 'Wastepicker Type', default: '', isRequired: true },
+  vendorSubtype: { label: 'Wastepicker Type', default: 'wastepicker', isRequired: true },
   picture: { label: 'Wastepicker Picture', default: '', isRequired: false },
   address: { label: 'Address', default: '', isRequired: false },
-  language: { label: 'Spoken Language', default: '', isRequired: false },
+  language: { label: 'Spoken Language', default: 'hindi', isRequired: false },
   aadhaarID: { label: 'Aadhaar ID', default: '', isRequired: false },
   hdMemberID: { label: 'HD Member ID', default: '', isRequired: false },
 };
@@ -60,9 +61,10 @@ class CreateWastePicker extends Component {
     if (!this.isFormValid()) {
       return Promise.reject('Please resolve all errors before submitting.');
     }
-    postMultiType(
+    return postMultiType(
       '/vendors',
-      Object.keys(this.state).map(field => ({ key: snakeCase(field), value: this.state[field] }))
+      Object.keys(this.state).map(field => ({ key: snakeCase(field), value: this.state[field] })),
+      this.props.cookies
     );
   }
 
@@ -112,8 +114,8 @@ class CreateWastePicker extends Component {
 
           <h3 className="label">Wastepicker Type</h3>
           <SearchSelect
-            field="wastepickerType"
-            value={this.state.wastepickerType}
+            field="vendorSubtype"
+            value={this.state.vendorSubtype}
             options={wastepickerTypes}
             onChange={this.onFieldChange}
             rules={[ruleTypes.FIELD_REQUIRED]}
@@ -123,7 +125,6 @@ class CreateWastePicker extends Component {
           <FileInput
             className="large-input full-width"
             field="picture"
-            onChange={() => {}} // TODO (XIN)
             value={this.state.picture}
             onChange={this.onFieldChange}
           />
@@ -147,8 +148,8 @@ class CreateWastePicker extends Component {
           <h3 className="label">Aadhaar ID</h3>
           <TextInput
             className="large-input full-width"
-            field="adhaarID"
-            value={this.state.adhaarID}
+            field="aadhaarID"
+            value={this.state.aadhaarID}
             onChange={this.onFieldChange}
             placeholder="1111 2222 3333"
           />
@@ -162,10 +163,10 @@ class CreateWastePicker extends Component {
           />
         </FormSection>
         {/* TODO (XIN): Add nextPath for on successful submit*/}
-        <OnSubmitButton onClick={this.onSubmit} />
+        <OnSubmitButton nextPath="/ps/transaction-history" onClick={this.onSubmit} />
       </div>
     );
   }
 }
 
-export default CreateWastePicker;
+export default withCookies(CreateWastePicker);

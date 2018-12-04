@@ -5,7 +5,6 @@ export const PrivateRoute = ({ component: Component, isDataReady, isLoggedIn, ..
   <Route
     {...rest}
     render={props => {
-      console.log(isLoggedIn);
       if (!isLoggedIn) return <Redirect to={{ pathname: '/', state: { from: props.location } }} />;
       if (!isDataReady) return null;
       return <Component {...props} />;

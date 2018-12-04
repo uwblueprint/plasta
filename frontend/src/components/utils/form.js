@@ -7,7 +7,12 @@ export function onFieldChange(field) {
 export const fieldRules = {
   FIELD_REQUIRED: {
     message: 'This field is required',
-    isTrue: field => (Array.isArray(field) ? field.length !== 0 : field !== ''),
+    isTrue: field => {
+      if (field === undefined || field === null || field === '') return false;
+      if (Array.isArray(field)) return field.length !== 0;
+      if (Object.keys(field).length) return true;
+      return false;
+    },
   },
 };
 

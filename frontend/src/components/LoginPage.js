@@ -15,14 +15,14 @@ class LoginPage extends Component {
       errors: {},
       email: '',
       password: '',
-      storingUserData: true,
+      submitAttempted: false,
     };
     this.onChange = onFieldChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
   }
 
   async onSubmit() {
-    if (!this.state.email || !this.state.password) return;
+    if (!this.state.submitAttempted) this.setState({ submitAttempted: true });
     const loginData = {
       email: this.state.email,
       password: this.state.password,
