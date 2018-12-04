@@ -153,7 +153,7 @@ class PrimarySegregatorTransactionHistory extends Component {
             showPagination={false}
             data={dummyTransactions}
             columns={columns}
-            defaultPageSize={5}
+            defaultPageSize={3}
             className="-striped-highlight table"
           />
           <h2>Sell</h2>
@@ -161,7 +161,7 @@ class PrimarySegregatorTransactionHistory extends Component {
             showPagination={false}
             data={dummyTransactions}
             columns={columns}
-            defaultPageSize={5}
+            defaultPageSize={3}
             className="-striped-highlight table"
           />
         </div>
