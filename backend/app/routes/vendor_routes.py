@@ -8,20 +8,20 @@ blueprint = Blueprint('vendor', __name__, url_prefix='/vendors')
 
 
 @blueprint.route('/', methods=['GET'])
-@jwt_required
+# @jwt_required
 def get_all_vendors():
     return get_vendors([])
 
 
 @blueprint.route('/<list:vendor_types>', methods=['GET'])
-@jwt_required
+# @jwt_required
 def get_vendors(vendor_types):
     vendors = db_client.get_vendors(vendor_types)
     return success(data=[vendor.to_dict() for vendor in vendors])
 
 
 @blueprint.route('/<int:vendor_id>/transactions', methods=['GET'])
-@jwt_required
+# @jwt_required
 def get_vendor_transactions(vendor_id):
     transactions = db_client.get_vendor_transactions(vendor_id)
     return success(data=[
@@ -31,7 +31,7 @@ def get_vendor_transactions(vendor_id):
 
 
 @blueprint.route('/<int:vendor_id>/transactions', methods=['POST'])
-@jwt_required
+# @jwt_required
 def create_vendor_transaction(vendor_id):
     transaction_data = request.json
     transaction = db_client.create_transaction(transaction_data)
@@ -56,7 +56,7 @@ def create_vendor():
 
 
 @blueprint.route('/dwcc/<int:dwcc_id>/wastepickers', methods=['GET'])
-@jwt_required
+# @jwt_required
 def get_dwcc_associated_wastepickers(dwcc_id):
     wastepicker_ids = db_client.get_dwcc_associated_wastepickers(dwcc_id)
     return success(data=wastepicker_ids)

@@ -11,7 +11,7 @@ async function onSubmit() {
   const transactionData = {
     // TODO(Nick): Get from_vendor_id & creator_id from user object in Redux store
     from_vendor_id: this.state.stakeholderName.value,
-    to_vendor_id: 1,
+    to_vendor_id: this.props.currentUser.userDetails.vendor_id,
     price: totalPrice,
     plastics: [
       {
@@ -20,7 +20,7 @@ async function onSubmit() {
         price: totalPrice,
       },
     ],
-    creator_id: 1,
+    creator_id: this.props.currentUser.userDetails.vendor_id,
   };
   if (this.state.transactionDate !== '') {
     transactionData.sale_date = this.state.transactionDate;
@@ -33,14 +33,13 @@ async function onSubmit() {
 function getStakeholderOptions() {
   const currentVendorId = this.props.currentUser.userDetails.vendor_id;
   const url = `/vendors/dwcc/${currentVendorId}/wastepickers`;
-  get(url).then(res => console.log(res.data)); // This gives me an empty array always idk why
-  const wastepickerIds = [2, 3];
-  return this.props.vendors
-    .filter(({ vendor_id }) => wastepickerIds.includes(vendor_id))
-    .map(buyVendor => ({
-      label: buyVendor.name,
-      value: buyVendor.id,
-    }));
+  // get(url).then(res => console.log(res.data)); // This gives me an empty array always idk why
+  const wastepickerIds = [1, 2];
+  const filteredVendors = this.props.vendors.filter(vendor => wastepickerIds.includes(vendor.id));
+  return filteredVendors.map(buyVendor => ({
+    label: buyVendor.name,
+    value: buyVendor.id,
+  }));
 }
 
 const mapStateToProps = state => {
