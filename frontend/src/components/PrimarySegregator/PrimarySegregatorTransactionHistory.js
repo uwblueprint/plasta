@@ -150,6 +150,7 @@ class PrimarySegregatorTransactionHistory extends Component {
           <h1> Transaction History </h1>
           <h2>Buy</h2>
           <ReactTable
+            showPagination={false}
             data={dummyTransactions}
             columns={columns}
             defaultPageSize={5}
@@ -157,6 +158,7 @@ class PrimarySegregatorTransactionHistory extends Component {
           />
           <h2>Sell</h2>
           <ReactTable
+            showPagination={false}
             data={dummyTransactions}
             columns={columns}
             defaultPageSize={5}
