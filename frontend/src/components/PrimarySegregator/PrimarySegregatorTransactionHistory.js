@@ -13,7 +13,41 @@ import { get } from './../utils/requests';
 import { connect } from 'react-redux';
 import { PropTypes } from 'prop-types';
 
-const columns = [
+const buyColumns = [
+  {
+    Header: 'Name',
+    accessor: 'from_vendor.name',
+  },
+  {
+    id: 'price',
+    Header: 'Rupees',
+    accessor: transaction => getTotalPlasticsPrice(transaction),
+  },
+  {
+    id: 'plasticQuantity',
+    Header: 'Kilograms',
+    accessor: transaction => getTotalPlasticsQuantity(transaction),
+  },
+  {
+    id: 'plasticType',
+    Header: 'Type',
+    accessor: transaction =>
+      transaction.plastics
+        .map(plastic => plasticOptionsByName.get(plastic.plastic_type).label)
+        .join(', '),
+  },
+  {
+    id: 'saleDate',
+    Header: 'Date',
+    accessor: transaction => {
+      return moment(transaction.sale_date)
+        .local()
+        .format('DD-MM-YYYY hh:mm:ss a');
+    },
+  },
+];
+
+const sellColumns = [
   {
     Header: 'Name',
     accessor: 'to_vendor.name',
@@ -47,7 +81,7 @@ const columns = [
   },
 ];
 
-const dummyTransactions = [
+const buyDummyTransactions = [
   {
     id: 1,
     project_id: 1,
@@ -124,6 +158,83 @@ const dummyTransactions = [
   },
 ];
 
+const sellDummyTransactions = [
+  {
+    id: 1,
+    project_id: 1,
+    from_vendor: {
+      id: 1,
+      vendor_type: 'dwcc',
+      name: 'Wholesaler 1',
+      meta_data: {},
+      created_at: Date.now(),
+    },
+    to_vendor: {
+      id: 2,
+      vendor_type: 'wholesaler',
+      name: 'Wholesaler 1',
+      meta_data: {},
+      created_at: Date.now(),
+    },
+    to_acknowledged: false,
+    acknowledged_at: null,
+    sale_date: Date.now(),
+    plastics: [
+      {
+        transaction_id: 100,
+        plastic_type: 'brown_pet',
+        quantity: 300,
+        price: 1220,
+      },
+    ],
+    creator_id: 3,
+    created_at: Date.now(),
+  },
+  {
+    id: 2,
+    project_id: 3,
+    from_vendor: {
+      id: 1,
+      vendor_type: 'wholesaler',
+      name: 'Lakhan',
+      meta_data: {},
+      created_at: Date.now(),
+    },
+    to_vendor: {
+      id: 2,
+      vendor_type: 'manufacturer',
+      name: 'Wholesaler 2',
+      meta_data: {},
+      created_at: Date.now(),
+    },
+    to_acknowledged: false,
+    acknowledged_at: null,
+    sale_date: Date.now(),
+    plastics: [
+      {
+        transaction_id: 100,
+        plastic_type: 'blue_pet',
+        quantity: 99,
+        price: 123.23,
+      },
+      {
+        transaction_id: 100,
+        plastic_type: 'brown_pet',
+        quantity: 90,
+        price: 123.2,
+      },
+      {
+        transaction_id: 100,
+        plastic_type: 'green_pet',
+        quantity: 80,
+        price: 802.79,
+      },
+    ],
+    creator_id: 5,
+    created_at: Date.now(),
+  },
+];
+
 class PrimarySegregatorTransactionHistory extends Component {
   constructor(props) {
     super(props);
@@ -151,16 +262,16 @@ class PrimarySegregatorTransactionHistory extends Component {
           <h2>Buy</h2>
           <ReactTable
             showPagination={false}
-            data={dummyTransactions}
-            columns={columns}
+            data={buyDummyTransactions}
+            columns={buyColumns}
             defaultPageSize={3}
             className="-striped-highlight table"
           />
           <h2>Sell</h2>
           <ReactTable
             showPagination={false}
-            data={dummyTransactions}
-            columns={columns}
+            data={sellDummyTransactions}
+            columns={sellColumns}
             defaultPageSize={3}
             className="-striped-highlight table"
           />
