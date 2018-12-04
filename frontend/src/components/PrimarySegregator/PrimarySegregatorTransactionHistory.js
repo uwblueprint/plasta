@@ -9,6 +9,9 @@ import {
   getTotalPlasticsPrice,
   getTotalPlasticsQuantity,
 } from '../utils/project';
+import { get } from './../utils/requests';
+import { connect } from 'react-redux';
+import { PropTypes } from 'prop-types';
 
 const columns = [
   {
@@ -122,6 +125,24 @@ const dummyTransactions = [
 ];
 
 class PrimarySegregatorTransactionHistory extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      transactions: [],
+    };
+  }
+  static propTypes = {
+    currentUser: PropTypes.object.isRequired,
+  };
+
+  componentDidMount() {
+    // TODO(Nick): Wait for xin's PR in order to use currentUser object
+    get(`/vendors/${1}/transactions`).then(results => {
+      console.log(results.data);
+      this.setState({ transactions: results.data });
+    });
+  }
+
   render() {
     return (
       <div>
@@ -148,4 +169,10 @@ class PrimarySegregatorTransactionHistory extends Component {
   }
 }
 
-export default PrimarySegregatorTransactionHistory;
+const mapStateToProps = state => {
+  return {
+    currentUser: state.currentUser,
+  };
+};
+
+export default connect(mapStateToProps)(PrimarySegregatorTransactionHistory);
