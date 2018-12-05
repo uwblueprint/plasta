@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import '../Navbar.css';
 import './PrimarySegregator.css';
 import transaction from './NavbarImages/transaction.png';
@@ -14,15 +15,15 @@ class PrimarySegregatorBottomBar extends Component {
           <a className="tab">
             <img src={transaction} alt={'transactions'} />
           </a>
-          <a className="tab" onClick={() => this.props.history.push('/ps/transactions/buy')}>
+          <Link className="tab" to="/ps/transactions/buy">
             <img src={buy} alt={'buy'} />
-          </a>
-          <a className="tab" onClick={() => this.props.history.push('/ps/transactions/sell')}>
+          </Link>
+          <Link className="tab" to="/ps/transactions/sell">
             <img src={sell} alt={'sell'} />
-          </a>
-          <a className="tab" onClick={() => this.props.history.push('/ps/wastepickers/new')}>
+          </Link>
+          <Link className="tab" to="/ps/wastepickers/new">
             <img src={createnew} alt={'create new'} />
-          </a>
+          </Link>
         </nav>
       </div>
     );

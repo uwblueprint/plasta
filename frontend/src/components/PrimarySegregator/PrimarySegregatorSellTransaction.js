@@ -30,7 +30,7 @@ async function onSubmit() {
 }
 
 function getStakeholderOptions() {
-  const currentVendorId = this.props.currentUser.userDetails.vendor_id;
+  // const currentVendorId = this.props.currentUser.userDetails.vendor_id;
   const wastepickerIds = [1, 2];
   const filteredVendors = this.props.vendors.filter(vendor => wastepickerIds.includes(vendor.id));
   return filteredVendors.map(sellVendor => ({

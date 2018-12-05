@@ -1,4 +1,8 @@
+$navbar-height: 40px;
+
 #nav-bar-wrapper {
+  height: $navbar-height;
+
   .tab {
     position: relative;
     display: flex;
@@ -25,7 +29,7 @@
     padding: 0;
     border-style: solid;
     border-color: lightgrey;
-    height: 40px;
+    height: $navbar-height;
     width: 100%;
     border-width: 1px;
     margin-top: 20px;
