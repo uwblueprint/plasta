@@ -38,7 +38,6 @@ export default class CreateExternalPrimarySegregator extends Component {
         data.meta_data[snakeCase(field)] = this.state[field];
       else data[snakeCase(field)] = this.state[field];
     });
-    console.log(data);
     post('/vendors', data);
   }
 

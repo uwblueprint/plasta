@@ -1,6 +1,6 @@
 const vendors = (prevState = [], action) => {
   switch (action.type) {
-    case 'APP_LOAD':
+    case 'LOAD_VENDORS':
       return action.vendors || [];
     default:
       return prevState;

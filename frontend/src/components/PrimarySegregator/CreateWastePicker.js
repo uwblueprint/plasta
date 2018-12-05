@@ -34,7 +34,7 @@ const fieldsInfo = {
   phoneNumber: { label: 'Phone', default: '', isRequired: true, type: 'metaData' },
   phoneType: { label: 'Type of Phone', default: '', isRequired: false, type: 'metaData' },
   vendorSubtype: { label: 'Wastepicker Type', default: 'wastepicker', isRequired: true },
-  picture: { label: 'Wastepicker Picture', default: '', isRequired: false, type: 'metaData' },
+  picture: { label: 'Wastepicker Picture', default: '', isRequired: false },
   address: { label: 'Address', default: '', isRequired: false, type: 'metaData' },
   language: { label: 'Spoken Language', default: 'hindi', isRequired: false, type: 'metaData' },
   aadhaarID: { label: 'Aadhaar ID', default: '', isRequired: false, type: 'metaData' },
@@ -64,6 +64,7 @@ class CreateWastePicker extends Component {
     const metaData = {};
     const data = [];
     Object.keys(fieldsInfo).forEach(field => {
+      if (!this.state[field]) return;
       if (fieldsInfo[field].type === 'metaData') metaData[snakeCase(field)] = this.state[field];
       else {
         data.push({

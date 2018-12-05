@@ -15,7 +15,7 @@ import PrimarySegregatorBuyTransaction from './components/PrimarySegregator/Prim
 import PrimarySegregatorSellTransaction from './components/PrimarySegregator/PrimarySegregatorSellTransaction';
 import PrimarySegregatorBottomBar from './components/PrimarySegregator/PrimarySegregatorNavBar.js';
 import { get } from './components/utils/requests';
-import { appLoad, userAuthentication } from './actions';
+import { loadVendors, userAuthentication } from './actions';
 import { Cookies, withCookies } from 'react-cookie';
 import { instanceOf } from 'prop-types';
 import { PrivateRoute } from './components/PrivateRoute';
@@ -36,16 +36,15 @@ class App extends React.Component {
     this.setState({ fetchingData: true });
     this.initializeUser()
       .then(userInitialized => (userInitialized ? this.getVendors() : false))
-      .then(() => {
+      .then(res => {
         this.setState({ fetchingData: false });
-        this.redirectUser();
       });
   }
 
   async initializeUser() {
-    if (this.props.currentUser || !this.isLoggedIn()) {
+    if (this.props.currentUser.userDetails || !this.isLoggedIn()) {
       this.setState({ fetchingData: false });
-      return this.props.currentUser ? true : false;
+      return this.props.currentUser.userDetails ? true : false;
     }
     try {
       const user = await get('/user/current', this.props.cookies);
@@ -72,9 +71,7 @@ class App extends React.Component {
   }
 
   async getVendors() {
-    return get('/vendors').then(results => {
-      this.props.appLoad({ vendors: results.data });
-    });
+    return get('/vendors').then(results => this.props.loadVendors(results.data));
   }
 
   isLoggedIn = () => {
@@ -161,7 +158,7 @@ class App extends React.Component {
                 component={CreateExternalPrimarySegregator}
               />
             </Switch>
-            {isDataReady &&
+            {this.props.currentUser &&
               this.props.currentUser.userType === 'dwcc' && <PrimarySegregatorBottomBar />}
           </React.Fragment>
         </Router>
@@ -170,13 +167,14 @@ class App extends React.Component {
   }
 }
 
-const mapStateToProps = (state, ownProps) => ({
+const mapStateToProps = state => ({
   currentUser: state.currentUser,
   isLoading: state.isLoading,
+  vendors: state.vendors,
 });
 
 const mapDispatchToProps = dispatch => ({
-  appLoad: payload => dispatch(appLoad(payload)),
+  loadVendors: payload => dispatch(loadVendors(payload)),
   userAuthentication: currentUser => dispatch(userAuthentication(currentUser)),
 });
 
