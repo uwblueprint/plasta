@@ -1,12 +1,12 @@
 [
   {
     "vendor_subtype": "scrap_shop",
-    "name": "test_vendor_1",
+    "name": "DWCC 1",
     "metadata": {}
   },
   {
     "vendor_subtype": "export_wholesaler",
-    "name": "test_vendor_2",
+    "name": "Wholesaler 1",
     "metadata": {}
   }
 ]
