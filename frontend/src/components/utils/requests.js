@@ -33,11 +33,11 @@ export function postMultiType(path, fields, cookies) {
   const data = {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json',
       ...getAuthorizationHeader(cookies),
     },
     body: formData,
   };
+  console.log(data);
   return fetch(url, data)
     .then(response => {
       if (response.ok) return response.json();

@@ -30,15 +30,15 @@ const wastepickerTypes = [
 ];
 
 const fieldsInfo = {
-  wastepickerName: { label: 'Name', default: '', isRequired: true },
-  phone: { label: 'Phone', default: '', isRequired: true },
-  phoneType: { label: 'Type of Phone', default: '', isRequired: false },
+  name: { label: 'Name', default: '', isRequired: true },
+  phoneNumber: { label: 'Phone', default: '', isRequired: true, type: 'metaData' },
+  phoneType: { label: 'Type of Phone', default: '', isRequired: false, type: 'metaData' },
   vendorSubtype: { label: 'Wastepicker Type', default: 'wastepicker', isRequired: true },
-  picture: { label: 'Wastepicker Picture', default: '', isRequired: false },
-  address: { label: 'Address', default: '', isRequired: false },
-  language: { label: 'Spoken Language', default: 'hindi', isRequired: false },
-  aadhaarID: { label: 'Aadhaar ID', default: '', isRequired: false },
-  hdMemberID: { label: 'HD Member ID', default: '', isRequired: false },
+  picture: { label: 'Wastepicker Picture', default: '', isRequired: false, type: 'metaData' },
+  address: { label: 'Address', default: '', isRequired: false, type: 'metaData' },
+  language: { label: 'Spoken Language', default: 'hindi', isRequired: false, type: 'metaData' },
+  aadhaarID: { label: 'Aadhaar ID', default: '', isRequired: false, type: 'metaData' },
+  hdMemberID: { label: 'HD Member ID', default: '', isRequired: false, type: 'metaData' },
 };
 
 class CreateWastePicker extends Component {
@@ -61,11 +61,19 @@ class CreateWastePicker extends Component {
     if (!this.isFormValid()) {
       return Promise.reject('Please resolve all errors before submitting.');
     }
-    return postMultiType(
-      '/vendors',
-      Object.keys(this.state).map(field => ({ key: snakeCase(field), value: this.state[field] })),
-      this.props.cookies
-    );
+    const metaData = {};
+    const data = [];
+    Object.keys(fieldsInfo).forEach(field => {
+      if (fieldsInfo[field].type === 'metaData') metaData[snakeCase(field)] = this.state[field];
+      else {
+        data.push({
+          key: snakeCase(field),
+          value: this.state[field],
+        });
+      }
+    });
+    // data.push({ key: 'meta_data', value: metaData });
+    return postMultiType('/vendors', data, this.props.cookies);
   }
 
   render() {
@@ -81,8 +89,8 @@ class CreateWastePicker extends Component {
           <h3 className="label">Name *</h3>
           <TextInput
             className="emphasis-input full-width"
-            field="wastepickerName"
-            value={this.state.wastepickerName}
+            field="name"
+            value={this.state.name}
             placeholder="Ramnath"
             onChange={this.onFieldChange}
             rules={[ruleTypes.FIELD_REQUIRED]}
@@ -94,8 +102,8 @@ class CreateWastePicker extends Component {
           <TextInput
             className="large-input full-width"
             type="tel"
-            field="phone"
-            value={this.state.phone}
+            field="phoneNumber"
+            value={this.state.phoneNumber}
             placeholder="9988776655"
             onChange={this.onFieldChange}
             rules={[ruleTypes.FIELD_REQUIRED]}
