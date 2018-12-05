@@ -11,7 +11,7 @@ import {
 import { get } from './../utils/requests';
 import { connect } from 'react-redux';
 import { PropTypes } from 'prop-types';
-import { filterFromTransactions, filterToTransactions } from './../utils/transactions';
+import { filterBuyTransactions, filterSellTransactions } from './../utils/transactions';
 import { findVendorById } from '../utils/vendors.js';
 
 const columns = [
@@ -64,14 +64,14 @@ class PrimarySegregatorTransactionHistory extends Component {
   componentDidMount() {
     get(`/vendors/${this.props.currentId}/transactions`).then(results => {
       const transactions = results.data;
-      const buyTransactions = filterFromTransactions(transactions, this.props.currentId).map(
+      const buyTransactions = filterBuyTransactions(transactions, this.props.currentId).map(
         transaction => {
           const vendor = findVendorById(this.props.vendors, transaction.from_vendor_id);
           transaction.name = vendor.name;
           return transaction;
         }
       );
-      const sellTransactions = filterToTransactions(transactions, this.props.currentId).map(
+      const sellTransactions = filterSellTransactions(transactions, this.props.currentId).map(
         transaction => {
           const vendor = findVendorById(this.props.vendors, transaction.to_vendor_id);
           transaction.name = vendor.name;
