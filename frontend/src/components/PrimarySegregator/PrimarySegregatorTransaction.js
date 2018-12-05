@@ -114,7 +114,7 @@ class PrimarySegregatorTransaction extends Component {
             onDayChange={day => this.props.handleDayChange('transactionDate', day)}
           />
         </FormSection>
-        <OnSubmitButton nextPath="/ps/transactions" onClick={this.props.onSubmit} />
+        <OnSubmitButton nextPath="/ps/transaction-history" onClick={this.props.onSubmit} />
       </div>
     );
   }
