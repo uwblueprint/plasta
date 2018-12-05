@@ -5,13 +5,13 @@ export const fieldToLabelMap = {
   weight: 'Weight',
 };
 
-export function filterFromTransactions(transactions, vendorId) {
+export function filterSellTransactions(transactions, vendorId) {
   return transactions.filter(transaction => {
     return transaction.from_vendor_id === vendorId;
   });
 }
 
-export function filterToTransactions(transactions, vendorId) {
+export function filterBuyTransactions(transactions, vendorId) {
   return transactions.filter(transaction => {
     return transaction.to_vendor_id === vendorId;
   });
