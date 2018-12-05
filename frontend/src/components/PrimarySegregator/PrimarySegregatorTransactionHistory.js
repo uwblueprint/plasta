@@ -13,11 +13,12 @@ import { get } from './../utils/requests';
 import { connect } from 'react-redux';
 import { PropTypes } from 'prop-types';
 import { filterFromTransactions, filterToTransactions } from './../utils/transactions';
+import { findVendorById } from '../utils/vendors.js';
 
-const buyColumns = [
+const columns = [
   {
     Header: 'Name',
-    accessor: 'from_vendor.name',
+    accessor: 'name',
   },
   {
     id: 'price',
@@ -45,194 +46,6 @@ const buyColumns = [
         .local()
         .format('DD-MM-YYYY hh:mm:ss a');
     },
-  },
-];
-
-const sellColumns = [
-  {
-    Header: 'Name',
-    accessor: 'to_vendor.name',
-  },
-  {
-    id: 'price',
-    Header: 'Rupees',
-    accessor: transaction => getTotalPlasticsPrice(transaction),
-  },
-  {
-    id: 'plasticQuantity',
-    Header: 'Kilograms',
-    accessor: transaction => getTotalPlasticsQuantity(transaction),
-  },
-  {
-    id: 'plasticType',
-    Header: 'Type',
-    accessor: transaction =>
-      transaction.plastics
-        .map(plastic => plasticOptionsByName.get(plastic.plastic_type).label)
-        .join(', '),
-  },
-  {
-    id: 'saleDate',
-    Header: 'Date',
-    accessor: transaction => {
-      return moment(transaction.sale_date)
-        .local()
-        .format('DD-MM-YYYY hh:mm:ss a');
-    },
-  },
-];
-
-const buyDummyTransactions = [
-  {
-    id: 1,
-    project_id: 1,
-    from_vendor: {
-      id: 1,
-      vendor_type: 'wastepicker',
-      name: 'Rahul',
-      meta_data: {},
-      created_at: Date.now(),
-    },
-    to_vendor: {
-      id: 2,
-      vendor_type: 'dwcc',
-      name: 'Rohit',
-      meta_data: {},
-      created_at: Date.now(),
-    },
-    to_acknowledged: false,
-    acknowledged_at: null,
-    sale_date: Date.now(),
-    plastics: [
-      {
-        transaction_id: 100,
-        plastic_type: 'brown_pet',
-        quantity: 99,
-        price: 10.99,
-      },
-    ],
-    creator_id: 3,
-    created_at: Date.now(),
-  },
-  {
-    id: 2,
-    project_id: 3,
-    from_vendor: {
-      id: 1,
-      vendor_type: 'wholesaler',
-      name: 'Lakhan',
-      meta_data: {},
-      created_at: Date.now(),
-    },
-    to_vendor: {
-      id: 2,
-      vendor_type: 'manufacturer',
-      name: 'Mohit',
-      meta_data: {},
-      created_at: Date.now(),
-    },
-    to_acknowledged: false,
-    acknowledged_at: null,
-    sale_date: Date.now(),
-    plastics: [
-      {
-        transaction_id: 100,
-        plastic_type: 'blue_pet',
-        quantity: 99,
-        price: 5.99,
-      },
-      {
-        transaction_id: 100,
-        plastic_type: 'brown_pet',
-        quantity: 90,
-        price: 10.99,
-      },
-      {
-        transaction_id: 100,
-        plastic_type: 'green_pet',
-        quantity: 80,
-        price: 2.79,
-      },
-    ],
-    creator_id: 5,
-    created_at: Date.now(),
-  },
-];
-
-const sellDummyTransactions = [
-  {
-    id: 1,
-    project_id: 1,
-    from_vendor: {
-      id: 1,
-      vendor_type: 'dwcc',
-      name: 'Wholesaler 1',
-      meta_data: {},
-      created_at: Date.now(),
-    },
-    to_vendor: {
-      id: 2,
-      vendor_type: 'wholesaler',
-      name: 'Wholesaler 1',
-      meta_data: {},
-      created_at: Date.now(),
-    },
-    to_acknowledged: false,
-    acknowledged_at: null,
-    sale_date: Date.now(),
-    plastics: [
-      {
-        transaction_id: 100,
-        plastic_type: 'brown_pet',
-        quantity: 300,
-        price: 1220,
-      },
-    ],
-    creator_id: 3,
-    created_at: Date.now(),
-  },
-  {
-    id: 2,
-    project_id: 3,
-    from_vendor: {
-      id: 1,
-      vendor_type: 'wholesaler',
-      name: 'Lakhan',
-      meta_data: {},
-      created_at: Date.now(),
-    },
-    to_vendor: {
-      id: 2,
-      vendor_type: 'manufacturer',
-      name: 'Wholesaler 2',
-      meta_data: {},
-      created_at: Date.now(),
-    },
-    to_acknowledged: false,
-    acknowledged_at: null,
-    sale_date: Date.now(),
-    plastics: [
-      {
-        transaction_id: 100,
-        plastic_type: 'blue_pet',
-        quantity: 99,
-        price: 123.23,
-      },
-      {
-        transaction_id: 100,
-        plastic_type: 'brown_pet',
-        quantity: 90,
-        price: 123.2,
-      },
-      {
-        transaction_id: 100,
-        plastic_type: 'green_pet',
-        quantity: 80,
-        price: 802.79,
-      },
-    ],
-    creator_id: 5,
-    created_at: Date.now(),
   },
 ];
 
@@ -252,8 +65,20 @@ class PrimarySegregatorTransactionHistory extends Component {
   componentDidMount() {
     get(`/vendors/${this.props.currentId}/transactions`).then(results => {
       const transactions = results.data;
-      const buyTransactions = filterFromTransactions(transactions, this.props.currentId);
-      const sellTransactions = filterToTransactions(transactions, this.props.currentId);
+      const buyTransactions = filterFromTransactions(transactions, this.props.currentId).map(
+        transaction => {
+          const vendor = findVendorById(this.props.vendors, transaction.from_vendor_id);
+          transaction.name = vendor.name;
+          return transaction;
+        }
+      );
+      const sellTransactions = filterToTransactions(transactions, this.props.currentId).map(
+        transaction => {
+          const vendor = findVendorById(this.props.vendors, transaction.to_vendor_id);
+          transaction.name = vendor.name;
+          return transaction;
+        }
+      );
       this.setState({ buyTransactions: buyTransactions, sellTransactions: sellTransactions });
     });
   }
@@ -267,7 +92,7 @@ class PrimarySegregatorTransactionHistory extends Component {
           <ReactTable
             showPagination={false}
             data={this.state.buyTransactions}
-            columns={buyColumns}
+            columns={columns}
             defaultPageSize={3}
             className="-striped-highlight table"
           />
@@ -275,7 +100,7 @@ class PrimarySegregatorTransactionHistory extends Component {
           <ReactTable
             showPagination={false}
             data={this.state.sellTransactions}
-            columns={sellColumns}
+            columns={columns}
             defaultPageSize={3}
             className="-striped-highlight table"
           />

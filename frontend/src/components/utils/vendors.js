@@ -1,3 +1,3 @@
-export function filterVendorsById(vendors, ids) {
-  return vendors.filter(vendor => ids.includes(vendor.id));
+export function findVendorById(vendors, id) {
+  return vendors.find(vendor => id === vendor.id);
 }
