@@ -37,7 +37,6 @@ export function postMultiType(path, fields, cookies) {
     },
     body: formData,
   };
-  console.log(data);
   return fetch(url, data)
     .then(response => {
       if (response.ok) return response.json();

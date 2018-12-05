@@ -67,15 +67,15 @@ class PrimarySegregatorTransactionHistory extends Component {
       const buyTransactions = filterBuyTransactions(transactions, this.props.currentId).map(
         transaction => {
           const vendor = findVendorById(this.props.vendors, transaction.from_vendor_id);
-          transaction.name = vendor.name;
-          return transaction;
+          if (!vendor) return;
+          return { ...transaction, name: vendor.name };
         }
       );
       const sellTransactions = filterSellTransactions(transactions, this.props.currentId).map(
         transaction => {
           const vendor = findVendorById(this.props.vendors, transaction.to_vendor_id);
-          transaction.name = vendor.name;
-          return transaction;
+          if (!vendor) return;
+          return { ...transaction, name: vendor.name };
         }
       );
       this.setState({ buyTransactions: buyTransactions, sellTransactions: sellTransactions });
@@ -109,11 +109,9 @@ class PrimarySegregatorTransactionHistory extends Component {
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    currentId: state.currentUser.userDetails.vendor_id,
-    vendors: state.vendors,
-  };
-};
+const mapStateToProps = state => ({
+  currentId: state.currentUser.userDetails.vendor_id,
+  vendors: state.vendors,
+});
 
 export default connect(mapStateToProps)(PrimarySegregatorTransactionHistory);
