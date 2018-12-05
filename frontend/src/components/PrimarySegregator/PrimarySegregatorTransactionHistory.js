@@ -12,6 +12,7 @@ import {
 import { get } from './../utils/requests';
 import { connect } from 'react-redux';
 import { PropTypes } from 'prop-types';
+import { filterFromTransactions, filterToTransactions } from './../utils/transactions';
 
 const buyColumns = [
   {
@@ -239,18 +240,21 @@ class PrimarySegregatorTransactionHistory extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      transactions: [],
+      buyTransactions: [],
+      sellTransactions: [],
     };
   }
   static propTypes = {
-    currentUser: PropTypes.object.isRequired,
+    currentId: PropTypes.number.isRequired,
+    vendors: PropTypes.array.isRequired,
   };
 
   componentDidMount() {
-    // TODO(Nick): Wait for xin's PR in order to use currentUser object
-    get(`/vendors/${1}/transactions`).then(results => {
-      console.log(results.data);
-      this.setState({ transactions: results.data });
+    get(`/vendors/${this.props.currentId}/transactions`).then(results => {
+      const transactions = results.data;
+      const buyTransactions = filterFromTransactions(transactions, this.props.currentId);
+      const sellTransactions = filterToTransactions(transactions, this.props.currentId);
+      this.setState({ buyTransactions: buyTransactions, sellTransactions: sellTransactions });
     });
   }
 
@@ -262,7 +266,7 @@ class PrimarySegregatorTransactionHistory extends Component {
           <h2>Buy</h2>
           <ReactTable
             showPagination={false}
-            data={buyDummyTransactions}
+            data={this.state.buyTransactions}
             columns={buyColumns}
             defaultPageSize={3}
             className="-striped-highlight table"
@@ -270,7 +274,7 @@ class PrimarySegregatorTransactionHistory extends Component {
           <h2>Sell</h2>
           <ReactTable
             showPagination={false}
-            data={sellDummyTransactions}
+            data={this.state.sellTransactions}
             columns={sellColumns}
             defaultPageSize={3}
             className="-striped-highlight table"
@@ -284,7 +288,8 @@ class PrimarySegregatorTransactionHistory extends Component {
 
 const mapStateToProps = state => {
   return {
-    currentUser: state.currentUser,
+    currentId: state.currentUser.userDetails.vendor_id,
+    vendors: state.vendors,
   };
 };
 
