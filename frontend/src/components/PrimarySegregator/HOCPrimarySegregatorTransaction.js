@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { onFieldChange, isFormValid, onValidation } from '../utils/form';
 import CancelButton from '../common/CancelButton.js';
 import './../FormPage.css';
@@ -81,4 +82,18 @@ function composeTransaction(members) {
   };
 }
 
-export default composeTransaction;
+const mapStateToProps = state => {
+  return {
+    currentUser: state.currentUser,
+    vendors: state.vendors,
+  };
+};
+
+function composeTransactionsWithStore(members) {
+  return connect(
+    mapStateToProps,
+    null
+  )(composeTransaction(members));
+}
+
+export default composeTransactionsWithStore;

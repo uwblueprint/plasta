@@ -1,6 +1,5 @@
 import composeTransaction, { transactionTypes } from './HOCPrimarySegregatorTransaction';
 import { post, get } from '../utils/requests';
-import { connect } from 'react-redux';
 
 async function onSubmit() {
   if (!this.state.submitAttempted) this.setState({ submitAttempted: true }); // move out once onsubmit dispatched through redux
@@ -42,17 +41,10 @@ function getStakeholderOptions() {
   }));
 }
 
-const mapStateToProps = state => {
-  return {
-    currentUser: state.currentUser,
-    vendors: state.vendors,
-  };
-};
-
 const members = {
   onSubmit: onSubmit,
   transactionType: transactionTypes.BUY,
   getStakeholderOptions: getStakeholderOptions,
 };
 
-export default connect(mapStateToProps)(composeTransaction(members));
+export default composeTransaction(members);
