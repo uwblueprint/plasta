@@ -1,6 +1,5 @@
 import ReactTable from 'react-table';
 import React, { Component } from 'react';
-import PrimarySegregatorBottomBar from './PrimarySegregatorNavBar.js';
 import moment from 'moment';
 import './PrimarySegregator.css';
 import 'react-table/react-table.css';
@@ -105,7 +104,6 @@ class PrimarySegregatorTransactionHistory extends Component {
             className="-striped-highlight table"
           />
         </div>
-        <PrimarySegregatorBottomBar history={this.props.history} />
       </div>
     );
   }
