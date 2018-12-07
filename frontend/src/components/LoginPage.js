@@ -4,9 +4,9 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import TextInput from './input-components/TextInput.js';
 import { onFieldChange, ruleTypes } from './utils/form';
-import { userAuthentication } from '../actions';
+import { userAuthentication, loadVendors } from '../actions';
+import { post, get } from './utils/requests';
 import './LoginPage.css';
-import { post } from './utils/requests';
 
 class LoginPage extends Component {
   constructor(props) {
@@ -29,17 +29,14 @@ class LoginPage extends Component {
     };
     try {
       const auth = await post('/auth/login', loginData);
+      const vendors = await get('/vendors');
       const userInfo = { userDetails: auth.data, userType: auth.data.vendor.vendor_type };
+      this.props.loadVendors(vendors.data);
       this.props.userAuthentication(userInfo);
       this.props.cookies.set('access_token', auth.access_token);
-      if (auth.data.vendor.vendor_type === 'dwcc') {
-        this.props.history.push('/ps/transaction-history');
-      } else {
-        this.props.history.push('/landing');
-      }
     } catch (err) {
-      alert('Something went wrong.'); // TODO: NOTIFY ERROR AND LOG
-    }
+      alert('Unable to login.');
+    } // TODO: NOTIFY ERROR AND LOG }
   }
 
   render() {
@@ -83,18 +80,14 @@ class LoginPage extends Component {
   }
 }
 
-const mapStateToProps = state => ({
-  currentUser: state.currentUser,
-  vendors: state.vendors,
-});
-
 const mapDispatchToProps = dispatch => ({
   userAuthentication: currentUser => dispatch(userAuthentication(currentUser)),
+  loadVendors: vendors => dispatch(loadVendors(vendors)),
 });
 
 export default withRouter(
   connect(
-    mapStateToProps,
+    null,
     mapDispatchToProps
   )(LoginPage)
 );

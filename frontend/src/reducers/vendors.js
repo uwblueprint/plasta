@@ -1,4 +1,4 @@
-const vendors = (prevState = [], action) => {
+const vendors = (prevState = null, action) => {
   switch (action.type) {
     case 'LOAD_VENDORS':
       return action.vendors || [];

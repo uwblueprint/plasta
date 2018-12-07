@@ -1,7 +1,9 @@
-const currentUser = (prevState = {}, action) => {
+const currentUser = (prevState = null, action) => {
   switch (action.type) {
-    case 'USER_LOGIN':
+    case 'AUTHENTICATE_USER':
       return action.currentUser;
+    case 'CLEAR_USER':
+      return {};
     default:
       return prevState;
   }
