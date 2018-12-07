@@ -15,7 +15,7 @@ import PrimarySegregatorBuyTransaction from './components/PrimarySegregator/Prim
 import PrimarySegregatorSellTransaction from './components/PrimarySegregator/PrimarySegregatorSellTransaction';
 import PrimarySegregatorBottomBar from './components/PrimarySegregator/PrimarySegregatorNavBar.js';
 import { get } from './components/utils/requests';
-import { loadVendors, userAuthentication } from './actions';
+import { loadVendors, userAuthentication, clearUser } from './actions';
 import { Cookies, withCookies } from 'react-cookie';
 import { instanceOf } from 'prop-types';
 import { PrivateRoute } from './components/PrivateRoute';
@@ -24,7 +24,6 @@ import './common.css';
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { fetchingData: true };
     this.redirectUser = this.redirectUser.bind(this);
     this.getVendors = this.getVendors.bind(this);
   }
@@ -33,18 +32,13 @@ class App extends React.Component {
   };
 
   componentDidMount() {
-    this.setState({ fetchingData: true });
-    this.initializeUser()
-      .then(userInitialized => (userInitialized ? this.getVendors() : false))
-      .then(res => {
-        this.setState({ fetchingData: false });
-      });
+    this.initializeUser().then(userInitialized => this.getVendors(userInitialized));
   }
 
   async initializeUser() {
-    if (this.props.currentUser.userDetails || !this.isLoggedIn()) {
-      this.setState({ fetchingData: false });
-      return this.props.currentUser.userDetails ? true : false;
+    if (this.props.currentUser || !this.isLoggedIn()) {
+      if (!this.isLoggedIn()) this.props.clearUser();
+      return this.isLoggedIn() ? true : false;
     }
     try {
       const user = await get('/user/current', this.props.cookies);
@@ -58,19 +52,20 @@ class App extends React.Component {
   }
 
   redirectUser(props) {
-    if (this.state.fetchingData) return null;
-    return this.isLoggedIn() ? (
-      this.props.currentUser.userType === 'dwcc' ? (
+    if (this.props.fetchingData) return null;
+    if (this.isLoggedIn()) {
+      return this.props.currentUser.userType === 'dwcc' ? (
         <Redirect to={{ pathname: '/ps/transaction-history' }} />
       ) : (
         <Redirect to={{ pathname: '/landing' }} />
-      )
-    ) : (
-      <LoginPage cookies={this.props.cookies} {...props} />
-    );
+      );
+    } else {
+      return <LoginPage cookies={this.props.cookies} {...props} />;
+    }
   }
 
-  async getVendors() {
+  async getVendors(loggedIn) {
+    if (!loggedIn) return this.props.loadVendors([]);
     return get('/vendors').then(results => this.props.loadVendors(results.data));
   }
 
@@ -79,7 +74,7 @@ class App extends React.Component {
   };
 
   render() {
-    const isDataReady = !this.state.fetchingData;
+    const isDataReady = !this.props.fetchingData;
     const isLoggedIn = this.isLoggedIn();
     return (
       <React.Fragment>
@@ -171,10 +166,12 @@ const mapStateToProps = state => ({
   currentUser: state.currentUser,
   isLoading: state.isLoading,
   vendors: state.vendors,
+  fetchingData: !state.vendors || !state.currentUser,
 });
 
 const mapDispatchToProps = dispatch => ({
   loadVendors: payload => dispatch(loadVendors(payload)),
+  clearUser: () => dispatch(clearUser()),
   userAuthentication: currentUser => dispatch(userAuthentication(currentUser)),
 });
 

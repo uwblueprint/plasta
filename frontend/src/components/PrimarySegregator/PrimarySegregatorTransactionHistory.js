@@ -64,20 +64,18 @@ class PrimarySegregatorTransactionHistory extends Component {
   componentDidMount() {
     get(`/vendors/${this.props.currentId}/transactions`).then(results => {
       const transactions = results.data;
-      const buyTransactions = filterBuyTransactions(transactions, this.props.currentId).map(
-        transaction => {
-          const vendor = findVendorById(this.props.vendors, transaction.from_vendor_id);
-          if (!vendor) return;
-          return { ...transaction, name: vendor.name };
-        }
-      );
-      const sellTransactions = filterSellTransactions(transactions, this.props.currentId).map(
-        transaction => {
-          const vendor = findVendorById(this.props.vendors, transaction.to_vendor_id);
-          if (!vendor) return;
-          return { ...transaction, name: vendor.name };
-        }
-      );
+      const buyTransactions = [];
+      const sellTransactions = [];
+      filterBuyTransactions(transactions, this.props.currentId).forEach(transaction => {
+        const vendor = findVendorById(this.props.vendors, transaction.from_vendor_id);
+        if (!vendor) return;
+        buyTransactions.push({ ...transaction, name: vendor.name });
+      });
+      filterSellTransactions(transactions, this.props.currentId).forEach(transaction => {
+        const vendor = findVendorById(this.props.vendors, transaction.to_vendor_id);
+        if (!vendor) return;
+        sellTransactions.push({ ...transaction, name: vendor.name });
+      });
       this.setState({ buyTransactions: buyTransactions, sellTransactions: sellTransactions });
     });
   }
