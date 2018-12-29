@@ -1,5 +1,7 @@
 # Plasta
 
+Note: If you pulled this branch when it was under Gautam's account, you will need to update your remote url: https://help.github.com/articles/changing-a-remote-s-url/
+
 ## Setup
 
 ### Git
