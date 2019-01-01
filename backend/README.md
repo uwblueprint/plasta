@@ -52,7 +52,7 @@ Activate the virtual environment and run the migrations (steps in the run sectio
 ## Run
 
     $ pipenv shell
-    # Make sure to have run migrations
+    # Make sure to have run migrations: (backend) $ flask db upgrade
     (backend) $ flask run
 
 To exit the virtual environment:
