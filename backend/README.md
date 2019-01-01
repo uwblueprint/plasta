@@ -52,7 +52,10 @@ Activate the virtual environment and run the migrations (steps in the run sectio
 ## Run
 
     $ pipenv shell
-    # Make sure to have run migrations: (backend) $ flask db upgrade
+    # The first time around you will need to run migrations, then populate the database. Make sure to run the following from the root backend folder, `/backend`
+    (backend) $ flask db upgrade
+    (backend) $ python -m tools.populate_db
+    # To start the backend server
     (backend) $ flask run
 
 To exit the virtual environment:
@@ -60,6 +63,7 @@ To exit the virtual environment:
     (backend) $ exit
 
 ### Migrations
+Each time a database change is made on `master`, run the following to update your local database.
 
     (backend) $ flask db upgrade
 
