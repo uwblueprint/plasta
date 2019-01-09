@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import TextInput from './input-components/TextInput.js';
 import { onFieldChange, ruleTypes } from './utils/form';
-import { userAuthentication, loadVendors } from '../actions';
+import { authenticateUser, loadVendors } from '../actions';
 import { post, get } from './utils/requests';
 import './LoginPage.css';
 
@@ -32,11 +32,11 @@ class LoginPage extends Component {
       const vendors = await get('/vendors');
       const userInfo = { userDetails: auth.data, userType: auth.data.vendor.vendor_type };
       this.props.loadVendors(vendors.data);
-      this.props.userAuthentication(userInfo);
+      this.props.authenticateUser(userInfo);
       this.props.cookies.set('access_token', auth.access_token);
     } catch (err) {
       alert('Unable to login.');
-    } // TODO: NOTIFY ERROR AND LOG }
+    } // TODO: NOTIFY ERROR AND LOG
   }
 
   render() {
@@ -50,8 +50,8 @@ class LoginPage extends Component {
             </label>
             <TextInput
               placeholder="Email"
-              className="block input-field"
               field="email"
+              className="block input-field"
               value={this.state.email}
               onChange={this.onChange}
               rules={[ruleTypes.FIELD_REQUIRED]}
@@ -81,7 +81,7 @@ class LoginPage extends Component {
 }
 
 const mapDispatchToProps = dispatch => ({
-  userAuthentication: currentUser => dispatch(userAuthentication(currentUser)),
+  authenticateUser: currentUser => dispatch(authenticateUser(currentUser)),
   loadVendors: vendors => dispatch(loadVendors(vendors)),
 });
 
