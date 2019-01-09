@@ -15,7 +15,7 @@ import PrimarySegregatorBuyTransaction from './components/PrimarySegregator/Prim
 import PrimarySegregatorSellTransaction from './components/PrimarySegregator/PrimarySegregatorSellTransaction';
 import PrimarySegregatorBottomBar from './components/PrimarySegregator/PrimarySegregatorNavBar.js';
 import { get } from './components/utils/requests';
-import { loadVendors, authenticateUser, clearUser, fetchComplete } from './actions';
+import { loadVendors, authenticateUser, fetchComplete } from './actions';
 import { Cookies, withCookies } from 'react-cookie';
 import { instanceOf } from 'prop-types';
 import { PrivateRoute } from './components/PrivateRoute';
@@ -172,7 +172,6 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   loadVendors: payload => dispatch(loadVendors(payload)),
-  clearUser: () => dispatch(clearUser()),
   authenticateUser: currentUser => dispatch(authenticateUser(currentUser)),
   fetchComplete: () => dispatch(fetchComplete()),
 });

@@ -1,7 +1,3 @@
-export const clearUser = () => ({
-  type: 'CLEAR_USER',
-});
-
 export const fetchComplete = () => ({
   type: 'FETCH_COMPLETE',
 });
