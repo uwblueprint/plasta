@@ -1,6 +1,7 @@
 export const clearUser = () => ({
   type: 'CLEAR_USER',
 });
+
 export const fetchComplete = () => ({
   type: 'FETCH_COMPLETE',
 });
@@ -9,7 +10,7 @@ export const submitForm = () => ({
   type: 'SUBMIT_FORM',
 });
 
-export const userAuthentication = currentUser => ({
+export const authenticateUser = currentUser => ({
   type: 'AUTHENTICATE_USER',
   currentUser,
 });

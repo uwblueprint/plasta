@@ -3,7 +3,7 @@ const currentUser = (prevState = null, action) => {
     case 'AUTHENTICATE_USER':
       return action.currentUser;
     case 'CLEAR_USER':
-      return {};
+      return null;
     default:
       return prevState;
   }

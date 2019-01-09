@@ -1,4 +1,4 @@
-const isLoading = (prevState = false, action) => {
+const isLoading = (prevState = true, action) => {
   switch (action.type) {
     case 'SUBMIT_FORM':
       return true;

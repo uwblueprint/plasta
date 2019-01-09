@@ -1,5 +1,5 @@
 import composeTransaction, { transactionTypes } from './HOCPrimarySegregatorTransaction';
-import { post, get } from '../utils/requests';
+import { post } from '../utils/requests';
 
 async function onSubmit() {
   if (!this.state.submitAttempted) this.setState({ submitAttempted: true }); // move out once onsubmit dispatched through redux
@@ -31,9 +31,9 @@ async function onSubmit() {
 
 function getStakeholderOptions() {
   const currentVendorId = this.props.currentUser.userDetails.vendor_id;
-  const url = `/vendors/dwcc/${currentVendorId}/wastepickers`;
-  // TODO: Currently endpoint only gives empty array - figure out how to get endpoint working
-  // get(url).then(res => console.log(res.data));
+  // const url = `/vendors/dwcc/${currentVendorId}/wastepickers`;
+  // get(url).then(res => console.log(res.data)); // This gives me an empty array always idk why
+  //TODO: this always gives an empty array - figure out how to get the endpoint working
   const wastepickerIds = [3, 4];
   const filteredVendors = this.props.vendors.filter(vendor => wastepickerIds.includes(vendor.id));
   return filteredVendors.map(buyVendor => ({
