@@ -11,7 +11,7 @@ Note: If you pulled this branch when it was under Gautam's account, you will nee
 1. Run:
 
         $ cd <your projects folder>
-        $ git clone git@github.com:GautamGupta/plasta.git
+        $ git clone git@github.com:shelaq/plasta.git
 
 1. Follow the instructions in the `backend` and `frontend` folders.
 
