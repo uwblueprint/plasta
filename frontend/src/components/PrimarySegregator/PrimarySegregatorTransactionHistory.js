@@ -1,6 +1,7 @@
 import ReactTable from 'react-table';
 import React, { Component } from 'react';
 import moment from 'moment';
+import { withCookies } from 'react-cookie';
 import './PrimarySegregator.css';
 import 'react-table/react-table.css';
 import {
@@ -62,7 +63,7 @@ class PrimarySegregatorTransactionHistory extends Component {
   };
 
   componentDidMount() {
-    get(`/vendors/${this.props.currentId}/transactions`).then(results => {
+    get(`/vendors/${this.props.currentId}/transactions`, this.props.cookies).then(results => {
       const transactions = results.data;
       const buyTransactions = [];
       const sellTransactions = [];
@@ -112,4 +113,4 @@ const mapStateToProps = state => ({
   vendors: state.vendors,
 });
 
-export default connect(mapStateToProps)(PrimarySegregatorTransactionHistory);
+export default withCookies(connect(mapStateToProps)(PrimarySegregatorTransactionHistory));
