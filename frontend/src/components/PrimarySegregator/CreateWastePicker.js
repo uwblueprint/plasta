@@ -8,6 +8,7 @@ import { ruleTypes, onFieldChange, isFormValid, onValidation } from '../utils/fo
 import OnSubmitButton from '../common/OnSubmitButton';
 import FileInput from '../input-components/FileInput';
 import CancelButton from '../common/CancelButton.js';
+import LogoutButton from '../common/LogoutButton.js';
 import { postMultiType } from '../utils/requests';
 import { snakeCase } from 'lodash';
 import '../FormPage.css';
@@ -82,6 +83,7 @@ class CreateWastePicker extends Component {
     return (
       <div className="page-wrapper" id="create-wastepicker-wrapper">
         <CancelButton context={this.context} />
+        <LogoutButton />
         <h1>Create Waste Picker</h1>
         <p className="required-field-notif">
           All fields marked with <b>*</b> are required.
