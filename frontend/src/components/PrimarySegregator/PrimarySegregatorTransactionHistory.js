@@ -1,6 +1,7 @@
 import ReactTable from 'react-table';
 import React, { Component } from 'react';
 import moment from 'moment';
+import LogoutButton from '../common/LogoutButton.js';
 import './PrimarySegregator.css';
 import 'react-table/react-table.css';
 import {
@@ -84,6 +85,7 @@ class PrimarySegregatorTransactionHistory extends Component {
     return (
       <div>
         <div id="primary-segregator-page-wrapper">
+          <LogoutButton />
           <h1> Transaction History </h1>
           <h2>Buy</h2>
           <ReactTable

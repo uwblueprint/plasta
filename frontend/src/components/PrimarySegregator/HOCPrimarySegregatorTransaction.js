@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { onFieldChange, isFormValid, onValidation } from '../utils/form';
 import CancelButton from '../common/CancelButton.js';
+import LogoutButton from '../common/LogoutButton.js';
 import './../FormPage.css';
 import { PropTypes } from 'prop-types';
 import moment from 'moment';
@@ -62,6 +63,7 @@ function composeTransaction(members) {
       return (
         <div id="transactions-wrapper">
           <CancelButton context={this.context} />
+          <LogoutButton />
           <PrimarySegregatorTransaction
             title={members.transactionType === transactionTypes.BUY ? 'Buy' : 'Sell'}
             transactionType={members.transactionType}
