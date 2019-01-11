@@ -1,5 +1,10 @@
-function getAuthorizationHeader(cookies) {
-  return cookies ? { Authorization: `Bearer ${cookies.get('access_token')}` } : {};
+import { Cookies } from 'react-cookie';
+
+function getAuthorizationHeader(payload) {
+  let accessToken = null;
+  if (payload instanceof Cookies) accessToken = payload.get('access_token');
+  else if (payload && payload.authToken) accessToken = payload.authToken;
+  return accessToken ? { Authorization: `Bearer ${accessToken}` } : {};
 }
 
 export function post(path, payload, cookies) {
@@ -48,13 +53,13 @@ export function postMultiType(path, fields, cookies) {
     });
 }
 
-export function get(path, cookies) {
+export function get(path, payload) {
   const url = process.env.REACT_APP_API_URL + path;
   const data = {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
-      ...getAuthorizationHeader(cookies),
+      ...getAuthorizationHeader(payload),
     },
   };
   return fetch(url, data)

@@ -41,16 +41,18 @@ class App extends React.Component {
   }
 
   async initializeUser() {
-    if (!this.isLoggedIn()) return null;
     if (this.props.currentUser) return this.props.currentUser;
+    if (!this.isLoggedIn()) return null;
     try {
       const user = await get('/user/current', this.props.cookies);
       const userInfo = { userDetails: user.data, userType: user.data.vendor.vendor_type };
       await this.props.authenticateUser(userInfo);
       return userInfo;
-    } catch (e) {
-      console.error(e);
-      return false;
+    } catch (res) {
+      if (res.status === 401) {
+        this.props.cookies.remove('access_token');
+      } else console.error(res);
+      return null;
     }
   }
 
@@ -68,7 +70,7 @@ class App extends React.Component {
   }
 
   async getVendors() {
-    const vendors = await get('/vendors');
+    const vendors = await get('/vendors', this.props.cookies);
     return this.props.loadVendors(vendors.data);
   }
 

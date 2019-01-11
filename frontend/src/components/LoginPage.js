@@ -23,18 +23,17 @@ class LoginPage extends Component {
 
   async onSubmit() {
     if (!this.state.submitAttempted) this.setState({ submitAttempted: true });
-    const loginData = {
-      email: this.state.email,
-      password: this.state.password,
-    };
+    const loginData = { email: this.state.email, password: this.state.password };
+
     try {
       const auth = await post('/auth/login', loginData);
-      const vendors = await get('/vendors');
+      const vendors = await get('/vendors', { authToken: auth.access_token });
       const userInfo = { userDetails: auth.data, userType: auth.data.vendor.vendor_type };
-      this.props.loadVendors(vendors.data);
       this.props.authenticateUser(userInfo);
+      this.props.loadVendors(vendors.data);
       this.props.cookies.set('access_token', auth.access_token);
     } catch (err) {
+      console.error(err);
       alert('Unable to login.');
     } // TODO: NOTIFY ERROR AND LOG
   }

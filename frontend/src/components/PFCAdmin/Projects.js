@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { withCookies } from 'react-cookie';
 import './Projects.css';
 import { get } from '../utils/requests.js';
 
@@ -13,7 +14,7 @@ class Projects extends Component {
   }
 
   componentDidMount() {
-    get('/projects')
+    get('/projects', this.props.cookies)
       .then(res => {
         this.setState({
           projectList: res.data,
@@ -61,4 +62,4 @@ class Projects extends Component {
   }
 }
 
-export default Projects;
+export default withCookies(Projects);

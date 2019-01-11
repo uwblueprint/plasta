@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { withCookies } from 'react-cookie';
 import { get } from '../utils/requests';
 import TransactionHistory from './TransactionHistory';
 import './ProjectPage.css';
@@ -17,7 +18,7 @@ class ProjectPage extends Component {
   componentDidMount() {
     const { projectId } = this.props.match.params;
     const url = `/projects/${projectId}/transactions`;
-    get(url).then(res => res.data);
+    get(url, this.props.cookies).then(res => res.data);
   }
 
   render() {
@@ -34,4 +35,4 @@ ProjectPage.propTypes = {
   data: PropTypes.arrayOf(PropTypes.object),
 };
 
-export default ProjectPage;
+export default withCookies(ProjectPage);

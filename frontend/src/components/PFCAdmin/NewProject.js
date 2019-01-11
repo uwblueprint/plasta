@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { withCookies } from 'react-cookie';
 import moment from 'moment';
 import DayPickerInput from 'react-day-picker/DayPickerInput';
 import { snakeCase } from 'lodash';
@@ -86,7 +87,7 @@ class NewProject extends Component {
       plastics: this.state.plastics,
       // meta_data: metaData,
     };
-    return post('/projects', newProjectData);
+    return post('/projects', newProjectData, this.props.cookies);
   }
 
   render() {
@@ -289,4 +290,4 @@ const mapStateToProps = state => ({
   vendors: state.vendors,
 });
 
-export default connect(mapStateToProps)(NewProject);
+export default withCookies(connect(mapStateToProps)(NewProject));
