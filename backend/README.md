@@ -29,6 +29,8 @@ We use [pipenv](https://github.com/pypa/pipenv#-usage).
     $ sudo apt-get install postgresql-10
     $ sudo -u postgres -i
     $ ./scripts/setup_postgres.sh
+    
+Note: if you are on Ubuntu you may have to run the steps in `setup_postgres.sh` manually.
 
 
 To check if the setup worked, see if `plasta` appears as a role and a database when you run the following commands:
