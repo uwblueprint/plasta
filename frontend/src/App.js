@@ -19,6 +19,7 @@ import { loadVendors, authenticateUser, fetchComplete } from './actions';
 import { Cookies, withCookies } from 'react-cookie';
 import { instanceOf } from 'prop-types';
 import { PrivateRoute } from './components/PrivateRoute';
+import LogoutButton from './components/common/LogoutButton';
 import './common.css';
 
 class App extends React.Component {
@@ -155,6 +156,7 @@ class App extends React.Component {
                 component={CreateExternalPrimarySegregator}
               />
             </Switch>
+            {this.props.currentUser && <LogoutButton cookies={this.props.cookies} />}
             {this.props.currentUser &&
               this.props.currentUser.userType === 'dwcc' && <PrimarySegregatorBottomBar />}
           </React.Fragment>
