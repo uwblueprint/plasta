@@ -15,16 +15,9 @@ import { fieldsInfo } from '../utils/project';
 import { onFieldChange, ruleTypes, onValidation, isFormValid } from '../utils/form';
 import 'react-day-picker/lib/style.css';
 import '../FormPage.css';
-
-const staticPrimarySegregator = [
-  { label: 'Primary Segregator 1', value: 'ps1' },
-  { label: 'Primary Segregator 2', value: 'ps2' },
-];
-
-const staticWholesaler = [
-  { label: 'Wholesaler 1', value: 'WS1' },
-  { label: 'Wholesaler 2', value: 'WS2' },
-];
+import { connect } from 'react-redux';
+import { PropTypes } from 'prop-types';
+import { findVendorsByType } from '../utils/vendors.js';
 
 const staticShippingTerms = [
   { label: 'FOB', value: 'fob' },
@@ -38,6 +31,8 @@ class NewProject extends Component {
     this.state = {
       errors: {},
       submitAttempted: false,
+      wholesalerOptions: [],
+      primarySegregatorOptions: [],
     };
 
     Object.keys(fieldsInfo).forEach(field => {
@@ -48,6 +43,22 @@ class NewProject extends Component {
     this.onValidation = onValidation.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
     this.isFormValid = isFormValid.bind(this);
+  }
+
+  static propType = {
+    vendors: PropTypes.array.isRequired,
+  };
+
+  componentDidMount() {
+    const vendors = this.props.vendors;
+    vendors.forEach(vendor => vendor["label"] = vendor.name);
+    const wholesalers = findVendorsByType(vendors, "wholesaler");
+    const primarySegregators = findVendorsByType(vendors, "dwcc");
+    this.setState(
+      {
+        wholesalerOptions : wholesalers,
+        primarySegregatorOptions: primarySegregators
+      });
   }
 
   handleDayChange(input, value) {
@@ -139,7 +150,7 @@ class NewProject extends Component {
         </FormSection>
         <FormSection title="Wholesalers *">
           <SearchSelect
-            options={staticWholesaler}
+            options={this.state.wholesalerOptions}
             field="wholesalers"
             onChange={this.onFieldChange}
             value={this.state.wholesalers}
@@ -151,7 +162,7 @@ class NewProject extends Component {
         </FormSection>
         <FormSection title="Primary Segregator(s) *">
           <SearchSelect
-            options={staticPrimarySegregator}
+            options={this.state.primarySegregatorOptions}
             field="primarySegregators"
             onChange={this.onFieldChange}
             value={this.state.primarySegregators}
@@ -275,4 +286,8 @@ class NewProject extends Component {
   }
 }
 
-export default NewProject;
+const mapStateToProps = state => ({
+  vendors: state.vendors,
+});
+
+export default connect(mapStateToProps)(NewProject);
