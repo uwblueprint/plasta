@@ -54,11 +54,10 @@ class NewProject extends Component {
     vendors.forEach(vendor => vendor["label"] = vendor.name);
     const wholesalers = findVendorsByType(vendors, "wholesaler");
     const primarySegregators = findVendorsByType(vendors, "dwcc");
-    this.setState(
-      {
-        wholesalerOptions: wholesalers,
-        primarySegregatorOptions: primarySegregators
-      });
+    this.setState({
+      wholesalerOptions: wholesalers,
+      primarySegregatorOptions: primarySegregators
+    });
   }
 
   handleDayChange(input, value) {
