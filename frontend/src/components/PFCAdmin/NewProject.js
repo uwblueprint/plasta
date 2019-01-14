@@ -28,11 +28,15 @@ const staticShippingTerms = [
 class NewProject extends Component {
   constructor(props) {
     super(props);
+    const vendors = this.props.vendors;
+    vendors.forEach(vendor => vendor["label"] = vendor.name);
+    const wholesalers = findVendorsByType(vendors, "wholesaler");
+    const primarySegregators = findVendorsByType(vendors, "dwcc");
     this.state = {
       errors: {},
       submitAttempted: false,
-      wholesalerOptions: [],
-      primarySegregatorOptions: [],
+      wholesalerOptions : wholesalers,
+      primarySegregatorOptions: primarySegregators,
     };
 
     Object.keys(fieldsInfo).forEach(field => {
@@ -48,18 +52,6 @@ class NewProject extends Component {
   static propType = {
     vendors: PropTypes.array.isRequired,
   };
-
-  componentDidMount() {
-    const vendors = this.props.vendors;
-    vendors.forEach(vendor => vendor["label"] = vendor.name);
-    const wholesalers = findVendorsByType(vendors, "wholesaler");
-    const primarySegregators = findVendorsByType(vendors, "dwcc");
-    this.setState(
-      {
-        wholesalerOptions : wholesalers,
-        primarySegregatorOptions: primarySegregators
-      });
-  }
 
   handleDayChange(input, value) {
     this.setState({
