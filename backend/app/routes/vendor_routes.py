@@ -39,7 +39,7 @@ def create_vendor_transaction(vendor_id):
 
 
 # TODO(imran): Only certain vendor types should have the power to create
-# other vendor types. For example, DWCCs can only create other DWCCs.
+# other vendor types. For example, primary segregators can only create other primary segregators.
 # We should prevent vendors from creating other vendors inappropriately.
 # This requires having a `current_user` object.
 @blueprint.route('/', methods=['POST'])
@@ -55,8 +55,8 @@ def create_vendor():
     return success(data=vendor.to_dict(include_relationships=True))
 
 
-@blueprint.route('/dwcc/<int:dwcc_id>/wastepickers', methods=['GET'])
+@blueprint.route('/primary_segregator/<int:primary_segregator_id>/wastepickers', methods=['GET'])
 # @jwt_required
-def get_dwcc_associated_wastepickers(dwcc_id):
-    wastepicker_ids = db_client.get_dwcc_associated_wastepickers(dwcc_id)
+def get_primary_segregator_associated_wastepickers(primary_segregator_id):
+    wastepicker_ids = db_client.get_primary_segregator_associated_wastepickers(primary_segregator_id)
     return success(data=wastepicker_ids)

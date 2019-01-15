@@ -31,7 +31,7 @@ async function onSubmit() {
 
 function getStakeholderOptions() {
   const currentVendorId = this.props.currentUser.userDetails.vendor_id;
-  // const url = `/vendors/dwcc/${currentVendorId}/wastepickers`;
+  // const url = `/vendors/primary_segregator/${currentVendorId}/wastepickers`;
   // get(url).then(res => console.log(res.data)); // This gives me an empty array always idk why
   //TODO: this always gives an empty array - figure out how to get the endpoint working
   const wastepickerIds = [3, 4];

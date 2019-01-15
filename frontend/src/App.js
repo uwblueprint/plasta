@@ -57,7 +57,7 @@ class App extends React.Component {
   redirectUser(props) {
     if (this.props.isLoading) return null;
     if (this.isLoggedIn()) {
-      return this.props.currentUser.userType === 'dwcc' ? (
+      return this.props.currentUser.userType === 'primary_segregator' ? (
         <Redirect to={{ pathname: '/ps/transaction-history' }} />
       ) : (
         <Redirect to={{ pathname: '/landing' }} />
@@ -158,7 +158,9 @@ class App extends React.Component {
             </Switch>
             {this.props.currentUser && <LogoutButton cookies={this.props.cookies} />}
             {this.props.currentUser &&
-              this.props.currentUser.userType === 'dwcc' && <PrimarySegregatorBottomBar />}
+              this.props.currentUser.userType === 'primary_segregator' && (
+                <PrimarySegregatorBottomBar />
+              )}
           </React.Fragment>
         </Router>
       </React.Fragment>

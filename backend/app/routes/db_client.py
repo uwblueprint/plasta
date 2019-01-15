@@ -4,7 +4,7 @@ from . import s3_client
 from ..models.project import Project
 from ..models.transaction import Transaction
 from ..models.user import User
-from ..models.vendor import DWCCWastepickerMap, Vendor
+from ..models.vendor import PrimarySegregatorWastepickerMap, Vendor
 
 
 # TODO(imran): write decorator to make db reads/writes atomic
@@ -50,10 +50,10 @@ def create_vendor(data, current_user=None, files=None):
     vendor = Vendor.create(**data)
 
     if current_user is not None \
-            and current_user['vendor']['vendor_type'] == 'dwcc' \
+            and current_user['vendor']['vendor_type'] == 'primary_segregator' \
             and vendor.vendor_type == 'wastepicker':
-        DWCCWastepickerMap.create(
-            dwcc_id=current_user['vendor_id'],
+        PrimarySegregatorWastepickerMap.create(
+            primary_segregator_id=current_user['vendor_id'],
             wastepicker_id=vendor.id)
     return vendor
 
@@ -70,8 +70,8 @@ def get_vendor_transactions(vendor_id):
             Transaction.to_vendor_id == vendor_id))
 
 
-def get_dwcc_associated_wastepickers(dwcc_id):
+def get_primary_segregator_associated_wastepickers(primary_segregator_id):
     return [
         entry.wastepicker_id
-        for entry in DWCCWastepickerMap.get_by(dwcc_id=dwcc_id)
+        for entry in PrimarySegregatorWastepickerMap.get_by(primary_segregator_id=primary_segregator_id)
     ]

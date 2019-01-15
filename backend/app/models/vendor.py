@@ -6,7 +6,7 @@ from .mixins import BaseMixin
 vendor_type_enum = db.Enum(
     'admin',
     'wastepicker',
-    'dwcc',
+    'primary_segregator',
     'wholesaler',
     'manufacturer',
     name='vendor_type')
@@ -19,7 +19,7 @@ vendor_subtype_enum = db.Enum(
     'small_scrap_shop',
     'scrap_shop',
     'van_unit',
-    'dwcc',
+    'primary_segregator',
     'wholesaler',
     'export_wholesaler',
     'franchisee_partner',
@@ -35,9 +35,9 @@ vendor_subtype_map = {
     'itinerant_buyer': 'wastepicker',
     'wp_community_leader': 'wastepicker',
     'small_scrap_shop': 'wastepicker',
-    'scrap_shop': 'dwcc',
-    'van_unit': 'dwcc',
-    'dwcc': 'dwcc',
+    'scrap_shop': 'primary_segregator',
+    'van_unit': 'primary_segregator',
+    'primary_segregator': 'primary_segregator',
     'wholesaler': 'wholesaler',
     'export_wholesaler': 'wholesaler',
     'franchisee_partner': 'wholesaler',
@@ -65,10 +65,10 @@ class Vendor(BaseMixin, db.Model):
         return super().create(**kwargs)
 
 
-class DWCCWastepickerMap(BaseMixin, db.Model):
-    __tablename__ = 'dwcc_wastepicker_map'
+class PrimarySegregatorWastepickerMap(BaseMixin, db.Model):
+    __tablename__ = 'primary_segregator_wastepicker_map'
     wastepicker_id = db.Column(
         db.Integer, db.ForeignKey('vendor.id'), primary_key=True)
-    dwcc_id = db.Column(db.Integer, db.ForeignKey('vendor.id'))
-    __table_args__ = (db.Index('IX_dwcc_wastepicker_map_dwcc_id', dwcc_id),
-                      db.UniqueConstraint('dwcc_id', 'wastepicker_id'))
+    primary_segregator_id = db.Column(db.Integer, db.ForeignKey('vendor.id'))
+    __table_args__ = (db.Index('IX_primary_segregator_wastepicker_map_primary_segregator_id', primary_segregator_id),
+                      db.UniqueConstraint('primary_segregator_id', 'wastepicker_id'))

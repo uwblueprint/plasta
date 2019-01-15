@@ -51,12 +51,12 @@ class NewProject extends Component {
 
   componentDidMount() {
     const vendors = this.props.vendors;
-    vendors.forEach(vendor => vendor["label"] = vendor.name);
-    const wholesalers = findVendorsByType(vendors, "wholesaler");
-    const primarySegregators = findVendorsByType(vendors, "dwcc");
+    vendors.forEach(vendor => (vendor['label'] = vendor.name));
+    const wholesalers = findVendorsByType(vendors, 'wholesaler');
+    const primarySegregators = findVendorsByType(vendors, 'primary_segregator');
     this.setState({
       wholesalerOptions: wholesalers,
-      primarySegregatorOptions: primarySegregators
+      primarySegregatorOptions: primarySegregators,
     });
   }
 

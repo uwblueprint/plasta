@@ -53,7 +53,7 @@ const dummyTransactions = [
     },
     to_vendor: {
       id: 2,
-      vendor_type: 'dwcc',
+      vendor_type: 'primary_segregator',
       name: 'Stephen Curry',
       meta_data: {},
       created_at: Date.now(),
