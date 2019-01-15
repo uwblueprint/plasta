@@ -24,7 +24,7 @@ async function onSubmit() {
   if (this.state.transactionDate !== '') {
     transactionData.sale_date = this.state.transactionDate;
   }
-  post('/vendors/1/transactions', transactionData).catch(err => {
+  post('/vendors/1/transactions', transactionData, this.props.cookies).catch(err => {
     alert('There was a problem submitting the transaction. Please try again.');
   });
 }

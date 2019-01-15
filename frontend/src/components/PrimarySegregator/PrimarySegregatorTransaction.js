@@ -142,4 +142,4 @@ PrimarySegregatorTransaction.propTypes = {
   stakeholderName: PropTypes.object.isRequired,
 };
 
-export default withRouter(PrimarySegregatorTransaction);
+export default PrimarySegregatorTransaction;
