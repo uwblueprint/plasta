@@ -32,20 +32,9 @@ async function onSubmit() {
   });
 }
 
-function getStakeholderOptions() {
-  // const currentVendorId = this.props.currentUser.userDetails.vendor_id;
-  const wastepickerIds = [1, 2];
-  const filteredVendors = this.props.vendors.filter(vendor => wastepickerIds.includes(vendor.id));
-  return filteredVendors.map(sellVendor => ({
-    label: sellVendor.name,
-    value: sellVendor.id,
-  }));
-}
-
 const members = {
   onSubmit: onSubmit,
   transactionType: transactionTypes.SELL,
-  getStakeholderOptions: getStakeholderOptions,
 };
 
 export default composeTransaction(members);

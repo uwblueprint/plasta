@@ -7,6 +7,8 @@ import './../FormPage.css';
 import { PropTypes } from 'prop-types';
 import moment from 'moment';
 import PrimarySegregatorTransaction from './PrimarySegregatorTransaction';
+import { get } from '../utils/requests';
+import { findVendorsByTypes, findVendorsByIds } from '../utils/vendors';
 
 export const transactionTypes = {
   BUY: 1,
@@ -29,7 +31,6 @@ function composeTransaction(members) {
         stakeholderOptions: [],
       };
       this.onSubmit = members.onSubmit.bind(this);
-      this.getStakeholderOptions = members.getStakeholderOptions.bind(this);
       this.onFieldChange = onFieldChange.bind(this);
       this.handleDayChange = this.handleDayChange.bind(this);
       this.handleNewStakeholder = this.handleNewStakeholder.bind(this);
@@ -44,7 +45,31 @@ function composeTransaction(members) {
     };
 
     componentDidMount() {
-      this.setState({ stakeholderOptions: this.getStakeholderOptions() });
+      if (members.transactionType === transactionTypes.BUY) {
+        const currentVendorId = this.props.currentUser.userDetails.id;
+        const url = `/vendors/primary_segregator/${currentVendorId}/wastepickers`;
+        get(url, this.props.cookies.get('access_token'))
+        .then(res => {
+          const stakeholderOptions = findVendorsByIds(this.props.vendors, res.data)
+          .map(buyVendor => ({
+            label: buyVendor.name,
+            value: buyVendor.id,
+          }));
+          this.setState({
+            stakeholderOptions: stakeholderOptions,
+          });
+        });
+      } else {
+        const stakeholderOptions = findVendorsByTypes(this.props.vendors,
+          ['wholesaler', 'primary_segregator'])
+          .map(sellVendor => ({
+            label: sellVendor.name,
+            value: sellVendor.id,
+          }));
+        this.setState({
+          stakeholderOptions: stakeholderOptions,
+        });
+      }
     }
 
     hideModal() {
