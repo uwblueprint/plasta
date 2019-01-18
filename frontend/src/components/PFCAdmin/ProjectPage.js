@@ -18,7 +18,7 @@ class ProjectPage extends Component {
   componentDidMount() {
     const { projectId } = this.props.match.params;
     const url = `/projects/${projectId}/transactions`;
-    get(url, this.props.cookies).then(res => res.data);
+    get(url, this.props.cookies.get('access_token')).then(res => res.data);
   }
 
   render() {

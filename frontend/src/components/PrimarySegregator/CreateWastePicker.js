@@ -74,7 +74,10 @@ class CreateWastePicker extends Component {
       }
     });
     // data.push({ key: 'meta_data', value: metaData });
-    return postMultiType('/vendors', data, this.props.cookies);
+    return postMultiType('/vendors', {
+      data: data,
+      authToken: this.props.cookies.get('access_token'),
+    });
   }
 
   render() {

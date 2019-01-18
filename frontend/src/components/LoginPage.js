@@ -26,8 +26,8 @@ class LoginPage extends Component {
     const loginData = { email: this.state.email, password: this.state.password };
 
     try {
-      const auth = await post('/auth/login', loginData);
-      const vendors = await get('/vendors', { authToken: auth.access_token });
+      const auth = await post('/auth/login', { data: loginData });
+      const vendors = await get('/vendors', auth.access_token);
       const userInfo = { userDetails: auth.data, userType: auth.data.vendor.vendor_type };
       this.props.authenticateUser(userInfo);
       this.props.loadVendors(vendors.data);

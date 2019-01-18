@@ -1,21 +1,18 @@
 import { Cookies } from 'react-cookie';
 
-function getAuthorizationHeader(payload) {
-  let accessToken = null;
-  if (payload instanceof Cookies) accessToken = payload.get('access_token');
-  else if (payload && payload.authToken) accessToken = payload.authToken;
-  return accessToken ? { Authorization: `Bearer ${accessToken}` } : {};
+function getAuthorizationHeader(authToken) {
+  return authToken ? { Authorization: `Bearer ${authToken}` } : {};
 }
 
-export function post(path, payload, cookies) {
+export function post(path, payload) {
   const url = process.env.REACT_APP_API_URL + path;
   const data = {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      ...getAuthorizationHeader(cookies),
+      ...getAuthorizationHeader(payload.authToken),
     },
-    body: JSON.stringify(payload),
+    body: JSON.stringify(payload.data),
   };
   return fetch(url, data)
     .then(response => {
@@ -29,16 +26,16 @@ export function post(path, payload, cookies) {
 }
 
 // TODO : accept multiple images
-export function postMultiType(path, fields, cookies) {
+export function postMultiType(path, payload) {
   const url = process.env.REACT_APP_API_URL + path;
   const formData = new FormData();
-  fields.forEach(field => {
+  payload.data.forEach(field => {
     formData.append(field.key, field.value);
   });
   const data = {
     method: 'POST',
     headers: {
-      ...getAuthorizationHeader(cookies),
+      ...getAuthorizationHeader(payload.authToken),
     },
     body: formData,
   };
@@ -53,13 +50,13 @@ export function postMultiType(path, fields, cookies) {
     });
 }
 
-export function get(path, payload) {
+export function get(path, authToken) {
   const url = process.env.REACT_APP_API_URL + path;
   const data = {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
-      ...getAuthorizationHeader(payload),
+      ...getAuthorizationHeader(authToken),
     },
   };
   return fetch(url, data)

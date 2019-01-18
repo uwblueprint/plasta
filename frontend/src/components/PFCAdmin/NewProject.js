@@ -87,7 +87,10 @@ class NewProject extends Component {
       plastics: this.state.plastics,
       // meta_data: metaData,
     };
-    return post('/projects', newProjectData, this.props.cookies);
+    return post('/projects', {
+      data: newProjectData,
+      authToken: this.props.cookies.get('access_token'),
+    });
   }
 
   render() {

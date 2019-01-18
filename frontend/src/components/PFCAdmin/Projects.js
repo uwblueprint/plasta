@@ -14,7 +14,7 @@ class Projects extends Component {
   }
 
   componentDidMount() {
-    get('/projects', this.props.cookies)
+    get('/projects', this.props.cookies.get('access_token'))
       .then(res => {
         this.setState({
           projectList: res.data,
