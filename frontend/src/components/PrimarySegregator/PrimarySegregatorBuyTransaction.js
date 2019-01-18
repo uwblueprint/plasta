@@ -33,23 +33,9 @@ async function onSubmit() {
   });
 }
 
-function getStakeholderOptions() {
-  const currentVendorId = this.props.currentUser.userDetails.vendor_id;
-  // const url = `/vendors/primary_segregator/${currentVendorId}/wastepickers`;
-  // get(url).then(res => console.log(res.data)); // This gives me an empty array always idk why
-  //TODO: this always gives an empty array - figure out how to get the endpoint working
-  const wastepickerIds = [3, 4];
-  const filteredVendors = this.props.vendors.filter(vendor => wastepickerIds.includes(vendor.id));
-  return filteredVendors.map(buyVendor => ({
-    label: buyVendor.name,
-    value: buyVendor.id,
-  }));
-}
-
 const members = {
   onSubmit: onSubmit,
   transactionType: transactionTypes.BUY,
-  getStakeholderOptions: getStakeholderOptions,
 };
 
 export default composeTransaction(members);
