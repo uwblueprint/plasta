@@ -8,8 +8,9 @@ import { ruleTypes, onFieldChange, isFormValid, onValidation } from '../utils/fo
 import OnSubmitButton from '../common/OnSubmitButton';
 import FileInput from '../input-components/FileInput';
 import CancelButton from '../common/CancelButton.js';
-import { postMultiType } from '../utils/requests';
+import { postMultiType, get } from '../utils/requests';
 import { snakeCase } from 'lodash';
+import { connect } from 'react-redux';
 import '../FormPage.css';
 
 // TODO (XIN): get from endpoints
@@ -20,13 +21,6 @@ const availableLanguages = [
   { label: 'Urdu', value: 'urdu' },
   { label: 'Bengali', value: 'bengali' },
   { label: 'Tamil', value: 'tamil' },
-];
-
-const wastepickerTypes = [
-  { label: 'Waste Picker (general)', value: 'wastepicker' },
-  { label: 'Home Based Worker', value: 'home_based_worker' },
-  { label: 'Itinerant Buyer', value: 'itinerant_buyer' },
-  { label: 'Waste Picker Community Leader', value: 'wp_community_leader' },
 ];
 
 const fieldsInfo = {
@@ -47,6 +41,7 @@ class CreateWastePicker extends Component {
     this.state = {
       errors: {},
       submitAttempted: false,
+      wastepickerTypes: [],
     };
     Object.keys(fieldsInfo).forEach(field => (this.state[field] = fieldsInfo[field].default));
     this.onSubmit = this.onSubmit.bind(this);
@@ -77,6 +72,30 @@ class CreateWastePicker extends Component {
     return postMultiType('/vendors', {
       data: data,
       authToken: this.props.cookies.get('access_token'),
+    });
+  }
+
+  async componentDidMount() {
+    const wastepickerTypes = await get('/vendors/wastepicker_types');
+    wastepickerTypes.data.forEach(function(option) {
+      if (option.code === 'wastepicker') {
+        option['label'] = 'Waste Picker (General)';
+      } else if (option.code === 'wp_community_leader') {
+        option['label'] = 'Waste Picker Community Leader';
+      } else {
+        // Remove underscores and capitalize words
+        function cleanLabel(str) {
+          const frags = str.split('_');
+          for (let i = 0; i < frags.length; i++) {
+            frags[i] = frags[i].charAt(0).toUpperCase() + frags[i].slice(1);
+          }
+          return frags.join(' ');
+        }
+        option['label'] = cleanLabel(option.code);
+      }
+    });
+    this.setState({
+      wastepickerTypes: wastepickerTypes.data,
     });
   }
 
@@ -128,7 +147,7 @@ class CreateWastePicker extends Component {
           <SearchSelect
             field="vendorSubtype"
             value={this.state.vendorSubtype}
-            options={wastepickerTypes}
+            options={this.state.wastepickerTypes}
             onChange={this.onFieldChange}
             rules={[ruleTypes.FIELD_REQUIRED]}
           />
@@ -181,4 +200,8 @@ class CreateWastePicker extends Component {
   }
 }
 
-export default withCookies(CreateWastePicker);
+const mapStateToProps = state => ({
+  vendors: state.vendors,
+});
+
+export default withCookies(connect(mapStateToProps)(CreateWastePicker));

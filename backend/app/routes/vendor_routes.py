@@ -61,3 +61,26 @@ def get_primary_segregator_associated_wastepickers(primary_segregator_id):
     wastepicker_ids = db_client.get_primary_segregator_associated_wastepickers(
         primary_segregator_id)
     return success(data=wastepicker_ids)
+
+
+@blueprint.route('/wastepicker_types', methods=['GET'])
+# @jwt_required
+def get_wastepicker_types():
+    wastepicker_types = [
+        {
+            'code': 'wastepicker'
+        },
+        {
+            'code': 'home_based_worker'
+        },
+        {
+            'code': 'itinerant_buyer'
+        },
+        {
+            'code': 'wp_community_leader'
+        },
+        {
+            'code': 'small_scrap_shop'
+        }
+    ]
+    return success(data=wastepicker_types)
