@@ -3,6 +3,7 @@ from flask_jwt_extended import get_jwt_identity, jwt_required
 
 from . import db_client
 from .utils.route_utils import success
+from ..models.vendor import vendor_subtype_map
 
 blueprint = Blueprint('vendor', __name__, url_prefix='/vendors')
 
@@ -65,21 +66,8 @@ def get_primary_segregator_associated_wastepickers(primary_segregator_id):
 @blueprint.route('/wastepicker_types', methods=['GET'])
 # @jwt_required
 def get_wastepicker_types():
-    wastepicker_types = [
-        {
-            'code': 'wastepicker'
-        },
-        {
-            'code': 'home_based_worker'
-        },
-        {
-            'code': 'itinerant_buyer'
-        },
-        {
-            'code': 'wp_community_leader'
-        },
-        {
-            'code': 'small_scrap_shop'
-        }
-    ]
+    wastepicker_types = []
+    for vendor_subtype, vendor_type in vendor_subtype_map.items():
+        if (vendor_type == 'wastepicker'):
+            wastepicker_types.append({'code': vendor_subtype})
     return success(data=wastepicker_types)

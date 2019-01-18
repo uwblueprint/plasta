@@ -9,6 +9,7 @@ import OnSubmitButton from '../common/OnSubmitButton';
 import FileInput from '../input-components/FileInput';
 import CancelButton from '../common/CancelButton.js';
 import { postMultiType, get } from '../utils/requests';
+import { parseAndCleanLabel } from '../utils/vendors';
 import { snakeCase } from 'lodash';
 import { connect } from 'react-redux';
 import '../FormPage.css';
@@ -81,14 +82,7 @@ class CreateWastePicker extends Component {
         option['label'] = 'Waste Picker Community Leader';
       } else {
         // Remove underscores and capitalize words
-        function cleanLabel(str) {
-          const frags = str.split('_');
-          for (let i = 0; i < frags.length; i++) {
-            frags[i] = frags[i].charAt(0).toUpperCase() + frags[i].slice(1);
-          }
-          return frags.join(' ');
-        }
-        option['label'] = cleanLabel(option.code);
+        option['label'] = parseAndCleanLabel(option.code);
       }
     });
     this.setState({
