@@ -63,7 +63,10 @@ class PrimarySegregatorTransactionHistory extends Component {
   };
 
   componentDidMount() {
-    get(`/vendors/${this.props.currentId}/transactions`, this.props.cookies).then(results => {
+    get(
+      `/vendors/${this.props.currentId}/transactions`,
+      this.props.cookies.get('access_token')
+    ).then(results => {
       const transactions = results.data;
       const buyTransactions = [];
       const sellTransactions = [];

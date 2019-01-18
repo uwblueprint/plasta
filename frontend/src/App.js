@@ -44,7 +44,7 @@ class App extends React.Component {
     if (this.props.currentUser) return this.props.currentUser;
     if (!this.isLoggedIn()) return null;
     try {
-      const user = await get('/user/current', this.props.cookies);
+      const user = await get('/user/current', this.props.cookies.get('access_token'));
       const userInfo = { userDetails: user.data, userType: user.data.vendor.vendor_type };
       await this.props.authenticateUser(userInfo);
       return userInfo;
@@ -70,7 +70,7 @@ class App extends React.Component {
   }
 
   async getVendors() {
-    const vendors = await get('/vendors', this.props.cookies);
+    const vendors = await get('/vendors', this.props.cookies.get('access_token'));
     return this.props.loadVendors(vendors.data);
   }
 
