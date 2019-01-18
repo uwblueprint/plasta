@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { snakeCase } from 'lodash';
+import { withCookies } from 'react-cookie';
 import FormSection from '../input-components/FormSection';
 import TextInput from '../input-components/TextInput';
 import { ruleTypes, onFieldChange, isFormValid, onValidation } from '../utils/form';
@@ -13,7 +14,7 @@ const fieldsInfo = {
   address: { label: 'Address', default: '', type: 'metaData' },
 };
 
-export default class CreateExternalPrimarySegregator extends Component {
+class CreateExternalPrimarySegregator extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -38,7 +39,7 @@ export default class CreateExternalPrimarySegregator extends Component {
         data.meta_data[snakeCase(field)] = this.state[field];
       else data[snakeCase(field)] = this.state[field];
     });
-    post('/vendors', { data: data });
+    post('/vendors', { data: data, authToken: this.props.cookies.get('access_token') });
   }
 
   render() {
@@ -82,3 +83,5 @@ export default class CreateExternalPrimarySegregator extends Component {
     );
   }
 }
+
+export default withCookies(CreateExternalPrimarySegregator);
