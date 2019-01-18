@@ -9,7 +9,7 @@ import OnSubmitButton from '../common/OnSubmitButton';
 import FileInput from '../input-components/FileInput';
 import CancelButton from '../common/CancelButton.js';
 import { postMultiType, get } from '../utils/requests';
-import { parseAndCleanLabel } from '../utils/vendors';
+import { removeUnderscoresAndCapitalize } from '../utils/vendors';
 import { snakeCase } from 'lodash';
 import { connect } from 'react-redux';
 import '../FormPage.css';
@@ -81,8 +81,7 @@ class CreateWastePicker extends Component {
       } else if (option.code === 'wp_community_leader') {
         option['label'] = 'Waste Picker Community Leader';
       } else {
-        // Remove underscores and capitalize words
-        option['label'] = parseAndCleanLabel(option.code);
+        option['label'] = removeUnderscoresAndCapitalize(option.code);
       }
     });
     this.setState({
