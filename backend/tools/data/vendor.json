@@ -8,5 +8,15 @@
     "vendor_subtype": "export_wholesaler",
     "name": "Wholesaler 1",
     "metadata": {}
+  },
+  {
+    "vendor_subtype": "door_to_door_collection",
+    "name": "Door to Door Collection 1",
+    "metadata": {}
+  },
+  {
+    "vendor_subtype": "pourakarmikas",
+    "name": "Pourakarmikas 1",
+    "metadata": {}
   }
 ]
