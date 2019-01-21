@@ -70,5 +70,5 @@ def get_wastepicker_types():
     wastepicker_types = []
     for vendor_subtype, vendor_type in vendor_subtype_map.items():
         if (vendor_type == 'wastepicker'):
-            wastepicker_types.append({'code': vendor_subtype})
+            wastepicker_types.append({'value': vendor_subtype})
     return success(data=wastepicker_types)

@@ -61,15 +61,16 @@ class CreateWastePicker extends Component {
     const data = [];
     Object.keys(fieldsInfo).forEach(field => {
       if (!this.state[field]) return;
-      if (fieldsInfo[field].type === 'metaData') metaData[snakeCase(field)] = this.state[field];
+      const fieldValue = this.state[field].value ? this.state[field].value : this.state[field];
+      if (fieldsInfo[field].type === 'metaData') metaData[snakeCase(field)] = fieldValue;
       else {
         data.push({
           key: snakeCase(field),
-          value: this.state[field],
+          value: fieldValue,
         });
       }
     });
-    // data.push({ key: 'meta_data', value: metaData });
+    data.push({ key: 'meta_data', value: metaData });
     return postMultiType('/vendors', {
       data: data,
       authToken: this.props.cookies.get('access_token'),
@@ -79,12 +80,12 @@ class CreateWastePicker extends Component {
   async componentDidMount() {
     const wastepickerTypes = await get('/vendors/wastepicker_types');
     wastepickerTypes.data.forEach(function(option) {
-      if (option.code === 'wastepicker') {
+      if (option.value === 'wastepicker') {
         option['label'] = 'Waste Picker (General)';
-      } else if (option.code === 'wp_community_leader') {
+      } else if (option.value === 'wp_community_leader') {
         option['label'] = 'Waste Picker Community Leader';
       } else {
-        option['label'] = removeUnderscoresAndCapitalize(option.code);
+        option['label'] = removeUnderscoresAndCapitalize(option.value);
       }
     });
     this.setState({
