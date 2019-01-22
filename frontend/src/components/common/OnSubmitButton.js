@@ -12,6 +12,7 @@ const OnSubmitButton = props => {
       await props.onClick();
       props.nextPath ? props.history.push(props.nextPath) : props.history.goBack();
     } catch (err) {
+      console.error(err);
       alert(err);
     }
     props.onComplete();

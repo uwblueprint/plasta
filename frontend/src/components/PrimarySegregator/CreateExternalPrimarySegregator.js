@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { snakeCase } from 'lodash';
 import { withCookies } from 'react-cookie';
 import FormSection from '../input-components/FormSection';
 import TextInput from '../input-components/TextInput';
 import { ruleTypes, onFieldChange, isFormValid, onValidation } from '../utils/form';
-import { post } from '../utils/requests';
+import { post, get } from '../utils/requests';
 import OnSubmitButton from '../common/OnSubmitButton';
+import { loadVendors } from '../../actions';
 import '../FormPage.css';
 
 const fieldsInfo = {
@@ -39,7 +41,14 @@ class CreateExternalPrimarySegregator extends Component {
         data.meta_data[snakeCase(field)] = this.state[field];
       else data[snakeCase(field)] = this.state[field];
     });
-    post('/vendors', { data: data, authToken: this.props.cookies.get('access_token') });
+    const authToken = this.props.cookies.get('access_token');
+    try {
+      await post('/vendors', { data: data, authToken });
+      const vendors = await get('/vendors', authToken);
+      this.props.loadVendors(vendors.data);
+    } catch (err) {
+      throw err;
+    }
   }
 
   render() {
@@ -84,4 +93,13 @@ class CreateExternalPrimarySegregator extends Component {
   }
 }
 
-export default withCookies(CreateExternalPrimarySegregator);
+const mapDispatchToProps = dispatch => ({
+  loadVendors: payload => dispatch(loadVendors(payload)),
+});
+
+export default withCookies(
+  connect(
+    null,
+    mapDispatchToProps
+  )(CreateExternalPrimarySegregator)
+);
