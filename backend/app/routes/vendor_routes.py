@@ -4,6 +4,7 @@ from flask_jwt_extended import get_jwt_identity, jwt_required
 from . import db_client
 from .utils.route_utils import success
 from ..models.vendor import vendor_subtype_map
+from flask_cors import cross_origin
 
 blueprint = Blueprint('vendor', __name__, url_prefix='/vendors')
 
@@ -45,6 +46,7 @@ def create_vendor_transaction(vendor_id):
 # This requires having a `current_user` object.
 @blueprint.route('/', methods=['POST'])
 @jwt_required
+@cross_origin()
 def create_vendor():
     data = request.json if request.headers['Content-Type'] == 'application/json' else request.form.to_dict()
     current_user = get_jwt_identity()
