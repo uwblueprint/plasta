@@ -200,17 +200,13 @@ class CreateWastePicker extends Component {
   }
 }
 
-const mapStateToProps = state => ({
-  vendors: state.vendors,
-});
-
 const mapDispatchToProps = dispatch => ({
   loadVendors: payload => dispatch(loadVendors(payload)),
 });
 
 export default withCookies(
   connect(
-    mapStateToProps,
+    null,
     mapDispatchToProps
   )(CreateWastePicker)
 );
