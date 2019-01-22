@@ -15,3 +15,8 @@ export const loadVendors = vendors => ({
   type: 'LOAD_VENDORS',
   vendors,
 });
+
+export const loadTransactions = transactions => ({
+  type: 'LOAD_TRANSACTIONS',
+  transactions,
+});
