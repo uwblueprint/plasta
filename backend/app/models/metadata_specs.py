@@ -62,7 +62,7 @@ METADATA_SPECS = {
     'vendor': {
         'phone_number': {
             'type': str,
-            'required': True
+            'required': False
         },
         'phone_type': {
             'type': str,
@@ -70,7 +70,7 @@ METADATA_SPECS = {
         },
         'address': {
             'type': str,
-            'required': True
+            'required': False
         },
         'language': {
             'type': str,

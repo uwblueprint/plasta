@@ -1,4 +1,3 @@
-import json
 from sqlalchemy import inspect
 from sqlalchemy.orm.properties import ColumnProperty
 
@@ -49,7 +48,7 @@ class BaseMixin:
         metadata_spec = METADATA_SPECS.get(cls.__tablename__, {})
         if METADATA_COLUMN in kwargs and metadata_spec is not None:
             kwargs[METADATA_COLUMN] = cls.sanitize_metadata(
-                json.loads(kwargs[METADATA_COLUMN]), metadata_spec)
+                kwargs[METADATA_COLUMN], metadata_spec)
 
         instance = cls(**kwargs)
         return instance.save()

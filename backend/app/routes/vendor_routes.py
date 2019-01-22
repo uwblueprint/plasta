@@ -1,5 +1,6 @@
 from flask import Blueprint, request
 from flask_jwt_extended import get_jwt_identity, jwt_required
+import json
 
 from . import db_client
 from .utils.route_utils import success
@@ -46,7 +47,11 @@ def create_vendor_transaction(vendor_id):
 @blueprint.route('/', methods=['POST'])
 @jwt_required
 def create_vendor():
-    data = request.json if request.headers['Content-Type'] == 'application/json' else request.form.to_dict()
+    is_application_json = request.headers['Content-Type'] == 'application/json'
+    data = request.json if is_application_json else request.form.to_dict()
+    # If it's FormData, need to convert meta_data from string to json
+    if not is_application_json and 'meta_data' in data:
+        data['meta_data'] = json.loads(data['meta_data'])
     current_user = get_jwt_identity()
     vendor = db_client.create_vendor(
         data=data,
