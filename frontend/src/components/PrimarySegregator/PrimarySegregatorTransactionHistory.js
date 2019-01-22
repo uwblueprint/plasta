@@ -14,6 +14,7 @@ import { connect } from 'react-redux';
 import { PropTypes } from 'prop-types';
 import { filterBuyTransactions, filterSellTransactions } from './../utils/transactions';
 import { findVendorById } from '../utils/vendors.js';
+import { loadTransactions } from '../../actions';
 
 const columns = [
   {
@@ -53,8 +54,6 @@ class PrimarySegregatorTransactionHistory extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      buyTransactions: [],
-      sellTransactions: [],
       pageSize: 5,
     };
   }
@@ -64,28 +63,24 @@ class PrimarySegregatorTransactionHistory extends Component {
   };
 
   componentDidMount() {
-    get(
-      `/vendors/${this.props.currentId}/transactions`,
-      this.props.cookies.get('access_token')
-    ).then(results => {
-      const transactions = results.data;
-      const buyTransactions = [];
-      const sellTransactions = [];
-      filterBuyTransactions(transactions, this.props.currentId).forEach(transaction => {
-        const vendor = findVendorById(this.props.vendors, transaction.from_vendor_id);
-        if (!vendor) return;
-        buyTransactions.push({ ...transaction, name: vendor.name });
-      });
-      filterSellTransactions(transactions, this.props.currentId).forEach(transaction => {
-        const vendor = findVendorById(this.props.vendors, transaction.to_vendor_id);
-        if (!vendor) return;
-        sellTransactions.push({ ...transaction, name: vendor.name });
-      });
-      this.setState({ buyTransactions: buyTransactions, sellTransactions: sellTransactions });
-    });
+    get(`/vendors/${this.props.currentId}/transactions`).then(transactions =>
+      this.props.loadTransactions(transactions.data)
+    );
   }
 
   render() {
+    const buyTransactions = [];
+    const sellTransactions = [];
+    filterBuyTransactions(this.props.transactions, this.props.currentId).forEach(transaction => {
+      const vendor = findVendorById(this.props.vendors, transaction.from_vendor_id);
+      if (!vendor) return;
+      buyTransactions.push({ ...transaction, name: vendor.name });
+    });
+    filterSellTransactions(this.props.transactions, this.props.currentId).forEach(transaction => {
+      const vendor = findVendorById(this.props.vendors, transaction.to_vendor_id);
+      if (!vendor) return;
+      sellTransactions.push({ ...transaction, name: vendor.name });
+    });
     return (
       <div>
         <div id="primary-segregator-page-wrapper">
@@ -93,7 +88,7 @@ class PrimarySegregatorTransactionHistory extends Component {
           <h2>Buy</h2>
           <TransactionTable
             showPagination={false}
-            data={this.state.buyTransactions}
+            data={buyTransactions}
             columns={columns}
             defaultPageSize={this.state.pageSize}
             className="-striped-highlight table"
@@ -101,7 +96,7 @@ class PrimarySegregatorTransactionHistory extends Component {
           <h2>Sell</h2>
           <TransactionTable
             showPagination={false}
-            data={this.state.sellTransactions}
+            data={sellTransactions}
             columns={columns}
             defaultPageSize={this.state.pageSize}
             className="-striped-highlight table"
@@ -115,6 +110,16 @@ class PrimarySegregatorTransactionHistory extends Component {
 const mapStateToProps = state => ({
   currentId: state.currentUser.userDetails.vendor_id,
   vendors: state.vendors,
+  transactions: state.transactions,
 });
 
-export default withCookies(connect(mapStateToProps)(PrimarySegregatorTransactionHistory));
+const mapDispatchToProps = dispatch => ({
+  loadTransactions: payload => dispatch(loadTransactions(payload)),
+});
+
+export default withCookies(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(PrimarySegregatorTransactionHistory)
+);
