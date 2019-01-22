@@ -87,6 +87,7 @@ class PrimarySegregatorTransactionHistory extends Component {
   }
 
   render() {
+    console.log("render")
     return (
       <div>
         <div id="primary-segregator-page-wrapper">
