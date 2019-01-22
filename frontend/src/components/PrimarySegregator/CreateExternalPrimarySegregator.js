@@ -37,6 +37,7 @@ class CreateExternalPrimarySegregator extends Component {
     }
     const data = { vendor_subtype: 'small_scrap_shop', meta_data: {} };
     Object.keys(fieldsInfo).forEach(field => {
+      if (!this.state[field]) return;
       if (fieldsInfo[field].type === 'metaData')
         data.meta_data[snakeCase(field)] = this.state[field];
       else data[snakeCase(field)] = this.state[field];
