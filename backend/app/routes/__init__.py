@@ -1,12 +1,10 @@
 import os
 import boto3
-from flask_jwt_extended import JWTManager
-
-jwt = JWTManager()
+from . import jwt_manager
 
 
 def init_app(app):
-    jwt.init_app(app)
+    jwt_manager.jwt.init_app(app)
 
     from .utils.converters import ListConverter
 
@@ -23,6 +21,9 @@ def init_app(app):
     CORS(project_routes.blueprint)
     CORS(user_routes.blueprint)
     CORS(vendor_routes.blueprint)
+
+    app.config['JWT_BLACKLIST_ENABLED'] = True
+    app.config['JWT_BLACKLIST_TOKEN_CHECKS'] = ['access']
 
     app.register_blueprint(auth_routes.blueprint)
     app.register_blueprint(project_routes.blueprint)

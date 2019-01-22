@@ -1,11 +1,19 @@
 from sqlalchemy import or_
 
-from . import s3_client
+from ..models.blacklisted_auth_token import BlacklistedAuthToken
 from ..models.project import Project
 from ..models.transaction import Transaction
 from ..models.user import User
 from ..models.vendor import PrimarySegregatorWastepickerMap, Vendor
 
+
+def add_auth_token_to_blacklist(data):
+    blacklisted_auth_token = BlacklistedAuthToken.create(**data)
+    return blacklisted_auth_token
+
+
+def get_blacklisted_auth_token(token):
+    return BlacklistedAuthToken.get_by(first=True, token=token)
 
 # TODO(imran): write decorator to make db reads/writes atomic
 def create_project(data):
@@ -43,6 +51,7 @@ def get_user(email):
 
 
 def create_vendor(data, current_user=None, files=None):
+    from . import s3_client
     if files is not None and 'picture' in files:
         image_link = s3_client.upload_user_image(files['picture'])
         data['image_link'] = image_link
