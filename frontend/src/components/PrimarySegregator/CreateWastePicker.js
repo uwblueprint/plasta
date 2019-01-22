@@ -12,6 +12,7 @@ import { postMultiType, get } from '../utils/requests';
 import { removeUnderscoresAndCapitalize } from '../utils/vendors';
 import { snakeCase } from 'lodash';
 import { connect } from 'react-redux';
+import { loadVendors } from '../../actions';
 import '../FormPage.css';
 
 // TODO (XIN): get from endpoints
@@ -71,10 +72,15 @@ class CreateWastePicker extends Component {
       }
     });
     data.push({ key: 'meta_data', value: metaData });
-    return postMultiType('/vendors', {
-      data: data,
-      authToken: this.props.cookies.get('access_token'),
-    });
+
+    const authToken = this.props.cookies.get('access_token');
+    try {
+      await postMultiType('/vendors', { data: data, authToken });
+      const vendors = await get('/vendors', authToken);
+      this.props.loadVendors(vendors.data);
+    } catch (err) {
+      throw err;
+    }
   }
 
   async componentDidMount() {
@@ -198,4 +204,13 @@ const mapStateToProps = state => ({
   vendors: state.vendors,
 });
 
-export default withCookies(connect(mapStateToProps)(CreateWastePicker));
+const mapDispatchToProps = dispatch => ({
+  loadVendors: payload => dispatch(loadVendors(payload)),
+});
+
+export default withCookies(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(CreateWastePicker)
+);
