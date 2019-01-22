@@ -12,9 +12,6 @@ class PrimarySegregatorBottomBar extends Component {
     return (
       <div id="nav-bar-wrapper">
         <nav className="navbar">
-          <Link className="tab" to="/ps/transaction-history">
-            <img src={transaction} alt={'transactions'} />
-          </Link>
           <Link className="tab" to="/ps/transactions/buy">
             <img src={buy} alt={'buy'} />
           </Link>
