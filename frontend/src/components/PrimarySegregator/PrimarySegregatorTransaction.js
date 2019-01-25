@@ -11,8 +11,23 @@ import { ruleTypes } from '../utils/form';
 import 'react-day-picker/lib/style.css';
 import './../FormPage.css';
 
+function orderValueAtTop(options, value) {
+  return options.sort((a, b) => {
+    if (a.value === value) return -1;
+    if (b.value === value) return 1;
+    if (a.label > b.label) return 1;
+    return -1;
+  });
+}
+
 const PrimarySegregatorTransaction = props => {
   const pageTitle = props.transactionType === transactionTypes.BUY ? 'From *' : 'To *';
+  const createStakeholderOption = [
+    {
+      label: 'Create a new stakeholder',
+      value: 'create-new',
+    },
+  ];
   return (
     <div className="page-wrapper" id="transactions-wrapper">
       <h1>{props.title}</h1>
@@ -30,13 +45,15 @@ const PrimarySegregatorTransaction = props => {
           hasImage={props.transactionType === transactionTypes.BUY}
           field="stakeholderName"
           value={props.stakeholderName}
-          options={props.stakeholderOptions}
+          options={orderValueAtTop(
+            props.stakeholderOptions.concat(createStakeholderOption),
+            createStakeholderOption.value
+          )}
           onChange={props.onFieldChange}
-          onNewOptionClick={props.handleNewStakeholder}
-          promptTextCreator={search => `${search} not found, create a new stakeholder`}
           onValidation={props.onValidation}
           rules={[ruleTypes.FIELD_REQUIRED]}
           showErrors={props.submitAttempted}
+          searchable={false}
         />
       </FormSection>
 
