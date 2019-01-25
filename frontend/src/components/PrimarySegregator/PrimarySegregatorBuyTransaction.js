@@ -24,7 +24,7 @@ async function onSubmit() {
   if (this.state.transactionDate !== '') {
     transactionData.sale_date = this.state.transactionDate;
   }
-  post('/vendors/1/transactions', {
+  post(`/vendors/${transactionData.creator_id}/transactions`, {
     data: transactionData,
     authToken: this.props.cookies.get('access_token'),
   }).catch(err => {
