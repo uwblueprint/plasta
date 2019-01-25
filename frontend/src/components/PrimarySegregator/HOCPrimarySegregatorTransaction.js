@@ -48,24 +48,25 @@ function composeTransaction(members) {
       if (members.transactionType === transactionTypes.BUY) {
         const currentVendorId = this.props.currentUser.userDetails.id;
         const url = `/vendors/primary_segregator/${currentVendorId}/wastepickers`;
-        get(url, this.props.cookies.get('access_token'))
-        .then(res => {
-          const stakeholderOptions = findVendorsByIds(this.props.vendors, res.data)
-          .map(buyVendor => ({
-            label: buyVendor.name,
-            value: buyVendor.id,
-          }));
+        get(url, this.props.cookies.get('access_token')).then(res => {
+          const stakeholderOptions = findVendorsByIds(this.props.vendors, res.data).map(
+            buyVendor => ({
+              label: buyVendor.name,
+              value: buyVendor.id,
+            })
+          );
           this.setState({
             stakeholderOptions: stakeholderOptions,
           });
         });
       } else {
-        const stakeholderOptions = findVendorsByTypes(this.props.vendors,
-          ['wholesaler', 'primary_segregator'])
-          .map(sellVendor => ({
-            label: sellVendor.name,
-            value: sellVendor.id,
-          }));
+        const stakeholderOptions = findVendorsByTypes(this.props.vendors, [
+          'wholesaler',
+          'primary_segregator',
+        ]).map(sellVendor => ({
+          label: sellVendor.name,
+          value: sellVendor.id,
+        }));
         this.setState({
           stakeholderOptions: stakeholderOptions,
         });
