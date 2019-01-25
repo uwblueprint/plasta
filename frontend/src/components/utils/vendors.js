@@ -6,12 +6,14 @@ export function findVendorsByIds(vendors, ids) {
   return vendors.filter(vendor => ids.includes(vendor.id));
 }
 
-export function findVendorsByType(vendors, type) {
-  return vendors.filter(vendor => type === vendor.vendor_type);
+export function findVendorsByType(vendors, type, currentVendorId) {
+  return vendors.filter(vendor => vendor.id !== currentVendorId && type === vendor.vendor_type);
 }
 
-export function findVendorsByTypes(vendors, types) {
-  return vendors.filter(vendor => types.includes(vendor.vendor_type));
+export function findVendorsByTypes(vendors, types, currentVendorId) {
+  return vendors.filter(
+    vendor => vendor.id !== currentVendorId && types.includes(vendor.vendor_type)
+  );
 }
 
 export function removeUnderscoresAndCapitalize(str) {
