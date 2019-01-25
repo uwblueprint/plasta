@@ -1,5 +1,5 @@
-import ReactTable from 'react-table';
 import React, { Component } from 'react';
+import TransactionTable from './TransactionTable';
 import moment from 'moment';
 import { withCookies } from 'react-cookie';
 import './PrimarySegregator.css';
@@ -55,6 +55,7 @@ class PrimarySegregatorTransactionHistory extends Component {
     this.state = {
       buyTransactions: [],
       sellTransactions: [],
+      pageSize: 5,
     };
   }
   static propTypes = {
@@ -90,19 +91,19 @@ class PrimarySegregatorTransactionHistory extends Component {
         <div id="primary-segregator-page-wrapper">
           <h1> Transaction History </h1>
           <h2>Buy</h2>
-          <ReactTable
+          <TransactionTable
             showPagination={false}
             data={this.state.buyTransactions}
             columns={columns}
-            defaultPageSize={3}
+            defaultPageSize={this.state.pageSize}
             className="-striped-highlight table"
           />
           <h2>Sell</h2>
-          <ReactTable
+          <TransactionTable
             showPagination={false}
             data={this.state.sellTransactions}
             columns={columns}
-            defaultPageSize={3}
+            defaultPageSize={this.state.pageSize}
             className="-striped-highlight table"
           />
         </div>

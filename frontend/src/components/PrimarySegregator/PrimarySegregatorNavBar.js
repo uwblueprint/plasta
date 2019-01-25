@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import '../Navbar.css';
 import './PrimarySegregator.css';
-import transaction from './NavbarImages/transaction.png';
 import buy from './NavbarImages/buy.png';
 import sell from './NavbarImages/sell.png';
 import createnew from './NavbarImages/createnew.png';

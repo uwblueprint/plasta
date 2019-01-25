@@ -1,5 +1,3 @@
-import { Cookies } from 'react-cookie';
-
 function getAuthorizationHeader(authToken) {
   return authToken ? { Authorization: `Bearer ${authToken}` } : {};
 }
