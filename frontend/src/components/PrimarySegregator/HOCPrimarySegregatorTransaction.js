@@ -63,10 +63,11 @@ function composeTransaction(members) {
           });
         });
       } else {
-        const stakeholderOptions = findVendorsByTypes(this.props.vendors, [
-          'wholesaler',
-          'primary_segregator',
-        ]).map(sellVendor => ({
+        const stakeholderOptions = findVendorsByTypes(
+          this.props.vendors,
+          ['wholesaler', 'primary_segregator'],
+          currentVendorId
+        ).map(sellVendor => ({
           label: sellVendor.name,
           value: sellVendor.id,
           imageLink: sellVendor.image_link,
