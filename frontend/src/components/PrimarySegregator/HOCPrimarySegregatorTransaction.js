@@ -53,6 +53,7 @@ function composeTransaction(members) {
             buyVendor => ({
               label: buyVendor.name,
               value: buyVendor.id,
+              image_link: buyVendor.image_link,
             })
           );
           this.setState({
@@ -60,13 +61,13 @@ function composeTransaction(members) {
           });
         });
       } else {
-        const stakeholderOptions = findVendorsByTypes(
-          this.props.vendors,
-          ['wholesaler', 'primary_segregator'],
-          currentVendorId
-        ).map(sellVendor => ({
+        const stakeholderOptions = findVendorsByTypes(this.props.vendors, [
+          'wholesaler',
+          'primary_segregator',
+        ]).map(sellVendor => ({
           label: sellVendor.name,
           value: sellVendor.id,
+          image_link: sellVendor.image_link,
         }));
         this.setState({
           stakeholderOptions: stakeholderOptions,

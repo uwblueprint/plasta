@@ -6,14 +6,27 @@ import classNames from 'classnames';
 import 'react-select/dist/react-select.css';
 import InvalidInputMessage from '../InvalidInputMessage';
 import composeInput from './InputContainer';
+import { ImageSelectOption, ImageSelectedOption } from './ImageSelectOption';
 import './SearchSelect.css';
 
 const SearchSelect = props => {
-  const { className, label, errors, createable, showErrors, ...rest } = props;
+  const { className, label, errors, createable, showErrors, hasImage, ...rest } = props;
   return (
     <div className={classNames('search-select-wrapper', className)}>
       {label && <label>{label}</label>}
-      {createable ? <CreatableSelect {...rest} /> : <Select {...rest} />}
+      {createable ? (
+        <CreatableSelect
+          optionComponent={hasImage ? ImageSelectOption : undefined}
+          valueComponent={hasImage ? ImageSelectedOption : undefined}
+          {...rest}
+        />
+      ) : (
+        <Select
+          optionComponent={hasImage ? ImageSelectOption : undefined}
+          valueComponent={hasImage ? ImageSelectedOption : undefined}
+          {...rest}
+        />
+      )}
       {showErrors && errors.map((err, i) => <InvalidInputMessage key={i} showIcon message={err} />)}
     </div>
   );
@@ -30,10 +43,12 @@ SearchSelect.propTypes = {
   createable: PropTypes.bool,
   onNewOptionClick: PropTypes.func,
   promptTextCreator: PropTypes.func,
+  hasImages: PropTypes.bool,
 };
 
 SearchSelect.defaultProps = {
   createable: false,
+  hasImages: false,
 };
 
 export default composeInput(SearchSelect, {
