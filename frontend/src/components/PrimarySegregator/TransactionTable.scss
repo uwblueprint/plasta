@@ -1,0 +1,26 @@
+.table-wrapper {
+  display: block;
+  position: relative;
+  margin: 20px;
+  padding-right: 25px;
+
+  button.chevron {
+    border-radius: 100px;
+    border: none;
+    height: 2em;
+    width: 2em;
+    padding: 5px;
+  }
+
+  .chevron-up,
+  .chevron-down {
+    position: absolute;
+    right: 0;
+  }
+  .chevron-up {
+    top: 0;
+  }
+  .chevron-down {
+    bottom: 0;
+  }
+}
