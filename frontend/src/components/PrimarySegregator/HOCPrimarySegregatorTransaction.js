@@ -9,6 +9,7 @@ import moment from 'moment';
 import PrimarySegregatorTransaction from './PrimarySegregatorTransaction';
 import { get } from '../utils/requests';
 import { findVendorsByTypes, findVendorsByIds } from '../utils/vendors';
+import { loadTransactions } from '../../actions';
 
 export const transactionTypes = {
   BUY: 1,
@@ -34,6 +35,7 @@ function composeTransaction(members) {
       this.onFieldChange = onFieldChange.bind(this);
       this.handleDayChange = this.handleDayChange.bind(this);
       this.handleNewStakeholder = this.handleNewStakeholder.bind(this);
+      this.handleOnSubmit = this.handleOnSubmit.bind(this);
       this.hideModal = this.hideModal.bind(this);
       this.isFormValid = isFormValid.bind(this);
       this.onValidation = onValidation.bind(this);
@@ -53,7 +55,10 @@ function composeTransaction(members) {
             buyVendor => ({
               label: buyVendor.name,
               value: buyVendor.id,
+<<<<<<< HEAD
               imageLink: buyVendor.image_link,
+=======
+>>>>>>> Update store on form submit and pull transaction data from store
             })
           );
           this.setState({
@@ -67,7 +72,10 @@ function composeTransaction(members) {
         ]).map(sellVendor => ({
           label: sellVendor.name,
           value: sellVendor.id,
+<<<<<<< HEAD
           imageLink: sellVendor.image_link,
+=======
+>>>>>>> Update store on form submit and pull transaction data from store
         }));
         this.setState({
           stakeholderOptions: stakeholderOptions,
@@ -87,6 +95,7 @@ function composeTransaction(members) {
       this.setState({ [input]: moment(value).format('YYYY-MM-DD') });
     }
 
+<<<<<<< HEAD
     componentDidUpdate() {
       // If "Create new stakeholder" chosen as stakeholderOption, display
       // modal to create new stakeholder
@@ -98,6 +107,14 @@ function composeTransaction(members) {
           stakeholderName: {}
         });
       }
+=======
+    async handleOnSubmit() {
+      this.onSubmit();
+      const transactions = await get(
+        `/vendors/${this.props.currentUser.userDetails.id}/transactions`
+      );
+      this.props.loadTransactions(transactions.data);
+>>>>>>> Update store on form submit and pull transaction data from store
     }
 
     render() {
@@ -107,7 +124,7 @@ function composeTransaction(members) {
           <PrimarySegregatorTransaction
             title={members.transactionType === transactionTypes.BUY ? 'Buy' : 'Sell'}
             transactionType={members.transactionType}
-            onSubmit={this.onSubmit}
+            onSubmit={this.handleOnSubmit}
             onValidation={this.onValidation}
             isFormValid={this.isFormValid}
             handleDayChange={this.handleDayChange}
@@ -128,14 +145,19 @@ const mapStateToProps = state => {
   return {
     currentUser: state.currentUser,
     vendors: state.vendors,
+    transactions: state.transactions,
   };
 };
+
+const mapDispatchToProps = dispatch => ({
+  loadTransactions: payload => dispatch(loadTransactions(payload)),
+});
 
 function composeTransactions(members) {
   return withCookies(
     connect(
       mapStateToProps,
-      null
+      mapDispatchToProps
     )(composeTransaction(members))
   );
 }
