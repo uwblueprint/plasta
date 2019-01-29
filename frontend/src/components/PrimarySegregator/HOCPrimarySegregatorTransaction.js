@@ -91,12 +91,14 @@ function composeTransaction(members) {
     componentDidUpdate() {
       // If "Create new stakeholder" chosen as stakeholderOption, display
       // modal to create new stakeholder
-      if (this.state.stakeholderName &&
+      if (
+        this.state.stakeholderName &&
         this.state.stakeholderName.value === 'create-new' &&
-        this.state.showModal === false) {
+        this.state.showModal === false
+      ) {
         this.handleNewStakeholder();
         this.setState({
-          stakeholderName: {}
+          stakeholderName: {},
         });
       }
     }
@@ -108,7 +110,7 @@ function composeTransaction(members) {
           <PrimarySegregatorTransaction
             title={members.transactionType === transactionTypes.BUY ? 'Buy' : 'Sell'}
             transactionType={members.transactionType}
-            onSubmit={this.handleOnSubmit}
+            onSubmit={this.onSubmit}
             onValidation={this.onValidation}
             isFormValid={this.isFormValid}
             handleDayChange={this.handleDayChange}

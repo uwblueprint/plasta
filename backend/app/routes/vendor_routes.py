@@ -24,7 +24,7 @@ def get_vendors(vendor_types):
 
 
 @blueprint.route('/<int:vendor_id>/transactions', methods=['GET'])
-# @jwt_required
+@jwt_required
 def get_vendor_transactions(vendor_id):
     transactions = db_client.get_vendor_transactions(vendor_id)
     return success(data=[
