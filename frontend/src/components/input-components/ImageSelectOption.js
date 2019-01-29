@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import personImage from '../../assets/person.png';
 
 const IMAGE_SIZE = 35;
 
@@ -46,7 +45,7 @@ export class ImageSelectOption extends Component {
         <img
           alt={''}
           style={imageStyle}
-          src={this.props.option.imageLink ? this.props.option.imageLink : personImage}
+          src={this.props.option.imageLink}
           height={IMAGE_SIZE}
           width={IMAGE_SIZE}
           className={'img' + this.props.className}
@@ -74,7 +73,7 @@ export class ImageSelectedOption extends Component {
             <img
               alt={''}
               style={imageStyle}
-              src={this.props.value.imageLink ? this.props.value.imageLink : personImage}
+              src={this.props.value.imageLink}
               height={IMAGE_SIZE}
               width={IMAGE_SIZE}
               className={'img' + this.props.className}
