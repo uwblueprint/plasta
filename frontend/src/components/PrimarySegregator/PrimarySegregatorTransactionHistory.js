@@ -68,19 +68,25 @@ class PrimarySegregatorTransactionHistory extends Component {
     );
   }
 
+  filterTransactions(transactionType) {
+    const filteredTransactions = [];
+    if (transactionType === 'buy') {
+      filterBuyTransactions(this.props.transactions, this.props.currentId).forEach(transaction => {
+        const vendor = findVendorById(this.props.vendors, transaction.from_vendor_id);
+        if (!vendor) return;
+        filteredTransactions.push({ ...transaction, name: vendor.name });
+      });
+    } else {
+      filterSellTransactions(this.props.transactions, this.props.currentId).forEach(transaction => {
+        const vendor = findVendorById(this.props.vendors, transaction.to_vendor_id);
+        if (!vendor) return;
+        filteredTransactions.push({ ...transaction, name: vendor.name });
+      });
+    }
+    return filteredTransactions;
+  }
+
   render() {
-    const buyTransactions = [];
-    const sellTransactions = [];
-    filterBuyTransactions(this.props.transactions, this.props.currentId).forEach(transaction => {
-      const vendor = findVendorById(this.props.vendors, transaction.from_vendor_id);
-      if (!vendor) return;
-      buyTransactions.push({ ...transaction, name: vendor.name });
-    });
-    filterSellTransactions(this.props.transactions, this.props.currentId).forEach(transaction => {
-      const vendor = findVendorById(this.props.vendors, transaction.to_vendor_id);
-      if (!vendor) return;
-      sellTransactions.push({ ...transaction, name: vendor.name });
-    });
     return (
       <div>
         <div id="primary-segregator-page-wrapper">
@@ -88,7 +94,7 @@ class PrimarySegregatorTransactionHistory extends Component {
           <h2>Buy</h2>
           <TransactionTable
             showPagination={false}
-            data={buyTransactions}
+            data={this.filterTransactions('buy')}
             columns={columns}
             defaultPageSize={this.state.pageSize}
             className="-striped-highlight table"
@@ -96,7 +102,7 @@ class PrimarySegregatorTransactionHistory extends Component {
           <h2>Sell</h2>
           <TransactionTable
             showPagination={false}
-            data={sellTransactions}
+            data={this.filterTransactions('sell')}
             columns={columns}
             defaultPageSize={this.state.pageSize}
             className="-striped-highlight table"
