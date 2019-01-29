@@ -87,7 +87,10 @@ class PrimarySegregatorTransactionHistory extends Component {
   }
 
   render() {
+<<<<<<< HEAD
     console.log("render")
+=======
+>>>>>>> Formatting changes
     return (
       <div>
         <div id="primary-segregator-page-wrapper">
