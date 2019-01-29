@@ -84,7 +84,9 @@ class CreateWastePicker extends Component {
   }
 
   async componentDidMount() {
-    const wastepickerTypes = await get('/vendors/wastepicker_types');
+    const wastepickerTypes = await get(
+      '/vendors/wastepicker_types',
+      this.props.cookies.get('access_token'));
     wastepickerTypes.data.forEach(function(option) {
       if (option.value === 'wastepicker') {
         option['label'] = 'Waste Picker (General)';
