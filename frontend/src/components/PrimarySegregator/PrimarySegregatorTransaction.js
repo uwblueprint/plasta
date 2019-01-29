@@ -27,6 +27,7 @@ const PrimarySegregatorTransaction = props => {
       <FormSection title={pageTitle}>
         <SearchSelect
           createable={props.transactionType === transactionTypes.BUY}
+          hasImage={props.transactionType === transactionTypes.BUY}
           field="stakeholderName"
           value={props.stakeholderName}
           options={props.stakeholderOptions}
