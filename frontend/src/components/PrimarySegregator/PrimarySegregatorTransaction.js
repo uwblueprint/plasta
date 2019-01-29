@@ -8,6 +8,7 @@ import CreateStakeholderModal from './CreateStakeholderModal';
 import OnSubmitButton from '../common/OnSubmitButton';
 import { transactionTypes } from './HOCPrimarySegregatorTransaction';
 import { ruleTypes } from '../utils/form';
+import { plasticOptions } from '../utils/plastic';
 import 'react-day-picker/lib/style.css';
 import './../FormPage.css';
 
@@ -65,7 +66,8 @@ const PrimarySegregatorTransaction = props => {
         <SearchSelect
           field="plasticType"
           value={props.plasticType}
-          options={staticPlasticTypes}
+          hasImage
+          options={plasticOptions}
           onChange={props.onFieldChange}
           onValidation={props.onValidation}
           rules={[ruleTypes.FIELD_REQUIRED]}
@@ -113,8 +115,6 @@ const PrimarySegregatorTransaction = props => {
     </div>
   );
 };
-
-const staticPlasticTypes = [{ label: 'Green PET', value: 'green_pet' }];
 
 PrimarySegregatorTransaction.propTypes = {
   onSubmit: PropTypes.func.isRequired,

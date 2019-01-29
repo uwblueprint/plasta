@@ -8,7 +8,7 @@ import {
   plasticOptionsByName,
   getTotalPlasticsPrice,
   getTotalPlasticsQuantity,
-} from '../utils/project';
+} from '../utils/plastic';
 import { get } from './../utils/requests';
 import { connect } from 'react-redux';
 import { PropTypes } from 'prop-types';

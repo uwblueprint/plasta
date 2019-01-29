@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import { Map } from 'immutable';
 import classNames from 'classnames';
-import { plasticOptions, plasticOptionsByName } from '../utils/project';
+import { plasticOptions, plasticOptionsByName } from '../utils/plastic';
 import TextInput from './TextInput';
 import SearchSelect from './SearchSelect';
 import './InputGroup.css';
@@ -76,6 +76,7 @@ class PlasticTypeQuantityGroup extends Component {
                 options={plasticOptions}
                 value={plasticOptionsByName.get(pair.get('plastic_type'))}
                 onChange={e => this.onPlasticTypeChange(e.value, i)}
+                hasImage
               />
               <TextInput
                 type="number"

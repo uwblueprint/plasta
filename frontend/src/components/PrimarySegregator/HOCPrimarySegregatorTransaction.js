@@ -10,6 +10,7 @@ import PrimarySegregatorTransaction from './PrimarySegregatorTransaction';
 import { get } from '../utils/requests';
 import { findVendorsByTypes, findVendorsByIds } from '../utils/vendors';
 import { loadTransactions } from '../../actions';
+import personImage from '../../assets/person.png';
 
 export const transactionTypes = {
   BUY: 1,
@@ -54,7 +55,7 @@ function composeTransaction(members) {
             buyVendor => ({
               label: buyVendor.name,
               value: buyVendor.id,
-              imageLink: buyVendor.image_link,
+              imageLink: buyVendor.image_link || personImage,
             })
           );
           this.setState({
@@ -68,7 +69,7 @@ function composeTransaction(members) {
         ]).map(sellVendor => ({
           label: sellVendor.name,
           value: sellVendor.id,
-          imageLink: sellVendor.image_link,
+          imageLink: sellVendor.image_link || personImage,
         }));
         this.setState({
           stakeholderOptions: stakeholderOptions,
