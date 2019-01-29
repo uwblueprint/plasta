@@ -71,3 +71,23 @@ export function get(path, authToken) {
       throw err;
     });
 }
+
+export function delete_request(path, authToken) {
+  const url = process.env.REACT_APP_API_URL + path;
+  const data = {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+      ...getAuthorizationHeader(authToken),
+    },
+  };
+  return fetch(url, data)
+    .then(response => {
+      if (response.ok) return response.json();
+      throw response;
+    })
+    .catch(err => {
+      console.error(err);
+      throw err;
+    });
+}
