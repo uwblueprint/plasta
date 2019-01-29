@@ -8,7 +8,6 @@ async function onSubmit() {
   }
   const totalPrice = this.state.unitPrice * this.state.weight;
   const transactionData = {
-    // TODO(Nick): Get from_vendor_id & creator_id from user object in Redux store
     from_vendor_id: this.state.stakeholderName.value,
     to_vendor_id: this.props.currentUser.userDetails.vendor_id,
     price: totalPrice,
