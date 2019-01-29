@@ -72,7 +72,7 @@ def get_primary_segregator_associated_wastepickers(primary_segregator_id):
 
 
 @blueprint.route('/wastepicker_types', methods=['GET'])
-# @jwt_required
+@jwt_required
 def get_wastepicker_types():
     wastepicker_types = []
     for vendor_subtype, vendor_type in vendor_subtype_map.items():
