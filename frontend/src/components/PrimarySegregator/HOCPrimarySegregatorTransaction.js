@@ -55,10 +55,7 @@ function composeTransaction(members) {
             buyVendor => ({
               label: buyVendor.name,
               value: buyVendor.id,
-<<<<<<< HEAD
               imageLink: buyVendor.image_link,
-=======
->>>>>>> Update store on form submit and pull transaction data from store
             })
           );
           this.setState({
@@ -72,10 +69,7 @@ function composeTransaction(members) {
         ]).map(sellVendor => ({
           label: sellVendor.name,
           value: sellVendor.id,
-<<<<<<< HEAD
           imageLink: sellVendor.image_link,
-=======
->>>>>>> Update store on form submit and pull transaction data from store
         }));
         this.setState({
           stakeholderOptions: stakeholderOptions,
@@ -95,7 +89,6 @@ function composeTransaction(members) {
       this.setState({ [input]: moment(value).format('YYYY-MM-DD') });
     }
 
-<<<<<<< HEAD
     componentDidUpdate() {
       // If "Create new stakeholder" chosen as stakeholderOption, display
       // modal to create new stakeholder
@@ -107,14 +100,6 @@ function composeTransaction(members) {
           stakeholderName: {}
         });
       }
-=======
-    async handleOnSubmit() {
-      this.onSubmit();
-      const transactions = await get(
-        `/vendors/${this.props.currentUser.userDetails.id}/transactions`
-      );
-      this.props.loadTransactions(transactions.data);
->>>>>>> Update store on form submit and pull transaction data from store
     }
 
     render() {

@@ -1,5 +1,5 @@
 import composeTransaction, { transactionTypes } from './HOCPrimarySegregatorTransaction';
-import { post } from '../utils/requests';
+import { get, post } from '../utils/requests';
 
 async function onSubmit() {
   if (!this.state.submitAttempted) this.setState({ submitAttempted: true }); // move out once onsubmit dispatched through redux
@@ -30,6 +30,8 @@ async function onSubmit() {
     console.error(err);
     alert('There was a problem submitting the transaction. Please try again.');
   });
+  const transactions = await get(`/vendors/${this.props.currentUser.userDetails.id}/transactions`);
+  this.props.loadTransactions(transactions.data);
 }
 
 const members = {
