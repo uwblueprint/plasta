@@ -28,6 +28,13 @@ const PrimarySegregatorTransaction = props => {
       value: 'create-new',
     },
   ];
+  const allStakeholderOptions =
+    props.transactionType === transactionTypes.BUY
+      ? orderValueAtTop(
+          props.stakeholderOptions.concat(createStakeholderOption),
+          createStakeholderOption.value
+        )
+      : props.stakeholderOptions;
   return (
     <div className="page-wrapper" id="transactions-wrapper">
       <h1>{props.title}</h1>
@@ -45,10 +52,7 @@ const PrimarySegregatorTransaction = props => {
           hasImage={props.transactionType === transactionTypes.BUY}
           field="stakeholderName"
           value={props.stakeholderName}
-          options={orderValueAtTop(
-            props.stakeholderOptions.concat(createStakeholderOption),
-            createStakeholderOption.value
-          )}
+          options={allStakeholderOptions}
           onChange={props.onFieldChange}
           onValidation={props.onValidation}
           rules={[ruleTypes.FIELD_REQUIRED]}
