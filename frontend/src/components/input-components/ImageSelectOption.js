@@ -46,7 +46,7 @@ export class ImageSelectOption extends Component {
         <img
           alt={''}
           style={imageStyle}
-          src={this.props.option.image_link ? this.props.option.image_link : personImage}
+          src={this.props.option.imageLink ? this.props.option.imageLink : personImage}
           height={IMAGE_SIZE}
           width={IMAGE_SIZE}
           className={'img' + this.props.className}
@@ -74,7 +74,7 @@ export class ImageSelectedOption extends Component {
             <img
               alt={''}
               style={imageStyle}
-              src={this.props.value.image_link ? this.props.value.image_link : personImage}
+              src={this.props.value.imageLink ? this.props.value.imageLink : personImage}
               height={IMAGE_SIZE}
               width={IMAGE_SIZE}
               className={'img' + this.props.className}

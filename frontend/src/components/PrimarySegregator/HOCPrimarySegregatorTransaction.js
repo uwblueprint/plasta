@@ -53,7 +53,7 @@ function composeTransaction(members) {
             buyVendor => ({
               label: buyVendor.name,
               value: buyVendor.id,
-              image_link: buyVendor.image_link,
+              imageLink: buyVendor.image_link,
             })
           );
           this.setState({
@@ -67,7 +67,7 @@ function composeTransaction(members) {
         ]).map(sellVendor => ({
           label: sellVendor.name,
           value: sellVendor.id,
-          image_link: sellVendor.image_link,
+          imageLink: sellVendor.image_link,
         }));
         this.setState({
           stakeholderOptions: stakeholderOptions,
