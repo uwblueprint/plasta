@@ -30,7 +30,10 @@ async function onSubmit() {
     console.error(err);
     alert('There was a problem submitting the transaction. Please try again.');
   });
-  const transactions = await get(`/vendors/${this.props.currentUser.userDetails.id}/transactions`);
+  const transactions = await get(
+    `/vendors/${this.props.currentUser.userDetails.id}/transactions`,
+    this.props.cookies.get('access_token')
+  );
   this.props.loadTransactions(transactions.data);
 }
 
