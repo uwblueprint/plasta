@@ -11,7 +11,7 @@ class Transaction(BaseMixin, db.Model):
         db.Integer, db.ForeignKey('vendor.id'), nullable=False)
     to_vendor_id = db.Column(
         db.Integer, db.ForeignKey('vendor.id'), nullable=False)
-    to_acknowledged = db.Column(db.Boolean, nullable=False, default=False)
+    to_acknowledged = db.Column(db.Boolean, nullable=True, default=False)
     acknowledged_at = db.Column(db.DateTime)
     price = db.Column(db.Float(2), nullable=False)
     sale_date = db.Column(db.DateTime, nullable=False, default=db.func.now())
