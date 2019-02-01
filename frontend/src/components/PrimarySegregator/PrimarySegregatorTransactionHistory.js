@@ -63,9 +63,10 @@ class PrimarySegregatorTransactionHistory extends Component {
   };
 
   componentDidMount() {
-    get(`/vendors/${this.props.currentId}/transactions`).then(transactions =>
-      this.props.loadTransactions(transactions.data)
-    );
+    get(
+      `/vendors/${this.props.currentId}/transactions`,
+      this.props.cookies.get('access_token')
+    ).then(transactions => this.props.loadTransactions(transactions.data));
   }
 
   filterTransactions(transactionType) {
