@@ -6,7 +6,7 @@ import DayPickerInput from 'react-day-picker/DayPickerInput';
 import TextInput from '../input-components/TextInput';
 import CreateStakeholderModal from './CreateStakeholderModal';
 import OnSubmitButton from '../common/OnSubmitButton';
-import { transactionTypes } from './HOCPrimarySegregatorTransaction';
+import { transactionTypes } from './PSTransactionContainer';
 import { ruleTypes } from '../utils/form';
 import { plasticOptions } from '../utils/plastic';
 import 'react-day-picker/lib/style.css';
