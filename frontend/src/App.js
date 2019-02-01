@@ -11,8 +11,7 @@ import AdminNewStakeholder from './components/PFCAdmin/AdminNewStakeholder';
 import CreateWastePicker from './components/PrimarySegregator/CreateWastePicker';
 import CreateExternalPrimarySegregator from './components/PrimarySegregator/CreateExternalPrimarySegregator';
 import PrimarySegregatorTransactionHistory from './components/PrimarySegregator/PrimarySegregatorTransactionHistory';
-import PrimarySegregatorBuyTransaction from './components/PrimarySegregator/PrimarySegregatorBuyTransaction';
-import PrimarySegregatorSellTransaction from './components/PrimarySegregator/PrimarySegregatorSellTransaction';
+import PSTransaction from './components/PrimarySegregator/PSTransactionContainer';
 import PrimarySegregatorBottomBar from './components/PrimarySegregator/PrimarySegregatorNavBar.js';
 import { get } from './components/utils/requests';
 import { loadVendors, authenticateUser, fetchComplete } from './actions';
@@ -136,14 +135,14 @@ class App extends React.Component {
                 exact
                 isDataReady={isDataReady}
                 isLoggedIn={isLoggedIn}
-                component={PrimarySegregatorSellTransaction}
+                component={PSTransaction}
               />
               <PrivateRoute
                 path="/ps/transactions/buy"
                 exact
                 isDataReady={isDataReady}
                 isLoggedIn={isLoggedIn}
-                component={PrimarySegregatorBuyTransaction}
+                component={PSTransaction}
               />
               <PrivateRoute
                 path="/ps/wastepickers/new"
