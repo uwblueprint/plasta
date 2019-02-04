@@ -74,13 +74,27 @@ class PrimarySegregatorTransactionHistory extends Component {
     if (transactionType === 'buy') {
       filterBuyTransactions(this.props.transactions, this.props.currentId).forEach(transaction => {
         const vendor = findVendorById(this.props.vendors, transaction.from_vendor_id);
-        if (!vendor) return;
+        if (!vendor) {
+          console.group('Missing Vendor');
+          console.error('Vendor missing with following params (vendors list, vendor id):');
+          console.error(this.props.vendors);
+          console.error(transaction.from_vendor_id);
+          console.groupEnd();
+          return;
+        }
         filteredTransactions.push({ ...transaction, name: vendor.name });
       });
     } else {
       filterSellTransactions(this.props.transactions, this.props.currentId).forEach(transaction => {
         const vendor = findVendorById(this.props.vendors, transaction.to_vendor_id);
-        if (!vendor) return;
+        if (!vendor) {
+          console.group('Missing Vendor');
+          console.error('Vendor missing with following params (vendors list, vendor id):');
+          console.error(this.props.vendors);
+          console.error(transaction.from_vendor_id);
+          console.groupEnd();
+          return;
+        }
         filteredTransactions.push({ ...transaction, name: vendor.name });
       });
     }
