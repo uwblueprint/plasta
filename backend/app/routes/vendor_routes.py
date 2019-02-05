@@ -36,8 +36,11 @@ def get_vendor_transactions(vendor_id):
 @blueprint.route('/<int:vendor_id>/transactions', methods=['POST'])
 @jwt_required
 def create_vendor_transaction(vendor_id):
-    transaction_data = request.json
-    transaction = db_client.create_transaction(transaction_data)
+    is_application_json = request.headers['Content-Type'] == 'application/json'
+    transaction_data = request.json if is_application_json else request.form.to_dict()
+    if not is_application_json and 'plastics' in transaction_data:
+        transaction_data['plastics'] = json.loads(transaction_data['plastics'])
+    transaction = db_client.create_transaction(transaction_data, request.files)
     return success(data=transaction.to_dict(include_relationships=True))
 
 

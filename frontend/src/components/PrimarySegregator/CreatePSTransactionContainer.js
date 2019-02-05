@@ -7,7 +7,7 @@ import './../FormPage.css';
 import { PropTypes } from 'prop-types';
 import moment from 'moment';
 import CreatePSTransaction from './CreatePSTransaction';
-import { get, post } from '../utils/requests';
+import { get, postMultiType } from '../utils/requests';
 import { findVendorsByTypes, findVendorsByIds } from '../utils/vendors';
 import { loadTransactions } from '../../actions';
 import personImage from '../../assets/person.png';
@@ -30,6 +30,7 @@ class CreatePSTransactionContainer extends Component {
       transactionDate: '',
       showModal: false,
       stakeholderOptions: [],
+      receiptPicture: {}
     };
     this.onSubmit = this.onSubmit.bind(this);
     this.onFieldChange = onFieldChange.bind(this);
@@ -109,37 +110,63 @@ class CreatePSTransactionContainer extends Component {
     const totalPrice = this.state.unitPrice * this.state.weight;
     const stakeholderName = this.state.stakeholderName;
     const saleDate = this.state.transactionDate;
-    let fromVendor = transactionType === transactionTypes.BUY ? stakeholderName : currentVendorId;
-    let toVendor = transactionType === transactionTypes.BUY ? currentVendorId : stakeholderName;
+    let fromVendor = transactionType === transactionTypes.BUY ? stakeholderName.value : currentVendorId;
+    let toVendor = transactionType === transactionTypes.BUY ? currentVendorId : stakeholderName.value;
+    const receiptPicture = this.state.receiptPicture;
 
-    let transactionData = {
-      from_vendor_id: fromVendor,
-      to_vendor_id: toVendor,
-      price: totalPrice,
-      plastics: [
-        {
-          plastic_type: this.state.plasticType.value,
-          quantity: this.state.weight,
-          price: totalPrice,
-        },
-      ],
-      creator_id: currentVendorId,
-      sale_date: saleDate !== '' ? saleDate : moment(Date.now()).format('YYYY-MM-DD'),
-    };
+    const data = [
+      {
+        key: 'from_vendor_id',
+        value: fromVendor,
+      },
+      {
+        key: 'to_vendor_id',
+        value: toVendor,
+      },
+      {
+        key: 'price',
+        value: totalPrice,
+      },
+      {
+        key: 'plastics',
+        value: [
+          {
+            plastic_type: this.state.plasticType.value,
+            quantity: this.state.weight,
+            price: totalPrice,
+          },
+        ]
+      },
+      {
+        key: 'creator_id',
+        value: currentVendorId,
+      },
+      {
+        key: 'sale_date',
+        value: saleDate !== '' ? saleDate : moment(Date.now()).format('YYYY-MM-DD'),
+      },
+    ];
 
-    post(`/vendors/${transactionData.creator_id}/transactions`, {
-      data: transactionData,
-      authToken: this.props.cookies.get('access_token'),
-    }).catch(err => {
-      console.error(err);
+    if (receiptPicture instanceof File) {
+          data.push({
+            key: 'picture',
+            value: receiptPicture,
+          });
+    }
+
+    const authToken = this.props.cookies.get('access_token');
+    try {
+      await postMultiType(
+        `/vendors/${currentVendorId}/transactions`,
+        { data: data, authToken });
+      const transactions = await get(
+        `/vendors/${currentVendorId}/transactions`,
+         authToken
+      );
+      this.props.loadTransactions(transactions.data);
+    } catch (err) {
       alert('There was a problem submitting the transaction. Please try again.');
-    });
-
-    const transactions = await get(
-      `/vendors/${this.props.currentUser.userDetails.id}/transactions`,
-      this.props.cookies.get('access_token')
-    );
-    this.props.loadTransactions(transactions.data);
+    }
   }
 
   render() {

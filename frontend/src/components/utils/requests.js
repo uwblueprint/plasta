@@ -28,7 +28,7 @@ export function postMultiType(path, payload) {
   const url = process.env.REACT_APP_API_URL + path;
   const formData = new FormData();
   payload.data.forEach(field => {
-    if (field.key === 'meta_data') {
+    if (field.key === 'meta_data' || field.key === 'plastics') {
       formData.append(field.key, JSON.stringify(field.value));
     } else {
       formData.append(field.key, field.value);

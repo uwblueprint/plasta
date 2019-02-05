@@ -20,6 +20,7 @@ class Transaction(BaseMixin, db.Model):
     creator_id = db.Column(
         db.Integer, db.ForeignKey('user.id'), nullable=False)
     created_at = db.Column(db.DateTime, nullable=False, default=db.func.now())
+    receipt_image_link = db.Column(db.String(255), nullable=True)
 
     def create_plastics(self, plastics):
         for plastic in plastics:
