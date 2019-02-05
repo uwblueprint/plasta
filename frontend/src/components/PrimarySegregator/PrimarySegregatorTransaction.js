@@ -33,7 +33,7 @@ const PrimarySegregatorTransaction = props => {
     props.transactionType === transactionTypes.BUY
       ? orderValueAtTop(
           props.stakeholderOptions.concat(createStakeholderOption),
-          createStakeholderOption.value
+          createStakeholderOption[0].value
         )
       : props.stakeholderOptions;
   return (
