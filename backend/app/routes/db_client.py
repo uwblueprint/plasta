@@ -31,7 +31,11 @@ def get_projects():
     return Project.query.all()
 
 
-def create_transaction(data):
+def create_transaction(data, files=None):
+    from . import s3_client
+    if files is not None and 'picture' in files:
+        receipt_image_link = s3_client.upload_image(files['picture'])
+        data['receipt_image_link'] = receipt_image_link
     plastics = data.pop('plastics')
     transaction = Transaction.create(**data)
     transaction.create_plastics(plastics)
@@ -53,7 +57,7 @@ def get_user(email):
 def create_vendor(data, current_user=None, files=None):
     from . import s3_client
     if files is not None and 'picture' in files:
-        image_link = s3_client.upload_user_image(files['picture'])
+        image_link = s3_client.upload_image(files['picture'])
         data['image_link'] = image_link
 
     vendor = Vendor.create(**data)

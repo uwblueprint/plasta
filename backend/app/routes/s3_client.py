@@ -18,7 +18,7 @@ def _create_image_link(key):
     )
 
 
-def upload_user_image(image):
+def upload_image(image):
     image.seek(0)
     key = _generate_key()
     s3_resource.Bucket(name=BUCKET_NAME).upload_fileobj(

@@ -12,6 +12,7 @@ import { plasticOptions } from '../utils/plastic';
 import 'react-day-picker/lib/style.css';
 import './../FormPage.css';
 import './PrimarySegregator.css';
+import FileInput from '../input-components/FileInput';
 
 function orderValueAtTop(options, value) {
   return options.sort((a, b) => {
@@ -112,6 +113,16 @@ const CreatePSTransaction = props => {
           onDayChange={day => props.handleDayChange}
         />
       </FormSection>
+
+      <FormSection className="formsection" title="Upload Receipt Picture">
+        <FileInput
+          className="large-input full-width"
+          field="receiptPicture"
+          value={props.receiptPicture}
+          onChange={props.onFieldChange}
+        />
+      </FormSection>
+
       <OnSubmitButton nextPath="/ps/transaction-history" onClick={props.onSubmit} />
     </div>
   );
@@ -135,6 +146,7 @@ CreatePSTransaction.propTypes = {
   weight: PropTypes.string.isRequired,
   plasticType: PropTypes.object,
   stakeholderName: PropTypes.object.isRequired,
+  receiptPicture: PropTypes.any.isRequired,
 };
 
 export default CreatePSTransaction;
