@@ -50,6 +50,14 @@ const columns = [
   },
 ];
 
+function logMissingVendor(vendors_list, missing_vendor_id) {
+  console.group('Missing Vendor');
+  console.error('Vendor missing with following params (vendors list, vendor id):');
+  console.error(vendors_list);
+  console.error(missing_vendor_id);
+  console.groupEnd();
+}
+
 class PrimarySegregatorTransactionHistory extends Component {
   constructor(props) {
     super(props);
@@ -75,11 +83,7 @@ class PrimarySegregatorTransactionHistory extends Component {
       filterBuyTransactions(this.props.transactions, this.props.currentId).forEach(transaction => {
         const vendor = findVendorById(this.props.vendors, transaction.from_vendor_id);
         if (!vendor) {
-          console.group('Missing Vendor');
-          console.error('Vendor missing with following params (vendors list, vendor id):');
-          console.error(this.props.vendors);
-          console.error(transaction.from_vendor_id);
-          console.groupEnd();
+          logMissingVendor(this.props.vendors, transaction.from_vendor_id);
           return;
         }
         filteredTransactions.push({ ...transaction, name: vendor.name });
@@ -88,11 +92,7 @@ class PrimarySegregatorTransactionHistory extends Component {
       filterSellTransactions(this.props.transactions, this.props.currentId).forEach(transaction => {
         const vendor = findVendorById(this.props.vendors, transaction.to_vendor_id);
         if (!vendor) {
-          console.group('Missing Vendor');
-          console.error('Vendor missing with following params (vendors list, vendor id):');
-          console.error(this.props.vendors);
-          console.error(transaction.from_vendor_id);
-          console.groupEnd();
+          logMissingVendor(this.props.vendors, transaction.to_vendor_id);
           return;
         }
         filteredTransactions.push({ ...transaction, name: vendor.name });
