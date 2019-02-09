@@ -126,7 +126,7 @@ PSTransaction.propTypes = {
   handleNewStakeholder: PropTypes.func,
   showModal: PropTypes.bool,
   hideModal: PropTypes.func,
-  transactionType: PropTypes.number.isRequired,
+  transactionType: PropTypes.string.isRequired,
   submitAttempted: PropTypes.bool.isRequired,
   onValidation: PropTypes.func,
   // field values
