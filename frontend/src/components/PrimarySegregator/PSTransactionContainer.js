@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { withCookies } from 'react-cookie';
 import { onFieldChange, isFormValid, onValidation } from '../utils/form';
 import CancelButton from '../common/CancelButton.js';
 import './../FormPage.css';
