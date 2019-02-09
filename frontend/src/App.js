@@ -131,15 +131,7 @@ class App extends React.Component {
                 component={PSTransactionHistory}
               />
               <PrivateRoute
-                path="/ps/transactions/sell"
-                exact
-                isDataReady={isDataReady}
-                isLoggedIn={isLoggedIn}
-                component={PSTransaction}
-              />
-              <PrivateRoute
-                path="/ps/transactions/buy"
-                exact
+                path="/ps/transactions/:transactionType"
                 isDataReady={isDataReady}
                 isLoggedIn={isLoggedIn}
                 component={PSTransaction}

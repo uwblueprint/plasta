@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { withCookies } from 'react-cookie';
 import { onFieldChange, isFormValid, onValidation } from '../utils/form';
 import CancelButton from '../common/CancelButton.js';
 import './../FormPage.css';
@@ -47,27 +48,25 @@ class PSTransactionContainer extends Component {
   componentDidMount() {
     const transactionType = this.props.match.params.transactionType;
     const currentVendorId = this.props.currentUser.userDetails.id;
-    let stakeholderOptions;
 
-    if (transactionType === transactionTypes.BUY) {
-      const url = `/vendors/primary_segregator/${currentVendorId}/wastepickers`;
-      get(url, this.props.cookies.get('access_token')).then(res => {
-        stakeholderOptions = findVendorsByIds(this.props.vendors, res.data);
+    new Promise(async () => {
+      if (transactionType === transactionTypes.BUY) {
+        const url = `/vendors/primary_segregator/${currentVendorId}/wastepickers`;
+        const wastepickers = await get(url, this.props.cookies.get('access_token'));
+        return findVendorsByIds(this.props.vendors, wastepickers.data);
+      }
+      // SELL trans
+      return findVendorsByTypes(this.props.vendors, ['wholesaler', 'primary_segregator']);
+    }).then(stakeholderOptions => {
+      stakeholderOptions.map(vendor => ({
+        label: vendor.name,
+        value: vendor.id,
+        imageLink: vendor.image_link || personImage,
+      }));
+
+      this.setState({
+        stakeholderOptions: stakeholderOptions,
       });
-    } else {
-      stakeholderOptions = findVendorsByTypes(this.props.vendors, [
-        'wholesaler',
-        'primary_segregator',
-      ]);
-    }
-
-    stakeholderOptions.map(vendor => ({
-      label: vendor.name,
-      value: vendor.id,
-      imageLink: vendor.image_link || personImage,
-    }));
-    this.setState({
-      stakeholderOptions: stakeholderOptions,
     });
   }
 
@@ -178,7 +177,9 @@ const mapDispatchToProps = dispatch => ({
   loadTransactions: payload => dispatch(loadTransactions(payload)),
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(PSTransactionContainer);
+export default withCookies(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(PSTransactionContainer)
+);
