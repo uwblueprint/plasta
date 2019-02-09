@@ -11,6 +11,7 @@ import { ruleTypes } from '../utils/form';
 import { plasticOptions } from '../utils/plastic';
 import 'react-day-picker/lib/style.css';
 import './../FormPage.css';
+import './PrimarySegregator.css';
 
 function orderValueAtTop(options, value) {
   return options.sort((a, b) => {
