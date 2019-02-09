@@ -6,7 +6,7 @@ import buy from './NavbarImages/buy.png';
 import sell from './NavbarImages/sell.png';
 import createnew from './NavbarImages/createnew.png';
 
-class PrimarySegregatorBottomBar extends Component {
+class PSNavBar extends Component {
   render() {
     return (
       <div id="nav-bar-wrapper">
