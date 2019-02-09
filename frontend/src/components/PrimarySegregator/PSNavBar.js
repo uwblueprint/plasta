@@ -26,4 +26,4 @@ class PSNavBar extends Component {
   }
 }
 
-export default PrimarySegregatorBottomBar;
+export default PSNavBar;
