@@ -58,7 +58,7 @@ function logMissingVendor(vendors_list, missing_vendor_id) {
   console.groupEnd();
 }
 
-class PrimarySegregatorTransactionHistory extends Component {
+class PSTransactionHistory extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -142,5 +142,5 @@ export default withCookies(
   connect(
     mapStateToProps,
     mapDispatchToProps
-  )(PrimarySegregatorTransactionHistory)
+  )(PSTransactionHistory)
 );

@@ -21,7 +21,7 @@ function orderValueAtTop(options, value) {
   });
 }
 
-const PrimarySegregatorTransaction = props => {
+const PSTransaction = props => {
   const pageTitle = props.transactionType === transactionTypes.BUY ? 'From *' : 'To *';
   const createStakeholderOption = [
     {
@@ -116,7 +116,7 @@ const PrimarySegregatorTransaction = props => {
   );
 };
 
-PrimarySegregatorTransaction.propTypes = {
+PSTransaction.propTypes = {
   onSubmit: PropTypes.func.isRequired,
   onFieldChange: PropTypes.func.isRequired,
   handleDayChange: PropTypes.func.isRequired,
@@ -136,4 +136,4 @@ PrimarySegregatorTransaction.propTypes = {
   stakeholderName: PropTypes.object.isRequired,
 };
 
-export default PrimarySegregatorTransaction;
+export default PSTransaction;

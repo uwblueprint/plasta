@@ -6,7 +6,7 @@ import CancelButton from '../common/CancelButton.js';
 import './../FormPage.css';
 import { PropTypes } from 'prop-types';
 import moment from 'moment';
-import PrimarySegregatorTransaction from './PrimarySegregatorTransaction';
+import PSTransaction from './PSTransaction';
 import { get, post } from '../utils/requests';
 import { findVendorsByTypes, findVendorsByIds } from '../utils/vendors';
 import { loadTransactions } from '../../actions';
@@ -148,7 +148,7 @@ class PSTransactionContainer extends Component {
     return (
       <div id="transactions-wrapper">
         <CancelButton context={this.context} />
-        <PrimarySegregatorTransaction
+        <PSTransaction
           title={transactionType === transactionTypes.BUY ? 'Buy' : 'Sell'}
           transactionType={transactionType}
           onSubmit={this.onSubmit}
