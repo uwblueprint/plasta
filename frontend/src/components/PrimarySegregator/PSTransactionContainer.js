@@ -49,25 +49,28 @@ class PSTransactionContainer extends Component {
     const transactionType = this.props.match.params.transactionType;
     const currentVendorId = this.props.currentUser.userDetails.id;
 
-    new Promise(async () => {
+    new Promise(async res => {
       if (transactionType === transactionTypes.BUY) {
         const url = `/vendors/primary_segregator/${currentVendorId}/wastepickers`;
         const wastepickers = await get(url, this.props.cookies.get('access_token'));
-        return findVendorsByIds(this.props.vendors, wastepickers.data);
+        res(findVendorsByIds(this.props.vendors, wastepickers.data));
       }
       // SELL trans
-      return findVendorsByTypes(this.props.vendors, ['wholesaler', 'primary_segregator']);
-    }).then(stakeholderOptions => {
-      stakeholderOptions.map(vendor => ({
-        label: vendor.name,
-        value: vendor.id,
-        imageLink: vendor.image_link || personImage,
-      }));
-
-      this.setState({
-        stakeholderOptions: stakeholderOptions,
+      res(findVendorsByTypes(this.props.vendors, ['wholesaler', 'primary_segregator']));
+    })
+      .then(stakeholderOptions => {
+        const stakeholders = stakeholderOptions.map(vendor => ({
+          label: vendor.name,
+          value: vendor.id,
+          imageLink: vendor.image_link || personImage,
+        }));
+        this.setState({
+          stakeholderOptions: stakeholders,
+        });
+      })
+      .catch(err => {
+        // TODO handle error
       });
-    });
   }
 
   hideModal() {
