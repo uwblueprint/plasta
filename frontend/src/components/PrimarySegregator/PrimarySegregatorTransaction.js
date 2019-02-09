@@ -108,7 +108,7 @@ const PrimarySegregatorTransaction = props => {
         <DayPickerInput
           className="date-input-field"
           placeholder="YYYY-MM-DD"
-          onDayChange={day => props.handleDayChange('transactionDate', day)}
+          onDayChange={day => props.handleDayChange}
         />
       </FormSection>
       <OnSubmitButton nextPath="/ps/transaction-history" onClick={props.onSubmit} />
