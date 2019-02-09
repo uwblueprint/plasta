@@ -10,9 +10,9 @@ import AdminStakeholder from './components/PFCAdmin/AdminStakeholder';
 import AdminNewStakeholder from './components/PFCAdmin/AdminNewStakeholder';
 import CreateWastePicker from './components/PrimarySegregator/CreateWastePicker';
 import CreateExternalPrimarySegregator from './components/PrimarySegregator/CreateExternalPrimarySegregator';
-import PrimarySegregatorTransactionHistory from './components/PrimarySegregator/PrimarySegregatorTransactionHistory';
+import PSTransactionHistory from './components/PrimarySegregator/PSTransactionHistory';
 import PSTransaction from './components/PrimarySegregator/PSTransactionContainer';
-import PrimarySegregatorBottomBar from './components/PrimarySegregator/PrimarySegregatorNavBar.js';
+import PSNavBar from './components/PrimarySegregator/PSNavBar';
 import { get } from './components/utils/requests';
 import { loadVendors, authenticateUser, fetchComplete } from './actions';
 import { Cookies, withCookies } from 'react-cookie';
@@ -128,7 +128,7 @@ class App extends React.Component {
                 path="/ps/transaction-history"
                 isDataReady={isDataReady}
                 isLoggedIn={isLoggedIn}
-                component={PrimarySegregatorTransactionHistory}
+                component={PSTransactionHistory}
               />
               <PrivateRoute
                 path="/ps/transactions/sell"
@@ -159,9 +159,7 @@ class App extends React.Component {
             </Switch>
             {this.props.currentUser && <LogoutButton cookies={this.props.cookies} />}
             {this.props.currentUser &&
-              this.props.currentUser.userType === 'primary_segregator' && (
-                <PrimarySegregatorBottomBar />
-              )}
+              this.props.currentUser.userType === 'primary_segregator' && <PSNavBar />}
           </React.Fragment>
         </Router>
       </React.Fragment>
