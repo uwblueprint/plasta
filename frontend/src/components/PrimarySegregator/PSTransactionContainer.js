@@ -80,8 +80,8 @@ class PSTransactionContainer extends Component {
     this.setState({ showModal: true });
   }
 
-  handleDayChange(input, value) {
-    this.setState({ [input]: moment(value).format('YYYY-MM-DD') });
+  handleDayChange(value) {
+    this.setState({ transactionDate: moment(value).format('YYYY-MM-DD') });
   }
 
   componentDidUpdate() {
@@ -106,11 +106,16 @@ class PSTransactionContainer extends Component {
     }
 
     const transactionType = this.props.match.params.transactionType;
-
+    const currentVendorId = this.props.currentUser.userDetails.vendor_id;
     const totalPrice = this.state.unitPrice * this.state.weight;
+    const stakeholderName = this.state.stakeholderName;
+    const saleDate = this.state.transactionDate;
+    let fromVendor = transactionType === transactionTypes.BUY ? stakeholderName : currentVendorId;
+    let toVendor = transactionType === transactionTypes.BUY ? currentVendorId : stakeholderName;
+
     let transactionData = {
-      from_vendor_id: this.props.currentUser.userDetails.vendor_id,
-      to_vendor_id: this.state.stakeholderName.value,
+      from_vendor_id: fromVendor,
+      to_vendor_id: toVendor,
       price: totalPrice,
       plastics: [
         {
@@ -119,17 +124,18 @@ class PSTransactionContainer extends Component {
           price: totalPrice,
         },
       ],
-      creator_id: this.props.currentUser.userDetails.vendor_id,
+      creator_id: currentVendorId,
+      sale_date: saleDate !== '' ? saleDate : moment(Date.now()).format('YYYY-MM-DD'),
     };
-    if (this.state.transactionDate !== '') {
-      transactionData.sale_date = this.state.transactionDate;
-    }
+
     post(`/vendors/${transactionData.creator_id}/transactions`, {
       data: transactionData,
       authToken: this.props.cookies.get('access_token'),
     }).catch(err => {
+      console.error(err);
       alert('There was a problem submitting the transaction. Please try again.');
     });
+
     const transactions = await get(
       `/vendors/${this.props.currentUser.userDetails.id}/transactions`,
       this.props.cookies.get('access_token')
