@@ -6,7 +6,7 @@ import DayPickerInput from 'react-day-picker/DayPickerInput';
 import TextInput from '../input-components/TextInput';
 import CreateStakeholderModal from './CreateStakeholderModal';
 import OnSubmitButton from '../common/OnSubmitButton';
-import { transactionTypes } from './PSTransactionContainer';
+import { transactionTypes } from './CreatePSTransactionContainer';
 import { ruleTypes } from '../utils/form';
 import { plasticOptions } from '../utils/plastic';
 import 'react-day-picker/lib/style.css';
@@ -22,7 +22,7 @@ function orderValueAtTop(options, value) {
   });
 }
 
-const PSTransaction = props => {
+const CreatePSTransaction = props => {
   const pageTitle = props.transactionType === transactionTypes.BUY ? 'From *' : 'To *';
   const createStakeholderOption = [
     {
@@ -117,7 +117,7 @@ const PSTransaction = props => {
   );
 };
 
-PSTransaction.propTypes = {
+CreatePSTransaction.propTypes = {
   onSubmit: PropTypes.func.isRequired,
   onFieldChange: PropTypes.func.isRequired,
   handleDayChange: PropTypes.func.isRequired,
@@ -137,4 +137,4 @@ PSTransaction.propTypes = {
   stakeholderName: PropTypes.object.isRequired,
 };
 
-export default PSTransaction;
+export default CreatePSTransaction;
