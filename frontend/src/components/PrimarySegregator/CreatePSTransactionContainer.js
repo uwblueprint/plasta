@@ -73,6 +73,19 @@ class CreatePSTransactionContainer extends Component {
       });
   }
 
+  componentDidUpdate() {
+    // If "Create new stakeholder" chosen as stakeholderOption, display
+    // modal to create new stakeholder
+    if (
+      this.state.stakeholderName &&
+      this.state.stakeholderName.value === 'create-new' &&
+      this.state.showModal === false
+    ) {
+      this.handleNewStakeholder();
+      this.setState({ stakeholderName: {} });
+    }
+  }
+
   hideModal() {
     this.setState({ showModal: false });
   }
@@ -83,21 +96,6 @@ class CreatePSTransactionContainer extends Component {
 
   handleDayChange(value) {
     this.setState({ transactionDate: moment(value).format('YYYY-MM-DD') });
-  }
-
-  componentDidUpdate() {
-    // If "Create new stakeholder" chosen as stakeholderOption, display
-    // modal to create new stakeholder
-    if (
-      this.state.stakeholderName &&
-      this.state.stakeholderName.value === 'create-new' &&
-      this.state.showModal === false
-    ) {
-      this.handleNewStakeholder();
-      this.setState({
-        stakeholderName: {},
-      });
-    }
   }
 
   async onSubmit() {
