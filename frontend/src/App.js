@@ -11,7 +11,7 @@ import AdminNewStakeholder from './components/PFCAdmin/AdminNewStakeholder';
 import CreateWastePicker from './components/PrimarySegregator/CreateWastePicker';
 import CreateExternalPrimarySegregator from './components/PrimarySegregator/CreateExternalPrimarySegregator';
 import PSTransactionHistory from './components/PrimarySegregator/PSTransactionHistory';
-import PSTransaction from './components/PrimarySegregator/PSTransactionContainer';
+import PSTransaction from './components/PrimarySegregator/CreatePSTransactionContainer';
 import PSNavBar from './components/PrimarySegregator/PSNavBar';
 import { get } from './components/utils/requests';
 import { loadVendors, authenticateUser, fetchComplete } from './actions';

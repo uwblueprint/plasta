@@ -6,7 +6,7 @@ import CancelButton from '../common/CancelButton.js';
 import './../FormPage.css';
 import { PropTypes } from 'prop-types';
 import moment from 'moment';
-import PSTransaction from './PSTransaction';
+import CreatePSTransaction from './CreatePSTransaction';
 import { get, post } from '../utils/requests';
 import { findVendorsByTypes, findVendorsByIds } from '../utils/vendors';
 import { loadTransactions } from '../../actions';
@@ -17,7 +17,7 @@ export const transactionTypes = {
   SELL: 'sell',
 };
 
-class PSTransactionContainer extends Component {
+class CreatePSTransactionContainer extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -149,7 +149,7 @@ class PSTransactionContainer extends Component {
     return (
       <div id="transactions-wrapper">
         <CancelButton context={this.context} />
-        <PSTransaction
+        <CreatePSTransaction
           title={transactionType === transactionTypes.BUY ? 'Buy' : 'Sell'}
           transactionType={transactionType}
           onSubmit={this.onSubmit}
@@ -184,5 +184,5 @@ export default withCookies(
   connect(
     mapStateToProps,
     mapDispatchToProps
-  )(PSTransactionContainer)
+  )(CreatePSTransactionContainer)
 );
