@@ -5,6 +5,7 @@ import SearchSelect from '../input-components/SearchSelect';
 import DayPickerInput from 'react-day-picker/DayPickerInput';
 import TextInput from '../input-components/TextInput';
 import CreateStakeholderModal from './CreateStakeholderModal';
+import CancelButton from '../common/CancelButton.js';
 import OnSubmitButton from '../common/OnSubmitButton';
 import { transactionTypes } from './CreatePSTransactionContainer';
 import { ruleTypes } from '../utils/form';
@@ -123,7 +124,10 @@ const CreatePSTransaction = props => {
         />
       </FormSection>
 
-      <OnSubmitButton nextPath="/ps/transaction-history" onClick={props.onSubmit} />
+      <div style={{ textAlign: 'center' }}>
+        <CancelButton context={this.context} />
+        <OnSubmitButton nextPath="/ps/transaction-history" onClick={props.onSubmit} />
+      </div>
     </div>
   );
 };

@@ -1,4 +1,5 @@
 import React from 'react';
+import './OnSubmitButton.css';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { PropTypes } from 'prop-types';
@@ -20,17 +21,18 @@ const OnSubmitButton = props => {
   return (
     <button
       disabled={props.isLoading}
-      className="btn-dark bg-green uppercase"
+      className="btn-dark OnSubmitButton"
       type="submit"
       onClick={onSubmit}
     >
+      <i className="fas fa-check" style={{ marginRight: '1em' }} />
       {props.text}
     </button>
   );
 };
 
 OnSubmitButton.defaultProps = {
-  text: 'Submit',
+  text: 'Save',
 };
 
 OnSubmitButton.propTypes = {

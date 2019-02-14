@@ -86,7 +86,8 @@ class CreateWastePicker extends Component {
   async componentDidMount() {
     const wastepickerTypes = await get(
       '/vendors/wastepicker_types',
-      this.props.cookies.get('access_token'));
+      this.props.cookies.get('access_token')
+    );
     wastepickerTypes.data.forEach(function(option) {
       if (option.value === 'wastepicker') {
         option['label'] = 'Waste Picker (General)';
@@ -105,7 +106,6 @@ class CreateWastePicker extends Component {
     const submitAttempted = this.state.submitAttempted;
     return (
       <div className="page-wrapper" id="create-wastepicker-wrapper">
-        <CancelButton context={this.context} />
         <h1>Create Waste Picker</h1>
         <p className="required-field-notif">
           All fields marked with <b>*</b> are required.
@@ -195,8 +195,11 @@ class CreateWastePicker extends Component {
             onChange={this.onFieldChange}
           />
         </FormSection>
-        {/* TODO (XIN): Add nextPath for on successful submit*/}
-        <OnSubmitButton nextPath="/ps/transaction-history" onClick={this.onSubmit} />
+        <div style={{ textAlign: 'center' }}>
+          <CancelButton context={this.context} />
+          {/* TODO (XIN): Add nextPath for on successful submit*/}
+          <OnSubmitButton nextPath="/ps/transaction-history" onClick={this.onSubmit} />
+        </div>
       </div>
     );
   }

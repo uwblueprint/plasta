@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withCookies } from 'react-cookie';
 import { onFieldChange, isFormValid, onValidation } from '../utils/form';
-import CancelButton from '../common/CancelButton.js';
 import './../FormPage.css';
 import { PropTypes } from 'prop-types';
 import moment from 'moment';
@@ -173,7 +172,6 @@ class CreatePSTransactionContainer extends Component {
     const transactionType = this.props.match.params.transactionType;
     return (
       <div id="transactions-wrapper">
-        <CancelButton context={this.context} />
         <CreatePSTransaction
           title={transactionType === transactionTypes.BUY ? 'Buy' : 'Sell'}
           transactionType={transactionType}

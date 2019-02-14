@@ -5,11 +5,10 @@ import { withRouter } from 'react-router-dom';
 class CancelButton extends Component {
   render() {
     return (
-      <div>
-        <button className="CancelButton" onClick={this.props.history.goBack}>
-          <i className="far fa-times-circle" />
-        </button>
-      </div>
+      <button className="btn-dark CancelButton" onClick={this.props.history.goBack}>
+        <i className="fas fa-times" style={{ marginRight: '1em' }} />
+        Cancel
+      </button>
     );
   }
 }

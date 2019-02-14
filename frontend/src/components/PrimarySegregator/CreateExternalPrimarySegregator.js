@@ -6,6 +6,7 @@ import FormSection from '../input-components/FormSection';
 import TextInput from '../input-components/TextInput';
 import { ruleTypes, onFieldChange, isFormValid, onValidation } from '../utils/form';
 import { post, get } from '../utils/requests';
+import CancelButton from '../common/CancelButton.js';
 import OnSubmitButton from '../common/OnSubmitButton';
 import { loadVendors } from '../../actions';
 import '../FormPage.css';
@@ -87,8 +88,11 @@ class CreateExternalPrimarySegregator extends Component {
             onChange={this.onFieldChange}
           />
         </FormSection>
-        {/* TODO (XIN): Add nextPath for on successful submit*/}
-        <OnSubmitButton onClick={this.onSubmit} />
+        <div style={{ textAlign: 'center' }}>
+          <CancelButton context={this.context} />
+          {/* TODO (XIN): Add nextPath for on successful submit*/}
+          <OnSubmitButton onClick={this.onSubmit} />
+        </div>
       </div>
     );
   }

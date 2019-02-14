@@ -283,7 +283,10 @@ class NewProject extends Component {
             onChange={this.onFieldChange}
           />
         </FormSection>
-        <OnSubmitButton nextPath="/projects" onClick={this.onSubmit} />
+        <div style={{ textAlign: 'center' }}>
+          <CancelButton context={this.context} />
+          <OnSubmitButton nextPath="/projects" onClick={this.onSubmit} />
+        </div>
       </div>
     );
   }
