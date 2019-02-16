@@ -20,3 +20,16 @@ export const loadTransactions = transactions => ({
   type: 'LOAD_TRANSACTIONS',
   transactions,
 });
+
+export const setHeaderBar = header => ({
+  type: 'SET_HEADER_TITLE',
+  title: header.title,
+  matIcon: header.matIcon,
+  showTransactionTypes: header.showTransactionTypes,
+  transactionType: header.transactionType,
+});
+
+export const setTransactionView = type => ({
+  type: 'SET_TRANSACTION_VIEW',
+  transactionType: type,
+});

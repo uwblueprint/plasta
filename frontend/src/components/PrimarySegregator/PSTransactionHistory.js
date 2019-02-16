@@ -12,9 +12,13 @@ import {
 import { get } from './../utils/requests';
 import { connect } from 'react-redux';
 import { PropTypes } from 'prop-types';
-import { filterBuyTransactions, filterSellTransactions } from './../utils/transactions';
+import {
+  filterBuyTransactions,
+  filterSellTransactions,
+  TRANSACTION_TYPES,
+} from '../utils/transactions';
 import { findVendorById } from '../utils/vendors.js';
-import { loadTransactions } from '../../actions';
+import { loadTransactions, setHeaderBar } from '../../actions';
 
 const columns = [
   {
@@ -63,6 +67,7 @@ class PSTransactionHistory extends Component {
     super(props);
     this.state = {
       pageSize: 5,
+      transactionType: 'Buy',
     };
   }
   static propTypes = {
@@ -71,6 +76,12 @@ class PSTransactionHistory extends Component {
   };
 
   componentDidMount() {
+    this.props.setHeaderBar({
+      title: 'Transactions',
+      matIcon: 'compare_arrows',
+      showTransactionTypes: true,
+    });
+
     get(
       `/vendors/${this.props.currentId}/transactions`,
       this.props.cookies.get('access_token')
@@ -102,11 +113,10 @@ class PSTransactionHistory extends Component {
   }
 
   render() {
+    const transactionType = this.props.header.transactionType;
     return (
-      <div>
-        <div id="primary-segregator-page-wrapper">
-          <h1> Transaction History </h1>
-          <h2>Buy</h2>
+      <div id="primary-segregator-page-wrapper">
+        {transactionType === TRANSACTION_TYPES.BUY ? (
           <TransactionTable
             showPagination={false}
             data={this.filterTransactions('buy')}
@@ -114,7 +124,7 @@ class PSTransactionHistory extends Component {
             defaultPageSize={this.state.pageSize}
             className="-striped-highlight table"
           />
-          <h2>Sell</h2>
+        ) : (
           <TransactionTable
             showPagination={false}
             data={this.filterTransactions('sell')}
@@ -122,7 +132,7 @@ class PSTransactionHistory extends Component {
             defaultPageSize={this.state.pageSize}
             className="-striped-highlight table"
           />
-        </div>
+        )}
       </div>
     );
   }
@@ -132,10 +142,12 @@ const mapStateToProps = state => ({
   currentId: state.currentUser.userDetails.vendor_id,
   vendors: state.vendors,
   transactions: state.transactions,
+  header: state.headerBar,
 });
 
 const mapDispatchToProps = dispatch => ({
   loadTransactions: payload => dispatch(loadTransactions(payload)),
+  setHeaderBar: payload => dispatch(setHeaderBar(payload)),
 });
 
 export default withCookies(

@@ -13,7 +13,7 @@ import CancelButton from '../common/CancelButton';
 import OnSubmitButton from '../common/OnSubmitButton';
 import { post } from '../utils/requests';
 import { fieldsInfo } from '../utils/project';
-import { onFieldChange, ruleTypes, onValidation, isFormValid } from '../utils/form';
+import { onFieldChange, RULE_TYPES, onValidation, isFormValid } from '../utils/form';
 import 'react-day-picker/lib/style.css';
 import '../FormPage.css';
 import { connect } from 'react-redux';
@@ -109,7 +109,7 @@ class NewProject extends Component {
             value={this.state.projectName}
             placeholder="Enter project name here"
             onChange={this.onFieldChange}
-            rules={[ruleTypes.FIELD_REQUIRED]}
+            rules={[RULE_TYPES.FIELD_REQUIRED]}
             onValidation={this.onValidation}
             showErrors={submitAttempted}
           />
@@ -157,7 +157,7 @@ class NewProject extends Component {
             field="wholesalers"
             onChange={this.onFieldChange}
             value={this.state.wholesalers}
-            rules={[ruleTypes.FIELD_REQUIRED]}
+            rules={[RULE_TYPES.FIELD_REQUIRED]}
             onValidation={this.onValidation}
             showErrors={submitAttempted}
             multi
@@ -170,7 +170,7 @@ class NewProject extends Component {
             onChange={this.onFieldChange}
             value={this.state.primarySegregators}
             multi
-            rules={[ruleTypes.FIELD_REQUIRED]}
+            rules={[RULE_TYPES.FIELD_REQUIRED]}
             onValidation={this.onValidation}
             showErrors={submitAttempted}
           />

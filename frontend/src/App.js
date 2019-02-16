@@ -13,6 +13,7 @@ import CreateExternalPrimarySegregator from './components/PrimarySegregator/Crea
 import PSTransactionHistory from './components/PrimarySegregator/PSTransactionHistory';
 import PSTransaction from './components/PrimarySegregator/CreatePSTransactionContainer';
 import PSNavBar from './components/PrimarySegregator/PSNavBar';
+import HeaderBar from './components/common/HeaderBar';
 import { get } from './components/utils/requests';
 import { loadVendors, authenticateUser, fetchComplete } from './actions';
 import { Cookies, withCookies } from 'react-cookie';
@@ -20,6 +21,52 @@ import { instanceOf } from 'prop-types';
 import { PrivateRoute } from './components/PrivateRoute';
 import LogoutButton from './components/common/LogoutButton';
 import './common.css';
+
+const privateRoutes = [
+  {
+    path: '/landing',
+    component: LandingPage,
+  },
+  {
+    path: '/projects',
+    exact: true,
+    component: Projects,
+  },
+  {
+    path: '/projects/new',
+    component: NewProject,
+  },
+  {
+    path: '/projects/:projectId',
+    component: ProjectPage,
+  },
+  {
+    path: '/admin/stakeholders/new',
+    component: AdminNewStakeholder,
+  },
+  {
+    path: '/admin/stakeholders',
+    component: AdminStakeholder,
+  },
+  {
+    path: '/ps/transaction-history',
+    component: PSTransactionHistory,
+    title: 'Transactions',
+  },
+  {
+    path: '/ps/transactions/:transactionType',
+    component: PSTransaction,
+    title: 'TransactionType',
+  },
+  {
+    path: '/ps/wastepickers/new',
+    component: CreateWastePicker,
+  },
+  {
+    path: '/ps/external-ps/new',
+    component: CreateExternalPrimarySegregator,
+  },
+];
 
 class App extends React.Component {
   constructor(props) {
@@ -85,73 +132,26 @@ class App extends React.Component {
         {this.props.isLoading && <div className="loading-overlay uppercase">Loading...</div>}
         <Router>
           <React.Fragment>
+            {this.props.currentUser && this.props.currentUser.userType === 'primary_segregator' && (
+              <Route component={HeaderBar} />
+            )}
             <Switch>
               <Route path="/" exact render={this.redirectUser} />
-              <PrivateRoute
-                path="/landing"
-                isDataReady={isDataReady}
-                isLoggedIn={isLoggedIn}
-                component={LandingPage}
-              />
-              <PrivateRoute
-                path="/projects"
-                exact
-                isDataReady={isDataReady}
-                isLoggedIn={isLoggedIn}
-                component={Projects}
-              />
-              <PrivateRoute
-                path="/projects/new"
-                isDataReady={isDataReady}
-                isLoggedIn={isLoggedIn}
-                component={NewProject}
-              />
-              <PrivateRoute
-                path="/projects/:projectId"
-                isLoggedIn={isLoggedIn}
-                isDataReady={isDataReady}
-                component={ProjectPage}
-              />
-              <PrivateRoute
-                path="/admin/stakeholders/new"
-                isDataReady={isDataReady}
-                isLoggedIn={isLoggedIn}
-                component={AdminNewStakeholder}
-              />
-              <PrivateRoute
-                path="/admin/stakeholders"
-                isDataReady={isDataReady}
-                isLoggedIn={isLoggedIn}
-                component={AdminStakeholder}
-              />
-              <PrivateRoute
-                path="/ps/transaction-history"
-                isDataReady={isDataReady}
-                isLoggedIn={isLoggedIn}
-                component={PSTransactionHistory}
-              />
-              <PrivateRoute
-                path="/ps/transactions/:transactionType"
-                isDataReady={isDataReady}
-                isLoggedIn={isLoggedIn}
-                component={PSTransaction}
-              />
-              <PrivateRoute
-                path="/ps/wastepickers/new"
-                isDataReady={isDataReady}
-                isLoggedIn={isLoggedIn}
-                component={CreateWastePicker}
-              />
-              <PrivateRoute
-                path="/ps/external-ps/new"
-                isDataReady={isDataReady}
-                isLoggedIn={isLoggedIn}
-                component={CreateExternalPrimarySegregator}
-              />
+              {privateRoutes.map((route, index) => (
+                <PrivateRoute
+                  key={`ps-route-${index}`}
+                  exact={route.exact}
+                  path={route.path}
+                  component={route.component}
+                  isDataReady={isDataReady}
+                  isLoggedIn={isLoggedIn}
+                />
+              ))}
             </Switch>
             {this.props.currentUser && <LogoutButton cookies={this.props.cookies} />}
-            {this.props.currentUser &&
-              this.props.currentUser.userType === 'primary_segregator' && <PSNavBar />}
+            {this.props.currentUser && this.props.currentUser.userType === 'primary_segregator' && (
+              <PSNavBar />
+            )}
           </React.Fragment>
         </Router>
       </React.Fragment>
