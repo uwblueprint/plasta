@@ -16,14 +16,14 @@ export const fieldRules = {
   },
 };
 
-export const ruleTypes = {
+export const RULE_TYPES = {
   FIELD_REQUIRED: 'FIELD_REQUIRED',
 };
-Object.freeze(ruleTypes);
+Object.freeze(RULE_TYPES);
 
 export const getErrorMessage = (error, field) => {
   switch (error) {
-    case ruleTypes.FIELD_REQUIRED:
+    case RULE_TYPES.FIELD_REQUIRED:
       return `${field} is required`;
     default:
       return '';

@@ -4,7 +4,7 @@ import SearchSelect from '../input-components/SearchSelect';
 import RadioSelect from '../input-components/RadioSelect';
 import FormSection from '../input-components/FormSection';
 import TextInput from '../input-components/TextInput';
-import { ruleTypes, onFieldChange, isFormValid, onValidation } from '../utils/form';
+import { RULE_TYPES, onFieldChange, isFormValid, onValidation } from '../utils/form';
 import OnSubmitButton from '../common/OnSubmitButton';
 import FileInput from '../input-components/FileInput';
 import CancelButton from '../common/CancelButton.js';
@@ -12,7 +12,7 @@ import { postMultiType, get } from '../utils/requests';
 import { removeUnderscoresAndCapitalize } from '../utils/vendors';
 import { snakeCase } from 'lodash';
 import { connect } from 'react-redux';
-import { loadVendors } from '../../actions';
+import { loadVendors, setHeaderBar } from '../../actions';
 import '../FormPage.css';
 
 // TODO (XIN): get from endpoints
@@ -84,6 +84,8 @@ class CreateWastePicker extends Component {
   }
 
   async componentDidMount() {
+    this.props.setHeaderBar({ title: 'New Waste Picker', matIcon: 'person_add' });
+
     const wastepickerTypes = await get(
       '/vendors/wastepicker_types',
       this.props.cookies.get('access_token')
@@ -118,7 +120,7 @@ class CreateWastePicker extends Component {
             value={this.state.name}
             placeholder="Ramnath"
             onChange={this.onFieldChange}
-            rules={[ruleTypes.FIELD_REQUIRED]}
+            rules={[RULE_TYPES.FIELD_REQUIRED]}
             onValidation={this.onValidation}
             showErrors={submitAttempted}
           />
@@ -131,7 +133,7 @@ class CreateWastePicker extends Component {
             value={this.state.phoneNumber}
             placeholder="9988776655"
             onChange={this.onFieldChange}
-            rules={[ruleTypes.FIELD_REQUIRED]}
+            rules={[RULE_TYPES.FIELD_REQUIRED]}
           />
 
           <h3 className="label">Type of Phone</h3>
@@ -151,7 +153,7 @@ class CreateWastePicker extends Component {
             value={this.state.vendorSubtype}
             options={this.state.wastepickerTypes}
             onChange={this.onFieldChange}
-            rules={[ruleTypes.FIELD_REQUIRED]}
+            rules={[RULE_TYPES.FIELD_REQUIRED]}
           />
 
           <h3 className="label">Upload Picture</h3>
@@ -207,6 +209,7 @@ class CreateWastePicker extends Component {
 
 const mapDispatchToProps = dispatch => ({
   loadVendors: payload => dispatch(loadVendors(payload)),
+  setHeaderBar: payload => dispatch(setHeaderBar(payload)),
 });
 
 export default withCookies(

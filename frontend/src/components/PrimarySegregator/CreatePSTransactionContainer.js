@@ -2,19 +2,15 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withCookies } from 'react-cookie';
 import { onFieldChange, isFormValid, onValidation } from '../utils/form';
+import { TRANSACTION_TYPES } from '../utils/transactions';
 import './../FormPage.css';
 import { PropTypes } from 'prop-types';
 import moment from 'moment';
 import CreatePSTransaction from './CreatePSTransaction';
 import { get, postMultiType } from '../utils/requests';
 import { findVendorsByTypes, findVendorsByIds } from '../utils/vendors';
-import { loadTransactions } from '../../actions';
+import { loadTransactions, setHeaderBar } from '../../actions';
 import personImage from '../../assets/person.png';
-
-export const transactionTypes = {
-  BUY: 'buy',
-  SELL: 'sell',
-};
 
 class CreatePSTransactionContainer extends Component {
   constructor(props) {
@@ -29,13 +25,16 @@ class CreatePSTransactionContainer extends Component {
       transactionDate: '',
       showModal: false,
       stakeholderOptions: [],
-      receiptPicture: {}
+      receiptPicture: {},
     };
     this.onSubmit = this.onSubmit.bind(this);
     this.onFieldChange = onFieldChange.bind(this);
     this.handleDayChange = this.handleDayChange.bind(this);
     this.handleNewStakeholder = this.handleNewStakeholder.bind(this);
     this.hideModal = this.hideModal.bind(this);
+    this.refreshStakeholderOptions = this.refreshStakeholderOptions.bind(this);
+    this.setHeaderBar = this.setHeaderBar.bind(this);
+
     this.isFormValid = isFormValid.bind(this);
     this.onValidation = onValidation.bind(this);
   }
@@ -46,36 +45,17 @@ class CreatePSTransactionContainer extends Component {
   };
 
   componentDidMount() {
-    const transactionType = this.props.match.params.transactionType;
-    const currentVendorId = this.props.currentUser.userDetails.id;
-
-    new Promise(async res => {
-      if (transactionType === transactionTypes.BUY) {
-        const url = `/vendors/primary_segregator/${currentVendorId}/wastepickers`;
-        const wastepickers = await get(url, this.props.cookies.get('access_token'));
-        res(findVendorsByIds(this.props.vendors, wastepickers.data));
-      }
-      // SELL trans
-      res(findVendorsByTypes(this.props.vendors, ['wholesaler', 'primary_segregator']));
-    })
-      .then(stakeholderOptions => {
-        const stakeholders = stakeholderOptions.map(vendor => ({
-          label: vendor.name,
-          value: vendor.id,
-          imageLink: vendor.image_link || personImage,
-        }));
-        this.setState({
-          stakeholderOptions: stakeholders,
-        });
-      })
-      .catch(err => {
-        // TODO handle error
-      });
+    this.refreshStakeholderOptions();
+    this.setHeaderBar();
   }
 
-  componentDidUpdate() {
+  componentDidUpdate(prevProps) {
     // If "Create new stakeholder" chosen as stakeholderOption, display
     // modal to create new stakeholder
+    if (prevProps.match.params.transactionType !== this.props.match.params.transactionType) {
+      this.refreshStakeholderOptions();
+      this.setHeaderBar();
+    }
     if (
       this.state.stakeholderName &&
       this.state.stakeholderName.value === 'create-new' &&
@@ -84,6 +64,36 @@ class CreatePSTransactionContainer extends Component {
       this.handleNewStakeholder();
       this.setState({ stakeholderName: {} });
     }
+  }
+
+  async refreshStakeholderOptions() {
+    const transactionType = this.props.match.params.transactionType;
+    const currentVendorId = this.props.currentUser.userDetails.id;
+
+    // SELL trans
+    let vendors = findVendorsByTypes(this.props.vendors, ['wholesaler', 'primary_segregator']);
+    if (transactionType === TRANSACTION_TYPES.BUY) {
+      const url = `/vendors/primary_segregator/${currentVendorId}/wastepickers`;
+      const wastepickers = await get(url, this.props.cookies.get('access_token'));
+      vendors = findVendorsByIds(this.props.vendors, wastepickers.data);
+    }
+
+    const stakeholders = vendors.map(vendor => ({
+      label: vendor.name,
+      value: vendor.id,
+      imageLink: vendor.image_link || personImage,
+    }));
+
+    this.setState({ stakeholderOptions: stakeholders });
+  }
+
+  setHeaderBar() {
+    const transactionType = this.props.match.params.transactionType;
+    const header = {
+      title: `New ${transactionType === TRANSACTION_TYPES.BUY ? 'Buy' : 'Sell'}`,
+      matIcon: 'add_shopping_cart',
+    };
+    this.props.setHeaderBar(header);
   }
 
   hideModal() {
@@ -109,8 +119,10 @@ class CreatePSTransactionContainer extends Component {
     const totalPrice = this.state.unitPrice * this.state.weight;
     const stakeholderName = this.state.stakeholderName;
     const saleDate = this.state.transactionDate;
-    let fromVendor = transactionType === transactionTypes.BUY ? stakeholderName.value : currentVendorId;
-    let toVendor = transactionType === transactionTypes.BUY ? currentVendorId : stakeholderName.value;
+    let fromVendor =
+      transactionType === TRANSACTION_TYPES.BUY ? stakeholderName.value : currentVendorId;
+    let toVendor =
+      transactionType === TRANSACTION_TYPES.BUY ? currentVendorId : stakeholderName.value;
     const receiptPicture = this.state.receiptPicture;
 
     const data = [
@@ -134,7 +146,7 @@ class CreatePSTransactionContainer extends Component {
             quantity: this.state.weight,
             price: totalPrice,
           },
-        ]
+        ],
       },
       {
         key: 'creator_id',
@@ -147,21 +159,16 @@ class CreatePSTransactionContainer extends Component {
     ];
 
     if (receiptPicture instanceof File) {
-          data.push({
-            key: 'picture',
-            value: receiptPicture,
-          });
+      data.push({
+        key: 'picture',
+        value: receiptPicture,
+      });
     }
 
     const authToken = this.props.cookies.get('access_token');
     try {
-      await postMultiType(
-        `/vendors/${currentVendorId}/transactions`,
-        { data: data, authToken });
-      const transactions = await get(
-        `/vendors/${currentVendorId}/transactions`,
-         authToken
-      );
+      await postMultiType(`/vendors/${currentVendorId}/transactions`, { data: data, authToken });
+      const transactions = await get(`/vendors/${currentVendorId}/transactions`, authToken);
       this.props.loadTransactions(transactions.data);
     } catch (err) {
       alert('There was a problem submitting the transaction. Please try again.');
@@ -171,22 +178,20 @@ class CreatePSTransactionContainer extends Component {
   render() {
     const transactionType = this.props.match.params.transactionType;
     return (
-      <div id="transactions-wrapper">
-        <CreatePSTransaction
-          title={transactionType === transactionTypes.BUY ? 'Buy' : 'Sell'}
-          transactionType={transactionType}
-          onSubmit={this.onSubmit}
-          onValidation={this.onValidation}
-          isFormValid={this.isFormValid}
-          handleDayChange={this.handleDayChange}
-          handleNewStakeholder={this.handleNewStakeholder}
-          showModal={this.showModal}
-          hideModal={this.hideModal}
-          onFieldChange={this.onFieldChange}
-          stakeholderOptions={this.state.stakeholderOptions}
-          {...this.state}
-        />
-      </div>
+      <CreatePSTransaction
+        title={transactionType === TRANSACTION_TYPES.BUY ? 'Buy' : 'Sell'}
+        transactionType={transactionType}
+        onSubmit={this.onSubmit}
+        onValidation={this.onValidation}
+        isFormValid={this.isFormValid}
+        handleDayChange={this.handleDayChange}
+        handleNewStakeholder={this.handleNewStakeholder}
+        showModal={this.showModal}
+        hideModal={this.hideModal}
+        onFieldChange={this.onFieldChange}
+        stakeholderOptions={this.state.stakeholderOptions}
+        {...this.state}
+      />
     );
   }
 }
@@ -201,6 +206,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => ({
   loadTransactions: payload => dispatch(loadTransactions(payload)),
+  setHeaderBar: payload => dispatch(setHeaderBar(payload)),
 });
 
 export default withCookies(

@@ -7,8 +7,8 @@ import TextInput from '../input-components/TextInput';
 import CreateStakeholderModal from './CreateStakeholderModal';
 import CancelButton from '../common/CancelButton.js';
 import OnSubmitButton from '../common/OnSubmitButton';
-import { transactionTypes } from './CreatePSTransactionContainer';
-import { ruleTypes } from '../utils/form';
+import { TRANSACTION_TYPES } from '../utils/transactions';
+import { RULE_TYPES } from '../utils/form';
 import { plasticOptions } from '../utils/plastic';
 import 'react-day-picker/lib/style.css';
 import './../FormPage.css';
@@ -25,7 +25,7 @@ function orderValueAtTop(options, value) {
 }
 
 const CreatePSTransaction = props => {
-  const pageTitle = props.transactionType === transactionTypes.BUY ? 'From *' : 'To *';
+  const pageTitle = props.transactionType === TRANSACTION_TYPES.BUY ? 'From *' : 'To *';
   const createStakeholderOption = [
     {
       label: 'Create a new stakeholder',
@@ -33,7 +33,7 @@ const CreatePSTransaction = props => {
     },
   ];
   const allStakeholderOptions =
-    props.transactionType === transactionTypes.BUY
+    props.transactionType === TRANSACTION_TYPES.BUY
       ? orderValueAtTop(
           props.stakeholderOptions.concat(createStakeholderOption),
           createStakeholderOption[0].value
@@ -46,20 +46,20 @@ const CreatePSTransaction = props => {
         All fields marked with <b>*</b> are required.
       </p>
 
-      {props.transactionType === transactionTypes.BUY && (
+      {props.transactionType === TRANSACTION_TYPES.BUY && (
         <CreateStakeholderModal show={props.showModal} handleClose={props.hideModal} />
       )}
 
       <FormSection title={pageTitle}>
         <SearchSelect
-          createable={props.transactionType === transactionTypes.BUY}
-          hasImage={props.transactionType === transactionTypes.BUY}
+          createable={props.transactionType === TRANSACTION_TYPES.BUY}
+          hasImage={props.transactionType === TRANSACTION_TYPES.BUY}
           field="stakeholderName"
           value={props.stakeholderName}
           options={allStakeholderOptions}
           onChange={props.onFieldChange}
           onValidation={props.onValidation}
-          rules={[ruleTypes.FIELD_REQUIRED]}
+          rules={[RULE_TYPES.FIELD_REQUIRED]}
           showErrors={props.submitAttempted}
           searchable={false}
         />
@@ -73,7 +73,7 @@ const CreatePSTransaction = props => {
           options={plasticOptions}
           onChange={props.onFieldChange}
           onValidation={props.onValidation}
-          rules={[ruleTypes.FIELD_REQUIRED]}
+          rules={[RULE_TYPES.FIELD_REQUIRED]}
           showErrors={props.submitAttempted}
         />
       </FormSection>
@@ -89,7 +89,7 @@ const CreatePSTransaction = props => {
           type="number"
           onChange={props.onFieldChange}
           onValidation={props.onValidation}
-          rules={[ruleTypes.FIELD_REQUIRED]}
+          rules={[RULE_TYPES.FIELD_REQUIRED]}
           showErrors={props.submitAttempted}
         />
         <TextInput
@@ -102,7 +102,7 @@ const CreatePSTransaction = props => {
           placeholder={'0'}
           onChange={props.onFieldChange}
           onValidation={props.onValidation}
-          rules={[ruleTypes.FIELD_REQUIRED]}
+          rules={[RULE_TYPES.FIELD_REQUIRED]}
           showErrors={props.submitAttempted}
         />
       </FormSection>
@@ -138,7 +138,6 @@ CreatePSTransaction.propTypes = {
   handleDayChange: PropTypes.func.isRequired,
   stakeholderOptions: PropTypes.array.isRequired,
   errors: PropTypes.object.isRequired,
-  title: PropTypes.string.isRequired,
   handleNewStakeholder: PropTypes.func,
   showModal: PropTypes.bool,
   hideModal: PropTypes.func,

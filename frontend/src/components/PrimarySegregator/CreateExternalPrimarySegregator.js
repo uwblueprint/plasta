@@ -4,7 +4,7 @@ import { snakeCase } from 'lodash';
 import { withCookies } from 'react-cookie';
 import FormSection from '../input-components/FormSection';
 import TextInput from '../input-components/TextInput';
-import { ruleTypes, onFieldChange, isFormValid, onValidation } from '../utils/form';
+import { RULE_TYPES, onFieldChange, isFormValid, onValidation } from '../utils/form';
 import { post, get } from '../utils/requests';
 import CancelButton from '../common/CancelButton.js';
 import OnSubmitButton from '../common/OnSubmitButton';
@@ -66,7 +66,7 @@ class CreateExternalPrimarySegregator extends Component {
             placeholder="Your answer here..."
             onChange={this.onFieldChange}
             onValidation={this.onValidation}
-            rules={[ruleTypes.FIELD_REQUIRED]}
+            rules={[RULE_TYPES.FIELD_REQUIRED]}
             showErrors={this.state.submitAttempted}
           />
 

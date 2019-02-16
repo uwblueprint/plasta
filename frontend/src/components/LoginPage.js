@@ -3,7 +3,7 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import TextInput from './input-components/TextInput.js';
-import { onFieldChange, ruleTypes } from './utils/form';
+import { onFieldChange, RULE_TYPES } from './utils/form';
 import { authenticateUser, loadVendors } from '../actions';
 import { post, get } from './utils/requests';
 import './LoginPage.css';
@@ -53,7 +53,7 @@ class LoginPage extends Component {
               className="block input-field"
               value={this.state.email}
               onChange={this.onChange}
-              rules={[ruleTypes.FIELD_REQUIRED]}
+              rules={[RULE_TYPES.FIELD_REQUIRED]}
             />
           </div>
           <div className="input-block">
@@ -67,7 +67,7 @@ class LoginPage extends Component {
               field="password"
               value={this.state.password}
               onChange={this.onChange}
-              rules={[ruleTypes.FIELD_REQUIRED]}
+              rules={[RULE_TYPES.FIELD_REQUIRED]}
             />
           </div>
           <button type="button" onClick={this.onSubmit}>

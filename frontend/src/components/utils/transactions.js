@@ -16,3 +16,8 @@ export function filterBuyTransactions(transactions, vendorId) {
     return transaction.to_vendor_id === vendorId;
   });
 }
+
+export const TRANSACTION_TYPES = {
+  BUY: 'buy',
+  SELL: 'sell',
+};
