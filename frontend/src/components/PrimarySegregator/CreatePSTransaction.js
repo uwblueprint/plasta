@@ -41,7 +41,6 @@ const CreatePSTransaction = props => {
       : props.stakeholderOptions;
   return (
     <div className="page-wrapper" id="transactions-wrapper">
-      <h1>{props.title}</h1>
       <p className="required-field-notif">
         All fields marked with <b>*</b> are required.
       </p>
