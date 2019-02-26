@@ -9,7 +9,7 @@ import CancelButton from '../common/CancelButton.js';
 import OnSubmitButton from '../common/OnSubmitButton';
 import { TRANSACTION_TYPES } from '../utils/transactions';
 import { RULE_TYPES } from '../utils/form';
-import { plasticOptions } from '../utils/plastic';
+import { getPlasticTypesByTransactionType } from '../utils/plastic';
 import 'react-day-picker/lib/style.css';
 import './../FormPage.css';
 import './PrimarySegregator.css';
@@ -70,7 +70,7 @@ const CreatePSTransaction = props => {
           field="plasticType"
           value={props.plasticType}
           hasImage
-          options={plasticOptions}
+          options={getPlasticTypesByTransactionType(props.transactionType)}
           onChange={props.onFieldChange}
           onValidation={props.onValidation}
           rules={[RULE_TYPES.FIELD_REQUIRED]}
