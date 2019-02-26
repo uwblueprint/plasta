@@ -97,7 +97,6 @@ class NewProject extends Component {
     const submitAttempted = this.state.submitAttempted;
     return (
       <div className="page-wrapper" id="new-proj-wrapper">
-        <CancelButton context={this.context} />
         <h1>Create New Project</h1>
         <p className="required-field-notif">
           All fields marked with <b>*</b> are required.
@@ -284,7 +283,7 @@ class NewProject extends Component {
           />
         </FormSection>
         <div style={{ textAlign: 'center' }}>
-          <CancelButton context={this.context} />
+          <CancelButton />
           <OnSubmitButton nextPath="/projects" onClick={this.onSubmit} />
         </div>
       </div>

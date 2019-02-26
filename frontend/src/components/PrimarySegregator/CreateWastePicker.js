@@ -198,7 +198,7 @@ class CreateWastePicker extends Component {
           />
         </FormSection>
         <div style={{ textAlign: 'center' }}>
-          <CancelButton context={this.context} />
+          <CancelButton />
           {/* TODO (XIN): Add nextPath for on successful submit*/}
           <OnSubmitButton nextPath="/ps/transaction-history" onClick={this.onSubmit} />
         </div>
