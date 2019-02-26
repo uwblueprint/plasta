@@ -1,20 +1,17 @@
 import os
 import boto3
-from . import jwt_manager
-
 
 def init_app(app):
+    from . import jwt_manager
     jwt_manager.jwt.init_app(app)
 
     from .utils.converters import ListConverter
-
     app.url_map.converters['list'] = ListConverter
 
     from . import auth_routes
     from . import project_routes
     from . import user_routes
     from . import vendor_routes
-
     from flask_cors import CORS
 
     CORS(auth_routes.blueprint)
