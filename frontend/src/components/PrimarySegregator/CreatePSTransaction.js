@@ -125,7 +125,7 @@ const CreatePSTransaction = props => {
       </FormSection>
 
       <div style={{ textAlign: 'center' }}>
-        <CancelButton context={this.context} />
+        <CancelButton />
         <OnSubmitButton nextPath="/ps/transaction-history" onClick={props.onSubmit} />
       </div>
     </div>
