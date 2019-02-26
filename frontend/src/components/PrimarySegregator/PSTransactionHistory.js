@@ -80,6 +80,7 @@ class PSTransactionHistory extends Component {
       title: 'Transactions',
       matIcon: 'compare_arrows',
       showTransactionTypes: true,
+      transactionType: TRANSACTION_TYPES.BUY,
     });
 
     get(

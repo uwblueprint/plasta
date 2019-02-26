@@ -22,7 +22,7 @@ export const loadTransactions = transactions => ({
 });
 
 export const setHeaderBar = header => ({
-  type: 'SET_HEADER_TITLE',
+  type: 'SET_HEADER_BAR',
   title: header.title,
   matIcon: header.matIcon,
   showTransactionTypes: header.showTransactionTypes,
