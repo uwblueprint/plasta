@@ -22,22 +22,24 @@ import { loadTransactions, setHeaderBar } from '../../actions';
 
 const columns = [
   {
-    Header: 'Name',
+    Header: <span className="table-header">Name</span>,
     accessor: 'name',
   },
   {
     id: 'price',
-    Header: 'Rupees',
+    maxWidth: 80,
+    Header: <span>₹ Rs</span>,
     accessor: transaction => getTotalPlasticsPrice(transaction),
   },
   {
     id: 'plasticQuantity',
-    Header: 'Kilograms',
+    maxWidth: 80,
+    Header: <span>Kg</span>,
     accessor: transaction => getTotalPlasticsQuantity(transaction),
   },
   {
     id: 'plasticType',
-    Header: 'Type',
+    Header: <span>Type</span>,
     accessor: transaction =>
       transaction.plastics
         .map(plastic => plasticOptionsByName.get(plastic.plastic_type).label)
