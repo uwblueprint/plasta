@@ -11,7 +11,7 @@ from app.models import db
 from app.models.user import User
 from app.models.vendor import Vendor, vendor_subtype_enum
 
-TABLE_CHOICE = ('user', 'vendor')
+TABLE_CHOICE = ('user', 'vendor', 'ps_user')
 
 create_app()
 
@@ -30,7 +30,7 @@ def add(table):
     table   Name of table to add object to
     """
 
-    choices = {'user': _add_user, 'vendor': _add_vendor}
+    choices = {'user': _add_user, 'vendor': _add_vendor, 'ps_user': _add_ps_user}
 
     new_object = choices[table]()
     db.session.add(new_object)
@@ -73,10 +73,9 @@ def _add_user():
         'vendor_id': click.prompt('Vendor ID', type=int),
         'email': click.prompt('Email'),
         'active': click.prompt('Active [y/N]', type=bool),
-        'password_hash': bcrypt.hashpw(
-            click.prompt(
+        'password': click.prompt(
                 'Password', hide_input=True,
-                confirmation_prompt=True).encode('utf8'), bcrypt.gensalt(14))
+                confirmation_prompt=True)
     }
     params = {param: value for param, value in params.items() if value != ''}
     return User.create(**params)
@@ -91,6 +90,26 @@ def _add_vendor():
         'name': click.prompt('Name')
     }
     return Vendor.create(**params)
+
+def _add_ps_user():
+    """Helper function for creating a primary segregator user in the database"""
+
+    vendor_params = {
+        'vendor_subtype': 'primary_segregator',
+        'name': click.prompt('Name')
+    }
+    new_vendor = Vendor.create(**vendor_params)
+
+    user_params = {
+        'vendor_id': new_vendor.id,
+        'email': click.prompt('Email'),
+        'active': click.prompt('Active [y/n]', type=bool),
+        'password': click.prompt(
+                'Password', hide_input=True,
+                confirmation_prompt=True)
+    }
+    user_params = {param: value for param, value in user_params.items() if value != ''}
+    return User.create(**user_params)
 
 
 if __name__ == '__main__':
