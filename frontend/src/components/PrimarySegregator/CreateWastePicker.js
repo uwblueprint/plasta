@@ -18,11 +18,21 @@ import '../FormPage.css';
 // TODO (XIN): get from endpoints
 
 const availableLanguages = [
-  { label: 'English', value: 'english' },
   { label: 'Hindi', value: 'hindi' },
-  { label: 'Urdu', value: 'urdu' },
-  { label: 'Bengali', value: 'bengali' },
+  { label: 'Kannada', value: 'kannada' },
   { label: 'Tamil', value: 'tamil' },
+  { label: 'English', value: 'english' },
+  { label: 'Bengali', value: 'bengali' },
+  { label: 'Gujarati', value: 'gujarati' },
+  { label: 'Telegu', value: 'telegu' },
+];
+
+const availableZones = [
+  { label: 'North', value: 'north' },
+  { label: 'East', value: 'east' },
+  { label: 'South', value: 'south' },
+  { label: 'West', value: 'west' },
+  { label: 'Central', value: 'central' },
 ];
 
 const fieldsInfo = {
@@ -33,8 +43,7 @@ const fieldsInfo = {
   picture: { label: 'Wastepicker Picture', default: '', isRequired: false },
   address: { label: 'Address', default: '', isRequired: false, type: 'metaData' },
   language: { label: 'Spoken Language', default: 'hindi', isRequired: false, type: 'metaData' },
-  aadhaarID: { label: 'Aadhaar ID', default: '', isRequired: false, type: 'metaData' },
-  hdMemberID: { label: 'HD Member ID', default: '', isRequired: false, type: 'metaData' },
+  zone: { label: 'Zone', default: '', isRequired: false, type: 'metaData' },
 };
 
 class CreateWastePicker extends Component {
@@ -180,20 +189,11 @@ class CreateWastePicker extends Component {
             onChange={this.onFieldChange}
           />
 
-          <h3 className="label">Aadhaar ID</h3>
-          <TextInput
-            className="large-input full-width"
-            field="aadhaarID"
-            value={this.state.aadhaarID}
-            onChange={this.onFieldChange}
-            placeholder="1111 2222 3333"
-          />
-
-          <h3 className="label">HD Member ID</h3>
-          <TextInput
-            className="large-input full-width"
-            field="hdMemberID"
-            value={this.state.hdMemberID}
+          <h3 className="label">Zone</h3>
+          <SearchSelect
+            field="zone"
+            value={this.state.zone}
+            options={availableZones}
             onChange={this.onFieldChange}
           />
         </FormSection>

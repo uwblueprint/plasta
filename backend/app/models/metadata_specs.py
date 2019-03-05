@@ -76,13 +76,9 @@ METADATA_SPECS = {
             'type': str,
             'required': False
         },
-        'aadhaar_id': {
+        'zone': {
             'type': str,
             'required': False
-        },
-        'hd_member_id': {
-            'type': str,
-            'required': False
-        },
+        }
     }
 }
