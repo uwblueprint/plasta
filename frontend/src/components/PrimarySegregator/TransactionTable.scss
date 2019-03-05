@@ -4,6 +4,17 @@
   margin: 20px;
   padding-right: 25px;
 
+  .ReactTable {
+    border: 0.5px solid lightgray;
+    font-size: 13px;
+
+    .rt-thead {
+      border-bottom: 0.5px solid gray;
+      box-shadow: none;
+    }
+    box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.1);
+  }
+
   button.chevron {
     border-radius: 100px;
     border: none;
