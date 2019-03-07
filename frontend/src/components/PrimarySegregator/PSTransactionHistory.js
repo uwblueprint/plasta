@@ -95,6 +95,11 @@ class PSTransactionHistory extends Component {
         const vendor = findVendorById(this.props.vendors, transaction.from_vendor_id);
         if (!vendor) {
           logMissingVendor(this.props.vendors, transaction.from_vendor_id);
+          alert(
+            `Missing vendor from buy transactions table with vendor id ${
+              transaction.from_vendor_id
+            }`
+          );
           return;
         }
         filteredTransactions.push({ ...transaction, name: vendor.name });
@@ -104,6 +109,9 @@ class PSTransactionHistory extends Component {
         const vendor = findVendorById(this.props.vendors, transaction.to_vendor_id);
         if (!vendor) {
           logMissingVendor(this.props.vendors, transaction.to_vendor_id);
+          alert(
+            `Missing vendor from sell transactions table with vendor id ${transaction.to_vendor_id}`
+          );
           return;
         }
         filteredTransactions.push({ ...transaction, name: vendor.name });
