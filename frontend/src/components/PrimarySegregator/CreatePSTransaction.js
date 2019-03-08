@@ -115,7 +115,7 @@ const CreatePSTransaction = props => {
         />
       </FormSection>
 
-      <FormSection className="formsection" title="Upload Receipt Picture">
+      <FormSection className="formsection" title="">
         <FileInput
           className="large-input full-width"
           field="receiptPicture"

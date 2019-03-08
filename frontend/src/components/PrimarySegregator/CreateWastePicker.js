@@ -165,7 +165,6 @@ class CreateWastePicker extends Component {
             rules={[RULE_TYPES.FIELD_REQUIRED]}
           />
 
-          <h3 className="label">Upload Picture</h3>
           <FileInput
             className="large-input full-width"
             field="picture"

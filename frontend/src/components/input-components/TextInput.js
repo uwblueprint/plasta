@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import InvalidInputMessage from '../InvalidInputMessage';
 import composeInput from './InputContainer';
-import './TextInput.css';
 
 const TextInput = props => {
   const { id, className, leftlabel, rightlabel, errors, showErrors, ...rest } = props;
