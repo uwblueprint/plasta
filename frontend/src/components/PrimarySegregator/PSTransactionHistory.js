@@ -98,7 +98,7 @@ class PSTransactionHistory extends Component {
           alert(
             `Missing vendor from buy transactions table with vendor id ${
               transaction.from_vendor_id
-            }`
+            }. Please try refreshing.`
           );
           return;
         }
@@ -110,7 +110,9 @@ class PSTransactionHistory extends Component {
         if (!vendor) {
           logMissingVendor(this.props.vendors, transaction.to_vendor_id);
           alert(
-            `Missing vendor from sell transactions table with vendor id ${transaction.to_vendor_id}`
+            `Missing vendor from sell transactions table with vendor id ${
+              transaction.to_vendor_id
+            }. Please try refreshing.`
           );
           return;
         }
