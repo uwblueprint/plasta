@@ -17,7 +17,7 @@ const fieldsInfo = {
   address: { label: 'Address', default: '', type: 'metaData' },
 };
 
-class CreateExternalPrimarySegregator extends Component {
+class CreateExternalPS extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -36,13 +36,16 @@ class CreateExternalPrimarySegregator extends Component {
     if (!this.isFormValid()) {
       return Promise.reject('Please resolve all errors before submitting.');
     }
-    const data = { vendor_subtype: 'small_scrap_shop', meta_data: {} };
+
+    const vendorSubType = this.props.stakeholderType.value;
+    const data = { vendor_subtype: vendorSubType, meta_data: {} };
     Object.keys(fieldsInfo).forEach(field => {
       if (!this.state[field]) return;
       if (fieldsInfo[field].type === 'metaData')
         data.meta_data[snakeCase(field)] = this.state[field];
       else data[snakeCase(field)] = this.state[field];
     });
+
     const authToken = this.props.cookies.get('access_token');
     try {
       await post('/vendors', { data: data, authToken });
@@ -55,8 +58,7 @@ class CreateExternalPrimarySegregator extends Component {
 
   render() {
     return (
-      <div className="page-wrapper" id="create-wastepicker-wrapper">
-        <h1>Create External Primary Segregator</h1>
+      <div>
         <FormSection title="Identification">
           <h3 className="label">Name *</h3>
           <TextInput
@@ -106,5 +108,5 @@ export default withCookies(
   connect(
     null,
     mapDispatchToProps
-  )(CreateExternalPrimarySegregator)
+  )(CreateExternalPS)
 );

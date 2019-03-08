@@ -28,6 +28,7 @@ vendor_subtype_enum = db.Enum(
     'processor',
     'brand',
     'admin',
+    'dwcc',
     name='vendor_subtype')
 
 vendor_subtype_map = {
@@ -42,6 +43,7 @@ vendor_subtype_map = {
     'scrap_shop': 'primary_segregator',
     'van_unit': 'primary_segregator',
     'primary_segregator': 'primary_segregator',
+    'dwcc': 'primary_segregator',
     'wholesaler': 'wholesaler',
     'export_wholesaler': 'wholesaler',
     'franchisee_partner': 'wholesaler',

@@ -5,7 +5,6 @@ import SearchSelect from '../input-components/SearchSelect';
 import DayPickerInput from 'react-day-picker/DayPickerInput';
 import TextInput from '../input-components/TextInput';
 import IconTextInput from '../input-components/IconTextInput';
-import CreateStakeholderModal from './CreateStakeholderModal';
 import CancelButton from '../common/CancelButton.js';
 import OnSubmitButton from '../common/OnSubmitButton';
 import { TRANSACTION_TYPES } from '../utils/transactions';
@@ -48,10 +47,6 @@ const CreatePSTransaction = props => {
       <p className="required-field-notif">
         All fields marked with <b>*</b> are required.
       </p>
-
-      {props.transactionType === TRANSACTION_TYPES.BUY && (
-        <CreateStakeholderModal show={props.showModal} handleClose={props.hideModal} />
-      )}
 
       <FormSection title={pageTitle}>
         <SearchSelect
@@ -144,9 +139,6 @@ CreatePSTransaction.propTypes = {
   handleDayChange: PropTypes.func.isRequired,
   stakeholderOptions: PropTypes.array.isRequired,
   errors: PropTypes.object.isRequired,
-  handleNewStakeholder: PropTypes.func,
-  showModal: PropTypes.bool,
-  hideModal: PropTypes.func,
   transactionType: PropTypes.string.isRequired,
   submitAttempted: PropTypes.bool.isRequired,
   onValidation: PropTypes.func,
