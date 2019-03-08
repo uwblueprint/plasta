@@ -52,17 +52,11 @@ class CreatePSTransactionContainer extends Component {
   componentDidUpdate(prevProps) {
     // If "Create new stakeholder" chosen as stakeholderOption, display
     // modal to create new stakeholder
-    if (prevProps.match.params.transactionType !== this.props.match.params.transactionType) {
+    if (this.state.stakeholderName && this.state.stakeholderName.value === 'create-new') {
+      this.handleNewStakeholder();
+    } else if (prevProps.match.params.transactionType !== this.props.match.params.transactionType) {
       this.refreshStakeholderOptions();
       this.setHeaderBar();
-    }
-    if (
-      this.state.stakeholderName &&
-      this.state.stakeholderName.value === 'create-new' &&
-      this.state.showModal === false
-    ) {
-      this.handleNewStakeholder();
-      this.setState({ stakeholderName: {} });
     }
   }
 
@@ -101,7 +95,7 @@ class CreatePSTransactionContainer extends Component {
   }
 
   handleNewStakeholder() {
-    this.setState({ showModal: true });
+    this.props.history.push('/ps/stakeholders/new');
   }
 
   handleDayChange(value) {
@@ -186,9 +180,6 @@ class CreatePSTransactionContainer extends Component {
         onValidation={this.onValidation}
         isFormValid={this.isFormValid}
         handleDayChange={this.handleDayChange}
-        handleNewStakeholder={this.handleNewStakeholder}
-        showModal={this.showModal}
-        hideModal={this.hideModal}
         onFieldChange={this.onFieldChange}
         stakeholderOptions={this.state.stakeholderOptions}
         {...this.state}

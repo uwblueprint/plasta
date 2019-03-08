@@ -12,8 +12,7 @@ import { postMultiType, get } from '../utils/requests';
 import { removeUnderscoresAndCapitalize } from '../utils/vendors';
 import { snakeCase } from 'lodash';
 import { connect } from 'react-redux';
-import { loadVendors, setHeaderBar } from '../../actions';
-import '../FormPage.css';
+import { loadVendors } from '../../actions';
 
 // TODO (XIN): get from endpoints
 
@@ -93,8 +92,6 @@ class CreateWastePicker extends Component {
   }
 
   async componentDidMount() {
-    this.props.setHeaderBar({ title: 'New Waste Picker', matIcon: 'person_add' });
-
     const wastepickerTypes = await get(
       '/vendors/wastepicker_types',
       this.props.cookies.get('access_token')
@@ -116,11 +113,7 @@ class CreateWastePicker extends Component {
   render() {
     const submitAttempted = this.state.submitAttempted;
     return (
-      <div className="page-wrapper" id="create-wastepicker-wrapper">
-        <h1>Create Waste Picker</h1>
-        <p className="required-field-notif">
-          All fields marked with <b>*</b> are required.
-        </p>
+      <div>
         <FormSection>
           <h3 className="label">Name *</h3>
           <TextInput
@@ -208,7 +201,6 @@ class CreateWastePicker extends Component {
 
 const mapDispatchToProps = dispatch => ({
   loadVendors: payload => dispatch(loadVendors(payload)),
-  setHeaderBar: payload => dispatch(setHeaderBar(payload)),
 });
 
 export default withCookies(

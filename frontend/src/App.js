@@ -8,8 +8,6 @@ import ProjectPage from './components/PFCAdmin/ProjectPage';
 import Projects from './components/PFCAdmin/Projects';
 import AdminStakeholder from './components/PFCAdmin/AdminStakeholder';
 import AdminNewStakeholder from './components/PFCAdmin/AdminNewStakeholder';
-import CreateWastePicker from './components/PrimarySegregator/CreateWastePicker';
-import CreateExternalPrimarySegregator from './components/PrimarySegregator/CreateExternalPrimarySegregator';
 import PSTransactionHistory from './components/PrimarySegregator/PSTransactionHistory';
 import PSTransaction from './components/PrimarySegregator/CreatePSTransactionContainer';
 import PSNavBar from './components/PrimarySegregator/PSNavBar';
@@ -20,6 +18,7 @@ import { Cookies, withCookies } from 'react-cookie';
 import { instanceOf } from 'prop-types';
 import { PrivateRoute } from './components/PrivateRoute';
 import LogoutButton from './components/common/LogoutButton';
+import CreateStakeholder from './components/PrimarySegregator/CreateStakeholder';
 import './common.css';
 
 const privateRoutes = [
@@ -59,12 +58,8 @@ const privateRoutes = [
     title: 'TransactionType',
   },
   {
-    path: '/ps/wastepickers/new',
-    component: CreateWastePicker,
-  },
-  {
-    path: '/ps/external-ps/new',
-    component: CreateExternalPrimarySegregator,
+    path: '/ps/stakeholders/new',
+    component: CreateStakeholder,
   },
 ];
 
