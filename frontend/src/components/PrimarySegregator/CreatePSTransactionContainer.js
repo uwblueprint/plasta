@@ -68,7 +68,7 @@ class CreatePSTransactionContainer extends Component {
 
   async refreshStakeholderOptions() {
     const transactionType = this.props.match.params.transactionType;
-    const currentVendorId = this.props.currentUser.userDetails.id;
+    const currentVendorId = this.props.currentUser.userDetails.vendor_id;
 
     // SELL trans
     let vendors = findVendorsByTypes(this.props.vendors, ['wholesaler', 'primary_segregator']);
@@ -115,6 +115,7 @@ class CreatePSTransactionContainer extends Component {
     }
 
     const transactionType = this.props.match.params.transactionType;
+    const currentUserId = this.props.currentUser.userDetails.id; // User ID and vendor ID are distinct
     const currentVendorId = this.props.currentUser.userDetails.vendor_id;
     const totalPrice = this.state.unitPrice * this.state.weight;
     const stakeholderName = this.state.stakeholderName;
@@ -150,7 +151,7 @@ class CreatePSTransactionContainer extends Component {
       },
       {
         key: 'creator_id',
-        value: currentVendorId,
+        value: currentUserId,
       },
       {
         key: 'sale_date',
