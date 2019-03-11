@@ -5,6 +5,7 @@
   "dependencies": {
     "@date-io/moment": "^1.1.0",
     "@material-ui/core": "^3.9.2",
+    "@material-ui/icons": "^3.0.2",
     "classnames": "^2.2.6",
     "date-fns": "^2.0.0-alpha.27",
     "husky": "^0.14.3",
@@ -13,19 +14,19 @@
     "material-ui-pickers": "^2.2.4",
     "moment": "^2.24.0",
     "node-sass-chokidar": "^1.3.4",
-    "npm-run-all": "^4.1.3",
-    "react": "^16.4.1",
-    "react-cookie": "^3.0.4",
-    "react-day-picker": "^7.2.4",
-    "react-dom": "^16.4.1",
+    "npm-run-all": "^4.1.5",
+    "react": "^16.8.4",
+    "react-cookie": "^3.0.8",
+    "react-day-picker": "^7.3.0",
+    "react-dom": "^16.8.4",
     "react-immutable-proptypes": "^2.1.0",
-    "react-redux": "^5.0.7",
+    "react-redux": "^5.1.1",
     "react-router-dom": "^4.3.1",
-    "react-scripts": "^2.1.5",
-    "react-select": "^1.2.1",
-    "react-table": "^6.8.6",
-    "react-tabs": "^2.2.2",
-    "redux": "^4.0.0"
+    "react-scripts": "^2.1.8",
+    "react-select": "^2.4.1",
+    "react-table": "^6.9.2",
+    "react-tabs": "^2.3.0",
+    "redux": "^4.0.1"
   },
   "lint-staged": {
     "src/**/*.{js,jsx,json,scss}": [
@@ -50,11 +51,11 @@
     "lint:watch": "npm run lint -- --watch"
   },
   "devDependencies": {
-    "eslint-config-prettier": "^2.9.0",
-    "eslint-plugin-prettier": "^2.6.1",
-    "eslint-plugin-react": "^7.10.0",
-    "eslint-watch": "^4.0.0",
-    "prettier": "^1.13.7"
+    "eslint-config-prettier": "^2.10.0",
+    "eslint-plugin-prettier": "^2.7.0",
+    "eslint-plugin-react": "^7.12.4",
+    "eslint-watch": "^4.0.2",
+    "prettier": "^1.16.4"
   },
   "browserslist": [
     ">0.2%",

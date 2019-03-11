@@ -159,7 +159,7 @@ class NewProject extends Component {
             rules={[RULE_TYPES.FIELD_REQUIRED]}
             onValidation={this.onValidation}
             showErrors={submitAttempted}
-            multi
+            isMulti
           />
         </FormSection>
         <FormSection title="Primary Segregator(s) *">
@@ -168,7 +168,7 @@ class NewProject extends Component {
             field="primarySegregators"
             onChange={this.onFieldChange}
             value={this.state.primarySegregators}
-            multi
+            isMulti
             rules={[RULE_TYPES.FIELD_REQUIRED]}
             onValidation={this.onValidation}
             showErrors={submitAttempted}

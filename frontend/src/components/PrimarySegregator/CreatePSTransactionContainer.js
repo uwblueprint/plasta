@@ -19,8 +19,8 @@ class CreatePSTransactionContainer extends Component {
     this.state = {
       errors: {},
       submitAttempted: false,
-      stakeholderName: {},
-      plasticType: {},
+      stakeholderName: null,
+      plasticType: null,
       unitPrice: '',
       weight: '',
       transactionDate: moment(Date.now()).format('YYYY-MM-DD'),

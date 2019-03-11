@@ -1,18 +1,4 @@
 .search-select-wrapper {
   vertical-align: middle;
-
-  label {
-    max-width: 30%;
-    display: inline-block;
-  }
-  .Select {
-    vertical-align: middle;
-    display: block;
-  }
-
-  label + .Select {
-    margin-left: 10px;
-    display: inline-block;
-    width: 66%;
-  }
+  margin: 20px auto;
 }
