@@ -47,6 +47,7 @@ const CreatePSTransaction = props => {
 
       <FormSection title={pageTitle}>
         <SearchSelect
+          label={pageTitle}
           createable={props.transactionType === TRANSACTION_TYPES.BUY}
           hasImage={props.transactionType === TRANSACTION_TYPES.BUY}
           field="stakeholderName"
@@ -56,15 +57,15 @@ const CreatePSTransaction = props => {
           onValidation={props.onValidation}
           rules={[RULE_TYPES.FIELD_REQUIRED]}
           showErrors={props.submitAttempted}
-          searchable={false}
+          isSearchable={false}
         />
       </FormSection>
 
-      <FormSection className="formsection" title="Plastic Type *">
+      <FormSection className="formsection">
         <SearchSelect
+          label="Plastic Type"
           field="plasticType"
           value={props.plasticType}
-          hasImage
           options={getPlasticTypesByTransactionType(props.transactionType)}
           onChange={props.onFieldChange}
           onValidation={props.onValidation}
@@ -142,7 +143,7 @@ CreatePSTransaction.propTypes = {
   unitPrice: PropTypes.string.isRequired,
   weight: PropTypes.string.isRequired,
   plasticType: PropTypes.object,
-  stakeholderName: PropTypes.object.isRequired,
+  stakeholderName: PropTypes.object,
   receiptPicture: PropTypes.any.isRequired,
   transactionDate: PropTypes.string,
 };
