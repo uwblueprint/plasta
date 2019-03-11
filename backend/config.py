@@ -6,7 +6,7 @@ class Config:
     DEBUG = False
     TESTING = False
     CSRF_ENABLED = True
-    SQLALCHEMY_DATABASE_URI = 'postgresql://plasta:plasword@localhost:5432/plasta'
+    SQLALCHEMY_DATABASE_URI = 'postgresql:///plasta'
 
 
 class ProductionConfig(Config):
