@@ -7,7 +7,7 @@ import { withStyles } from '@material-ui/core/styles';
 import IconButton from '@material-ui/core/IconButton';
 import TextField from '@material-ui/core/TextField';
 import MenuItem from '@material-ui/core/MenuItem';
-import { Grid } from '@material-ui/core/Grid';
+import Grid from '@material-ui/core/Grid';
 import Rupee from '../../assets/Rupee';
 
 const styles = {
