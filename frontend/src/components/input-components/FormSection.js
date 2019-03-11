@@ -11,7 +11,6 @@ class FormSection extends Component {
     };
     return (
       <div className={classNames('form-section', className)} style={divStyle}>
-        {/* {this.props.title && <h2> {this.props.title} </h2>} */}
         {this.props.children}
       </div>
     );
