@@ -6,9 +6,12 @@ import './FormSection.css';
 class FormSection extends Component {
   render() {
     const className = this.props.className;
+    const divStyle = {
+      paddingBottom: '1em',
+    };
     return (
-      <div className={classNames('form-section', className)}>
-        {this.props.title && <h2> {this.props.title} </h2>}
+      <div className={classNames('form-section', className)} style={divStyle}>
+        {/* {this.props.title && <h2> {this.props.title} </h2>} */}
         {this.props.children}
       </div>
     );

@@ -4,6 +4,7 @@ import FormSection from '../input-components/FormSection';
 import SearchSelect from '../input-components/SearchSelect';
 import DayPickerInput from 'react-day-picker/DayPickerInput';
 import TextInput from '../input-components/TextInput';
+import IconTextInput from '../input-components/IconTextInput';
 import CreateStakeholderModal from './CreateStakeholderModal';
 import CancelButton from '../common/CancelButton.js';
 import OnSubmitButton from '../common/OnSubmitButton';
@@ -14,6 +15,8 @@ import 'react-day-picker/lib/style.css';
 import './../FormPage.css';
 import './PrimarySegregator.css';
 import FileInput from '../input-components/FileInput';
+import Rupee from '../../assets/Rupee';
+import Weight from '../../assets/Weight';
 
 function orderValueAtTop(options, value) {
   return options.sort((a, b) => {
@@ -79,27 +82,30 @@ const CreatePSTransaction = props => {
       </FormSection>
 
       <FormSection className="formsection" title="Amount *">
-        <TextInput
+        <IconTextInput
           id="unitPrice"
-          className="amount-input half-width inline margin-right-20"
+          label="Amount(₹)"
+          variant="outlined"
           field="unitPrice"
-          rightlabel=" ₹/Kg"
-          value={props.unitPrice}
-          placeholder={'0.00'}
           type="number"
+          value={props.unitPrice}
+          iconimage={Rupee}
           onChange={props.onFieldChange}
           onValidation={props.onValidation}
           rules={[RULE_TYPES.FIELD_REQUIRED]}
           showErrors={props.submitAttempted}
         />
-        <TextInput
+      </FormSection>
+
+      <FormSection className="formsection" title="Weight *">
+        <IconTextInput
           id="weight"
-          className="amount-input half-width inline"
+          label="Amount(Kg)"
+          variant="outlined"
           field="weight"
-          rightlabel=" Kg"
           type="number"
           value={props.weight}
-          placeholder={'0'}
+          iconimage={Weight}
           onChange={props.onFieldChange}
           onValidation={props.onValidation}
           rules={[RULE_TYPES.FIELD_REQUIRED]}
