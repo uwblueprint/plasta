@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import FormSection from '../input-components/FormSection';
 import SearchSelect from '../input-components/SearchSelect';
-import DayPickerInput from 'react-day-picker/DayPickerInput';
 import IconTextInput from '../input-components/IconTextInput';
+import IconDateInput from '../input-components/IconDateInput';
 import CancelButton from '../common/CancelButton.js';
 import OnSubmitButton from '../common/OnSubmitButton';
 import { TRANSACTION_TYPES } from '../utils/transactions';
@@ -13,7 +13,7 @@ import 'react-day-picker/lib/style.css';
 import './../FormPage.css';
 import './PrimarySegregator.css';
 import FileInput from '../input-components/FileInput';
-import { rupee as Rupee, weight as Weight } from '../../assets/icons';
+import { rupee as Rupee, weight as Weight , calendar as Calendar } from '../../assets/icons';
 
 function orderValueAtTop(options, value) {
   return options.sort((a, b) => {
@@ -104,10 +104,11 @@ const CreatePSTransaction = props => {
       </FormSection>
 
       <FormSection className="formsection" title="Date">
-        <DayPickerInput
-          className="date-input-field"
-          placeholder="YYYY-MM-DD"
-          onDayChange={day => props.handleDayChange}
+        <IconDateInput
+          label="Date"
+          iconimage={Calendar}
+          value={props.transactionDate}
+          onChange={props.handleDayChange}
         />
       </FormSection>
 
@@ -143,6 +144,7 @@ CreatePSTransaction.propTypes = {
   plasticType: PropTypes.object,
   stakeholderName: PropTypes.object.isRequired,
   receiptPicture: PropTypes.any.isRequired,
+  transactionDate: PropTypes.string,
 };
 
 export default CreatePSTransaction;
