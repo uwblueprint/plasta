@@ -17,7 +17,7 @@ class PSNavBar extends Component {
           <Link className="tab" to="/ps/transactions/sell">
             <img src={sell} alt={'sell'} />
           </Link>
-          <Link className="tab" to="/ps/wastepickers/new">
+          <Link className="tab" to="/ps/stakeholders/new">
             <img src={createnew} alt={'create new'} />
           </Link>
         </nav>

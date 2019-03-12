@@ -9,8 +9,8 @@ import '../FormPage.css';
 
 const stakeholderOptions = [
   { label: 'Wastepicker', value: 'wastepicker' },
-  { label: 'Scrap Shop', value: 'scrap_shop' },
-  { label: 'Dry Waste Collection Centre', value: 'dwcc' },
+  { label: 'Scrap Shop', value: 'external_scrap_shop' },
+  { label: 'Dry Waste Collection Centre', value: 'external_dwcc' },
 ];
 
 class CreateStakeholder extends Component {
