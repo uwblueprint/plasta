@@ -23,7 +23,7 @@ class CreatePSTransactionContainer extends Component {
       plasticType: {},
       unitPrice: '',
       weight: '',
-      transactionDate: '',
+      transactionDate: moment(Date.now()).format('YYYY-MM-DD'),
       showModal: false,
       stakeholderOptions: [],
       receiptPicture: {},
