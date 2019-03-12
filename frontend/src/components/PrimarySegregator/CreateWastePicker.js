@@ -97,7 +97,9 @@ class CreateWastePicker extends Component {
       this.props.cookies.get('access_token')
     );
     wastepickerTypes.data.forEach(function(option) {
-      if (option.value === 'wastepicker') {
+      if (option.value === 'external_dwcc' || option.value === 'external_scrap_shop') {
+        return;
+      } else if (option.value === 'wastepicker') {
         option['label'] = 'Waste Picker (General)';
       } else if (option.value === 'wp_community_leader') {
         option['label'] = 'Waste Picker Community Leader';
