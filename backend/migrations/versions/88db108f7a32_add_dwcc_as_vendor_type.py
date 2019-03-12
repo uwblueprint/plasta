@@ -23,9 +23,8 @@ vendor_subtype_old_options = ('wastepicker', 'home_based_worker', 'itinerant_buy
                               'pourakarmikas', 'scrap_shop', 'van_unit', 'primary_segregator',
                               'wholesaler', 'export_wholesaler', 'franchisee_partner', 'processor',
                               'brand', 'admin')
-
 vendor_subtype_new_options = ('wastepicker', 'home_based_worker', 'itinerant_buyer',
-                              'wp_community_leader', 'small_scrap_shop', 'external_dwcc',
+                              'wp_community_leader', 'external_dwcc',
                               'external_scrap_shop', 'door_to_door_collection',
                               'pourakarmikas', 'scrap_shop', 'van_unit', 'primary_segregator',
                               'wholesaler', 'export_wholesaler', 'franchisee_partner', 'processor',
@@ -40,8 +39,14 @@ vendor_subtype_tcr = sa.sql.table(
 
 
 def upgrade():
+    for old_wastepicker_subtype in ['small_scrap_shop']:
+        op.execute(
+            vendor_subtype_tcr.update()
+                .where(vendor_subtype_tcr.c.vendor_subtype == old_wastepicker_subtype)
+                .values(vendor_subtype='scrap_shop'))
     op.execute('ALTER TYPE ' + vendor_subtype_name + ' RENAME TO ' + vendor_subtype_temp_name)
     vendor_subtype_new_type.create(op.get_bind())
+
     op.execute('ALTER TABLE vendor ALTER COLUMN vendor_subtype ' +
                'TYPE ' + vendor_subtype_name + ' USING vendor_subtype::text::' +
                vendor_subtype_name)

@@ -16,7 +16,6 @@ vendor_subtype_enum = db.Enum(
     'home_based_worker',
     'itinerant_buyer',
     'wp_community_leader',
-    'small_scrap_shop',
     'door_to_door_collection',
     'pourakarmikas',
     'scrap_shop',
@@ -38,7 +37,6 @@ vendor_subtype_map = {
     'home_based_worker': 'wastepicker',
     'itinerant_buyer': 'wastepicker',
     'wp_community_leader': 'wastepicker',
-    'small_scrap_shop': 'wastepicker', # small_scrap_shop currently should not be used
     'door_to_door_collection': 'wastepicker',
     'pourakarmikas': 'wastepicker',
     'external_dwcc': 'wastepicker',
