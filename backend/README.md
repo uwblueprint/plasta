@@ -91,6 +91,13 @@ To get more information
 
     (backend) $ python -m tools.seed --help
 
+### Creating new users
+
+To create a new primary segregator user that can log into the app and create transactions, run the seed tool using the instructions above, but with the following command:
+
+    (backend) $ python -m tools.seed add --table ps_user
+
+At the time of writing, the email does not have to be valid since we do not send a confirmation message when the account was created.
 
 ## Contributing
 
