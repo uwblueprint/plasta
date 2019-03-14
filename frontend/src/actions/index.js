@@ -24,7 +24,7 @@ export const loadTransactions = transactions => ({
 export const setHeaderBar = header => ({
   type: 'SET_HEADER_BAR',
   title: header.title,
-  matIcon: header.matIcon,
+  icon: header.icon,
   showTransactionTypes: header.showTransactionTypes,
   transactionType: header.transactionType,
 });

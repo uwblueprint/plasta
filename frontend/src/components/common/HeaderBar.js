@@ -6,15 +6,15 @@ import { TRANSACTION_TYPES } from '../utils/transactions';
 import './HeaderBar.css';
 
 const HeaderBar = props => {
-  const { title, matIcon, showTransactionTypes, transactionType } = props.header;
+  const { title, icon, showTransactionTypes, transactionType } = props.header;
   const isBuy = transactionType === TRANSACTION_TYPES.BUY;
   const height = showTransactionTypes ? '114px' : '54px';
 
   return (
     <div style={{ height }} className="header-bar white">
-      {matIcon && (
-        <i style={{ paddingLeft: '18px' }} className="icon material-icons">
-          {matIcon}
+      {icon && (
+        <i style={{ paddingLeft: '18px' }} className="icon">
+          {icon}
         </i>
       )}
       <h1 className="page-title white">{title}</h1>

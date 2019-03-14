@@ -19,6 +19,7 @@ import {
 } from '../utils/transactions';
 import { findVendorById } from '../utils/vendors.js';
 import { loadTransactions, setHeaderBar } from '../../actions';
+import * as Icons from '../../assets/icons';
 
 const columns = [
   {
@@ -28,13 +29,13 @@ const columns = [
   {
     id: 'price',
     maxWidth: 80,
-    Header: <span>₹ Rs</span>,
+    Header: <span>{Icons.rupee} Rs</span>,
     accessor: transaction => getTotalPlasticsPrice(transaction),
   },
   {
     id: 'plasticQuantity',
     maxWidth: 80,
-    Header: <span>Kg</span>,
+    Header: <span>{Icons.weight} Kg</span>,
     accessor: transaction => getTotalPlasticsQuantity(transaction),
   },
   {
@@ -80,7 +81,7 @@ class PSTransactionHistory extends Component {
   componentDidMount() {
     this.props.setHeaderBar({
       title: 'Transactions',
-      matIcon: 'compare_arrows',
+      icon: Icons.transaction,
       showTransactionTypes: true,
       transactionType: TRANSACTION_TYPES.BUY,
     });
