@@ -38,28 +38,4 @@ def create_s3_resource():
     )
 
 
-def create_podio_sourcing_client():
-    from .podio_client import api
-    return api.OAuthAppClient(
-        os.environ['PODIO_CLIENT_NAME'],
-        os.environ['PODIO_CLIENT_SECRET'],
-        os.environ['PODIO_SOURCING_APP_ID'],
-        os.environ['PODIO_SOURCING_APP_TOKEN']
-    )
-
-
-def create_podio_stakeholders_client():
-    from .podio_client import api
-    return api.OAuthAppClient(
-        os.environ['PODIO_CLIENT_NAME'],
-        os.environ['PODIO_CLIENT_SECRET'],
-        os.environ['PODIO_STAKEHOLDERS_APP_ID'],
-        os.environ['PODIO_STAKEHOLDERS_APP_TOKEN']
-    )
-
-
 s3_resource = create_s3_resource()
-
-# Create podio clients
-# sourcing_podio_client = create_podio_sourcing_client()
-# stakesholders_podio_client = create_podio_stakeholders_client()

@@ -3,6 +3,7 @@ from flask_jwt_extended import get_jwt_identity, jwt_required
 import json
 
 from . import db_client
+from . import podio_utils
 from .utils.route_utils import success
 from ..models.vendor import vendor_subtype_map
 from flask_cors import cross_origin
@@ -40,6 +41,13 @@ def create_vendor_transaction(vendor_id):
     transaction_data = request.json if is_application_json else request.form.to_dict()
     if not is_application_json and 'plastics' in transaction_data:
         transaction_data['plastics'] = json.loads(transaction_data['plastics'])
+
+    # podio integration
+    if vendor_id == int(transaction_data["from_vendor_id"]):
+        # sell transaction
+        podio_utils.create_sourcing_item(transaction_data)
+
+    # create transaction in db
     transaction = db_client.create_transaction(transaction_data, request.files)
     return success(data=transaction.to_dict(include_relationships=True))
 

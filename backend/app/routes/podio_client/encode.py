@@ -1,3 +1,6 @@
+""" Podio client api in Python 3
+    Adapted from the official pypodio2 at https://github.com/podio/podio-py"""
+
 """multipart/form-data encoding module
 
 This module provides functions that faciliate encoding name/value pairs
