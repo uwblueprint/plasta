@@ -5,6 +5,7 @@ import CreateWastePicker from './CreateWastePicker';
 import CreateExternalPS from './CreateExternalPS';
 import SearchSelect from '../input-components/SearchSelect';
 import { onFieldChange } from '../utils/form';
+import { newWastepicker } from '../../assets/icons';
 import '../FormPage.css';
 
 const stakeholderOptions = [
@@ -24,7 +25,7 @@ class CreateStakeholder extends Component {
   }
 
   componentDidMount() {
-    this.props.setHeaderBar({ title: 'New Stakeholder', matIcon: 'person_add' });
+    this.props.setHeaderBar({ title: 'New Stakeholder', icon: newWastepicker });
   }
 
   render() {

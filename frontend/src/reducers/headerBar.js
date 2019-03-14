@@ -1,13 +1,12 @@
 const initHeader = {
   title: '',
-  matIcon: '',
+  icon: null,
 };
 
 const headerBar = (prevState = initHeader, action) => {
   const { type, ...header } = action;
   switch (type) {
     case 'SET_HEADER_BAR':
-      console.log('s');
       return { ...prevState, ...header };
     case 'SET_TRANSACTION_VIEW':
       return {

@@ -11,6 +11,7 @@ import { get, postMultiType } from '../utils/requests';
 import { findVendorsByTypes, findVendorsByIds } from '../utils/vendors';
 import { loadTransactions, setHeaderBar } from '../../actions';
 import personImage from '../../assets/person.png';
+import { newBuy as buyIcon, sell as sellIcon } from '../../assets/icons';
 
 class CreatePSTransactionContainer extends Component {
   constructor(props) {
@@ -85,7 +86,7 @@ class CreatePSTransactionContainer extends Component {
     const transactionType = this.props.match.params.transactionType;
     const header = {
       title: `New ${transactionType === TRANSACTION_TYPES.BUY ? 'Buy' : 'Sell'}`,
-      matIcon: 'add_shopping_cart',
+      icon: transactionType === TRANSACTION_TYPES.BUY ? buyIcon : sellIcon,
     };
     this.props.setHeaderBar(header);
   }
