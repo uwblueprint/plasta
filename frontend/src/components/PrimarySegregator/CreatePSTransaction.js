@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import FormSection from '../input-components/FormSection';
 import SearchSelect from '../input-components/SearchSelect';
 import DayPickerInput from 'react-day-picker/DayPickerInput';
-import TextInput from '../input-components/TextInput';
 import IconTextInput from '../input-components/IconTextInput';
 import CancelButton from '../common/CancelButton.js';
 import OnSubmitButton from '../common/OnSubmitButton';
