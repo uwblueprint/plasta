@@ -124,6 +124,9 @@ class Item(Area):
     def values_v2(self, item_id):
         return self.transport.GET(url='/item/%s/value/v2' % item_id)
 
+    def get_field_value(self, item_id, field_id):
+        return self.transport.GET(url='/item/%s/value/%s' % (item_id, field_id))
+
     def create(self, app_id, attributes, silent=False, hook=True):
         if not isinstance(attributes, dict):
             raise TypeError('Must be of type dict')

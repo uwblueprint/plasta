@@ -71,6 +71,10 @@ def create_vendor(data, current_user=None, files=None):
     return vendor
 
 
+def get_vendor(id):
+    return Vendor.get(id)
+
+
 def get_vendors(vendor_types):
     if not vendor_types:
         return Vendor.query.all()

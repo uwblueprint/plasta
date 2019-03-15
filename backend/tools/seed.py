@@ -96,14 +96,15 @@ def _add_ps_user():
 
     vendor_params = {
         'vendor_subtype': 'primary_segregator',
-        'name': click.prompt('Name')
+        'name': click.prompt('Name'),
+        'podio_master_id': click.prompt('Podio Master ID (Find using Stakeholders > Your Vendor > Developer Info > Item ID)')
     }
     new_vendor = Vendor.create(**vendor_params)
 
     user_params = {
         'vendor_id': new_vendor.id,
         'email': click.prompt('Email'),
-        'active': click.prompt('Active [y/n]', type=bool),
+        'active': True,
         'password': click.prompt(
                 'Password', hide_input=True,
                 confirmation_prompt=True)
