@@ -53,3 +53,35 @@ def create_sourcing_item(transaction_data):
         except TransportException as e:
             print("Failed to create Podio sourcing entry:")
             print(e)  # logerror
+
+
+def get_visible_wholesalers(item_id):
+    wholesaler_visibility_field_id = 185088491
+    try:
+        client = create_podio_stakeholders_client()
+    except TransportException as e:
+        print("Failed to establish Podio stakeholders client:")
+        print(e)
+        return
+
+    # Get list of visible wholesalers 
+    wholesaler_visibility = client.Item.get_field_value(item_id, wholesaler_visibility_field_id)
+    visible_wholesalers = [];
+    for val in wholesaler_visibility: 
+        visible_wholesalers.append(val['value']['text'])
+
+    # Get list of all wholesalers from Podio and filter by visible wholesalers
+    wholesalers = client.Item.filter(int(os.environ['PODIO_STAKEHOLDERS_APP_ID']), {})
+    matches = []
+    for item in wholesalers['items']:
+        if (visible_wholesalers.count(item['title']) > 0):
+            # Format data to match PFC database
+            data = {
+                'created_at': item['created_on'],
+                'id': item['item_id'],
+                'name': item['title'],
+                'vendor_subtype': 'export_wholesaler',
+                'vendor_type': 'wholesaler',
+            }
+            matches.append(data)
+    return matches

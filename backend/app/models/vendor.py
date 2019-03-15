@@ -61,6 +61,7 @@ class Vendor(BaseMixin, db.Model):
     image_link = db.Column(db.String(255), nullable=True)
     meta_data = db.Column(JSONB)
     created_at = db.Column(db.DateTime, server_default=db.func.now())
+    podio_master_id = db.Column(db.Integer, nullable=True)
 
     @classmethod
     def create(cls, **kwargs):
