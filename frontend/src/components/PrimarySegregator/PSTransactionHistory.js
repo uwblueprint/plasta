@@ -23,24 +23,24 @@ import * as Icons from '../../assets/icons';
 
 const columns = [
   {
-    Header: <span className="table-header">Name</span>,
+    Header: <span className="table-header">{Icons.name} Name</span>,
     accessor: 'name',
   },
   {
     id: 'price',
     maxWidth: 80,
-    Header: <span>{Icons.rupee} Rs</span>,
+    Header: <div>{Icons.rupee} Rs</div>,
     accessor: transaction => getTotalPlasticsPrice(transaction),
   },
   {
     id: 'plasticQuantity',
     maxWidth: 80,
-    Header: <span>{Icons.weight} Kg</span>,
+    Header: <div>{Icons.weight} Kg</div>,
     accessor: transaction => getTotalPlasticsQuantity(transaction),
   },
   {
     id: 'plasticType',
-    Header: <span>Type</span>,
+    Header: <div>{Icons.plasticType} Type</div>,
     accessor: transaction =>
       transaction.plastics
         .map(plastic => plasticOptionsByName.get(plastic.plastic_type).label)
@@ -48,7 +48,7 @@ const columns = [
   },
   {
     id: 'saleDate',
-    Header: 'Date',
+    Header: <span>{Icons.calendar} Date</span>,
     accessor: transaction => {
       return moment(transaction.sale_date)
         .local()

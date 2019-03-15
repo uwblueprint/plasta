@@ -7,8 +7,12 @@
   .ReactTable {
     border: 0.5px solid lightgray;
     font-size: 13px;
-
     .rt-thead {
+      svg {
+        width: 16px;
+        height: 16px;
+        vertical-align: baseline;
+      }
       border-bottom: 0.5px solid gray;
       box-shadow: none;
     }
