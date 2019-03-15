@@ -13,8 +13,7 @@ import 'react-day-picker/lib/style.css';
 import './../FormPage.css';
 import './PrimarySegregator.css';
 import FileInput from '../input-components/FileInput';
-import Rupee from '../../assets/Rupee';
-import Weight from '../../assets/Weight';
+import { rupee as Rupee, weight as Weight } from '../../assets/icons';
 
 function orderValueAtTop(options, value) {
   return options.sort((a, b) => {
