@@ -1,14 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
 import InvalidInputMessage from '../InvalidInputMessage';
 import composeInput from './InputContainer';
 import { withStyles } from '@material-ui/core/styles';
-import IconButton from '@material-ui/core/IconButton';
 import TextField from '@material-ui/core/TextField';
-import MenuItem from '@material-ui/core/MenuItem';
 import Grid from '@material-ui/core/Grid';
-import Rupee from '../../assets/Rupee';
 
 const styles = {
   input: {
@@ -46,7 +42,7 @@ const IconTextInput = props => {
   } = props;
   return (
     <Grid container spacing={8} alignItems="center" wrap="nowrap">
-      <Grid item>{props.iconimage()}</Grid>
+      <Grid item>{props.iconimage}</Grid>
       <Grid item xs={11}>
         <div>
           <TextField
@@ -78,7 +74,6 @@ IconTextInput.propTypes = {
   className: PropTypes.string,
   variant: PropTypes.string,
   label: PropTypes.string,
-  id: PropTypes.string,
   field: PropTypes.string,
   onChange: PropTypes.func.isRequired,
   InputAdornment: PropTypes.array,
