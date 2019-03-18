@@ -4,11 +4,14 @@ import { snakeCase } from 'lodash';
 import { withCookies } from 'react-cookie';
 import FormSection from '../input-components/FormSection';
 import TextInput from '../input-components/TextInput';
+import IconTextInput from '../input-components/IconTextInput';
 import { RULE_TYPES, onFieldChange, isFormValid, onValidation } from '../utils/form';
 import { post, get } from '../utils/requests';
 import CancelButton from '../common/CancelButton.js';
 import OnSubmitButton from '../common/OnSubmitButton';
 import { loadVendors } from '../../actions';
+import { store as StoreIcon, phone as PhoneIcon, home as HomeIcon } from '../../assets/icons';
+
 import '../FormPage.css';
 
 const fieldsInfo = {
@@ -60,33 +63,42 @@ class CreateExternalPS extends Component {
     return (
       <div>
         <FormSection title="Identification">
-          <h3 className="label">Name *</h3>
-          <TextInput
-            className="emphasis-input full-width"
-            field="name"
+          <h3 className="label" />
+          <IconTextInput
+            id="name"
+            label="Name *"
+            variant="outlined"
+            field="address"
+            type="text"
             value={this.state.name}
-            placeholder="Your answer here..."
+            iconimage={StoreIcon}
             onChange={this.onFieldChange}
             onValidation={this.onValidation}
             rules={[RULE_TYPES.FIELD_REQUIRED]}
             showErrors={this.state.submitAttempted}
           />
 
-          <h3 className="label">Phone</h3>
-          <TextInput
-            className="large-input full-width"
-            type="tel"
+          <h3 className="label" />
+          <IconTextInput
+            id="phoneNumber"
+            label="Phone "
+            variant="outlined"
             field="phoneNumber"
+            type="tel"
             value={this.state.phoneNumber}
-            placeholder="9988776655"
+            iconimage={PhoneIcon}
             onChange={this.onFieldChange}
           />
 
-          <h3 className="label">Address</h3>
-          <TextInput
-            className="large-input full-width"
+          <h3 className="label" />
+          <IconTextInput
+            id="address"
+            label="Address"
+            variant="outlined"
             field="address"
+            type="text"
             value={this.state.address}
+            iconimage={HomeIcon}
             onChange={this.onFieldChange}
           />
         </FormSection>
