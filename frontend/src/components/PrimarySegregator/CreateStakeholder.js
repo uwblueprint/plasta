@@ -29,7 +29,7 @@ class CreateStakeholder extends Component {
   }
 
   render() {
-    const stakeholderType = this.state.stakeholderType;
+    const stakeholderType = this.state.stakeholderType.value;
     return (
       <div className="page-wrapper" id="new-stakeholder-wrapper">
         <p className="required-field-notif">
@@ -39,7 +39,7 @@ class CreateStakeholder extends Component {
         <SearchSelect
           label="Stakeholder Type"
           field="stakeholderType"
-          value={stakeholderType}
+          value={this.state.stakeholderType}
           onChange={this.onFieldChange}
           options={stakeholderOptions}
           isClearable={false}

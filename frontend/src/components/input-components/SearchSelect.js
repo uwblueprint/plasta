@@ -9,6 +9,7 @@ import Paper from '@material-ui/core/Paper';
 import Chip from '@material-ui/core/Chip';
 import MenuItem from '@material-ui/core/MenuItem';
 import { emphasize } from '@material-ui/core/styles/colorManipulator';
+import Grid from '@material-ui/core/Grid';
 
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
@@ -201,17 +202,7 @@ const components = {
 };
 
 const SearchSelect = props => {
-  const {
-    className,
-    label,
-    errors,
-    createable,
-    showErrors,
-    hasImage,
-    theme,
-    classes,
-    ...rest
-  } = props;
+  const { className, label, errors, createable, showErrors, theme, classes, ...rest } = props;
 
   const selectStyles = {
     input: base => ({
@@ -227,42 +218,47 @@ const SearchSelect = props => {
 
   return (
     <div className={classNames('search-select-wrapper', className)}>
-      {createable ? (
-        <CreatableSelect
-          styles={selectStyles}
-          classes={classes}
-          components={components}
-          textFieldProps={{
-            placeholder: '',
-            variant: 'outlined',
-            label: label || '',
-            value: props.value ? props.value.label : '',
-            error: isErrorState,
-            helperText: isErrorState ? errors[0] : '',
-          }}
-          isClearable
-          placeholder=""
-          {...rest}
-        />
-      ) : (
-        <Select
-          styles={selectStyles}
-          classes={classes}
-          components={components}
-          textFieldProps={{
-            placeholder: '',
-            value: props.value ? props.value.label : '',
-            variant: 'outlined',
-            label: label || '',
-            error: isErrorState,
-            helperText: isErrorState ? errors[0] : '',
-          }}
-          onValueChange={props.onChange}
-          isClearable
-          placeholder=""
-          {...rest}
-        />
-      )}
+      <Grid container spacing={8} alignItems="center" wrap="nowrap">
+        <Grid item>{props.iconimage}</Grid>
+        <Grid item xs={11}>
+          {createable ? (
+            <CreatableSelect
+              styles={selectStyles}
+              classes={classes}
+              components={components}
+              textFieldProps={{
+                placeholder: '',
+                variant: 'outlined',
+                label: label || '',
+                value: props.value ? props.value.label : '',
+                error: isErrorState,
+                helperText: isErrorState ? errors[0] : '',
+              }}
+              isClearable
+              placeholder=""
+              {...rest}
+            />
+          ) : (
+            <Select
+              styles={selectStyles}
+              classes={classes}
+              components={components}
+              textFieldProps={{
+                placeholder: '',
+                value: props.value ? props.value.label : '',
+                variant: 'outlined',
+                label: label || '',
+                error: isErrorState,
+                helperText: isErrorState ? errors[0] : '',
+              }}
+              onValueChange={props.onChange}
+              isClearable
+              placeholder=""
+              {...rest}
+            />
+          )}
+        </Grid>
+      </Grid>
     </div>
   );
 };

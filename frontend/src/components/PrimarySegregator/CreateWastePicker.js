@@ -14,7 +14,7 @@ import { removeUnderscoresAndCapitalize } from '../utils/vendors';
 import { snakeCase } from 'lodash';
 import { connect } from 'react-redux';
 import { loadVendors } from '../../actions';
-import { name as NameIcon, phone as PhoneIcon, home as HomeIcon } from '../../assets/icons';
+import { name as NameIcon, phone as PhoneIcon, home as HomeIcon, globe } from '../../assets/icons';
 
 const availableLanguages = [
   { label: 'Hindi', value: 'hindi' },
@@ -38,7 +38,7 @@ const fieldsInfo = {
   name: { label: 'Name', default: '', isRequired: true },
   phoneNumber: { label: 'Phone', default: '', isRequired: true, type: 'metaData' },
   phoneType: { label: 'Type of Phone', default: '', isRequired: false, type: 'metaData' },
-  vendorSubtype: { label: 'Wastepicker Type', default: 'wastepicker', isRequired: true },
+  vendorSubtype: { label: 'Wastepicker Type', isRequired: true },
   picture: { label: 'Wastepicker Picture', default: '', isRequired: false },
   address: { label: 'Address', default: '', isRequired: false, type: 'metaData' },
   language: { label: 'Spoken Language', default: 'hindi', isRequired: false, type: 'metaData' },
@@ -158,12 +158,14 @@ class CreateWastePicker extends Component {
             onChange={this.onFieldChange}
           />
 
-          <h3 className="label">Wastepicker Type</h3>
           <SearchSelect
+            label={fieldsInfo.vendorSubtype.label}
             field="vendorSubtype"
             value={this.state.vendorSubtype}
             options={this.state.wastepickerTypes}
             onChange={this.onFieldChange}
+            onValidation={this.onValidation}
+            showErrors={submitAttempted}
             rules={[RULE_TYPES.FIELD_REQUIRED]}
           />
 
@@ -188,16 +190,17 @@ class CreateWastePicker extends Component {
             showErrors={submitAttempted}
           />
 
-          <h3 className="label">Language</h3>
           <SearchSelect
+            label="Language"
             field="language"
+            iconimage={globe}
             value={this.state.language}
             options={availableLanguages}
             onChange={this.onFieldChange}
           />
 
-          <h3 className="label">Zone</h3>
           <SearchSelect
+            label="Zone"
             field="zone"
             value={this.state.zone}
             options={availableZones}

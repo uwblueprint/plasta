@@ -13,7 +13,7 @@ import 'react-day-picker/lib/style.css';
 import './../FormPage.css';
 import './PrimarySegregator.css';
 import FileInput from '../input-components/FileInput';
-import { rupee as Rupee, weight as Weight , calendar as Calendar } from '../../assets/icons';
+import * as Icons from '../../assets/icons';
 
 function orderValueAtTop(options, value) {
   return options.sort((a, b) => {
@@ -45,11 +45,11 @@ const CreatePSTransaction = props => {
         All fields marked with <b>*</b> are required.
       </p>
 
-      <FormSection title={pageTitle}>
+      <FormSection>
         <SearchSelect
           label={pageTitle}
+          iconimage={Icons.peoplePlaceholder}
           createable={props.transactionType === TRANSACTION_TYPES.BUY}
-          hasImage={props.transactionType === TRANSACTION_TYPES.BUY}
           field="stakeholderName"
           value={props.stakeholderName}
           options={allStakeholderOptions}
@@ -65,6 +65,7 @@ const CreatePSTransaction = props => {
         <SearchSelect
           label="Plastic Type"
           field="plasticType"
+          iconimage={Icons.plasticType}
           value={props.plasticType}
           options={getPlasticTypesByTransactionType(props.transactionType)}
           onChange={props.onFieldChange}
@@ -74,14 +75,14 @@ const CreatePSTransaction = props => {
         />
       </FormSection>
 
-      <FormSection className="formsection" title="Amount *">
+      <FormSection className="formsection">
         <IconTextInput
           id="unitPrice"
           label="Amount(₹)"
           field="unitPrice"
           type="number"
           value={props.unitPrice}
-          iconimage={Rupee}
+          iconimage={Icons.rupee}
           onChange={props.onFieldChange}
           onValidation={props.onValidation}
           rules={[RULE_TYPES.FIELD_REQUIRED]}
@@ -89,14 +90,14 @@ const CreatePSTransaction = props => {
         />
       </FormSection>
 
-      <FormSection className="formsection" title="Weight *">
+      <FormSection className="formsection">
         <IconTextInput
           id="weight"
           label="Amount(Kg)"
           field="weight"
           type="number"
           value={props.weight}
-          iconimage={Weight}
+          iconimage={Icons.weight}
           onChange={props.onFieldChange}
           onValidation={props.onValidation}
           rules={[RULE_TYPES.FIELD_REQUIRED]}
@@ -107,13 +108,13 @@ const CreatePSTransaction = props => {
       <FormSection className="formsection" title="Date">
         <IconDateInput
           label="Date"
-          iconimage={Calendar}
+          iconimage={Icons.calendar}
           value={props.transactionDate}
           onChange={props.handleDayChange}
         />
       </FormSection>
 
-      <FormSection className="formsection" title="">
+      <FormSection className="formsection">
         <FileInput
           className="large-input full-width"
           field="receiptPicture"
