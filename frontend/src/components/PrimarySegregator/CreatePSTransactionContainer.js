@@ -120,6 +120,7 @@ class CreatePSTransactionContainer extends Component {
     let toVendor =
       transactionType === TRANSACTION_TYPES.BUY ? currentVendorId : stakeholderName.value;
     const receiptPicture = this.state.receiptPicture;
+    const utcTimeOffset = new Date().getTimezoneOffset();
 
     const data = [
       {
@@ -150,7 +151,9 @@ class CreatePSTransactionContainer extends Component {
       },
       {
         key: 'sale_date',
-        value: saleDate !== '' ? saleDate : moment(Date.now()).format('YYYY-MM-DD'),
+        value: moment(saleDate)
+        .add(utcTimeOffset, 'minutes')
+        .format('YYYY-MM-DD HH:mm:ss'),
       },
     ];
 
