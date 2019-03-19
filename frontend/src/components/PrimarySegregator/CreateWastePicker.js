@@ -4,6 +4,7 @@ import SearchSelect from '../input-components/SearchSelect';
 import RadioSelect from '../input-components/RadioSelect';
 import FormSection from '../input-components/FormSection';
 import TextInput from '../input-components/TextInput';
+import IconTextInput from '../input-components/IconTextInput';
 import { RULE_TYPES, onFieldChange, isFormValid, onValidation } from '../utils/form';
 import OnSubmitButton from '../common/OnSubmitButton';
 import FileInput from '../input-components/FileInput';
@@ -13,8 +14,7 @@ import { removeUnderscoresAndCapitalize } from '../utils/vendors';
 import { snakeCase } from 'lodash';
 import { connect } from 'react-redux';
 import { loadVendors } from '../../actions';
-
-// TODO (XIN): get from endpoints
+import { name as NameIcon, phone as PhoneIcon, home as HomeIcon } from '../../assets/icons';
 
 const availableLanguages = [
   { label: 'Hindi', value: 'hindi' },
@@ -117,27 +117,36 @@ class CreateWastePicker extends Component {
     return (
       <div>
         <FormSection>
-          <h3 className="label">Name *</h3>
-          <TextInput
-            className="emphasis-input full-width"
+          <h3 className="label" />
+
+          <IconTextInput
+            id="name"
+            label="Name *"
+            variant="outlined"
             field="name"
+            type="text"
             value={this.state.name}
-            placeholder="Ramnath"
+            iconimage={NameIcon}
             onChange={this.onFieldChange}
             rules={[RULE_TYPES.FIELD_REQUIRED]}
             onValidation={this.onValidation}
             showErrors={submitAttempted}
           />
 
-          <h3 className="label">Phone</h3>
-          <TextInput
-            className="large-input full-width"
-            type="tel"
+          <h3 className="label" />
+
+          <IconTextInput
+            id="phoneNumber"
+            label="Phone "
+            variant="outlined"
             field="phoneNumber"
+            type="text"
             value={this.state.phoneNumber}
-            placeholder="9988776655"
+            iconimage={PhoneIcon}
             onChange={this.onFieldChange}
             rules={[RULE_TYPES.FIELD_REQUIRED]}
+            onValidation={this.onValidation}
+            showErrors={submitAttempted}
           />
 
           <h3 className="label">Type of Phone</h3>
@@ -167,12 +176,19 @@ class CreateWastePicker extends Component {
             onChange={this.onFieldChange}
           />
 
-          <h3 className="label">Address</h3>
-          <TextInput
-            className="large-input full-width"
+          <h3 className="label" />
+          <IconTextInput
+            id="address"
+            label="Address"
+            variant="outlined"
             field="address"
+            type="text"
             value={this.state.address}
+            iconimage={HomeIcon}
             onChange={this.onFieldChange}
+            rules={[RULE_TYPES.FIELD_REQUIRED]}
+            onValidation={this.onValidation}
+            showErrors={submitAttempted}
           />
 
           <h3 className="label">Language</h3>
