@@ -25,6 +25,7 @@ export const setHeaderBar = header => ({
   type: 'SET_HEADER_BAR',
   title: header.title,
   icon: header.icon,
+  showLogout: header.showLogout, //added logout Icon on the right of header
   showTransactionTypes: header.showTransactionTypes,
   transactionType: header.transactionType,
 });

@@ -82,6 +82,7 @@ class PSTransactionHistory extends Component {
     this.props.setHeaderBar({
       title: 'Transactions',
       icon: Icons.transaction,
+      showLogout: true,
       showTransactionTypes: true,
       transactionType: TRANSACTION_TYPES.BUY,
     });
