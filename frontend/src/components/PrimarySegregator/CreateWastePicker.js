@@ -122,7 +122,6 @@ class CreateWastePicker extends Component {
           <IconTextInput
             id="name"
             label="Name *"
-            variant="outlined"
             field="name"
             type="text"
             value={this.state.name}
@@ -138,7 +137,6 @@ class CreateWastePicker extends Component {
           <IconTextInput
             id="phoneNumber"
             label="Phone "
-            variant="outlined"
             field="phoneNumber"
             type="text"
             value={this.state.phoneNumber}
@@ -180,7 +178,6 @@ class CreateWastePicker extends Component {
           <IconTextInput
             id="address"
             label="Address"
-            variant="outlined"
             field="address"
             type="text"
             value={this.state.address}
