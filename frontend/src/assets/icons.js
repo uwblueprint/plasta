@@ -670,9 +670,9 @@ export const logout = (
           <polyline
             id="Path-6"
             stroke="#000000"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
             transform="translate(27.500000, 15.000000) scale(1, -1) rotate(-90.000000) translate(-27.500000, -15.000000) "
             points="24.5 13.5 27.5088006 16.5 30.5 13.5"
           />
@@ -680,24 +680,24 @@ export const logout = (
             d="M23,19 L23,11"
             id="Path-7"
             stroke="#000000"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
             transform="translate(23.000000, 15.000000) scale(1, -1) rotate(-90.000000) translate(-23.000000, -15.000000) "
           />
           <polygon
             id="Rectangle-Copy"
             stroke="#000000"
-            stroke-width="2"
+            strokeWidth="2"
             fill="#000000"
-            stroke-linejoin="round"
+            strokeLinejoin="round"
             points="7 8 16.0932617 13 16.0932617 30 7 25"
           />
           <polyline
             id="Path-37"
             stroke="#000000"
-            stroke-width="2"
-            stroke-linejoin="round"
+            strokeWidth="2"
+            strokeLinejoin="round"
             points="21.9987793 12 21.9987793 8 7 8 7 25 21.9987793 25 21.9987793 18.1237793"
           />
         </g>
