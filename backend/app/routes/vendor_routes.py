@@ -48,6 +48,9 @@ def create_vendor_transaction(vendor_id):
     if vendor_id == int(transaction_data["from_vendor_id"]):
         # sell transaction
         podio_utils.create_sourcing_item(transaction_data)
+    else:
+        # buy transaction
+        podio_utils.create_buy_transaction_item(transaction_data)
 
     # create transaction in db
     transaction = db_client.create_transaction(transaction_data, request.files)
