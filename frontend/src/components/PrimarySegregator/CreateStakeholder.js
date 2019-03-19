@@ -29,20 +29,20 @@ class CreateStakeholder extends Component {
   }
 
   render() {
-    const stakeholderType = this.state.stakeholderType.value;
+    const stakeholderType = this.state.stakeholderType;
     return (
       <div className="page-wrapper" id="new-stakeholder-wrapper">
         <p className="required-field-notif">
           All fields marked with <b>*</b> are required.
         </p>
 
-        <h3 className="label">Stakeholder Type</h3>
         <SearchSelect
+          label="Stakeholder Type"
           field="stakeholderType"
           value={stakeholderType}
           onChange={this.onFieldChange}
           options={stakeholderOptions}
-          clearable={false}
+          isClearable={false}
         />
 
         {stakeholderType === 'wastepicker' ? (
