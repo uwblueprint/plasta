@@ -76,7 +76,6 @@ class PlasticTypeQuantityGroup extends Component {
                 options={plasticOptions}
                 value={plasticOptionsByName.get(pair.get('plastic_type'))}
                 onChange={e => this.onPlasticTypeChange(e.value, i)}
-                hasImage
               />
               <TextInput
                 type="number"

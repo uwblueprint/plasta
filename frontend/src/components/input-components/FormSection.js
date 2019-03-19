@@ -18,7 +18,6 @@ class FormSection extends Component {
 }
 
 FormSection.propTypes = {
-  title: PropTypes.string,
   className: PropTypes.string,
   children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]).isRequired,
 };
