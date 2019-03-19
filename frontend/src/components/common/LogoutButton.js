@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { delete_request } from '../utils/requests';
+import { logout as LogoutIcon } from '../../assets/icons';
 import './LogoutButton.css';
 
 class LogoutButton extends Component {
@@ -19,7 +20,7 @@ class LogoutButton extends Component {
   render() {
     return (
       <button className="logout-button" onClick={() => this.logout()}>
-        Log Out
+        {LogoutIcon}
       </button>
     );
   }
