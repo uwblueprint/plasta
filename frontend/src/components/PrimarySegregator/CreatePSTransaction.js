@@ -77,7 +77,6 @@ const CreatePSTransaction = props => {
         <IconTextInput
           id="unitPrice"
           label="Amount(₹)"
-          variant="outlined"
           field="unitPrice"
           type="number"
           value={props.unitPrice}
@@ -93,7 +92,6 @@ const CreatePSTransaction = props => {
         <IconTextInput
           id="weight"
           label="Amount(Kg)"
-          variant="outlined"
           field="weight"
           type="number"
           value={props.weight}

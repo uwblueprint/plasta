@@ -17,7 +17,6 @@ import { loadVendors, authenticateUser, fetchComplete } from './actions';
 import { Cookies, withCookies } from 'react-cookie';
 import { instanceOf } from 'prop-types';
 import { PrivateRoute } from './components/PrivateRoute';
-import LogoutButton from './components/common/LogoutButton';
 import CreateStakeholder from './components/PrimarySegregator/CreateStakeholder';
 import './common.css';
 
@@ -128,7 +127,7 @@ class App extends React.Component {
         <Router>
           <React.Fragment>
             {this.props.currentUser && this.props.currentUser.userType === 'primary_segregator' && (
-              <Route component={HeaderBar} />
+              <Route render={props => <HeaderBar {...props} cookies={this.props.cookies} />} />
             )}
             <Switch>
               <Route path="/" exact render={this.redirectUser} />
@@ -143,7 +142,6 @@ class App extends React.Component {
                 />
               ))}
             </Switch>
-            {this.props.currentUser && <LogoutButton cookies={this.props.cookies} />}
             {this.props.currentUser && this.props.currentUser.userType === 'primary_segregator' && (
               <PSNavBar />
             )}
