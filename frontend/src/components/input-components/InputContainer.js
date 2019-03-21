@@ -54,11 +54,13 @@ function composeInput(InputComponent, override = { validateOnBlur: true }) {
 
     render() {
       const showErrors =
-        this.props.showErrors && (this.state.touched && this.props.validateOnBlur !== false);
+        this.props.showErrors ||
+        (this.state.touched && this.props.validateOnBlur && this.validateOnBlur);
       const { onValidation, validateOnBlur, ...props } = this.props; // extract to elim. console errors
       return (
         <InputComponent
           {...props}
+          className="input-component"
           errors={this.state.errors}
           onChange={this.onChange}
           onBlur={this.onBlur}
