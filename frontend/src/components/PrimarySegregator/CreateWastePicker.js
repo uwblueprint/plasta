@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import { withCookies } from 'react-cookie';
 import SearchSelect from '../input-components/SearchSelect';
-import RadioSelect from '../input-components/RadioSelect';
-import FormSection from '../input-components/FormSection';
 import IconTextInput from '../input-components/IconTextInput';
 import { RULE_TYPES, onFieldChange, isFormValid, onValidation } from '../utils/form';
 import OnSubmitButton from '../common/OnSubmitButton';
@@ -115,91 +113,88 @@ class CreateWastePicker extends Component {
     const submitAttempted = this.state.submitAttempted;
     return (
       <div>
-        <FormSection>
-          <IconTextInput
-            id="name"
-            label="Name *"
-            field="name"
-            type="text"
-            value={this.state.name}
-            iconimage={NameIcon}
-            onChange={this.onFieldChange}
-            rules={[RULE_TYPES.FIELD_REQUIRED]}
-            onValidation={this.onValidation}
-            showErrors={submitAttempted}
-          />
-          <IconTextInput
-            id="phoneNumber"
-            label="Phone "
-            field="phoneNumber"
-            type="text"
-            value={this.state.phoneNumber}
-            iconimage={PhoneIcon}
-            onChange={this.onFieldChange}
-            rules={[RULE_TYPES.FIELD_REQUIRED]}
-            onValidation={this.onValidation}
-            showErrors={submitAttempted}
-          />
+        <IconTextInput
+          id="name"
+          label="Name *"
+          field="name"
+          value={this.state.name}
+          iconimage={NameIcon}
+          onChange={this.onFieldChange}
+          rules={[RULE_TYPES.FIELD_REQUIRED]}
+          onValidation={this.onValidation}
+          showErrors={submitAttempted}
+        />
+        <IconTextInput
+          id="phoneNumber"
+          label="Phone "
+          field="phoneNumber"
+          value={this.state.phoneNumber}
+          iconimage={PhoneIcon}
+          onChange={this.onFieldChange}
+          rules={[RULE_TYPES.FIELD_REQUIRED]}
+          onValidation={this.onValidation}
+          showErrors={submitAttempted}
+        />
 
-          <h3 className="label">Type of Phone</h3>
-          <RadioSelect
-            field="phoneType"
-            value={this.state.phoneType}
-            options={[
-              { label: 'Basic Phone', value: 'basic' },
-              { label: 'Smart Phone', value: 'smart' },
-            ]}
-            onChange={this.onFieldChange}
-          />
+        <SearchSelect
+          label={fieldsInfo.phoneType.label}
+          field="phoneType"
+          value={this.state.phoneType}
+          options={[
+            { label: 'Basic Phone', value: 'basic' },
+            { label: 'Smart Phone', value: 'smart' },
+          ]}
+          onChange={this.onFieldChange}
+          isSearchable={false}
+        />
 
-          <SearchSelect
-            label={fieldsInfo.vendorSubtype.label}
-            field="vendorSubtype"
-            value={this.state.vendorSubtype}
-            options={this.state.wastepickerTypes}
-            onChange={this.onFieldChange}
-            onValidation={this.onValidation}
-            showErrors={submitAttempted}
-            rules={[RULE_TYPES.FIELD_REQUIRED]}
-          />
+        <SearchSelect
+          label={fieldsInfo.vendorSubtype.label}
+          field="vendorSubtype"
+          value={this.state.vendorSubtype}
+          options={this.state.wastepickerTypes}
+          onChange={this.onFieldChange}
+          onValidation={this.onValidation}
+          showErrors={submitAttempted}
+          rules={[RULE_TYPES.FIELD_REQUIRED]}
+        />
 
-          <FileInput
-            className="large-input full-width"
-            field="picture"
-            value={this.state.picture}
-            onChange={this.onFieldChange}
-          />
+        <FileInput
+          className="large-input full-width"
+          field="picture"
+          value={this.state.picture}
+          onChange={this.onFieldChange}
+        />
 
-          <IconTextInput
-            id="address"
-            label="Address"
-            field="address"
-            type="text"
-            value={this.state.address}
-            iconimage={HomeIcon}
-            onChange={this.onFieldChange}
-            rules={[RULE_TYPES.FIELD_REQUIRED]}
-            onValidation={this.onValidation}
-            showErrors={submitAttempted}
-          />
+        <IconTextInput
+          id="address"
+          label="Address"
+          field="address"
+          type="text"
+          value={this.state.address}
+          iconimage={HomeIcon}
+          onChange={this.onFieldChange}
+          rules={[RULE_TYPES.FIELD_REQUIRED]}
+          onValidation={this.onValidation}
+          showErrors={submitAttempted}
+        />
 
-          <SearchSelect
-            label="Language"
-            field="language"
-            iconimage={globe}
-            value={this.state.language}
-            options={availableLanguages}
-            onChange={this.onFieldChange}
-          />
+        <SearchSelect
+          label="Language"
+          field="language"
+          iconimage={globe}
+          value={this.state.language}
+          options={availableLanguages}
+          onChange={this.onFieldChange}
+        />
 
-          <SearchSelect
-            label="Zone"
-            field="zone"
-            value={this.state.zone}
-            options={availableZones}
-            onChange={this.onFieldChange}
-          />
-        </FormSection>
+        <SearchSelect
+          label="Zone"
+          field="zone"
+          value={this.state.zone}
+          options={availableZones}
+          onChange={this.onFieldChange}
+        />
         <div style={{ textAlign: 'center' }}>
           <CancelButton />
           {/* TODO (XIN): Add nextPath for on successful submit*/}

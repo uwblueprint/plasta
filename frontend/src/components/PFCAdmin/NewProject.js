@@ -5,7 +5,6 @@ import DayPickerInput from 'react-day-picker/DayPickerInput';
 import { snakeCase } from 'lodash';
 import SearchSelect from '../input-components/SearchSelect';
 import RadioSelect from '../input-components/RadioSelect';
-import FormSection from '../input-components/FormSection';
 import TextInput from '../input-components/TextInput';
 import TextAreaInput from '../input-components/TextAreaInput';
 import PlasticTypeQuantityGroup from '../input-components/PlasticTypeQuantityGroup';
@@ -101,187 +100,159 @@ class NewProject extends Component {
         <p className="required-field-notif">
           All fields marked with <b>*</b> are required.
         </p>
-        <FormSection title="Project Name *">
-          <TextInput
-            className="emphasis-input full-width"
-            field="projectName"
-            value={this.state.projectName}
-            placeholder="Enter project name here"
-            onChange={this.onFieldChange}
-            rules={[RULE_TYPES.FIELD_REQUIRED]}
-            onValidation={this.onValidation}
-            showErrors={submitAttempted}
-          />
-        </FormSection>
-        <FormSection title="Project Description">
-          <TextAreaInput
-            field="description"
-            className="full-width"
-            value={this.state.description}
-            placeholder="Enter description here"
-            onChange={this.onFieldChange}
-          />
-        </FormSection>
-        <FormSection title="Project Type">
-          <RadioSelect
-            field="projectType"
-            value={this.state.projectType}
-            options={[
-              { label: 'External', value: 'external' },
-              { label: 'Internal', value: 'internal' },
-            ]}
-            onChange={this.onFieldChange}
-          />
-        </FormSection>
-        <FormSection title="Plastic Types *">
-          <PlasticTypeQuantityGroup
-            label="List of Plastic Types"
-            field="plastics"
-            onChange={this.onFieldChange}
-            plasticQuantities={this.state.plastics}
-          />
-        </FormSection>
-        <FormSection title="Brand Name">
-          <TextInput
-            field="brandName"
-            className="full-width"
-            value={this.state.brandName}
-            placeholder="Enter brand name here"
-            onChange={this.onFieldChange}
-          />
-        </FormSection>
-        <FormSection title="Wholesalers *">
-          <SearchSelect
-            options={this.state.wholesalerOptions}
-            field="wholesalers"
-            onChange={this.onFieldChange}
-            value={this.state.wholesalers}
-            rules={[RULE_TYPES.FIELD_REQUIRED]}
-            onValidation={this.onValidation}
-            showErrors={submitAttempted}
-            isMulti
-          />
-        </FormSection>
-        <FormSection title="Primary Segregator(s) *">
-          <SearchSelect
-            options={this.state.primarySegregatorOptions}
-            field="primarySegregators"
-            onChange={this.onFieldChange}
-            value={this.state.primarySegregators}
-            isMulti
-            rules={[RULE_TYPES.FIELD_REQUIRED]}
-            onValidation={this.onValidation}
-            showErrors={submitAttempted}
-          />
-        </FormSection>
-        <FormSection title="Shipping Address">
-          <TextInput
-            field="shippingAddress"
-            className="full-width"
-            value={this.state.shippingAddress}
-            onChange={this.onFieldChange}
-          />
-        </FormSection>
-        <FormSection title="Shipping Terms">
-          <SearchSelect
-            field="shippingTerms"
-            value={this.state.shippingTerms}
-            options={staticShippingTerms}
-            onChange={this.onFieldChange}
-          />
-        </FormSection>
-        <FormSection title="PO Number">
-          <TextInput
-            className="full-width"
-            field="poNumber"
-            value={this.state.poNumber}
-            onChange={this.onFieldChange}
-          />
-        </FormSection>
-        <FormSection className="formsection" title="Start Date">
-          <DayPickerInput
-            className="date-input-field"
-            placeholder="YYYY-MM-DD"
-            onDayChange={day => this.handleDayChange('startDate', day)}
-          />
-        </FormSection>
-        <FormSection className="formsection" title="End Date">
-          <DayPickerInput
-            className="date-input-field"
-            placeholder="YYYY-MM-DD"
-            onDayChange={day => this.handleDayChange('endDate', day)}
-          />
-        </FormSection>
-        <FormSection title="Cost Model">
-          <p className="priceHeader">Wastepicker Sell Price</p>
-          <TextInput
-            className="priceField"
-            rightlabel="₹ / kg"
-            type="number"
-            field="wastepickerSellPrice"
-            value={this.state.wastepickerSellPrice}
-            placeholder="100.00"
-            onChange={this.onFieldChange}
-          />
-          <p className="priceHeader">Primary Segregator Sell Price</p>
-          <TextInput
-            className="priceField"
-            rightlabel="₹ / kg"
-            type="number"
-            field="primarySegregatorSellPrice"
-            value={this.state.primarySegregatorSellPrice}
-            placeholder="100.00"
-            onChange={this.onFieldChange}
-          />
-          <p className="priceHeader">Wholesaler Sell Price</p>
-          <TextInput
-            className="priceField"
-            rightlabel="₹ / kg"
-            type="number"
-            field="wholesalerSellPrice"
-            value={this.state.wholesalerSellPrice}
-            placeholder="100.00"
-            onChange={this.onFieldChange}
-          />
-          <p className="priceHeader">Price Buoyancy</p>
-          <TextInput
-            className="priceField"
-            rightlabel="₹"
-            type="number"
-            field="priceBuoyancy"
-            value={this.state.priceBuoyancy}
-            placeholder="100.00"
-            onChange={this.onFieldChange}
-          />
-          <p className="priceHeader">Shipping</p>
-          <TextInput
-            className="priceField"
-            rightlabel="₹"
-            type="number"
-            field="wholesalerShippingPrice"
-            value={this.state.wholesalerShippingPrice}
-            placeholder="100.00"
-            onChange={this.onFieldChange}
-          />
-          <p className="priceHeader">Wholesaler Delivered</p>
-          <TextInput
-            className="priceField"
-            rightlabel="₹"
-            type="number"
-            field="wholesalerDeliveredPrice"
-            value={this.state.wholesalerDeliveredPrice}
-            placeholder="100.00"
-            onChange={this.onFieldChange}
-          />
-        </FormSection>
-        <FormSection className="formsection" title="Google Drive Link">
-          <TextInput
-            field="gDriveLink"
-            className="full-width"
-            value={this.state.gdriveLink}
-            onChange={this.onFieldChange}
-          />
-        </FormSection>
+        <TextInput
+          className="emphasis-input full-width"
+          field="projectName"
+          value={this.state.projectName}
+          placeholder="Enter project name here"
+          onChange={this.onFieldChange}
+          rules={[RULE_TYPES.FIELD_REQUIRED]}
+          onValidation={this.onValidation}
+          showErrors={submitAttempted}
+        />
+        <TextAreaInput
+          field="description"
+          className="full-width"
+          value={this.state.description}
+          placeholder="Enter description here"
+          onChange={this.onFieldChange}
+        />
+        <RadioSelect
+          field="projectType"
+          value={this.state.projectType}
+          options={[
+            { label: 'External', value: 'external' },
+            { label: 'Internal', value: 'internal' },
+          ]}
+          onChange={this.onFieldChange}
+        />
+        <PlasticTypeQuantityGroup
+          label="List of Plastic Types"
+          field="plastics"
+          onChange={this.onFieldChange}
+          plasticQuantities={this.state.plastics}
+        />
+        <TextInput
+          field="brandName"
+          className="full-width"
+          value={this.state.brandName}
+          placeholder="Enter brand name here"
+          onChange={this.onFieldChange}
+        />
+        <SearchSelect
+          options={this.state.wholesalerOptions}
+          field="wholesalers"
+          onChange={this.onFieldChange}
+          value={this.state.wholesalers}
+          rules={[RULE_TYPES.FIELD_REQUIRED]}
+          onValidation={this.onValidation}
+          showErrors={submitAttempted}
+          isMulti
+        />
+        <SearchSelect
+          options={this.state.primarySegregatorOptions}
+          field="primarySegregators"
+          onChange={this.onFieldChange}
+          value={this.state.primarySegregators}
+          isMulti
+          rules={[RULE_TYPES.FIELD_REQUIRED]}
+          onValidation={this.onValidation}
+          showErrors={submitAttempted}
+        />
+        <TextInput
+          field="shippingAddress"
+          className="full-width"
+          value={this.state.shippingAddress}
+          onChange={this.onFieldChange}
+        />
+        <SearchSelect
+          field="shippingTerms"
+          value={this.state.shippingTerms}
+          options={staticShippingTerms}
+          onChange={this.onFieldChange}
+        />
+        <TextInput
+          className="full-width"
+          field="poNumber"
+          value={this.state.poNumber}
+          onChange={this.onFieldChange}
+        />
+        <DayPickerInput
+          className="date-input-field"
+          placeholder="YYYY-MM-DD"
+          onDayChange={day => this.handleDayChange('startDate', day)}
+        />
+        <DayPickerInput
+          className="date-input-field"
+          placeholder="YYYY-MM-DD"
+          onDayChange={day => this.handleDayChange('endDate', day)}
+        />
+        <p className="priceHeader">Wastepicker Sell Price</p>
+        <TextInput
+          className="priceField"
+          rightlabel="₹ / kg"
+          type="number"
+          field="wastepickerSellPrice"
+          value={this.state.wastepickerSellPrice}
+          placeholder="100.00"
+          onChange={this.onFieldChange}
+        />
+        <p className="priceHeader">Primary Segregator Sell Price</p>
+        <TextInput
+          className="priceField"
+          rightlabel="₹ / kg"
+          type="number"
+          field="primarySegregatorSellPrice"
+          value={this.state.primarySegregatorSellPrice}
+          placeholder="100.00"
+          onChange={this.onFieldChange}
+        />
+        <p className="priceHeader">Wholesaler Sell Price</p>
+        <TextInput
+          className="priceField"
+          rightlabel="₹ / kg"
+          type="number"
+          field="wholesalerSellPrice"
+          value={this.state.wholesalerSellPrice}
+          placeholder="100.00"
+          onChange={this.onFieldChange}
+        />
+        <p className="priceHeader">Price Buoyancy</p>
+        <TextInput
+          className="priceField"
+          rightlabel="₹"
+          type="number"
+          field="priceBuoyancy"
+          value={this.state.priceBuoyancy}
+          placeholder="100.00"
+          onChange={this.onFieldChange}
+        />
+        <p className="priceHeader">Shipping</p>
+        <TextInput
+          className="priceField"
+          rightlabel="₹"
+          type="number"
+          field="wholesalerShippingPrice"
+          value={this.state.wholesalerShippingPrice}
+          placeholder="100.00"
+          onChange={this.onFieldChange}
+        />
+        <p className="priceHeader">Wholesaler Delivered</p>
+        <TextInput
+          className="priceField"
+          rightlabel="₹"
+          type="number"
+          field="wholesalerDeliveredPrice"
+          value={this.state.wholesalerDeliveredPrice}
+          placeholder="100.00"
+          onChange={this.onFieldChange}
+        />
+        <TextInput
+          field="gDriveLink"
+          className="full-width"
+          value={this.state.gdriveLink}
+          onChange={this.onFieldChange}
+        />
         <div style={{ textAlign: 'center' }}>
           <CancelButton />
           <OnSubmitButton nextPath="/projects" onClick={this.onSubmit} />
