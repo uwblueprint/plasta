@@ -24,44 +24,24 @@ const styles = {
 };
 
 const IconTextInput = props => {
-  const {
-    id,
-    classes,
-    label,
-    onChange,
-    onValidation,
-    field,
-    errors,
-    showErrors,
-    rules,
-    value,
-    type,
-    hasImage,
-    iconimage,
-    ...rest
-  } = props;
+  const { id, classes, errors, showErrors, iconimage, ...rest } = props;
+  const isErrorState = showErrors && props.errors.length > 0;
   return (
     <Grid container spacing={8} alignItems="center" wrap="nowrap">
       <Grid item>{props.iconimage}</Grid>
       <Grid item xs={11}>
-        <div>
-          <TextField
-            id={id}
-            InputProps={{ className: classes.input, required: true }}
-            InputLabelProps={{ margin: 'dense' }}
-            label={label}
-            variant="outlined"
-            name={id}
-            value={value}
-            type={type}
-            field={field}
-            fullWidth
-            onChange={onChange}
-            {...rest}
-          />
-          {showErrors &&
-            errors.map((err, i) => <InvalidInputMessage key={i} showIcon message={err} />)}
-        </div>
+        <TextField
+          id={id}
+          InputProps={{ className: classes.input, required: true }}
+          InputLabelProps={{ margin: 'dense' }}
+          variant="outlined"
+          name={id}
+          fullWidth
+          type="text" // default to text
+          error={isErrorState}
+          helperText={isErrorState ? errors[0] : ''}
+          {...rest}
+        />
       </Grid>
     </Grid>
   );
