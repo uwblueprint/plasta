@@ -36,7 +36,7 @@ export const plasticOptions = [
     value: 'clear_pet', // deprecated option
     label: 'Clear PET',
     imageLink: bottleImage,
-    buy: false,
+    buy: true,
     sell: false,
   },
   {
