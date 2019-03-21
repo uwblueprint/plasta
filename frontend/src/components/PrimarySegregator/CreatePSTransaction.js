@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import FormSection from '../input-components/FormSection';
 import SearchSelect from '../input-components/SearchSelect';
 import IconTextInput from '../input-components/IconTextInput';
 import IconDateInput from '../input-components/IconDateInput';
@@ -45,83 +44,71 @@ const CreatePSTransaction = props => {
         All fields marked with <b>*</b> are required.
       </p>
 
-      <FormSection>
-        <SearchSelect
-          label={pageTitle}
-          iconimage={Icons.peoplePlaceholder}
-          createable={props.transactionType === TRANSACTION_TYPES.BUY}
-          field="stakeholderName"
-          value={props.stakeholderName}
-          options={allStakeholderOptions}
-          onChange={props.onFieldChange}
-          onValidation={props.onValidation}
-          rules={[RULE_TYPES.FIELD_REQUIRED]}
-          showErrors={props.submitAttempted}
-          isSearchable={false}
-        />
-      </FormSection>
+      <SearchSelect
+        label={pageTitle}
+        iconimage={Icons.peoplePlaceholder}
+        createable={props.transactionType === TRANSACTION_TYPES.BUY}
+        field="stakeholderName"
+        value={props.stakeholderName}
+        options={allStakeholderOptions}
+        onChange={props.onFieldChange}
+        onValidation={props.onValidation}
+        rules={[RULE_TYPES.FIELD_REQUIRED]}
+        showErrors={props.submitAttempted}
+        isSearchable={false}
+      />
 
-      <FormSection className="formsection">
-        <SearchSelect
-          label="Plastic Type"
-          field="plasticType"
-          iconimage={Icons.plasticType}
-          value={props.plasticType}
-          options={getPlasticTypesByTransactionType(props.transactionType)}
-          onChange={props.onFieldChange}
-          onValidation={props.onValidation}
-          rules={[RULE_TYPES.FIELD_REQUIRED]}
-          showErrors={props.submitAttempted}
-        />
-      </FormSection>
+      <SearchSelect
+        label="Plastic Type"
+        field="plasticType"
+        iconimage={Icons.plasticType}
+        value={props.plasticType}
+        options={getPlasticTypesByTransactionType(props.transactionType)}
+        onChange={props.onFieldChange}
+        onValidation={props.onValidation}
+        rules={[RULE_TYPES.FIELD_REQUIRED]}
+        showErrors={props.submitAttempted}
+      />
 
-      <FormSection className="formsection">
-        <IconTextInput
-          id="unitPrice"
-          label="Amount(₹)"
-          field="unitPrice"
-          type="number"
-          value={props.unitPrice}
-          iconimage={Icons.rupee}
-          onChange={props.onFieldChange}
-          onValidation={props.onValidation}
-          rules={[RULE_TYPES.FIELD_REQUIRED]}
-          showErrors={props.submitAttempted}
-        />
-      </FormSection>
+      <IconTextInput
+        id="unitPrice"
+        label="Amount(₹)"
+        field="unitPrice"
+        type="number"
+        value={props.unitPrice}
+        iconimage={Icons.rupee}
+        onChange={props.onFieldChange}
+        onValidation={props.onValidation}
+        rules={[RULE_TYPES.FIELD_REQUIRED]}
+        showErrors={props.submitAttempted}
+      />
 
-      <FormSection className="formsection">
-        <IconTextInput
-          id="weight"
-          label="Amount(Kg)"
-          field="weight"
-          type="number"
-          value={props.weight}
-          iconimage={Icons.weight}
-          onChange={props.onFieldChange}
-          onValidation={props.onValidation}
-          rules={[RULE_TYPES.FIELD_REQUIRED]}
-          showErrors={props.submitAttempted}
-        />
-      </FormSection>
+      <IconTextInput
+        id="weight"
+        label="Amount(Kg)"
+        field="weight"
+        type="number"
+        value={props.weight}
+        iconimage={Icons.weight}
+        onChange={props.onFieldChange}
+        onValidation={props.onValidation}
+        rules={[RULE_TYPES.FIELD_REQUIRED]}
+        showErrors={props.submitAttempted}
+      />
 
-      <FormSection className="formsection" title="Date">
-        <IconDateInput
-          label="Date"
-          iconimage={Icons.calendar}
-          value={props.transactionDate}
-          onChange={props.handleDayChange}
-        />
-      </FormSection>
+      <IconDateInput
+        label="Date"
+        iconimage={Icons.calendar}
+        value={props.transactionDate}
+        onChange={props.handleDayChange}
+      />
 
-      <FormSection className="formsection">
-        <FileInput
-          className="large-input full-width"
-          field="receiptPicture"
-          value={props.receiptPicture}
-          onChange={props.onFieldChange}
-        />
-      </FormSection>
+      <FileInput
+        className="large-input full-width"
+        field="receiptPicture"
+        value={props.receiptPicture}
+        onChange={props.onFieldChange}
+      />
 
       <div style={{ textAlign: 'center' }}>
         <CancelButton />

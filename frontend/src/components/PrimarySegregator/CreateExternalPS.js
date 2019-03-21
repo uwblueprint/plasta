@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { snakeCase } from 'lodash';
 import { withCookies } from 'react-cookie';
-import FormSection from '../input-components/FormSection';
 import IconTextInput from '../input-components/IconTextInput';
 import { RULE_TYPES, onFieldChange, isFormValid, onValidation } from '../utils/form';
 import { post, get } from '../utils/requests';
@@ -61,40 +60,38 @@ class CreateExternalPS extends Component {
   render() {
     return (
       <div>
-        <FormSection title="Identification">
-          <IconTextInput
-            id="name"
-            label="Name *"
-            field="address"
-            type="text"
-            value={this.state.name}
-            iconimage={StoreIcon}
-            onChange={this.onFieldChange}
-            onValidation={this.onValidation}
-            rules={[RULE_TYPES.FIELD_REQUIRED]}
-            showErrors={this.state.submitAttempted}
-          />
+        <IconTextInput
+          id="name"
+          label="Name *"
+          field="address"
+          type="text"
+          value={this.state.name}
+          iconimage={StoreIcon}
+          onChange={this.onFieldChange}
+          onValidation={this.onValidation}
+          rules={[RULE_TYPES.FIELD_REQUIRED]}
+          showErrors={this.state.submitAttempted}
+        />
 
-          <IconTextInput
-            id="phoneNumber"
-            label="Phone "
-            field="phoneNumber"
-            type="tel"
-            value={this.state.phoneNumber}
-            iconimage={PhoneIcon}
-            onChange={this.onFieldChange}
-          />
+        <IconTextInput
+          id="phoneNumber"
+          label="Phone "
+          field="phoneNumber"
+          type="tel"
+          value={this.state.phoneNumber}
+          iconimage={PhoneIcon}
+          onChange={this.onFieldChange}
+        />
 
-          <IconTextInput
-            id="address"
-            label="Address"
-            field="address"
-            type="text"
-            value={this.state.address}
-            iconimage={HomeIcon}
-            onChange={this.onFieldChange}
-          />
-        </FormSection>
+        <IconTextInput
+          id="address"
+          label="Address"
+          field="address"
+          type="text"
+          value={this.state.address}
+          iconimage={HomeIcon}
+          onChange={this.onFieldChange}
+        />
         <div style={{ textAlign: 'center' }}>
           <CancelButton />
           {/* TODO (XIN): Add nextPath for on successful submit*/}
