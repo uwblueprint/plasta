@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { snakeCase } from 'lodash';
 import { withCookies } from 'react-cookie';
 import FormSection from '../input-components/FormSection';
-import TextInput from '../input-components/TextInput';
 import IconTextInput from '../input-components/IconTextInput';
 import { RULE_TYPES, onFieldChange, isFormValid, onValidation } from '../utils/form';
 import { post, get } from '../utils/requests';
@@ -63,7 +62,6 @@ class CreateExternalPS extends Component {
     return (
       <div>
         <FormSection title="Identification">
-          <h3 className="label" />
           <IconTextInput
             id="name"
             label="Name *"
@@ -77,7 +75,6 @@ class CreateExternalPS extends Component {
             showErrors={this.state.submitAttempted}
           />
 
-          <h3 className="label" />
           <IconTextInput
             id="phoneNumber"
             label="Phone "
@@ -88,7 +85,6 @@ class CreateExternalPS extends Component {
             onChange={this.onFieldChange}
           />
 
-          <h3 className="label" />
           <IconTextInput
             id="address"
             label="Address"

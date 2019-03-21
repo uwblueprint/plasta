@@ -3,7 +3,6 @@ import { withCookies } from 'react-cookie';
 import SearchSelect from '../input-components/SearchSelect';
 import RadioSelect from '../input-components/RadioSelect';
 import FormSection from '../input-components/FormSection';
-import TextInput from '../input-components/TextInput';
 import IconTextInput from '../input-components/IconTextInput';
 import { RULE_TYPES, onFieldChange, isFormValid, onValidation } from '../utils/form';
 import OnSubmitButton from '../common/OnSubmitButton';
@@ -117,8 +116,6 @@ class CreateWastePicker extends Component {
     return (
       <div>
         <FormSection>
-          <h3 className="label" />
-
           <IconTextInput
             id="name"
             label="Name *"
@@ -131,9 +128,6 @@ class CreateWastePicker extends Component {
             onValidation={this.onValidation}
             showErrors={submitAttempted}
           />
-
-          <h3 className="label" />
-
           <IconTextInput
             id="phoneNumber"
             label="Phone "
@@ -176,7 +170,6 @@ class CreateWastePicker extends Component {
             onChange={this.onFieldChange}
           />
 
-          <h3 className="label" />
           <IconTextInput
             id="address"
             label="Address"
