@@ -51,8 +51,10 @@ const columns = [
     Header: <span>{Icons.calendar} Date</span>,
     accessor: transaction => {
       return moment(transaction.sale_date)
-        .local()
-        .format('DD-MM-YYYY hh:mm:ss a');
+        .local().format('YYYY-MM-DD');
+    },
+    sortMethod: (a, b) => {
+      return moment(a).valueOf() > moment(b).valueOf() ? 1 : -1;
     },
   },
 ];
@@ -69,7 +71,7 @@ class PSTransactionHistory extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      pageSize: 5,
+      pageSize: 10,
       transactionType: 'Buy',
     };
   }
@@ -138,6 +140,7 @@ class PSTransactionHistory extends Component {
             columns={columns}
             defaultPageSize={this.state.pageSize}
             className="-striped-highlight table"
+            defaultSorted={[{ id: 'saleDate', desc: true }]}
           />
         ) : (
           <TransactionTable
@@ -146,6 +149,7 @@ class PSTransactionHistory extends Component {
             columns={columns}
             defaultPageSize={this.state.pageSize}
             className="-striped-highlight table"
+            defaultSorted={[{ id: 'saleDate', desc: true }]}
           />
         )}
       </div>
