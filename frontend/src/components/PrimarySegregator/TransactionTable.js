@@ -25,7 +25,7 @@ export default class TransactionTable extends Component {
   }
 
   render() {
-    const pageSize = this.props.defaultPageSize || 5;
+    const pageSize = this.props.defaultPageSize || 10;
     const totalPages = this.props.data ? Math.ceil(this.props.data.length / pageSize) - 1 : 0;
     return (
       <div className="table-wrapper">
