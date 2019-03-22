@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import InvalidInputMessage from '../InvalidInputMessage';
 import composeInput from './InputContainer';
 import { withStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
@@ -27,9 +26,11 @@ const IconTextInput = props => {
   const { id, classes, errors, showErrors, iconimage, ...rest } = props;
   const isErrorState = showErrors && props.errors.length > 0;
   return (
-    <Grid container spacing={8} alignItems="center" wrap="nowrap">
-      <Grid item>{props.iconimage}</Grid>
-      <Grid item xs={11}>
+    <Grid container spacing={16} alignItems="center" wrap="nowrap">
+      <Grid item xs={1}>
+        {props.iconimage}
+      </Grid>
+      <Grid item xs={12}>
         <TextField
           id={id}
           InputProps={{ className: classes.input, required: true }}
