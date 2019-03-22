@@ -15,6 +15,24 @@ Note: If you pulled this branch when it was under Gautam's account, you will nee
 
 1. Follow the instructions in the `backend` and `frontend` folders.
 
+## Deployment
+
+The server is running on a VM in DigitalOcean (message Andrew to be invited as an admin). To access the server, ssh using the following command:
+```
+$ ssh root@159.203.24.216 # Message Shela for the password
+```
+
+The backend is running on port 3000. Whenever you want to make backend changes, make sure to run `systemctl stop app` first to stop the backend, pull the changes, make the necessary database updates, and then run `systemctl start app` to resume execution. Useful commands:
+```
+$ systemctl stop app
+$ systemctl status app
+$ systemctl start app
+```
+
+The frontend is running on port 80. Frontend changes should update automatically, but if the frontend needs to be stopped at any point, you can run `pm2 stop npm`, to stop it. Then, make the necessary file changes or package updates, and run `pm2 start npm --start` to resume execution. Useful commands:
+```
+$ pm2 start npm -- start
+```
 
 ## Contributing
 
