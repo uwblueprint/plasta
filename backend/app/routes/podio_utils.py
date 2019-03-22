@@ -126,6 +126,29 @@ def create_buy_transaction_item(transaction_data):
                 print(e)  # logerror
 
 
+def create_stakeholder_item(data):
+    try:
+        client = create_podio_stakeholders_client()
+    except TransportException as e:
+        print("Failed to establish Podio stakeholders client:")
+        print(e)
+        return
+    
+    try:
+        name = data['name']
+        phone_number = data['meta_data']['phone_number']
+        address = data['meta_data']['address']
+        item = {
+            'fields':
+                [{'external_id': 'name', 'values': [{'value': name}]},
+                 {'external_id': 'phone-number', 'values': [{'type': 'main', 'value': phone_number}]},
+                 {'external_id': 'address', 'values': [{'value': address}]}]}
+        client.Item.create(int(os.environ['PODIO_STAKEHOLDERS_APP_ID']), item)
+    except TransportException as e:
+        print("Failed to create Podio stakeholders entry:")
+        print(e)
+
+
 def get_visible_wholesalers(item_id):
     wholesaler_visibility_field_id = 185088491
     try:
@@ -156,3 +179,5 @@ def get_visible_wholesalers(item_id):
             }
             matches.append(data)
     return matches
+    
+
