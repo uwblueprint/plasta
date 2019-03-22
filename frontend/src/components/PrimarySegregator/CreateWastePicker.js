@@ -38,7 +38,7 @@ const fieldsInfo = {
   vendorSubtype: { label: 'Wastepicker Type', isRequired: true },
   picture: { label: 'Wastepicker Picture', default: '', isRequired: false },
   address: { label: 'Address', default: '', isRequired: false, type: 'metaData' },
-  language: { label: 'Spoken Language', default: 'hindi', isRequired: false, type: 'metaData' },
+  language: { label: 'Spoken Language', default: '', isRequired: false, type: 'metaData' },
   zone: { label: 'Zone', default: '', isRequired: false, type: 'metaData' },
 };
 
