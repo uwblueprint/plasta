@@ -770,9 +770,9 @@ export const script = (
 // Upload Icon
 export const upload = (
   <svg
-    width="24px"
-    height="24px"
-    viewBox="0 0 24 24"
+    width="20px"
+    height="16px"
+    viewBox="0 0 36 24"
     version="1.1"
     xmlns="http://www.w3.org/2000/svg"
     xmlnsXlink="http://www.w3.org/1999/xlink"
@@ -956,7 +956,7 @@ export const deleteIcon = (
 );
 
 export const calendar = (
-  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+  <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24">
     <path d="M20 3h-1V1h-2v2H7V1H5v2H4c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 18H4V8h16v13z" />
     <path fill="none" d="M0 0h24v24H0z" />
   </svg>

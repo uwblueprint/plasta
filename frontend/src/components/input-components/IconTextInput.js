@@ -26,7 +26,7 @@ const IconTextInput = props => {
   const { id, classes, errors, showErrors, iconimage, ...rest } = props;
   const isErrorState = showErrors && props.errors.length > 0;
   return (
-    <Grid container spacing={16} alignItems="center" wrap="nowrap">
+    <Grid container spacing={16} alignItems="center" wrap="nowrap" style={{ marginBottom: 5 }}>
       <Grid item xs={1}>
         {props.iconimage}
       </Grid>
