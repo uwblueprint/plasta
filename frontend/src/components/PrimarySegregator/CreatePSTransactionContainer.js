@@ -66,7 +66,11 @@ class CreatePSTransactionContainer extends Component {
     const currentVendorId = this.props.currentUser.userDetails.vendor_id;
 
     // SELL trans
-    let vendors = findVendorsByTypes(this.props.vendors, ['wholesaler', 'primary_segregator']);
+    let vendors = findVendorsByTypes(
+      this.props.vendors,
+      ['wholesaler', 'primary_segregator'],
+      currentVendorId
+    );
     if (transactionType === TRANSACTION_TYPES.BUY) {
       const url = `/vendors/primary_segregator/${currentVendorId}/wastepickers`;
       const wastepickers = await get(url, this.props.cookies.get('access_token'));

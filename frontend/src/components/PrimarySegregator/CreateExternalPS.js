@@ -63,7 +63,7 @@ class CreateExternalPS extends Component {
         <IconTextInput
           id="name"
           label="Name *"
-          field="address"
+          field="name"
           type="text"
           value={this.state.name}
           iconimage={StoreIcon}

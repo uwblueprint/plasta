@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import './FileInput.css';
+import { upload as uploadIcon } from '../../assets/icons';
 
 class FileInput extends Component {
   constructor(props) {
@@ -24,7 +25,7 @@ class FileInput extends Component {
       <div id={id} className={classNames('field-wrapper', className)}>
         {leftlabel && <span> {leftlabel} </span>}
         <label htmlFor="file" className="uploadPictureButton">
-          <i className="fas fa-arrow-up" style={{ marginRight: '0.5em' }} />
+          {uploadIcon}
           Upload Picture
         </label>
         <input
