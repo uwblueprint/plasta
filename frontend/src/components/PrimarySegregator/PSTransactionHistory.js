@@ -129,25 +129,19 @@ class PSTransactionHistory extends Component {
 
   render() {
     const transactionType = this.props.header.transactionType;
+    const data =
+      transactionType === TRANSACTION_TYPES.BUY
+        ? this.filterTransactions('buy')
+        : this.filterTransactions('sell');
     return (
       <div id="primary-segregator-page-wrapper">
-        {transactionType === TRANSACTION_TYPES.BUY ? (
-          <TransactionTable
-            showPagination={false}
-            data={this.filterTransactions('buy')}
-            columns={columns}
-            defaultPageSize={this.state.pageSize}
-            className="-striped-highlight table"
-          />
-        ) : (
-          <TransactionTable
-            showPagination={false}
-            data={this.filterTransactions('sell')}
-            columns={columns}
-            defaultPageSize={this.state.pageSize}
-            className="-striped-highlight table"
-          />
-        )}
+        <TransactionTable
+          showPagination={false}
+          data={data}
+          columns={columns}
+          defaultPageSize={this.state.pageSize}
+          className="-striped-highlight table"
+        />
       </div>
     );
   }
