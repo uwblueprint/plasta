@@ -81,6 +81,8 @@ def create_vendor():
         current_user=current_user,
         files=request.files
     )
+    # Create stakeholder in Podio 
+    podio_utils.create_stakeholder_item(data) 
     return success(data=vendor.to_dict(include_relationships=True))
 
 
