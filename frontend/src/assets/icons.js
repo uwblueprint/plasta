@@ -660,12 +660,12 @@ export const logout = (
         />
       </filter>
     </defs>
-    <g id="Icons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+    <g id="Icons" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
       <g id="logout">
         <g>
           <g id="Oval">
-            <use fill="black" fill-opacity="1" filter="url(#filter-2)" xlinkHref="#path-1" />
-            <use fill="#FFFFFF" fill-rule="evenodd" xlinkHref="#path-1" />
+            <use fill="black" fillOpacity="1" filter="url(#filter-2)" xlinkHref="#path-1" />
+            <use fill="#FFFFFF" fillRule="evenodd" xlinkHref="#path-1" />
           </g>
           <polyline
             id="Path-6"
