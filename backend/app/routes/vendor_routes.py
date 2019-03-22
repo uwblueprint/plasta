@@ -1,6 +1,7 @@
 from flask import Blueprint, request
 from flask_jwt_extended import get_jwt_identity, jwt_required
 import json
+import os
 
 from . import db_client
 from . import podio_utils
@@ -13,9 +14,11 @@ blueprint = Blueprint('vendor', __name__, url_prefix='/vendors')
 @blueprint.route('/', methods=['GET'])
 @jwt_required
 def get_all_vendors():
-    current_user = get_jwt_identity()
-    item_id = db_client.get_vendor(current_user['id']).podio_master_id
-    visible_wholesalers = podio_utils.get_visible_wholesalers(item_id)
+    visible_wholesalers = []
+    if os.environ['ENABLE_PODIO'] == 'True':
+        current_user = get_jwt_identity()
+        item_id = db_client.get_vendor(current_user['id']).podio_master_id
+        visible_wholesalers = podio_utils.get_visible_wholesalers(item_id)
     return success(data=json.loads(get_vendors([]).data)['data'] + visible_wholesalers)
 
 
@@ -44,16 +47,18 @@ def create_vendor_transaction(vendor_id):
     if not is_application_json and 'plastics' in transaction_data:
         transaction_data['plastics'] = json.loads(transaction_data['plastics'])
 
-    # podio integration
-    if vendor_id == int(transaction_data["from_vendor_id"]):
-        # sell transaction
-        podio_utils.create_sourcing_item(transaction_data)
-    else:
-        # buy transaction
-        podio_utils.create_buy_transaction_item(transaction_data)
-
     # create transaction in db
     transaction = db_client.create_transaction(transaction_data, request.files)
+
+    if os.environ['ENABLE_PODIO'] == 'True':
+        # podio integration
+        if vendor_id == int(transaction_data['from_vendor_id']):
+            # sell transaction
+            podio_utils.create_sourcing_item(transaction_data)
+        else:
+            # buy transaction
+            podio_utils.create_buy_transaction_item(transaction_data)
+
     return success(data=transaction.to_dict(include_relationships=True))
 
 

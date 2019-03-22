@@ -39,6 +39,8 @@ def create_transaction(data, files=None):
     plastics = data.pop('plastics')
     transaction = Transaction.create(**data)
     transaction.create_plastics(plastics)
+    data['plastics'] = plastics
+    data['id'] = transaction.id
     return transaction
 
 

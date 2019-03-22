@@ -79,10 +79,13 @@ def create_sourcing_item(transaction_data):
                      {'external_id': 'quantity-kg', 'values': [{'value': quantity_kg}]},
                      {'external_id': 'sourcing-for-po', 'values': [{'value': podio_sourcing_project_id}]}]}
             try:
-                client.Item.create(int(os.environ['PODIO_SOURCING_APP_ID']), item)
+                response = client.Item.create(int(os.environ['PODIO_SOURCING_APP_ID']), item)
             except TransportException as e:
                 print("Failed to create Podio sourcing entry:")
                 print(e)  # logerror
+            print("Success: requests sent to podio sourcing table with "
+                  "Podio app id: {} Our transaction id: {} Podio item id: {}".format(
+                os.environ['PODIO_SOURCING_APP_ID'], transaction_data['id'], response['item_id']))
 
 
 # create a new entry in the buy transaction table when a ps buy transaction happens
@@ -120,10 +123,13 @@ def create_buy_transaction_item(transaction_data):
                      {'external_id': 'plastic-type-2', 'values': [{'value': podio_plastic_type}]},
                      {'external_id': 'pfc-project-3', 'values': [{'value': podio_buy_project_id}]}]}
             try:
-                client.Item.create(int(os.environ['PODIO_PS_BUY_APP_ID']), item)
+                response = client.Item.create(int(os.environ['PODIO_PS_BUY_APP_ID']), item)
             except TransportException as e:
                 print("Failed to create Podio buy transaction entry:")
                 print(e)  # logerror
+            print("Success: requests sent to podio buy transaction table with "
+                  "Podio app id: {} Our transaction id: {} Podio item id: {}".format(
+                os.environ['PODIO_PS_BUY_APP_ID'], transaction_data['id'], response['item_id']))
 
 
 def get_visible_wholesalers(item_id):
