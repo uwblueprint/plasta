@@ -11,7 +11,7 @@ import { get, postMultiType } from '../utils/requests';
 import { findVendorsByTypes, findVendorsByIds } from '../utils/vendors';
 import { loadTransactions, setHeaderBar } from '../../actions';
 import personImage from '../../assets/person.png';
-import { newBuy as buyIcon, sell as sellIcon } from '../../assets/icons';
+import { newBuyWhite as buyIcon, sellWhite as sellIcon } from '../../assets/icons';
 
 class CreatePSTransactionContainer extends Component {
   constructor(props) {
@@ -152,8 +152,8 @@ class CreatePSTransactionContainer extends Component {
       {
         key: 'sale_date',
         value: moment(saleDate)
-        .add(utcTimeOffset, 'minutes')
-        .format('YYYY-MM-DD HH:mm:ss'),
+          .add(utcTimeOffset, 'minutes')
+          .format('YYYY-MM-DD HH:mm:ss'),
       },
     ];
 

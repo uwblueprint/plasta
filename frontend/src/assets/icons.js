@@ -121,6 +121,84 @@ export const newBuy = (
   </svg>
 );
 
+export const newBuyWhite = (
+  <svg
+    width="25px"
+    height="24px"
+    viewBox="0 0 25 24"
+    version="1.1"
+    xmlns="http://www.w3.org/2000/svg"
+    xmlnsXlink="http://www.w3.org/1999/xlink"
+  >
+    <g id="Icons" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
+      <g id="new_buy">
+        <g transform="translate(1.000000, -4.000000)">
+          <path d="" id="Path-3" stroke="#FFFFFF" />
+          <polyline
+            id="Path-4"
+            stroke="#FFFFFF"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            points="1 7 5.89438978 12.9382345 7.92901751 23 20.0859326 23 23 14.030859 6.84118345 14.030859"
+          />
+          <path d="" id="Path-5" stroke="#FFFFFF" />
+          <circle
+            id="Oval"
+            stroke="#FFFFFF"
+            strokeWidth="2"
+            fill="#FFFFFF"
+            cx="8.5"
+            cy="26.5"
+            r="1"
+          />
+          <circle
+            id="Oval-Copy"
+            stroke="#FFFFFF"
+            strokeWidth="2"
+            fill="#FFFFFF"
+            cx="19.5"
+            cy="26.5"
+            r="1"
+          />
+          <polyline
+            id="Path-6"
+            stroke="#FFFFFF"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            points="11 8 14.0088006 11 17 8"
+          />
+          <path
+            d="M14,10 L14,5"
+            id="Path-7"
+            stroke="#FFFFFF"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+          <path
+            d="M2.5,20 L2.5,25"
+            id="Path-8"
+            stroke="#FFFFFF"
+            strokeWidth="2"
+            strokeLinecap="round"
+          />
+          <path
+            d="M2.5,20 L2.5,25"
+            id="Path-8-Copy"
+            stroke="#FFFFFF"
+            strokeWidth="2"
+            strokeLinecap="round"
+            transform="translate(2.500000, 22.500000) rotate(90.000000) translate(-2.500000, -22.500000) "
+          />
+          <path d="" id="Path-2" stroke="#FFFFFF" />
+        </g>
+      </g>
+    </g>
+  </svg>
+);
+
 // New Sell Icon
 export const sell = (
   <svg
@@ -202,6 +280,86 @@ export const sell = (
   </svg>
 );
 
+export const sellWhite = (
+  <svg
+    width="25px"
+    height="24px"
+    viewBox="0 0 25 24"
+    version="1.1"
+    xmlns="http://www.w3.org/2000/svg"
+    xmlnsXlink="http://www.w3.org/1999/xlink"
+  >
+    <g id="Icons" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
+      <g id="new_sell">
+        <g transform="translate(1.000000, 1.000000)">
+          <path d="" id="Path-3" stroke="#FFFFFF" />
+          <polyline
+            id="Path-4"
+            stroke="#FFFFFF"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            points="1 2 5.89438978 7.93823449 7.92901751 18 20.0859326 18 23 9.03085899 6.84118345 9.03085899"
+          />
+          <path d="" id="Path-5" stroke="#FFFFFF" />
+          <circle
+            id="Oval"
+            stroke="#FFFFFF"
+            strokeWidth="2"
+            fill="#FFFFFF"
+            cx="8.5"
+            cy="21.5"
+            r="1"
+          />
+          <circle
+            id="Oval-Copy"
+            stroke="#FFFFFF"
+            strokeWidth="2"
+            fill="#FFFFFF"
+            cx="19.5"
+            cy="21.5"
+            r="1"
+          />
+          <polyline
+            id="Path-6"
+            stroke="#FFFFFF"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            transform="translate(14.000000, 1.500000) scale(1, -1) translate(-14.000000, -1.500000) "
+            points="11 0 14.0088006 3 17 0"
+          />
+          <path
+            d="M14,6 L14,0"
+            id="Path-7"
+            stroke="#FFFFFF"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            transform="translate(14.000000, 3.000000) scale(1, -1) translate(-14.000000, -3.000000) "
+          />
+          <path
+            d="M2.5,15 L2.5,20"
+            id="Path-8"
+            stroke="#FFFFFF"
+            strokeWidth="2"
+            strokeLinecap="round"
+          />
+          <path
+            d="M2.5,15 L2.5,20"
+            id="Path-8-Copy"
+            stroke="#FFFFFF"
+            strokeWidth="2"
+            strokeLinecap="round"
+            transform="translate(2.500000, 17.500000) rotate(90.000000) translate(-2.500000, -17.500000) "
+          />
+          <path d="" id="Path-2" stroke="#FFFFFF" />
+        </g>
+      </g>
+    </g>
+  </svg>
+);
+
 // New Waste Picker Icon
 export const newWastepicker = (
   <svg
@@ -239,6 +397,48 @@ export const newWastepicker = (
             strokeLinecap="round"
           />
           <path d="" id="Path-10" stroke="#979797" />
+        </g>
+      </g>
+    </g>
+  </svg>
+);
+
+export const newWastepickerWhite = (
+  <svg
+    width="24px"
+    height="24px"
+    viewBox="0 0 24 24"
+    version="1.1"
+    xmlns="http://www.w3.org/2000/svg"
+    xmlnsXlink="http://www.w3.org/1999/xlink"
+  >
+    <g id="Icons" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
+      <g id="new_waste_picker">
+        <g transform="translate(1.021769, 1.000000)">
+          <path
+            d="M19.4782313,16 L19.4782313,21"
+            id="Path-8"
+            stroke="#FFFFFF"
+            strokeWidth="2"
+            strokeLinecap="round"
+          />
+          <circle id="Oval" stroke="#FFFFFF" strokeWidth="2" cx="8.9782313" cy="4.5" r="4.5" />
+          <path
+            d="M19.4782313,16 L19.4782313,21"
+            id="Path-8-Copy"
+            stroke="#FFFFFF"
+            strokeWidth="2"
+            strokeLinecap="round"
+            transform="translate(19.478231, 18.500000) rotate(90.000000) translate(-19.478231, -18.500000) "
+          />
+          <path
+            d="M-2.80664381e-13,22 C0.507581507,14 3.67149721,10 9.49174713,10 C13.1100213,10 15.1763061,11.7007172 17.2731406,14.6376814"
+            id="Path-9"
+            stroke="#FFFFFF"
+            strokeWidth="2"
+            strokeLinecap="round"
+          />
+          <path d="" id="Path-10" stroke="#FFFFFF" />
         </g>
       </g>
     </g>
@@ -634,12 +834,13 @@ export const peoplePlaceholder = (
 // Logout Icon
 export const logout = (
   <svg
+    className="logout-icon"
     width="40px"
     height="40px"
     viewBox="0 0 40 40"
     version="1.1"
     xmlns="http://www.w3.org/2000/svg"
-    xmlnsXlink="http://www.w3.org/1999/xlink"
+    xlink="http://www.w3.org/1999/xlink"
   >
     <defs>
       <circle id="path-1" cx="18" cy="18" r="18" />
@@ -664,8 +865,8 @@ export const logout = (
       <g id="logout">
         <g>
           <g id="Oval">
-            <use fill="black" fillOpacity="1" filter="url(#filter-2)" xlinkHref="#path-1" />
-            <use fill="#FFFFFF" fillRule="evenodd" xlinkHref="#path-1" />
+            <use fill="black" fillOpacity="1" filter="url(#filter-2)" href="#path-1" />
+            <use fill="#FFFFFF" fillRule="evenodd" href="#path-1" />
           </g>
           <polyline
             id="Path-6"
