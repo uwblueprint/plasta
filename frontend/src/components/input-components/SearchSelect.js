@@ -218,8 +218,8 @@ const SearchSelect = props => {
 
   return (
     <div className={classNames('search-select-wrapper', className)}>
-      <Grid container spacing={8} alignItems="center" wrap="nowrap">
-        <Grid item xs={1}>
+      <Grid container spacing={16} alignItems="center" wrap="nowrap">
+        <Grid item xs={1} zeroMinWidth>
           {props.iconimage}
         </Grid>
         <Grid item xs={11}>
