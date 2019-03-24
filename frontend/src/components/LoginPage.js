@@ -3,6 +3,7 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import TextInput from './input-components/TextInput.js';
+import IconTextInput from './input-components/IconTextInput';
 import { onFieldChange, RULE_TYPES } from './utils/form';
 import { authenticateUser, loadVendors } from '../actions';
 import { post, get } from './utils/requests';
@@ -44,27 +45,20 @@ class LoginPage extends Component {
         <img alt="Plastics For Change" src="/images/pfc-logo.png" />
         <form onSubmit={this.props.onSubmit} className="login-form">
           <div className="input-block">
-            <label className="block" htmlFor="email">
-              Email
-            </label>
-            <TextInput
-              placeholder="Email"
+            <IconTextInput
               field="email"
-              className="block input-field"
+              label="Email"
+              type="email"
               value={this.state.email}
               onChange={this.onChange}
               rules={[RULE_TYPES.FIELD_REQUIRED]}
             />
           </div>
           <div className="input-block">
-            <label className="block" htmlFor="password">
-              Password
-            </label>
-            <TextInput
-              className="block input-field"
-              placeholder="Password"
-              type="password"
+            <IconTextInput
               field="password"
+              label="Password"
+              type="password"
               value={this.state.password}
               onChange={this.onChange}
               rules={[RULE_TYPES.FIELD_REQUIRED]}
