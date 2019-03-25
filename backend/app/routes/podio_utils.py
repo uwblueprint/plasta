@@ -134,15 +134,25 @@ def create_stakeholder_item(data):
         print(e)
         return
     
+    if not 'name' in data:
+        print("ERROR: Missing name field")
+        return
+    if not 'phone_number' in data['meta_data']:
+        print("ERROR: Missing phone number field")
+        return
+    if not 'address' in data['meta_data']:
+        print("ERROR: Missing address field")
+        return
+    name = data['name']
+    phone_number = data['meta_data']['phone_number']
+    address = data['meta_data']['address']
+    item = {
+        'fields':
+            [{'external_id': 'name', 'values': [{'value': name}]},
+                {'external_id': 'phone-number', 'values': [{'type': 'main', 'value': phone_number}]},
+                {'external_id': 'address', 'values': [{'value': address}]}]}
+
     try:
-        name = data['name']
-        phone_number = data['meta_data']['phone_number']
-        address = data['meta_data']['address']
-        item = {
-            'fields':
-                [{'external_id': 'name', 'values': [{'value': name}]},
-                 {'external_id': 'phone-number', 'values': [{'type': 'main', 'value': phone_number}]},
-                 {'external_id': 'address', 'values': [{'value': address}]}]}
         client.Item.create(int(os.environ['PODIO_STAKEHOLDERS_APP_ID']), item)
     except TransportException as e:
         print("Failed to create Podio stakeholders entry:")
