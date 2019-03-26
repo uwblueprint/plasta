@@ -2,9 +2,11 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import '../Navbar.css';
 import './PrimarySegregator.css';
+import * as Icons from '../../assets/icons';
 import buy from './NavbarImages/buy.png';
 import sell from './NavbarImages/sell.png';
 import createnew from './NavbarImages/createnew.png';
+import { Icon } from '@material-ui/core';
 
 class PSNavBar extends Component {
   render() {
@@ -12,13 +14,13 @@ class PSNavBar extends Component {
       <div id="nav-bar-wrapper">
         <nav className="navbar">
           <Link className="tab" to="/ps/transactions/buy">
-            <img src={buy} alt={'buy'} />
+            <div id="icon">{Icons.newBuy}</div>
           </Link>
           <Link className="tab" to="/ps/transactions/sell">
-            <img src={sell} alt={'sell'} />
+            <div id="icon">{Icons.sell}</div>
           </Link>
           <Link className="tab" to="/ps/stakeholders/new">
-            <img src={createnew} alt={'create new'} />
+            <div id="icon">{Icons.newWastepicker}</div>
           </Link>
         </nav>
       </div>
