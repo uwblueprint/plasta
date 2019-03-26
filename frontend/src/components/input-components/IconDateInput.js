@@ -34,7 +34,7 @@ const IconDateInput = props => {
 
   return (
     <Grid container spacing={8} alignItems="center" wrap="nowrap">
-      <Grid item>{props.iconimage}</Grid>
+      <Grid item xs={1}>{props.iconimage}</Grid>
       <Grid item xs={11}>
         <MuiPickersUtilsProvider utils={MomentUtils}>
           <DatePicker
