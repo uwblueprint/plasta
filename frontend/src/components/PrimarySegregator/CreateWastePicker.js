@@ -32,12 +32,12 @@ const availableZones = [
 ];
 
 const fieldsInfo = {
-  name: { label: 'Name', default: '', isRequired: true },
-  phoneNumber: { label: 'Phone', default: '', isRequired: true, type: 'metaData' },
+  name: { label: 'Name *', default: '', isRequired: true },
+  phoneNumber: { label: 'Phone *', default: '', isRequired: true, type: 'metaData' },
   phoneType: { label: 'Type of Phone', default: '', isRequired: false, type: 'metaData' },
-  vendorSubtype: { label: 'Wastepicker Type', isRequired: true },
+  vendorSubtype: { label: 'Wastepicker Type *', isRequired: true },
   picture: { label: 'Wastepicker Picture', default: '', isRequired: false },
-  address: { label: 'Address', default: '', isRequired: false, type: 'metaData' },
+  address: { label: 'Address *', default: '', isRequired: true, type: 'metaData' },
   language: { label: 'Spoken Language', default: '', isRequired: false, type: 'metaData' },
   zone: { label: 'Zone', default: '', isRequired: false, type: 'metaData' },
 };
@@ -61,7 +61,7 @@ class CreateWastePicker extends Component {
   async onSubmit() {
     if (!this.state.submitAttempted) this.setState({ submitAttempted: true }); // move out once onsubmit dispatched through redux
     if (!this.isFormValid()) {
-      return Promise.reject('Please resolve all errors before submitting.');
+      return Promise.reject('Please fill in all required fields before submitting.');
     }
     const metaData = {};
     const data = [];
@@ -126,7 +126,7 @@ class CreateWastePicker extends Component {
         />
         <IconTextInput
           id="phoneNumber"
-          label="Phone "
+          label="Phone *"
           field="phoneNumber"
           value={this.state.phoneNumber}
           iconimage={PhoneIcon}
@@ -168,7 +168,7 @@ class CreateWastePicker extends Component {
 
         <IconTextInput
           id="address"
-          label="Address"
+          label="Address *"
           field="address"
           type="text"
           value={this.state.address}

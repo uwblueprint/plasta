@@ -110,7 +110,7 @@ class CreatePSTransactionContainer extends Component {
   async onSubmit() {
     if (!this.state.submitAttempted) this.setState({ submitAttempted: true }); // move out once onsubmit dispatched through redux
     if (!this.isFormValid()) {
-      return Promise.reject('Please resolve all errors before submitting.');
+      return Promise.reject('Please fill in all required fields before submitting.');
     }
 
     const transactionType = this.props.match.params.transactionType;

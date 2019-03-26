@@ -69,7 +69,7 @@ class NewProject extends Component {
   async onSubmit() {
     if (!this.state.submitAttempted) this.setState({ submitAttempted: true });
     if (!this.isFormValid()) {
-      return Promise.reject('Please resolve all errors before submitting.');
+      return Promise.reject('Please fill in all required fields before submitting.');
     }
 
     const metaData = { cost_model: {} };

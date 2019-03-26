@@ -59,7 +59,7 @@ const CreatePSTransaction = props => {
       />
 
       <SearchSelect
-        label="Plastic Type"
+        label="Plastic Type *"
         field="plasticType"
         iconimage={Icons.plasticType}
         value={props.plasticType}
@@ -72,7 +72,7 @@ const CreatePSTransaction = props => {
 
       <IconTextInput
         id="unitPrice"
-        label="Amount(₹)"
+        label="Amount(₹) *"
         field="unitPrice"
         type="number"
         value={props.unitPrice}
@@ -85,7 +85,7 @@ const CreatePSTransaction = props => {
 
       <IconTextInput
         id="weight"
-        label="Amount(Kg)"
+        label="Amount(Kg) *"
         field="weight"
         type="number"
         value={props.weight}
