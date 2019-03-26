@@ -35,7 +35,7 @@ class CreateExternalPS extends Component {
   async onSubmit() {
     if (!this.state.submitAttempted) this.setState({ submitAttempted: true }); // move out once onsubmit dispatched through redux
     if (!this.isFormValid()) {
-      return Promise.reject('Please resolve all errors before submitting.');
+      return Promise.reject('Please fill in all required fields before submitting.');
     }
 
     const vendorSubType = this.props.stakeholderType.value;
@@ -75,7 +75,7 @@ class CreateExternalPS extends Component {
 
         <IconTextInput
           id="phoneNumber"
-          label="Phone "
+          label="Phone"
           field="phoneNumber"
           type="tel"
           value={this.state.phoneNumber}
