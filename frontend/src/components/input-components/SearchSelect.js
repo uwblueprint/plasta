@@ -58,7 +58,7 @@ const styles = theme => ({
   },
   paper: {
     position: 'absolute',
-    zIndex: 10,
+    zIndex: 1000,
     marginTop: theme.spacing.unit,
     left: 0,
     right: 0,
