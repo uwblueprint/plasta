@@ -45,16 +45,16 @@ export const transaction = (
 // New Buy Icon
 export const newBuy = (
   <svg
-    width="25px"
-    height="24px"
-    viewBox="0 0 25 24"
+    width="100px"
+    height="40px"
+    viewBox="0 0 40 40"
     version="1.1"
     xmlns="http://www.w3.org/2000/svg"
     xmlnsXlink="http://www.w3.org/1999/xlink"
   >
     <g id="Icons" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
       <g id="new_buy">
-        <g transform="translate(1.000000, -4.000000)">
+        <g transform="translate(0.000000, 1.000000)">
           <path d="" id="Path-3" stroke="#979797" />
           <polyline
             id="Path-4"
@@ -62,7 +62,7 @@ export const newBuy = (
             strokeWidth="2"
             strokeLinecap="round"
             strokeLinejoin="round"
-            points="1 7 5.89438978 12.9382345 7.92901751 23 20.0859326 23 23 14.030859 6.84118345 14.030859"
+            points="9 2 13.8943898 7.93823449 15.9290175 18 28.0859326 18 31 9.03085899 14.8411834 9.03085899"
           />
           <path d="" id="Path-5" stroke="#979797" />
           <circle
@@ -70,8 +70,8 @@ export const newBuy = (
             stroke="#000000"
             strokeWidth="2"
             fill="#000000"
-            cx="8.5"
-            cy="26.5"
+            cx="16.5"
+            cy="21.5"
             r="1"
           />
           <circle
@@ -79,8 +79,8 @@ export const newBuy = (
             stroke="#000000"
             strokeWidth="2"
             fill="#000000"
-            cx="19.5"
-            cy="26.5"
+            cx="27.5"
+            cy="21.5"
             r="1"
           />
           <polyline
@@ -89,10 +89,10 @@ export const newBuy = (
             strokeWidth="2"
             strokeLinecap="round"
             strokeLinejoin="round"
-            points="11 8 14.0088006 11 17 8"
+            points="19 3 22.0088006 6 25 3"
           />
           <path
-            d="M14,10 L14,5"
+            d="M22,5 L22,1.38777878e-16"
             id="Path-7"
             stroke="#000000"
             strokeWidth="2"
@@ -100,21 +100,32 @@ export const newBuy = (
             strokeLinejoin="round"
           />
           <path
-            d="M2.5,20 L2.5,25"
+            d="M10.5,15 L10.5,20"
             id="Path-8"
             stroke="#000000"
             strokeWidth="2"
             strokeLinecap="round"
           />
           <path
-            d="M2.5,20 L2.5,25"
+            d="M10.5,15 L10.5,20"
             id="Path-8-Copy"
             stroke="#000000"
             strokeWidth="2"
             strokeLinecap="round"
-            transform="translate(2.500000, 22.500000) rotate(90.000000) translate(-2.500000, -22.500000) "
+            transform="translate(10.500000, 17.500000) rotate(90.000000) translate(-10.500000, -17.500000) "
           />
           <path d="" id="Path-2" stroke="#979797" />
+          <text
+            id="New-Buy"
+            fontFamily="Open Sans, sans-serif"
+            fontSize="10"
+            fontWeight="400"
+            fill="#000000"
+          >
+            <tspan x="0" y="36">
+              New Buy
+            </tspan>
+          </text>
         </g>
       </g>
     </g>
@@ -202,16 +213,16 @@ export const newBuyWhite = (
 // New Sell Icon
 export const sell = (
   <svg
-    width="25px"
-    height="24px"
-    viewBox="0 0 25 24"
+    width="100px"
+    height="40px"
+    viewBox="0 0 40 40"
     version="1.1"
     xmlns="http://www.w3.org/2000/svg"
     xmlnsXlink="http://www.w3.org/1999/xlink"
   >
     <g id="Icons" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
       <g id="new_sell">
-        <g transform="translate(1.000000, 1.000000)">
+        <g transform="translate(0.000000, 1.000000)">
           <path d="" id="Path-3" stroke="#979797" />
           <polyline
             id="Path-4"
@@ -219,7 +230,7 @@ export const sell = (
             strokeWidth="2"
             strokeLinecap="round"
             strokeLinejoin="round"
-            points="1 2 5.89438978 7.93823449 7.92901751 18 20.0859326 18 23 9.03085899 6.84118345 9.03085899"
+            points="8 2 12.8943898 7.93823449 14.9290175 18 27.0859326 18 30 9.03085899 13.8411834 9.03085899"
           />
           <path d="" id="Path-5" stroke="#979797" />
           <circle
@@ -227,7 +238,7 @@ export const sell = (
             stroke="#000000"
             strokeWidth="2"
             fill="#000000"
-            cx="8.5"
+            cx="15.5"
             cy="21.5"
             r="1"
           />
@@ -236,7 +247,7 @@ export const sell = (
             stroke="#000000"
             strokeWidth="2"
             fill="#000000"
-            cx="19.5"
+            cx="26.5"
             cy="21.5"
             r="1"
           />
@@ -246,34 +257,45 @@ export const sell = (
             strokeWidth="2"
             strokeLinecap="round"
             strokeLinejoin="round"
-            transform="translate(14.000000, 1.500000) scale(1, -1) translate(-14.000000, -1.500000) "
-            points="11 0 14.0088006 3 17 0"
+            transform="translate(21.000000, 1.500000) scale(1, -1) translate(-21.000000, -1.500000) "
+            points="18 0 21.0088006 3 24 0"
           />
           <path
-            d="M14,6 L14,0"
+            d="M21,6 L21,0"
             id="Path-7"
             stroke="#000000"
             strokeWidth="2"
             strokeLinecap="round"
             strokeLinejoin="round"
-            transform="translate(14.000000, 3.000000) scale(1, -1) translate(-14.000000, -3.000000) "
+            transform="translate(21.000000, 3.000000) scale(1, -1) translate(-21.000000, -3.000000) "
           />
           <path
-            d="M2.5,15 L2.5,20"
+            d="M9.5,15 L9.5,20"
             id="Path-8"
             stroke="#000000"
             strokeWidth="2"
             strokeLinecap="round"
           />
           <path
-            d="M2.5,15 L2.5,20"
+            d="M9.5,15 L9.5,20"
             id="Path-8-Copy"
             stroke="#000000"
             strokeWidth="2"
             strokeLinecap="round"
-            transform="translate(2.500000, 17.500000) rotate(90.000000) translate(-2.500000, -17.500000) "
+            transform="translate(9.500000, 17.500000) rotate(90.000000) translate(-9.500000, -17.500000) "
           />
           <path d="" id="Path-2" stroke="#979797" />
+          <text
+            id="New-Sell"
+            fontFamily="Open Sans, sans-serif"
+            fontSize="10"
+            fontWeight="400"
+            fill="#000000"
+          >
+            <tspan x="0" y="36">
+              New Sell
+            </tspan>
+          </text>
         </g>
       </g>
     </g>
@@ -363,40 +385,51 @@ export const sellWhite = (
 // New Waste Picker Icon
 export const newWastepicker = (
   <svg
-    width="24px"
-    height="24px"
-    viewBox="0 0 24 24"
+    width="100px"
+    height="40px"
+    viewBox="0 0 76 40"
     version="1.1"
     xmlns="http://www.w3.org/2000/svg"
     xmlnsXlink="http://www.w3.org/1999/xlink"
   >
     <g id="Icons" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
       <g id="new_waste_picker">
-        <g transform="translate(1.021769, 1.000000)">
+        <g transform="translate(0.000000, 1.000000)">
           <path
-            d="M19.4782313,16 L19.4782313,21"
+            d="M46.4782313,16 L46.4782313,21"
             id="Path-8"
             stroke="#000000"
             strokeWidth="2"
             strokeLinecap="round"
           />
-          <circle id="Oval" stroke="#000000" strokeWidth="2" cx="8.9782313" cy="4.5" r="4.5" />
+          <circle id="Oval" stroke="#000000" strokeWidth="2" cx="35.9782313" cy="4.5" r="4.5" />
           <path
-            d="M19.4782313,16 L19.4782313,21"
+            d="M46.4782313,16 L46.4782313,21"
             id="Path-8-Copy"
             stroke="#000000"
             strokeWidth="2"
             strokeLinecap="round"
-            transform="translate(19.478231, 18.500000) rotate(90.000000) translate(-19.478231, -18.500000) "
+            transform="translate(46.478231, 18.500000) rotate(90.000000) translate(-46.478231, -18.500000) "
           />
           <path
-            d="M-2.80664381e-13,22 C0.507581507,14 3.67149721,10 9.49174713,10 C13.1100213,10 15.1763061,11.7007172 17.2731406,14.6376814"
+            d="M27,22 C27.5075815,14 30.6714972,10 36.4917471,10 C40.1100213,10 42.1763061,11.7007172 44.2731406,14.6376814"
             id="Path-9"
             stroke="#000000"
             strokeWidth="2"
             strokeLinecap="round"
           />
           <path d="" id="Path-10" stroke="#979797" />
+          <text
+            id="New-Stakeholder"
+            fontFamily="Open Sans, sans-serif"
+            fontSize="10"
+            fontWeight="400"
+            fill="#000000"
+          >
+            <tspan x="0" y="36">
+              New Stakeholder
+            </tspan>
+          </text>
         </g>
       </g>
     </g>
