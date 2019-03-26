@@ -3,10 +3,6 @@ import { Link } from 'react-router-dom';
 import '../Navbar.css';
 import './PrimarySegregator.css';
 import * as Icons from '../../assets/icons';
-import buy from './NavbarImages/buy.png';
-import sell from './NavbarImages/sell.png';
-import createnew from './NavbarImages/createnew.png';
-import { Icon } from '@material-ui/core';
 
 class PSNavBar extends Component {
   render() {
