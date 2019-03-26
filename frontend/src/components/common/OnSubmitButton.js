@@ -21,7 +21,7 @@ const OnSubmitButton = props => {
   return (
     <button
       disabled={props.isLoading}
-      className="btn-dark OnSubmitButton"
+      className="btn-dark bg-green OnSubmitButton"
       type="submit"
       onClick={onSubmit}
     >

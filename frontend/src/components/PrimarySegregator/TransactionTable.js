@@ -24,6 +24,17 @@ export default class TransactionTable extends Component {
     });
   }
 
+  getTdProps = (state, rowinfo) => {
+    return {
+      onClick: (e, handleOriginal) => {
+        this.props.onClick(e, { state, rowinfo });
+        if (handleOriginal) {
+          handleOriginal();
+        }
+      },
+    };
+  };
+
   render() {
     const pageSize = this.props.defaultPageSize || 5;
     const totalPages = this.props.data ? Math.ceil(this.props.data.length / pageSize) - 1 : 0;
@@ -31,6 +42,7 @@ export default class TransactionTable extends Component {
       <div className="table-wrapper">
         <ReactTable
           {...this.props}
+          getTdProps={this.getTdProps}
           pageSize={pageSize}
           page={this.state.currentPage}
           showPagination={false}

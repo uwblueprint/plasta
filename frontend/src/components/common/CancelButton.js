@@ -7,7 +7,7 @@ class CancelButton extends Component {
   render() {
     return (
       <Link to="/ps/transaction-history">
-        <button className="btn-dark CancelButton">
+        <button className="btn-dark bg-red CancelButton">
           <i className="fas fa-times" style={{ marginRight: '1em' }} />
           Cancel
         </button>

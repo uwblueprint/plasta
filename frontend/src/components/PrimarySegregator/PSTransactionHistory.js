@@ -20,6 +20,7 @@ import {
 import { findVendorById } from '../utils/vendors.js';
 import { loadTransactions, setHeaderBar } from '../../actions';
 import * as Icons from '../../assets/icons';
+import Modal from '../common/Modal';
 
 const columns = [
   {
@@ -71,6 +72,7 @@ class PSTransactionHistory extends Component {
     this.state = {
       pageSize: 5,
       transactionType: 'Buy',
+      showDeleteModal: false,
     };
   }
   static propTypes = {
@@ -127,20 +129,54 @@ class PSTransactionHistory extends Component {
     return filteredTransactions;
   }
 
+  deleteRow = () => {
+    const rowInd = this.state.rowIndex;
+    const transactions = [
+      this.props.transactions.slice(0, rowInd),
+      this.props.transactions.slice(rowInd),
+    ];
+    this.setState({ showDeleteModal: false });
+    return transactions;
+  };
+
+  onClick = (e, table) => {
+    this.setState({
+      showDeleteModal: true,
+      rowIndex: table.rowinfo.index,
+    });
+  };
+
+  hideModal = () => {
+    this.setState({ showDeleteModal: false });
+  };
+
   render() {
     const transactionType = this.props.header.transactionType;
     const data =
       transactionType === TRANSACTION_TYPES.BUY
         ? this.filterTransactions('buy')
         : this.filterTransactions('sell');
+
     return (
       <div id="primary-segregator-page-wrapper">
+        {this.state.showDeleteModal && (
+          <Modal
+            title="Delete Transaction?"
+            message={`This will delete the transaction from ${
+              data[this.state.rowIndex].name
+            } from the records.`}
+            onAccept={this.deleteRow}
+            onCancel={this.hideModal}
+          />
+        )}
+
         <TransactionTable
           showPagination={false}
           data={data}
           columns={columns}
           defaultPageSize={this.state.pageSize}
           className="-striped-highlight table"
+          onClick={this.onClick}
         />
       </div>
     );
