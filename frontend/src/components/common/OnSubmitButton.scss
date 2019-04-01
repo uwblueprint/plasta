@@ -1,7 +1,21 @@
+$mediaFullWidth: 960px;
+
 .OnSubmitButton {
   font-weight: 550;
   background-color: #2ae429;
-  width: 135px;
+  width: 100px;
   display: inline-block;
   margin: 10px;
+  font-size: 10px;
+}
+
+@media (min-width: $mediaFullWidth) {
+  .OnSubmitButton {
+    font-weight: 550;
+    background-color: #2ae429;
+    width: 135px;
+    display: inline-block;
+    margin: 10px;
+    font-size: 16px;
+  }
 }
