@@ -1,7 +1,22 @@
+$mediaFullWidth: 960px;
+
 .CancelButton {
   font-weight: 550;
   background-color: #ff5c5c;
-  width: 135px;
+  width: 100px;
   display: inline-block;
   margin: 10px;
+  font-size: 10px;
+  padding: 10px 10px;
+}
+
+@media (min-width: $mediaFullWidth) {
+  .CancelButton {
+    font-weight: 550;
+    background-color: #ff5c5c;
+    width: 135px;
+    display: inline-block;
+    margin: 10px;
+    font-size: 16px;
+  }
 }
