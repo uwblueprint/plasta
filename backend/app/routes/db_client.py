@@ -57,10 +57,10 @@ def get_user(email):
 
 
 def create_vendor(data, current_user=None, files=None):
-    from . import s3_client
-    if files is not None and 'picture' in files:
-        image_link = s3_client.upload_image(files['picture'])
-        data['image_link'] = image_link
+    # from . import s3_client
+    # if files is not None and 'picture' in files:        
+    #     image_link = s3_client.upload_image(files['picture'])
+    #     data['image_link'] = image_link
 
     vendor = Vendor.create(**data)
 
