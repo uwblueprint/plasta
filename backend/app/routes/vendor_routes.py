@@ -8,6 +8,7 @@ from . import podio_utils
 from .utils.route_utils import success
 from ..models.vendor import vendor_subtype_map
 from flask_cors import cross_origin
+from .podio_client.transport import TransportException
 
 blueprint = Blueprint('vendor', __name__, url_prefix='/vendors')
 
@@ -76,13 +77,29 @@ def create_vendor():
     if not is_application_json and 'meta_data' in data:
         data['meta_data'] = json.loads(data['meta_data'])
     current_user = get_jwt_identity()
+    files = request.files
+    file_name = files['picture'].filename
+    file_obj = files['picture']
+    temp_upload_path = os.path.join(os.environ['TEMP_UPLOAD_PATH'], file_name)
+    file_path = os.path.abspath(temp_upload_path)
+
+    try:
+        file_obj.save(file_path)
+    except TransportException as e:
+        print("Failed to upload the file")
+        print(e)
+        return
+
+    file_upload_response = podio_utils.upload_file(file_name, file_path)
+
     vendor = db_client.create_vendor(
         data=data,
-        current_user=current_user,
-        files=request.files
+        current_user=current_user
     )
-    # Create stakeholder in Podio 
-    podio_utils.create_stakeholder_item(data) 
+    # Create stakeholder in Podio
+    data["file_id"] = file_upload_response["file_id"]
+    itemI_id = podio_utils.create_stakeholder_item(data)
+
     return success(data=vendor.to_dict(include_relationships=True))
 
 
