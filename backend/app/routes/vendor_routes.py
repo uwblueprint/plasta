@@ -12,6 +12,7 @@ from .podio_client.transport import TransportException
 
 blueprint = Blueprint('vendor', __name__, url_prefix='/vendors')
 
+
 @blueprint.route('/', methods=['GET'])
 @jwt_required
 def get_all_vendors():
@@ -98,8 +99,13 @@ def create_vendor():
     )
     # Create stakeholder in Podio
     data["file_id"] = file_upload_response["file_id"]
-    itemI_id = podio_utils.create_stakeholder_item(data)
-
+    created_item = podio_utils.create_stakeholder_item(data)
+    if created_item['item_id']:
+        try:
+            os.remove(file_path)
+        except TransportException as e:
+            print("File can't be removed")
+            print(e)
     return success(data=vendor.to_dict(include_relationships=True))
 
 
