@@ -132,6 +132,16 @@ def create_buy_transaction_item(transaction_data):
                 os.environ['PODIO_PS_BUY_APP_ID'], transaction_data['id'], response['item_id']))
 
 
+def upload_file(file_name, file_data):
+    try:
+        client = create_podio_stakeholders_client()
+    except TransportException as e:
+        print("Failed to establish Podio upload client:")
+        print(e)
+        return
+    response = client.Files.create(file_name, file_data)
+    return response
+
 def create_stakeholder_item(data):
     try:
         client = create_podio_stakeholders_client()
