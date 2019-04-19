@@ -1,6 +1,4 @@
-""" Podio client api in Python 3
-    Adapted from the official pypodio2 at https://github.com/podio/podio-py"""
-
+# -*- coding: utf-8 -*-
 from httplib2 import Http
 
 try:
@@ -10,15 +8,9 @@ except ImportError:
 
 from .encode import multipart_encode
 
-
 import json
 
 
-# TODO(joyce): add the support for refresh tokens
-# body = {'grant_type': 'refresh_token',
-#         'client_id': client_id,
-#         'client_secret': client_secret,
-#         'refresh_token': refresh_token}
 class OAuthToken(object):
     """
     Class used to encapsulate the OAuthToken required to access the
@@ -27,6 +19,7 @@ class OAuthToken(object):
     Do not modify its attributes manually Use the methods in the
     Podio API Connector, get_oauth_token and refresh_oauth_token
     """
+
     def __init__(self, resp):
         self.expires_in = resp['expires_in']
         self.access_token = resp['access_token']
@@ -50,6 +43,60 @@ class OAuthAuthorization(object):
         response, data = h.request(domain + "/oauth/token", "POST",
                                    urlencode(body), headers=headers)
         self.token = OAuthToken(_handle_response(response, data))
+
+    def __call__(self):
+        return self.token.to_headers()
+
+
+class OAuthAuthorizationUsingCode(object):
+    """Generates headers for Podio OAuth2 Authorization using code"""
+
+    def __init__(self, code, redirect_uri, key, secret, domain):
+        body = {'grant_type': 'authorization_code',
+                'code': code,
+                'client_id': key,
+                'client_secret': secret,
+                'redirect_uri': redirect_uri,
+                }
+        h = Http(disable_ssl_certificate_validation=True)
+        headers = {'content-type': 'application/x-www-form-urlencoded'}
+        response, data = h.request(domain + "/oauth/token", "POST",
+                                   urlencode(body), headers=headers)
+        self.token = OAuthToken(_handle_response(response, data))
+
+    def __call__(self):
+        return self.token.to_headers()
+
+
+class OAuthAuthorizationUsingRefreshToken(object):
+    """Generates headers for Podio OAuth2 Authorization using refresh token"""
+
+    def __init__(self, refresh_token, key, secret, domain):
+        body = {'grant_type': 'refresh_token',
+                'refresh_token': refresh_token,
+                'client_id': key,
+                'client_secret': secret,
+                }
+        h = Http(disable_ssl_certificate_validation=True)
+        headers = {'content-type': 'application/x-www-form-urlencoded'}
+        response, data = h.request(domain + "/oauth/token", "POST",
+                                   urlencode(body), headers=headers)
+        self.token = OAuthToken(_handle_response(response, data))
+
+    def __call__(self):
+        return self.token.to_headers()
+
+
+class OAuthAuthorizationUsingAccessToken(object):
+    """Generates headers for Podio OAuth2 Authorization using access token"""
+
+    def __init__(self, authdata, key, secret, domain):
+        body = {
+            'client_id': key,
+            'client_secret': secret,
+        }
+
+        self.token = OAuthToken(authdata)
 
     def __call__(self):
         return self.token.to_headers()
@@ -137,16 +184,16 @@ class HttpTransport(object):
             body = json.dumps(kwargs)
         elif 'type' in kwargs:
             if kwargs['type'] == 'multipart/form-data':
-                body, new_headers = multipart_encode(kwargs['body'])
-                body = "".join(body)
-                headers.update(new_headers)
+                fields = [('filename', kwargs['body']['filename'])]
+                files = [('source', kwargs['body']['filename'], kwargs['body']['source'])]
+                body, content_type = multipart_encode(fields, files)
+                headers.update({'Content-Type': content_type, })
             else:
                 body = kwargs['body']
                 headers.update({'content-type': kwargs['type']})
         else:
             body = self._generate_body()  # hack
-        response, data = self._http.request(url, self._method, body=body, headers=headers)
-
+        response, data = self._http.request(url, self._method, body, headers)
         self._attribute_stack = []
         handler = kwargs.get('handler', _handle_response)
         return handler(response, data)
