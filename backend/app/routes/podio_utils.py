@@ -162,14 +162,19 @@ def create_stakeholder_item(data):
     name = data['name']
     phone_number = data['meta_data']['phone_number']
     address = data['meta_data']['address']
+    image_file_id = data['file_id']
     item = {
         'fields':
             [{'external_id': 'name', 'values': [{'value': name}]},
-                {'external_id': 'phone-number', 'values': [{'type': 'main', 'value': phone_number}]},
-                {'external_id': 'address', 'values': [{'value': address}]}]}
+             {'external_id': 'phone-number', 'values': [{'type': 'main', 'value': phone_number}]},
+             {'external_id': 'address', 'values': [{'value': address}]},
+             {'external_id': 'photo', 'values': [image_file_id]}
+             ]
+    }
 
     try:
-        client.Item.create(int(os.environ['PODIO_STAKEHOLDERS_APP_ID']), item)
+        item_response = client.Item.create(int(os.environ['PODIO_STAKEHOLDERS_APP_ID']), item)
+        return item_response
     except TransportException as e:
         print("Failed to create Podio stakeholders entry:")
         print(e)
