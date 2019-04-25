@@ -32,10 +32,10 @@ def get_projects():
 
 
 def create_transaction(data, files=None):
-    from . import s3_client
-    if files is not None and 'picture' in files:
-        receipt_image_link = s3_client.upload_image(files['picture'])
-        data['receipt_image_link'] = receipt_image_link
+    # from . import s3_client
+    # if files is not None and 'picture' in files:
+    #     receipt_image_link = s3_client.upload_image(files['picture'])
+    #     data['receipt_image_link'] = receipt_image_link
     plastics = data.pop('plastics')
     transaction = Transaction.create(**data)
     transaction.create_plastics(plastics)
