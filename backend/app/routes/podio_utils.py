@@ -2,7 +2,6 @@ import os
 from .podio_client import api
 from .podio_client.transport import TransportException
 
-
 # map our plastic type to the plastic type item id in the podio master plastic type table.
 ps_buy_plastic_type_map = {
     'clear_pet': 1057427095,
@@ -142,6 +141,7 @@ def upload_file(file_name, file_data):
     response = client.Files.create(file_name, file_data)
     return response
 
+
 def create_stakeholder_item(data):
     try:
         client = create_podio_stakeholders_client()
@@ -149,7 +149,7 @@ def create_stakeholder_item(data):
         print("Failed to establish Podio stakeholders client:")
         print(e)
         return
-    
+
     if not 'name' in data:
         print("ERROR: Missing name field")
         return
@@ -162,13 +162,15 @@ def create_stakeholder_item(data):
     name = data['name']
     phone_number = data['meta_data']['phone_number']
     address = data['meta_data']['address']
-    image_file_id = data['file_id']
+    if 'file_id' in data:
+        image_file_id = data['file_id']
+        file_podio_field = {'external_id': 'photo', 'values': [image_file_id]}
     item = {
         'fields':
             [{'external_id': 'name', 'values': [{'value': name}]},
              {'external_id': 'phone-number', 'values': [{'type': 'main', 'value': phone_number}]},
              {'external_id': 'address', 'values': [{'value': address}]},
-             {'external_id': 'photo', 'values': [image_file_id]}
+             file_podio_field
              ]
     }
 
@@ -192,7 +194,7 @@ def get_visible_wholesalers(item_id):
     # Get list of visible wholesalers 
     wholesaler_visibility = client.Item.get_field_value(item_id, wholesaler_visibility_field_id)
     visible_wholesalers = [];
-    for val in wholesaler_visibility: 
+    for val in wholesaler_visibility:
         visible_wholesalers.append(val['value']['text'])
 
     # Get list of all wholesalers from Podio and filter by visible wholesalers
@@ -210,5 +212,3 @@ def get_visible_wholesalers(item_id):
             }
             matches.append(data)
     return matches
-    
-
