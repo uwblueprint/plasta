@@ -32,7 +32,6 @@ class FileInput extends Component {
           {...rest}
           id="file"
           type="file"
-          name="picture_file"
           className="text-input-field fileInput"
           onChange={this.onChange}
           onBlur={this.onBlur}
