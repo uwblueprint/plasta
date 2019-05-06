@@ -51,11 +51,26 @@ const columns = [
     Header: <span>{Icons.calendar} Date</span>,
     accessor: transaction => {
       return moment(transaction.sale_date)
-        .local().format('YYYY-MM-DD');
+        .local()
+        .format('YYYY-MM-DD');
     },
     sortMethod: (a, b) => {
       return moment(a).valueOf() > moment(b).valueOf() ? 1 : -1;
     },
+  },
+  {
+    id: 'editAction',
+    Header: <div>{Icons.editIcon} Edit</div>,
+    accessor: transaction => {
+      return <span>Edit</span>;
+    },
+    Cell: row => (
+      <div>
+        <a className="icon " onClick={() => getTotalPlasticsQuantity(row.original)}>
+          Edit
+        </a>
+      </div>
+    ),
   },
 ];
 
