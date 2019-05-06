@@ -41,6 +41,14 @@ def get_vendor_transactions(vendor_id):
     ])
 
 
+@blueprint.route('/<int:vendor_id>/transactions/<int:transaction_id>', methods=['GET'])
+@jwt_required
+def get_vendor_transaction_by_id(vendor_id,transaction_id):
+    transaction = db_client.get_transaction(transaction_id)
+    return success(data=transaction.to_dict(include_relationships=True)
+    )
+
+
 @blueprint.route('/<int:vendor_id>/transactions', methods=['POST'])
 @jwt_required
 def create_vendor_transaction(vendor_id):

@@ -15,6 +15,7 @@ def add_auth_token_to_blacklist(data):
 def get_blacklisted_auth_token(token):
     return BlacklistedAuthToken.get_by(first=True, token=token)
 
+
 # TODO(imran): write decorator to make db reads/writes atomic
 def create_project(data):
     plastics = data.pop('plastics', {})
@@ -87,6 +88,10 @@ def get_vendor_transactions(vendor_id):
     return Transaction.query.filter(
         or_(Transaction.from_vendor_id == vendor_id,
             Transaction.to_vendor_id == vendor_id))
+
+
+def get_transaction(transaction_id):
+    return Transaction.get_by(first=True, id=transaction_id)
 
 
 def get_primary_segregator_associated_wastepickers(primary_segregator_id):
