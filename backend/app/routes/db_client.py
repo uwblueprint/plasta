@@ -1,10 +1,14 @@
 from sqlalchemy import or_
 
+from flask_sqlalchemy import SQLAlchemy
+
+db = SQLAlchemy()
 from ..models.blacklisted_auth_token import BlacklistedAuthToken
 from ..models.project import Project
 from ..models.transaction import Transaction
 from ..models.user import User
 from ..models.vendor import PrimarySegregatorWastepickerMap, Vendor
+import json
 
 
 def add_auth_token_to_blacklist(data):
@@ -74,6 +78,14 @@ def create_vendor(data, current_user=None, files=None):
     return vendor
 
 
+def update_vendor_podio_item_id(vendor, podio_item_id):
+    return Vendor.update(vendor, podio_master_id=podio_item_id)
+
+
+def update_transaction_podio_item_id(transaction, podio_item_id):
+    return Transaction.update(transaction, podio_item_id=podio_item_id)
+
+
 def get_vendor(id):
     return Vendor.get(id)
 
@@ -92,6 +104,20 @@ def get_vendor_transactions(vendor_id):
 
 def get_transaction(transaction_id):
     return Transaction.get_by(first=True, id=transaction_id)
+
+
+def update_transaction(transaction_id, transaction_data):
+    transaction = get_transaction(transaction_id)
+    transaction = Transaction.update(
+        transaction,
+        to_vendor_id=transaction_data["to_vendor_id"],
+        price=transaction_data["price"],
+        sale_date=transaction_data["sale_date"],
+
+    )
+    plastics = json.loads(transaction_data.pop('plastics'))
+    transaction.update_plastics(transaction, plastics)
+    return transaction
 
 
 def get_primary_segregator_associated_wastepickers(primary_segregator_id):
