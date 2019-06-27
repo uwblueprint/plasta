@@ -1,6 +1,7 @@
 from . import db
 from .mixins import BaseMixin
 from .plastic_type_enum import plastic_type_enum
+import json
 
 
 class Transaction(BaseMixin, db.Model):
@@ -21,11 +22,18 @@ class Transaction(BaseMixin, db.Model):
         db.Integer, db.ForeignKey('user.id'), nullable=False)
     created_at = db.Column(db.DateTime, nullable=False, default=db.func.now())
     receipt_image_link = db.Column(db.String(255), nullable=True)
+    podio_item_id = db.Column(db.Integer, nullable=True)
 
     def create_plastics(self, plastics):
         for plastic in plastics:
             plastic['transaction_id'] = self.id
             TransactionPlasticMap.create(**plastic)
+
+    def update_plastics(self, transaction, plastics):
+        for plastic in plastics:
+            plastic['transaction_id'] = self.id
+            tran_plastic_map = TransactionPlasticMap.get_by(first=True, transaction_id=self.id)
+            TransactionPlasticMap.update(tran_plastic_map, True, **plastic)
 
 
 class TransactionPlasticMap(BaseMixin, db.Model):
