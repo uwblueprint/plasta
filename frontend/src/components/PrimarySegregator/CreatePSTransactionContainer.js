@@ -12,6 +12,7 @@ import { findVendorsByTypes, findVendorsByIds } from '../utils/vendors';
 import { loadTransactions, setHeaderBar } from '../../actions';
 import personImage from '../../assets/person.png';
 import { newBuyWhite as buyIcon, sellWhite as sellIcon } from '../../assets/icons';
+import { getPlasticTypesByTransactionType } from '../utils/plastic';
 
 class CreatePSTransactionContainer extends Component {
   constructor(props) {
@@ -27,6 +28,9 @@ class CreatePSTransactionContainer extends Component {
       showModal: false,
       stakeholderOptions: [],
       receiptPicture: {},
+      isEdit: false,
+      transactionId: '',
+      transactionDateForEdit: '',
     };
     this.onSubmit = this.onSubmit.bind(this);
     this.onFieldChange = onFieldChange.bind(this);
@@ -48,6 +52,7 @@ class CreatePSTransactionContainer extends Component {
   componentDidMount() {
     this.refreshStakeholderOptions();
     this.setHeaderBar();
+    this.getTransaction();
   }
 
   componentDidUpdate(prevProps) {
@@ -58,6 +63,41 @@ class CreatePSTransactionContainer extends Component {
     } else if (prevProps.match.params.transactionType !== this.props.match.params.transactionType) {
       this.refreshStakeholderOptions();
       this.setHeaderBar();
+    }
+  }
+
+  async getTransaction() {
+    const transactionId = this.props.match.params.transactionId;
+    const transactionType = this.props.match.params.transactionType;
+
+    if (transactionId) {
+      const authToken = this.props.cookies.get('access_token');
+      const currentVendorId = this.props.currentUser.userDetails.vendor_id;
+      const dbTransaction = await get(
+        `/vendors/${currentVendorId}/transactions/${transactionId}`,
+        authToken
+      );
+      this.setState({ transaction: dbTransaction.data });
+      let dbPlasticType = dbTransaction.data.plastics.filter(ps => {
+        return ps.transaction_id == transactionId;
+      });
+      let unitPrice = dbPlasticType[0]['price'] / dbPlasticType[0]['quantity'];
+      const plasticTypes = getPlasticTypesByTransactionType(transactionType);
+
+      let selectedPlasticType = plasticTypes.filter(ps => {
+        return ps.value === dbPlasticType[0]['plastic_type'];
+      });
+      let selectedStakeholder = this.state.stakeholderOptions.filter(obj => {
+        return transactionType == 'buy'
+          ? obj.value === dbTransaction.data.from_vendor_id
+          : obj.value === dbTransaction.data.to_vendor_id;
+      });
+      this.setState({ unitPrice: unitPrice + '' });
+      this.setState({ weight: dbPlasticType[0]['quantity'] + '' });
+      this.setState({ plasticType: selectedPlasticType[0] });
+      this.setState({ stakeholderName: selectedStakeholder[0] });
+      this.setState({ isEdit: true });
+      this.setState({ transactionId: transactionId });
     }
   }
 
@@ -105,14 +145,17 @@ class CreatePSTransactionContainer extends Component {
 
   handleDayChange(value) {
     this.setState({ transactionDate: moment(value).format('YYYY-MM-DD') });
+    if (this.state.isEdit) {
+      this.setState({ transactionDateForEdit: moment(value).format('YYYY-MM-DD') });
+    }
   }
 
   async onSubmit() {
     if (!this.state.submitAttempted) this.setState({ submitAttempted: true }); // move out once onsubmit dispatched through redux
-    if (!this.isFormValid()) {
+    if ((this.state.isEdit === false) & !this.isFormValid()) {
       return Promise.reject('Please fill in all required fields before submitting.');
     }
-
+    // console.log(this.state)
     const transactionType = this.props.match.params.transactionType;
     const currentUserId = this.props.currentUser.userDetails.id; // User ID and vendor ID are distinct
     const currentVendorId = this.props.currentUser.userDetails.vendor_id;
@@ -170,7 +213,19 @@ class CreatePSTransactionContainer extends Component {
 
     const authToken = this.props.cookies.get('access_token');
     try {
-      await postMultiType(`/vendors/${currentVendorId}/transactions`, { data: data, authToken });
+      let transactionId = this.state.transactionId;
+      if (transactionId) {
+        data.push({
+          key: 'transaction_id',
+          value: transactionId,
+        });
+        await postMultiType(`/vendors/${currentVendorId}/transaction/${transactionId}`, {
+          data: data,
+          authToken,
+        });
+      } else {
+        await postMultiType(`/vendors/${currentVendorId}/transactions`, { data: data, authToken });
+      }
       const transactions = await get(`/vendors/${currentVendorId}/transactions`, authToken);
       this.props.loadTransactions(transactions.data);
     } catch (err) {
@@ -190,6 +245,7 @@ class CreatePSTransactionContainer extends Component {
         handleDayChange={this.handleDayChange}
         onFieldChange={this.onFieldChange}
         stakeholderOptions={this.state.stakeholderOptions}
+        transaction={this.state.transaction}
         {...this.state}
       />
     );

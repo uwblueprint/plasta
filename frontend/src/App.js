@@ -57,6 +57,11 @@ const privateRoutes = [
     title: 'TransactionType',
   },
   {
+    path: '/ps/transaction/:transactionType/:transactionId',
+    component: PSTransaction,
+    title: 'TransactionTypeOne',
+  },
+  {
     path: '/ps/stakeholders/new',
     component: CreateStakeholder,
   },
@@ -68,6 +73,7 @@ class App extends React.Component {
     this.redirectUser = this.redirectUser.bind(this);
     this.getVendors = this.getVendors.bind(this);
   }
+
   static propTypes = {
     cookies: instanceOf(Cookies).isRequired,
   };
