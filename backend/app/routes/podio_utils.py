@@ -79,6 +79,8 @@ def create_sourcing_item(transaction_data):
                      {'external_id': 'sourcing-for-po', 'values': [{'value': podio_sourcing_project_id}]}]}
             try:
                 response = client.Item.create(int(os.environ['PODIO_SOURCING_APP_ID']), item)
+                if response and 'item_id' in response:
+                    return response['item_id']
             except TransportException as e:
                 print("Failed to create Podio sourcing entry:")
                 print(e)  # logerror
@@ -123,6 +125,8 @@ def create_buy_transaction_item(transaction_data):
                      {'external_id': 'pfc-project-3', 'values': [{'value': podio_buy_project_id}]}]}
             try:
                 response = client.Item.create(int(os.environ['PODIO_PS_BUY_APP_ID']), item)
+                if response and 'item_id' in response:
+                    return response['item_id']
             except TransportException as e:
                 print("Failed to create Podio buy transaction entry:")
                 print(e)  # logerror
@@ -161,16 +165,16 @@ def create_stakeholder_item(data):
         return
     name = data['name']
     phone_number = data['meta_data']['phone_number']
+    image_file = []
     address = data['meta_data']['address']
     if 'file_id' in data:
-        image_file_id = data['file_id']
-        file_podio_field = {'external_id': 'photo', 'values': [image_file_id]}
+        image_file = [data['file_id']]
     item = {
         'fields':
             [{'external_id': 'name', 'values': [{'value': name}]},
              {'external_id': 'phone-number', 'values': [{'type': 'main', 'value': phone_number}]},
              {'external_id': 'address', 'values': [{'value': address}]},
-             file_podio_field
+             {'external_id': 'photo', 'values': image_file}
              ]
     }
 
