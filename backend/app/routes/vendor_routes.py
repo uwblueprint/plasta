@@ -43,10 +43,27 @@ def get_vendor_transactions(vendor_id):
 
 @blueprint.route('/<int:vendor_id>/transactions/<int:transaction_id>', methods=['GET'])
 @jwt_required
-def get_vendor_transaction_by_id(vendor_id,transaction_id):
+def get_vendor_transaction_by_id(vendor_id, transaction_id):
     transaction = db_client.get_transaction(transaction_id)
-    return success(data=transaction.to_dict(include_relationships=True)
-    )
+    return success(data=transaction.to_dict(include_relationships=True))
+
+
+@blueprint.route('/<int:vendor_id>/transaction/<int:transaction_id>', methods=['POST'])
+@jwt_required
+def update_vendor_transaction(vendor_id, transaction_id):
+    # transaction = db_client.get_transaction(transaction_id)
+    is_application_json = request.headers['Content-Type'] == 'application/json'
+
+    transaction_data = request.json if is_application_json else request.form.to_dict()
+    # print(transaction_data)
+    # transaction = db_client.get_transaction(transaction_id)
+    updated_transaction = db_client.update_transaction(transaction_id, transaction_data)
+    transaction = db_client.get_transaction(transaction_id)
+
+    # print(transaction_data)
+
+    return success(data=transaction.to_dict(include_relationships=True))
+    # return success(data=transaction.to_dict(include_relationships=True))
 
 
 @blueprint.route('/<int:vendor_id>/transactions', methods=['POST'])
@@ -62,18 +79,22 @@ def create_vendor_transaction(vendor_id):
         file_upload_response = podio_utils.upload_file(file_name, file_path)
         if file_upload_response:
             transaction_data["file_id"] = file_upload_response["file_id"]
-    return "{'date':'hello'}"
     # create transaction in db
     transaction = db_client.create_transaction(transaction_data)
 
-    if os.environ['ENABLE_PODIO'] == 'True':
+    if os.environ['ENABLE_PODIO']:
         # podio integration
         if vendor_id == int(transaction_data['from_vendor_id']):
             # sell transaction
-            podio_utils.create_sourcing_item(transaction_data)
+            item_id = podio_utils.create_sourcing_item(transaction_data)
+            if item_id:
+                db_client.update_transaction_podio_item_id(transaction, item_id)
         else:
             # buy transaction
-            podio_utils.create_buy_transaction_item(transaction_data)
+            item_id = podio_utils.create_buy_transaction_item(transaction_data)
+            print(item_id)
+            if item_id:
+                db_client.update_transaction_podio_item_id(transaction, item_id)
 
     return success(data=transaction.to_dict(include_relationships=True))
 
@@ -110,10 +131,13 @@ def create_vendor():
     if not is_application_json and 'meta_data' in data:
         data['meta_data'] = json.loads(data['meta_data'])
     current_user = get_jwt_identity()
+    file_upload_response = False
+    file_path = ""
 
     if request.files:
         file_path, file_name = save_file_to_temp(request.files)
-        file_upload_response = podio_utils.upload_file(file_name, file_path)
+        if file_path:
+            file_upload_response = podio_utils.upload_file(file_name, file_path)
 
     vendor = db_client.create_vendor(
         data=data,
@@ -125,7 +149,10 @@ def create_vendor():
     created_item = podio_utils.create_stakeholder_item(data)
     if created_item and 'item_id' in created_item:
         try:
-            os.remove(file_path)
+            updated_vendor = db_client.update_vendor_podio_item_id(vendor, created_item["item_id"])
+            print(updated_vendor)
+            if file_path:
+                os.remove(file_path)
         except TransportException as e:
             print("File can't be removed")
             print(e)
