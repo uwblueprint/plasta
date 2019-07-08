@@ -24,7 +24,8 @@ function orderValueAtTop(options, value) {
 }
 
 const CreatePSTransaction = props => {
-  const pageTitle = props.transactionType === TRANSACTION_TYPES.BUY ? 'From *' : 'To *';
+  let pageTitle = props.transactionType === TRANSACTION_TYPES.BUY ? 'From *' : 'To *';
+  let plasticTypeLabel = 'Plastic Type *';
   const createStakeholderOption = [
     {
       label: 'Create a new stakeholder',
@@ -38,6 +39,44 @@ const CreatePSTransaction = props => {
           createStakeholderOption[0].value
         )
       : props.stakeholderOptions;
+
+  const plasticTypes = getPlasticTypesByTransactionType(props.transactionType);
+
+  let selectedStakeholder = props.stakeholderName;
+  let selectedPlasticType = props.plasticType;
+  let unitPrice = props.unitPrice;
+  let weight = props.weight;
+  let transactionDate = props.transactionDate;
+
+  if (props.transaction) {
+    selectedStakeholder = props.stakeholderName
+      ? props.stakeholderName
+      : allStakeholderOptions.filter(obj => {
+          return props.transactionType == 'buy'
+            ? obj.value === props.transaction.from_vendor_id
+            : obj.value === props.transaction.to_vendor_id;
+        });
+    let dbPlasticType = props.transaction.plastics.filter(ps => {
+      return ps.transaction_id === props.transaction.id;
+    });
+    selectedPlasticType = props.plasticType
+      ? props.plasticType
+      : plasticTypes.filter(ps => {
+          return ps.value === dbPlasticType[0]['plastic_type'];
+        });
+    unitPrice = props.unitPrice
+      ? props.unitPrice
+      : dbPlasticType[0]['price'] / dbPlasticType[0]['quantity'];
+
+    weight = props.weight ? props.weight : dbPlasticType[0]['quantity'];
+    pageTitle = selectedStakeholder ? '' : pageTitle;
+    plasticTypeLabel = selectedPlasticType ? '' : plasticTypeLabel;
+    transactionDate =
+      props.transaction.sale_date && props.transactionDateForEdit
+        ? props.transactionDateForEdit
+        : props.transaction.sale_date;
+  }
+
   return (
     <div className="page-wrapper" id="transactions-wrapper">
       <p className="required-field-notif">
@@ -49,7 +88,7 @@ const CreatePSTransaction = props => {
         iconimage={Icons.peoplePlaceholder}
         createable={props.transactionType === TRANSACTION_TYPES.BUY}
         field="stakeholderName"
-        value={props.stakeholderName}
+        value={selectedStakeholder}
         options={allStakeholderOptions}
         onChange={props.onFieldChange}
         onValidation={props.onValidation}
@@ -59,11 +98,11 @@ const CreatePSTransaction = props => {
       />
 
       <SearchSelect
-        label="Plastic Type *"
+        label={plasticTypeLabel}
         field="plasticType"
         iconimage={Icons.plasticType}
-        value={props.plasticType}
-        options={getPlasticTypesByTransactionType(props.transactionType)}
+        value={selectedPlasticType}
+        options={plasticTypes}
         onChange={props.onFieldChange}
         onValidation={props.onValidation}
         rules={[RULE_TYPES.FIELD_REQUIRED]}
@@ -75,7 +114,7 @@ const CreatePSTransaction = props => {
         label="Amount(₹) *"
         field="unitPrice"
         type="number"
-        value={props.unitPrice}
+        value={unitPrice}
         iconimage={Icons.rupee}
         onChange={props.onFieldChange}
         onValidation={props.onValidation}
@@ -88,7 +127,7 @@ const CreatePSTransaction = props => {
         label="Amount(Kg) *"
         field="weight"
         type="number"
-        value={props.weight}
+        value={weight}
         iconimage={Icons.weight}
         onChange={props.onFieldChange}
         onValidation={props.onValidation}
@@ -99,7 +138,7 @@ const CreatePSTransaction = props => {
       <IconDateInput
         label="Date"
         iconimage={Icons.calendar}
-        value={props.transactionDate}
+        value={transactionDate}
         onChange={props.handleDayChange}
       />
 

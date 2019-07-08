@@ -2,7 +2,6 @@ import os
 from .podio_client import api
 from .podio_client.transport import TransportException
 
-
 # map our plastic type to the plastic type item id in the podio master plastic type table.
 ps_buy_plastic_type_map = {
     'clear_pet': 1057427095,
@@ -80,6 +79,8 @@ def create_sourcing_item(transaction_data):
                      {'external_id': 'sourcing-for-po', 'values': [{'value': podio_sourcing_project_id}]}]}
             try:
                 response = client.Item.create(int(os.environ['PODIO_SOURCING_APP_ID']), item)
+                if response and 'item_id' in response:
+                    return response['item_id']
             except TransportException as e:
                 print("Failed to create Podio sourcing entry:")
                 print(e)  # logerror
@@ -124,12 +125,25 @@ def create_buy_transaction_item(transaction_data):
                      {'external_id': 'pfc-project-3', 'values': [{'value': podio_buy_project_id}]}]}
             try:
                 response = client.Item.create(int(os.environ['PODIO_PS_BUY_APP_ID']), item)
+                if response and 'item_id' in response:
+                    return response['item_id']
             except TransportException as e:
                 print("Failed to create Podio buy transaction entry:")
                 print(e)  # logerror
             print("Success: requests sent to podio buy transaction table with "
                   "Podio app id: {} Our transaction id: {} Podio item id: {}".format(
                 os.environ['PODIO_PS_BUY_APP_ID'], transaction_data['id'], response['item_id']))
+
+
+def upload_file(file_name, file_data):
+    try:
+        client = create_podio_stakeholders_client()
+    except TransportException as e:
+        print("Failed to establish Podio upload client:")
+        print(e)
+        return
+    response = client.Files.create(file_name, file_data)
+    return response
 
 
 def create_stakeholder_item(data):
@@ -139,7 +153,7 @@ def create_stakeholder_item(data):
         print("Failed to establish Podio stakeholders client:")
         print(e)
         return
-    
+
     if not 'name' in data:
         print("ERROR: Missing name field")
         return
@@ -151,15 +165,22 @@ def create_stakeholder_item(data):
         return
     name = data['name']
     phone_number = data['meta_data']['phone_number']
+    image_file = []
     address = data['meta_data']['address']
+    if 'file_id' in data:
+        image_file = [data['file_id']]
     item = {
         'fields':
             [{'external_id': 'name', 'values': [{'value': name}]},
-                {'external_id': 'phone-number', 'values': [{'type': 'main', 'value': phone_number}]},
-                {'external_id': 'address', 'values': [{'value': address}]}]}
+             {'external_id': 'phone-number', 'values': [{'type': 'main', 'value': phone_number}]},
+             {'external_id': 'address', 'values': [{'value': address}]},
+             {'external_id': 'photo', 'values': image_file}
+             ]
+    }
 
     try:
-        client.Item.create(int(os.environ['PODIO_STAKEHOLDERS_APP_ID']), item)
+        item_response = client.Item.create(int(os.environ['PODIO_STAKEHOLDERS_APP_ID']), item)
+        return item_response
     except TransportException as e:
         print("Failed to create Podio stakeholders entry:")
         print(e)
@@ -177,7 +198,7 @@ def get_visible_wholesalers(item_id):
     # Get list of visible wholesalers 
     wholesaler_visibility = client.Item.get_field_value(item_id, wholesaler_visibility_field_id)
     visible_wholesalers = [];
-    for val in wholesaler_visibility: 
+    for val in wholesaler_visibility:
         visible_wholesalers.append(val['value']['text'])
 
     # Get list of all wholesalers from Podio and filter by visible wholesalers
@@ -195,5 +216,3 @@ def get_visible_wholesalers(item_id):
             }
             matches.append(data)
     return matches
-    
-

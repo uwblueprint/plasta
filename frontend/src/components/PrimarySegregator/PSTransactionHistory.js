@@ -20,6 +20,7 @@ import {
 import { findVendorById } from '../utils/vendors.js';
 import { loadTransactions, setHeaderBar } from '../../actions';
 import * as Icons from '../../assets/icons';
+import { Link } from 'react-router-dom';
 
 const columns = [
   {
@@ -51,10 +52,25 @@ const columns = [
     Header: <span>{Icons.calendar} Date</span>,
     accessor: transaction => {
       return moment(transaction.sale_date)
-        .local().format('YYYY-MM-DD');
+        .local()
+        .format('YYYY-MM-DD');
     },
     sortMethod: (a, b) => {
       return moment(a).valueOf() > moment(b).valueOf() ? 1 : -1;
+    },
+  },
+  {
+    id: 'editAction',
+    Header: <div>{Icons.editIcon} Edit</div>,
+    accessor: transaction => {
+      // console.log(transaction,TRANSACTION_TYPES)
+      let url = '/ps/transaction/' + transaction.transactionType + '/' + transaction.id;
+      return (
+        <Link className="tab" to={url}>
+          {' '}
+          Edit
+        </Link>
+      );
     },
   },
 ];
@@ -99,6 +115,7 @@ class PSTransactionHistory extends Component {
     const filteredTransactions = [];
     if (transactionType === 'buy') {
       filterBuyTransactions(this.props.transactions, this.props.currentId).forEach(transaction => {
+        transaction.transactionType = 'buy';
         const vendor = findVendorById(this.props.vendors, transaction.from_vendor_id);
         if (!vendor) {
           logMissingVendor(this.props.vendors, transaction.from_vendor_id);
@@ -113,6 +130,7 @@ class PSTransactionHistory extends Component {
       });
     } else {
       filterSellTransactions(this.props.transactions, this.props.currentId).forEach(transaction => {
+        transaction.transactionType = 'sell';
         const vendor = findVendorById(this.props.vendors, transaction.to_vendor_id);
         if (!vendor) {
           logMissingVendor(this.props.vendors, transaction.to_vendor_id);
@@ -141,6 +159,7 @@ class PSTransactionHistory extends Component {
             defaultPageSize={this.state.pageSize}
             className="-striped-highlight table"
             defaultSorted={[{ id: 'saleDate', desc: true }]}
+            transactionType="buy"
           />
         ) : (
           <TransactionTable
@@ -150,6 +169,7 @@ class PSTransactionHistory extends Component {
             defaultPageSize={this.state.pageSize}
             className="-striped-highlight table"
             defaultSorted={[{ id: 'saleDate', desc: true }]}
+            transactionType="sell"
           />
         )}
       </div>
