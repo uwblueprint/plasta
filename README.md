@@ -22,7 +22,9 @@ The server is running on a VM in DigitalOcean (message Andrew to be invited as a
 $ ssh root@159.203.24.216 # Message Shela for the password
 ```
 
-The backend is running on port 3000. Whenever you want to make backend changes, make sure to run `systemctl stop app` first to stop the backend, pull the changes, make the necessary database updates, and then run `systemctl start app` to resume execution. Useful commands:
+To access the code, simply go to the `plasta` folder, and you will be able to pull in new changes using Git as usual.
+
+The backend is running on port 3000. Whenever you want to make backend changes, make sure to run `systemctl stop app` first to stop the backend, pull the changes from Git, make the necessary database updates, and then run `systemctl start app` to resume execution. Useful commands:
 ```
 $ systemctl stop app
 $ systemctl status app
